@@ -1,0 +1,40 @@
+{
+  "schemaVersion": 1,
+  "id": "frycparry",
+  "version": "${version}",
+
+  "name": "Sword Parry",
+  "description": "You can parry melee attacks and projectiles with sword (or shield)",
+  "authors": [
+    "Wookash Fryc"
+  ],
+  "contact": {
+    "email": "frycmod@gmail.com"
+  },
+
+  "license": "MIT",
+  "icon": "assets/modid/icon.png",
+
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "net.fryc.frycparry.FrycParry"
+    ],
+    "client": [
+      "net.fryc.frycparry.FrycParryClient"
+    ]
+  },
+  "mixins": [
+    "frycparry.mixins.json"
+  ],
+
+  "depends": {
+    "fabricloader": ">=0.14.9",
+    "fabric-api": "*",
+    "minecraft": "~1.19",
+    "java": ">=17"
+  },
+  "suggests": {
+    "another-mod": "*"
+  }
+}
