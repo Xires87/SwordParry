@@ -17,9 +17,6 @@
 
   "environment": "*",
   "entrypoints": {
-    "main": [
-      "net.fryc.frycparry.FrycParry"
-    ],
     "client": [
       "net.fryc.frycparry.FrycParryClient"
     ]

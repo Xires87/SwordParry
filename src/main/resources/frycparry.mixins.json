@@ -9,7 +9,6 @@
     "SwordMixin"
   ],
   "client": [
-    "ExampleMixin"
   ],
   "injectors": {
     "defaultRequire": 1
