@@ -50,9 +50,8 @@ In resources/assets/modid/models/item/ add a file containing:
 }
 ```
 --------------------------------------------------------------
-```
 Then, in your swords file, add this:
-
+```
   "overrides": [
     {
       "predicate": {
