@@ -37,7 +37,7 @@ There is 1 second cooldown when you interrupt block action.
 How to add blocking animation for sword from your mod:
 
 In resources/assets/modid/models/item/ add a json file containing:
-```
+```json
 {
   "parent": "modid:item/item_youre_adding_animation_for",
   "display": {
@@ -51,7 +51,7 @@ In resources/assets/modid/models/item/ add a json file containing:
 ```
 
 Then, in your swords file, add this:
-```
+```json
   "overrides": [
     {
       "predicate": {
@@ -63,7 +63,7 @@ Then, in your swords file, add this:
   ```
 
 Your file should look like this (copper_sword.json from Frycmod):
-```
+```json
 {
   "parent": "item/handheld",
   "textures": {
