@@ -36,7 +36,7 @@ There is 1 second cooldown when you interrupt block action.
 
 How to add blocking animation for sword from your mod:
 
-In resources/assets/modid/models/item/ add a file containing:
+In resources/assets/modid/models/item/ add a json file containing:
 ```
 {
   "parent": "modid:item/item_youre_adding_animation_for",
