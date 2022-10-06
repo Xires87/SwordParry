@@ -49,7 +49,7 @@ In resources/assets/modid/models/item/ add a json file containing:
   }
 }
 ```
---------------------------------------------------------------
+
 Then, in your swords file, add this:
 ```
   "overrides": [
@@ -61,7 +61,7 @@ Then, in your swords file, add this:
     }
   ]
   ```
---------------------------------------------------------------
+
 Your file should look like this (copper_sword.json from Frycmod):
 ```
 {
@@ -79,5 +79,5 @@ Your file should look like this (copper_sword.json from Frycmod):
   ]
 }
 ```
----------------------------------------------------------------
+
 That's all. Your sword should now have the blocking animation.
