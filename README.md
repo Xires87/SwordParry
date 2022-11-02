@@ -2,39 +2,12 @@
 Lets you parry (and block) melee attacks and projectiles with sword.
 Shields can parry too.
 
-Block:
 
-When your off hand is empty, you can use sword to block attacks.
-
-Blocking with sword isn't as effective as blocking with shield:
-
-you take only 50% less damage from melee attacks and 10% less damage from projectiles when blocking
-succesfull block (or parry) interrupts block action and sets 1 second of cooldown
-explosives can't be blocked (or parried) with sword
- 
-
-Parry:
-
-Using block right before taking a hit counts as parry:
-
-parrying attack or projectile negates damage
-parrying melee attack knocks back and slows enemy
-exlposives can't be parried
- 
-
-The 5-tick block delay from vanilla is removed in this mod (first 5 ticks of block now count as parry)
-
- 
-
-Cooldown:
-
-There is 1 second cooldown when you interrupt block action.
-
+https://www.curseforge.com/minecraft/mc-mods/sword-parry
 ------------------------------------------------------------------------------------------------------------
 
-!!! Blocking works only for swords (instanceof SwordItem) !!!
-
-How to add blocking animation for sword from your mod:
+# !!! Blocking works only for swords (instanceof SwordItem) !!!
+## How to add blocking animation for sword from your mod:
 
 In resources/assets/modid/models/item/ add a json file containing:
 ```json
