@@ -6,7 +6,8 @@
   "mixins": [
     "ShieldMixin",
     "LivingEntityMixin",
-    "SwordMixin"
+    "SwordMixin",
+    "AxeMixin"
   ],
   "client": [
   ],

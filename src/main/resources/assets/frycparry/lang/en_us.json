@@ -1,0 +1,32 @@
+{
+  "text.autoconfig.frycparry.title": "Sword Parry Config",
+  "text.autoconfig.frycparry.category.parry": "Parrying",
+  "text.autoconfig.frycparry.category.block": "Blocking",
+
+
+  "text.autoconfig.frycparry.option.shieldParryTicks": "Shield parry ticks",
+  "text.autoconfig.frycparry.option.shieldParryTicks.@Tooltip": "Parry ticks for shield. For example, if this option is set to 10, the first 10 ticks of blocking with shield will count as parry",
+
+  "text.autoconfig.frycparry.option.enableBlockingWithSword": "Enable blocking and parrying with swords",
+
+  "text.autoconfig.frycparry.option.swordParryTicks": "Sword parry ticks",
+  "text.autoconfig.frycparry.option.swordParryTicks.@Tooltip": "Parry ticks for sword. For example, if this option is set to 10, the first 10 ticks of blocking with sword will count as parry",
+
+  "text.autoconfig.frycparry.option.enableBlockingWithAxe": "Enable blocking and parrying with axes",
+
+  "text.autoconfig.frycparry.option.axeParryTicks": "Axe parry ticks",
+  "text.autoconfig.frycparry.option.axeParryTicks.@Tooltip": "Parry ticks for axe. For example, if this option is set to 10, the first 10 ticks of blocking with axe will count as parry",
+
+  "text.autoconfig.frycparry.option.interruptSwordBlockActionAfterParryOrBlock": "Interrupt block action after successful block or parry with sword",
+  "text.autoconfig.frycparry.option.interruptAxeBlockActionAfterParryOrBlock": "Interrupt block action after successful block or parry with axe",
+
+  "text.autoconfig.frycparry.option.swordBlockMeleeDamageTaken": "% of damage taken when blocking melee attacks with sword",
+  "text.autoconfig.frycparry.option.swordBlockMeleeDamageTaken.@Tooltip": "For example, if this option is set to 9, player will get 90% of the original damage after blocking melee attack with sword",
+  "text.autoconfig.frycparry.option.swordBlockArrowDamageTaken": "% of damage taken when blocking arrows with sword",
+  "text.autoconfig.frycparry.option.swordBlockArrowDamageTaken.@Tooltip": "For example, if this option is set to 9, player will get 90% of the original damage after blocking arrow with sword",
+
+  "text.autoconfig.frycparry.option.axeBlockMeleeDamageTaken": "% of damage taken when blocking melee attacks with axe",
+  "text.autoconfig.frycparry.option.axeBlockMeleeDamageTaken.@Tooltip": "For example, if this option is set to 1, player will get 10% of the original damage after blocking melee attack with axe",
+  "text.autoconfig.frycparry.option.axeBlockArrowDamageTaken": "% of damage taken when blocking arrows with axe",
+  "text.autoconfig.frycparry.option.axeBlockArrowDamageTaken.@Tooltip": "For example, if this option is set to 1, player will get 10% of the original damage after blocking arrow with axe"
+}
