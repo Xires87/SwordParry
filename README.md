@@ -1,13 +1,12 @@
 # SwordParry
-Lets you parry (and block) melee attacks and projectiles with sword.
+Lets you parry (and block) melee attacks and projectiles with sword or axe.
 Shields can parry too.
 
 
 https://www.curseforge.com/minecraft/mc-mods/sword-parry
 ------------------------------------------------------------------------------------------------------------
 
-# !!! Blocking works only for swords (instanceof SwordItem) !!!
-## How to add blocking animation for sword from your mod:
+# How to add blocking animation for sword from your mod:
 
 In resources/assets/modid/models/item/ add a json file containing:
 ```json
@@ -54,3 +53,4 @@ Your file should look like this (copper_sword.json from Frycmod):
 ```
 
 That's all. Your sword should now have the blocking animation.
+For axe do the same thing, but under "predicate" add "axeparry" instead of "parry"
