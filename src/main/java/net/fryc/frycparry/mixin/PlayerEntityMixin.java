@@ -1,10 +1,11 @@
 package net.fryc.frycparry.mixin;
 
+import net.fryc.frycparry.FrycParry;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.AxeItem;
-import net.minecraft.item.ShieldItem;
+import net.minecraft.item.Item;
 import net.minecraft.item.SwordItem;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
@@ -21,8 +22,12 @@ abstract class PlayerEntityMixin extends LivingEntity {
     @Inject(method = "tick()V", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/player/PlayerEntity;resetLastAttackedTicks()V", shift = At.Shift.AFTER))
     private void setBlockCooldownOnItemSwap(CallbackInfo info) {
         PlayerEntity dys = ((PlayerEntity)(Object)this);
-        if(dys.getActiveItem().getItem() instanceof SwordItem || dys.getActiveItem().getItem() instanceof AxeItem || dys.getActiveItem().getItem() instanceof ShieldItem){
-            dys.stopUsingItem();
+        Item item = dys.getMainHandStack().getItem();
+        if(((item instanceof SwordItem && FrycParry.config.enableBlockingWithSword) ||
+                (item instanceof AxeItem && FrycParry.config.enableBlockingWithAxe)) && dys.getOffHandStack().isEmpty()){
+            if(dys.isUsingItem()) dys.stopUsingItem();
+            if(!dys.getItemCooldownManager().isCoolingDown(item)) dys.getItemCooldownManager().set(item, 20);
+
         }
     }
 }

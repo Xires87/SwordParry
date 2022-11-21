@@ -17,7 +17,7 @@ abstract class ShieldMixin extends Item {
     //cooldown after using a shield
     public void onStoppedUsing(ItemStack stack, World world, LivingEntity user, int remainingUseTicks) {
         if(user instanceof PlayerEntity player){
-            player.getItemCooldownManager().set(stack.getItem(), 20);
+            if(!player.getItemCooldownManager().isCoolingDown(stack.getItem())) player.getItemCooldownManager().set(stack.getItem(), 20);
         }
     }
 

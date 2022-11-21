@@ -21,7 +21,7 @@ abstract class AxeMixin extends MiningToolItem {
     //cooldown for block after attacking
     public boolean postHit(ItemStack stack, LivingEntity target, LivingEntity attacker) {
         if(attacker instanceof PlayerEntity player){
-            if(FrycParry.config.enableBlockingWithAxe) player.getItemCooldownManager().set(stack.getItem(), 15);
+            if(FrycParry.config.enableBlockingWithAxe && !player.getItemCooldownManager().isCoolingDown(stack.getItem())) player.getItemCooldownManager().set(stack.getItem(), 15);
         }
         super.postHit(stack, target, attacker);
         return true;
@@ -41,7 +41,7 @@ abstract class AxeMixin extends MiningToolItem {
     //cooldown after using block
     public void onStoppedUsing(ItemStack stack, World world, LivingEntity user, int remainingUseTicks) {
         if(user instanceof PlayerEntity player){
-            player.getItemCooldownManager().set(stack.getItem(), 20);
+            if(!player.getItemCooldownManager().isCoolingDown(stack.getItem())) player.getItemCooldownManager().set(stack.getItem(), 20);
         }
     }
 
