@@ -3,12 +3,14 @@ Lets you parry (and block) melee attacks and projectiles with sword or axe.
 Shields can parry too.
 
 
-https://www.curseforge.com/minecraft/mc-mods/sword-parry
+# [Page on CurseForge](https://www.curseforge.com/minecraft/mc-mods/sword-parry)
+
 ------------------------------------------------------------------------------------------------------------
 
-# How to add blocking animation for sword from your mod:
+# How to add blocking animation for sword or axe from your mod:
 
-In resources/assets/modid/models/item/ add a json file containing:
+
+<b>In resources/assets/<i>modid</i>/models/item/ add a json file containing:</b>
 ```json
 {
   "parent": "modid:item/item_youre_adding_animation_for",
@@ -22,7 +24,9 @@ In resources/assets/modid/models/item/ add a json file containing:
 }
 ```
 
-Then, in your swords file, add this:
+<b>Then, in your weapons model file, add one of these:</b>
+
+For swords:
 ```json
   "overrides": [
     {
@@ -33,8 +37,20 @@ Then, in your swords file, add this:
     }
   ]
   ```
-
-Your file should look like this (copper_sword.json from Frycmod):
+For axes:
+```json
+  "overrides": [
+    {
+      "predicate": {
+        "axeparry": 1
+      },
+      "model": "modid:item/name_of_file_youve_created"
+    }
+  ]
+  ```
+  
+  ----
+<b>Your file should look like this (copper_sword.json from Frycmod):</b>
 ```json
 {
   "parent": "item/handheld",
@@ -52,5 +68,4 @@ Your file should look like this (copper_sword.json from Frycmod):
 }
 ```
 
-That's all. Your sword should now have the blocking animation.
-For axe do the same thing, but under "predicate" add "axeparry" instead of "parry"
+That's all. Your weapon should now have the blocking animation.
