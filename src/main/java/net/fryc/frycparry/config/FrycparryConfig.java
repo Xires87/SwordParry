@@ -26,6 +26,11 @@ public class FrycparryConfig implements ConfigData {
     @ConfigEntry.BoundedDiscrete(max = 30, min = 1)
     public int axeParryTicks = 5;
 
+    @ConfigEntry.Gui.Tooltip
+    @ConfigEntry.Category("parry")
+    @ConfigEntry.BoundedDiscrete(max = 20, min = 1)
+    public int parryKnockbackStrength = 9;
+
     @ConfigEntry.Category("block")
     public boolean interruptSwordBlockActionAfterParryOrBlock = true;
 
@@ -33,22 +38,22 @@ public class FrycparryConfig implements ConfigData {
     public boolean interruptAxeBlockActionAfterParryOrBlock = true;
     @ConfigEntry.Gui.Tooltip
     @ConfigEntry.Category("block")
-    @ConfigEntry.BoundedDiscrete(max = 9, min = 1)
-    public int swordBlockMeleeDamageTaken = 5;
+    @ConfigEntry.BoundedDiscrete(max = 99, min = 1)
+    public int swordBlockMeleeDamageTaken = 50;
 
     @ConfigEntry.Gui.Tooltip
     @ConfigEntry.Category("block")
-    @ConfigEntry.BoundedDiscrete(max = 9, min = 1)
-    public int swordBlockArrowDamageTaken = 9;
+    @ConfigEntry.BoundedDiscrete(max = 99, min = 1)
+    public int swordBlockArrowDamageTaken = 90;
 
     @ConfigEntry.Gui.Tooltip
     @ConfigEntry.Category("block")
-    @ConfigEntry.BoundedDiscrete(max = 9, min = 1)
-    public int axeBlockMeleeDamageTaken = 4;
+    @ConfigEntry.BoundedDiscrete(max = 99, min = 1)
+    public int axeBlockMeleeDamageTaken = 40;
 
     @ConfigEntry.Gui.Tooltip
     @ConfigEntry.Category("block")
-    @ConfigEntry.BoundedDiscrete(max = 9, min = 1)
-    public int axeBlockArrowDamageTaken = 8;
+    @ConfigEntry.BoundedDiscrete(max = 99, min = 1)
+    public int axeBlockArrowDamageTaken = 85;
 
 }

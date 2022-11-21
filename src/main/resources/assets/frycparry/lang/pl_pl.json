@@ -1,0 +1,35 @@
+{
+  "text.autoconfig.frycparry.title": "Konfiguracja Sword Parry",
+  "text.autoconfig.frycparry.category.parry": "Parowanie",
+  "text.autoconfig.frycparry.category.block": "Blokowanie",
+
+
+  "text.autoconfig.frycparry.option.shieldParryTicks": "Klatki (ticks) parowania dla tarcz",
+  "text.autoconfig.frycparry.option.shieldParryTicks.@Tooltip": "Przykładowo, kiedy ta opcja jest ustawiona na 10, pierwsze 10 ticków blokowania tarczą będzie liczone jako parowanie",
+
+  "text.autoconfig.frycparry.option.enableBlockingWithSword": "Włącz blokowanie i parowanie mieczem",
+
+  "text.autoconfig.frycparry.option.swordParryTicks": "Klatki (ticks) parowania dla mieczy",
+  "text.autoconfig.frycparry.option.swordParryTicks.@Tooltip": "Przykładowo, kiedy ta opcja jest ustawiona na 10, pierwsze 10 ticków blokowania mieczem będzie liczone jako parowanie",
+
+  "text.autoconfig.frycparry.option.enableBlockingWithAxe": "Włącz blokowanie i parowanie siekierą",
+
+  "text.autoconfig.frycparry.option.axeParryTicks": "Klatki (ticks) parowania dla toporów",
+  "text.autoconfig.frycparry.option.axeParryTicks.@Tooltip": "Przykładowo, kiedy ta opcja jest ustawiona na 10, pierwsze 10 ticków blokowania siekierą będzie liczone jako parowanie",
+
+  "text.autoconfig.frycparry.option.parryKnockbackStrength": "Siła odepchnięcia po parowaniu",
+  "text.autoconfig.frycparry.option.parryKnockbackStrength.@Tooltip": "Siła z jaką zostanie odepchnięty wróg po sparowaniu",
+
+  "text.autoconfig.frycparry.option.interruptSwordBlockActionAfterParryOrBlock": "Przerwij blokowanie po zablokowaniu lub sparowaniu ataku mieczem",
+  "text.autoconfig.frycparry.option.interruptAxeBlockActionAfterParryOrBlock": "Przerwij blokowanie po zablokowaniu lub sparowaniu ataku toporem",
+
+  "text.autoconfig.frycparry.option.swordBlockMeleeDamageTaken": "% przyjmowanych obrażeń po zablokowaniu ataku wręcz mieczem",
+  "text.autoconfig.frycparry.option.swordBlockMeleeDamageTaken.@Tooltip": "Przykładowo, jeśli ta opcja jest ustawiona na 90, gracz otrzyma 90% obrażeń które otrzymałby normalnie (gdyby nie blokował)",
+  "text.autoconfig.frycparry.option.swordBlockArrowDamageTaken": "% przyjmowanych obrażeń po zablokowaniu strzały mieczem",
+  "text.autoconfig.frycparry.option.swordBlockArrowDamageTaken.@Tooltip": "Przykładowo, jeśli ta opcja jest ustawiona na 90, gracz otrzyma 90% obrażeń które otrzymałby normalnie (gdyby nie blokował)",
+
+  "text.autoconfig.frycparry.option.axeBlockMeleeDamageTaken": "% przyjmowanych obrażeń po zablokowaniu ataku wręcz siekierą",
+  "text.autoconfig.frycparry.option.axeBlockMeleeDamageTaken.@Tooltip": "Przykładowo, jeśli ta opcja jest ustawiona na 10, gracz otrzyma 10% obrażeń które otrzymałby normalnie (gdyby nie blokował)",
+  "text.autoconfig.frycparry.option.axeBlockArrowDamageTaken": "% przyjmowanych obrażeń po zablokowaniu strzały siekierą",
+  "text.autoconfig.frycparry.option.axeBlockArrowDamageTaken.@Tooltip": "Przykładowo, jeśli ta opcja jest ustawiona na 10, gracz otrzyma 10% obrażeń które otrzymałby normalnie (gdyby nie blokował)"
+}

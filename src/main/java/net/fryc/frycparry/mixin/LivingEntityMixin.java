@@ -8,6 +8,7 @@ import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.item.*;
+import net.minecraft.util.UseAction;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -32,7 +33,7 @@ abstract class LivingEntityMixin extends Entity{
     private void parryAndDisableSwordBlocking(DamageSource source, float amount, CallbackInfoReturnable<Boolean> ret) {
         LivingEntity entity = ((LivingEntity)(Object)this);
         Item item = this.activeItemStack.getItem();
-        boolean parry = false; //first 5 ticks of blocking count as parry
+        boolean parry = false;
         if(this.activeItemStack.getItem() instanceof ShieldItem){
             if(!(item.getMaxUseTime(this.activeItemStack) - this.itemUseTimeLeft >= FrycParry.config.shieldParryTicks)){
                 parry = true;
@@ -49,11 +50,11 @@ abstract class LivingEntityMixin extends Entity{
                 }
                 else if(source.isProjectile()){
                     if(source.getSource() != null) source.getSource().remove(RemovalReason.DISCARDED); //removes arrow
-                    amount *= ((float)(FrycParry.config.swordBlockArrowDamageTaken)/10);
+                    amount *= ((float)(FrycParry.config.swordBlockArrowDamageTaken)/100);
                     this.applyDamage(source, amount);
                 }
                 else if(source.getAttacker() instanceof LivingEntity){
-                    amount *= ((float)(FrycParry.config.swordBlockMeleeDamageTaken)/10);
+                    amount *= ((float)(FrycParry.config.swordBlockMeleeDamageTaken)/100);
                     this.applyDamage(source, amount);
                 }
             }
@@ -70,11 +71,11 @@ abstract class LivingEntityMixin extends Entity{
                 }
                 else if(source.isProjectile()){
                     if(source.getSource() != null) source.getSource().remove(RemovalReason.DISCARDED); //removes arrow
-                    amount *= ((float)(FrycParry.config.axeBlockArrowDamageTaken)/10);
+                    amount *= ((float)(FrycParry.config.axeBlockArrowDamageTaken)/100);
                     this.applyDamage(source, amount);
                 }
                 else if(source.getAttacker() instanceof LivingEntity){
-                    amount *= ((float)(FrycParry.config.axeBlockMeleeDamageTaken)/10);
+                    amount *= ((float)(FrycParry.config.axeBlockMeleeDamageTaken)/100);
                     this.applyDamage(source, amount);
                 }
             }
@@ -86,7 +87,7 @@ abstract class LivingEntityMixin extends Entity{
         }
         if(parry && !source.isExplosive()){
             if(source.getSource() instanceof LivingEntity livingEntity){
-                livingEntity.takeKnockback(0.9, entity.getX() - livingEntity.getX(), entity.getZ() - livingEntity.getZ());
+                livingEntity.takeKnockback((float)(FrycParry.config.parryKnockbackStrength)/10, entity.getX() - livingEntity.getX(), entity.getZ() - livingEntity.getZ());
                 if(livingEntity.hasStatusEffect(StatusEffects.SLOWNESS)){
                     if(livingEntity.getActiveStatusEffects().get(StatusEffects.SLOWNESS).getDuration() < 100) livingEntity.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, 100, 0));
                 }
@@ -95,11 +96,24 @@ abstract class LivingEntityMixin extends Entity{
         }
     }
 
+    /* old
+        @ModifyConstant(method = "isBlocking()Z", constant = @Constant(intValue = 5))
+        private int removeBlockDelay(int i) {
+            return 0;
+        }
+     */
+
+
     //removes the 5 tick block delay
-    @ModifyConstant(method = "isBlocking()Z", constant = @Constant(intValue = 5))
-    private int removeBlockDelay(int i) {
-        return 0;
+    @Inject(method = "isBlocking()Z", at = @At("HEAD"), cancellable = true)
+    private void removeBlockDelay(CallbackInfoReturnable<Boolean> ret) {
+        LivingEntity dys = ((LivingEntity)(Object)this);
+        if (dys.isUsingItem() && !this.activeItemStack.isEmpty()) {
+            Item item = this.activeItemStack.getItem();
+            ret.setReturnValue(item.getUseAction(this.activeItemStack) == UseAction.BLOCK);
+        }
     }
+
 
     @ModifyVariable(at = @At("HEAD"), method = "handleStatus(B)V")
     private byte init(byte status) {

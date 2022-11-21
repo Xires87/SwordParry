@@ -24,7 +24,7 @@ abstract class SwordMixin extends ToolItem implements Vanishable {
     @Inject(method = "postHit(Lnet/minecraft/item/ItemStack;Lnet/minecraft/entity/LivingEntity;Lnet/minecraft/entity/LivingEntity;)Z", at = @At("HEAD"))
     private void blockCooldownAfterAttacking(ItemStack stack, LivingEntity target, LivingEntity attacker, CallbackInfoReturnable<Boolean> ret) {
         if(attacker instanceof PlayerEntity player){
-            player.getItemCooldownManager().set(stack.getItem(), 12);
+            if(FrycParry.config.enableBlockingWithSword) player.getItemCooldownManager().set(stack.getItem(), 12);
         }
     }
 
