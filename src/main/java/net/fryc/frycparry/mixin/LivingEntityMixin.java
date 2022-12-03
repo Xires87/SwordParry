@@ -7,6 +7,7 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.*;
 import net.minecraft.util.UseAction;
 import net.minecraft.world.World;
@@ -34,6 +35,7 @@ abstract class LivingEntityMixin extends Entity{
         LivingEntity entity = ((LivingEntity)(Object)this);
         Item item = this.activeItemStack.getItem();
         boolean parry = false;
+        boolean disableShield = false;
         if(this.activeItemStack.getItem() instanceof ShieldItem){
             if(!(item.getMaxUseTime(this.activeItemStack) - this.itemUseTimeLeft >= FrycParry.config.shieldParryTicks)){
                 parry = true;
@@ -53,15 +55,26 @@ abstract class LivingEntityMixin extends Entity{
                     amount *= ((float)(FrycParry.config.swordBlockArrowDamageTaken)/100);
                     this.applyDamage(source, amount);
                 }
-                else if(source.getAttacker() instanceof LivingEntity){
+                else if(source.getAttacker() instanceof LivingEntity attacker){
                     amount *= ((float)(FrycParry.config.swordBlockMeleeDamageTaken)/100);
                     this.applyDamage(source, amount);
+                    if(attacker.disablesShield()) disableShield = true;
                 }
             }
             else {
+                if(source.getAttacker() instanceof LivingEntity attacker && attacker.disablesShield()){
+                    disableShield = true;
+                }
                 parry = true;
             }
-            if(FrycParry.config.interruptSwordBlockActionAfterParryOrBlock) entity.stopUsingItem();
+
+            if(disableShield && entity instanceof PlayerEntity player){
+                player.getItemCooldownManager().set(player.getMainHandStack().getItem(), 100);
+                entity.stopUsingItem();
+            }
+            else if(FrycParry.config.interruptSwordBlockActionAfterParryOrBlock){
+                entity.stopUsingItem();
+            }
             entity.getMainHandStack().setDamage(entity.getMainHandStack().getDamage() + 1);
         }
         else if(this.activeItemStack.getItem() instanceof AxeItem){
@@ -74,20 +87,32 @@ abstract class LivingEntityMixin extends Entity{
                     amount *= ((float)(FrycParry.config.axeBlockArrowDamageTaken)/100);
                     this.applyDamage(source, amount);
                 }
-                else if(source.getAttacker() instanceof LivingEntity){
+                else if(source.getAttacker() instanceof LivingEntity attacker){
                     amount *= ((float)(FrycParry.config.axeBlockMeleeDamageTaken)/100);
                     this.applyDamage(source, amount);
+                    if(attacker.disablesShield()) disableShield = true;
                 }
+
             }
             else {
+                if(source.getAttacker() instanceof LivingEntity attacker && attacker.disablesShield()){
+                    disableShield = true;
+                }
                 parry = true;
             }
-            if(FrycParry.config.interruptAxeBlockActionAfterParryOrBlock) entity.stopUsingItem();
+
+            if(disableShield && entity instanceof PlayerEntity player){
+                player.getItemCooldownManager().set(player.getMainHandStack().getItem(), 100);
+                entity.stopUsingItem();
+            }
+            else if(FrycParry.config.interruptAxeBlockActionAfterParryOrBlock){
+                entity.stopUsingItem();
+            }
             entity.getMainHandStack().setDamage(entity.getMainHandStack().getDamage() + 1);
         }
         if(parry && !source.isExplosive()){
             if(source.getSource() instanceof LivingEntity livingEntity){
-                livingEntity.takeKnockback((float)(FrycParry.config.parryKnockbackStrength)/10, entity.getX() - livingEntity.getX(), entity.getZ() - livingEntity.getZ());
+                livingEntity.takeKnockback((double)(FrycParry.config.parryKnockbackStrength)/10, entity.getX() - livingEntity.getX(), entity.getZ() - livingEntity.getZ());
                 if(livingEntity.hasStatusEffect(StatusEffects.SLOWNESS)){
                     if(livingEntity.getActiveStatusEffects().get(StatusEffects.SLOWNESS).getDuration() < 100) livingEntity.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, 100, 0));
                 }
