@@ -2,6 +2,7 @@
   "text.autoconfig.frycparry.title": "Sword Parry Config",
   "text.autoconfig.frycparry.category.parry": "Parrying",
   "text.autoconfig.frycparry.category.block": "Blocking",
+  "text.autoconfig.frycparry.category.multiplayer": "Multiplayer",
 
 
   "text.autoconfig.frycparry.option.shieldParryTicks": "Shield parry ticks",
@@ -31,5 +32,7 @@
   "text.autoconfig.frycparry.option.axeBlockMeleeDamageTaken": "% of damage taken when blocking melee attacks with axe",
   "text.autoconfig.frycparry.option.axeBlockMeleeDamageTaken.@Tooltip": "For example, if this option is set to 10, player will get 10% of the original damage after blocking melee attack with axe",
   "text.autoconfig.frycparry.option.axeBlockArrowDamageTaken": "% of damage taken when blocking arrows with axe",
-  "text.autoconfig.frycparry.option.axeBlockArrowDamageTaken.@Tooltip": "For example, if this option is set to 10, player will get 10% of the original damage after blocking arrow with axe"
+  "text.autoconfig.frycparry.option.axeBlockArrowDamageTaken.@Tooltip": "For example, if this option is set to 10, player will get 10% of the original damage after blocking arrow with axe",
+
+  "text.autoconfig.frycparry.option.weaknessForPlayersAfterParry": "Apply weakness to parried players"
 }

@@ -2,6 +2,7 @@
   "text.autoconfig.frycparry.title": "Konfiguracja Sword Parry",
   "text.autoconfig.frycparry.category.parry": "Parowanie",
   "text.autoconfig.frycparry.category.block": "Blokowanie",
+  "text.autoconfig.frycparry.category.multiplayer": "Tryb Wieloosobowy",
 
 
   "text.autoconfig.frycparry.option.shieldParryTicks": "Klatki (ticks) parowania dla tarcz",
@@ -31,5 +32,7 @@
   "text.autoconfig.frycparry.option.axeBlockMeleeDamageTaken": "% przyjmowanych obrażeń po zablokowaniu ataku wręcz siekierą",
   "text.autoconfig.frycparry.option.axeBlockMeleeDamageTaken.@Tooltip": "Przykładowo, jeśli ta opcja jest ustawiona na 10, gracz otrzyma 10% obrażeń które otrzymałby normalnie (gdyby nie blokował)",
   "text.autoconfig.frycparry.option.axeBlockArrowDamageTaken": "% przyjmowanych obrażeń po zablokowaniu strzały siekierą",
-  "text.autoconfig.frycparry.option.axeBlockArrowDamageTaken.@Tooltip": "Przykładowo, jeśli ta opcja jest ustawiona na 10, gracz otrzyma 10% obrażeń które otrzymałby normalnie (gdyby nie blokował)"
+  "text.autoconfig.frycparry.option.axeBlockArrowDamageTaken.@Tooltip": "Przykładowo, jeśli ta opcja jest ustawiona na 10, gracz otrzyma 10% obrażeń które otrzymałby normalnie (gdyby nie blokował)",
+
+  "text.autoconfig.frycparry.option.weaknessForPlayersAfterParry": "Daj Osłabienie sparowanym graczom"
 }

@@ -56,4 +56,7 @@ public class FrycparryConfig implements ConfigData {
     @ConfigEntry.BoundedDiscrete(max = 99, min = 1)
     public int axeBlockArrowDamageTaken = 85;
 
+    @ConfigEntry.Category("multiplayer")
+    public boolean weaknessForPlayersAfterParry = true;
+
 }
