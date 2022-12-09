@@ -1,5 +1,6 @@
 package net.fryc.frycparry.mixin;
 
+import net.fryc.frycparry.FrycParry;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
@@ -16,8 +17,8 @@ abstract class ShieldMixin extends Item {
 
     //cooldown after using a shield
     public void onStoppedUsing(ItemStack stack, World world, LivingEntity user, int remainingUseTicks) {
-        if(user instanceof PlayerEntity player){
-            if(!player.getItemCooldownManager().isCoolingDown(stack.getItem())) player.getItemCooldownManager().set(stack.getItem(), 20);
+        if(FrycParry.config.cooldownAfterBlockAction > 0 && user instanceof PlayerEntity player){
+            if(!player.getItemCooldownManager().isCoolingDown(stack.getItem())) player.getItemCooldownManager().set(stack.getItem(), FrycParry.config.cooldownAfterBlockAction);
         }
     }
 

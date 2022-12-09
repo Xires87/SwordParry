@@ -56,20 +56,51 @@ abstract class LivingEntityMixin extends Entity{
             if(!source.isExplosive()){
                 if(source.getAttacker() instanceof LivingEntity attacker){
                     if(!(this.activeItemStack.getItem() instanceof ShieldItem && this.activeItemStack.getItem().getMaxUseTime(this.activeItemStack) - this.itemUseTimeLeft >= FrycParry.config.shieldParryTicks)){
-                        //knockback and slowness after parry
+                        //knockback
                         attacker.takeKnockback((double)(FrycParry.config.parryKnockbackStrength)/10, dys.getX() - attacker.getX(), dys.getZ() - attacker.getZ());
-                        if(attacker.hasStatusEffect(StatusEffects.SLOWNESS)){
-                            if(attacker.getActiveStatusEffects().get(StatusEffects.SLOWNESS).getDuration() < 100) attacker.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, 100, 0));
-                        }
-                        else attacker.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, 100, 0));
 
-                        //weakness for players
-                        if(FrycParry.config.weaknessForPlayersAfterParry && attacker instanceof PlayerEntity player){
-                            if(player.hasStatusEffect(StatusEffects.WEAKNESS)){
-                                if(player.getActiveStatusEffects().get(StatusEffects.WEAKNESS).getDuration() < 65) player.addStatusEffect(new StatusEffectInstance(StatusEffects.WEAKNESS, 65, 0));
+                        //weakness and slowness for players
+                        if(attacker instanceof PlayerEntity player){
+                            int weak = FrycParry.config.weaknessForPlayersAfterParry;
+                            int weakAmpl = FrycParry.config.weaknessForPlayersAmplifier;
+                            if(weak > 0 && weakAmpl > 0){
+                                if(player.hasStatusEffect(StatusEffects.WEAKNESS)){
+                                    if(player.getActiveStatusEffects().get(StatusEffects.WEAKNESS).getDuration() < weak) player.addStatusEffect(new StatusEffectInstance(StatusEffects.WEAKNESS, weak, weakAmpl - 1));
+                                }
+                                else player.addStatusEffect(new StatusEffectInstance(StatusEffects.WEAKNESS, weak, weakAmpl - 1));
                             }
-                            else player.addStatusEffect(new StatusEffectInstance(StatusEffects.WEAKNESS, 65, 0));
+
+                            int slow = FrycParry.config.slownessForPlayersAfterParry;
+                            int slowAmp = FrycParry.config.slownessForPlayersAmplifier;
+                            if(slow > 0 && slowAmp > 0){
+                                if(player.hasStatusEffect(StatusEffects.SLOWNESS)){
+                                    if(player.getActiveStatusEffects().get(StatusEffects.SLOWNESS).getDuration() < slow) player.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, slow, slowAmp - 1));
+                                }
+                                else player.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, slow, slowAmp - 1));
+                            }
+
                         }
+                        //slowness and weakness for mobs
+                        else {
+                            int weak = FrycParry.config.weaknessAfterParry;
+                            int weakAmpl = FrycParry.config.weaknessAmplifier;
+                            if(weak > 0 && weakAmpl > 0){
+                                if(attacker.hasStatusEffect(StatusEffects.WEAKNESS)){
+                                    if(attacker.getActiveStatusEffects().get(StatusEffects.WEAKNESS).getDuration() < weak) attacker.addStatusEffect(new StatusEffectInstance(StatusEffects.WEAKNESS, weak, weakAmpl - 1));
+                                }
+                                else attacker.addStatusEffect(new StatusEffectInstance(StatusEffects.WEAKNESS, weak, weakAmpl - 1));
+                            }
+
+                            int slow = FrycParry.config.slownessAfterParry;
+                            int slowAmp = FrycParry.config.slownessAmplifier;
+                            if(slow > 0 && slowAmp > 0){
+                                if(attacker.hasStatusEffect(StatusEffects.SLOWNESS)){
+                                    if(attacker.getActiveStatusEffects().get(StatusEffects.SLOWNESS).getDuration() < slow) attacker.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, slow, slowAmp - 1));
+                                }
+                                else attacker.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, slow, slowAmp - 1));
+                            }
+                        }
+
                         //disabling block
                         if(attacker.disablesShield() && dys instanceof PlayerEntity player){
                             player.getItemCooldownManager().set(player.getMainHandStack().getItem(), 100);

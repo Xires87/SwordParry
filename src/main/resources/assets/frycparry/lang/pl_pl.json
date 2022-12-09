@@ -2,7 +2,9 @@
   "text.autoconfig.frycparry.title": "Konfiguracja Sword Parry",
   "text.autoconfig.frycparry.category.parry": "Parowanie",
   "text.autoconfig.frycparry.category.block": "Blokowanie",
-  "text.autoconfig.frycparry.category.multiplayer": "Tryb Wieloosobowy",
+  "text.autoconfig.frycparry.category.parry_effects": "Efekty Parowania",
+  "text.autoconfig.frycparry.category.multiplayer": "Efekty Parowania (PVP)",
+  "text.autoconfig.frycparry.category.cooldown": "Czas Odnowienia (cooldown)",
 
 
   "text.autoconfig.frycparry.option.shieldParryTicks": "Klatki (ticks) parowania dla tarcz",
@@ -34,5 +36,28 @@
   "text.autoconfig.frycparry.option.axeBlockArrowDamageTaken": "% przyjmowanych obrażeń po zablokowaniu strzały siekierą",
   "text.autoconfig.frycparry.option.axeBlockArrowDamageTaken.@Tooltip": "Przykładowo, jeśli ta opcja jest ustawiona na 10, gracz otrzyma 10% obrażeń które otrzymałby normalnie (gdyby nie blokował)",
 
-  "text.autoconfig.frycparry.option.weaknessForPlayersAfterParry": "Daj Osłabienie sparowanym graczom"
+  "text.autoconfig.frycparry.option.weaknessForPlayersAfterParry": "Długość osłabienia dla sparowanych graczy",
+  "text.autoconfig.frycparry.option.weaknessForPlayersAfterParry.@Tooltip": "20 = 1 sekunda. Ustaw na 0 aby wyłączyć osłabienie",
+  "text.autoconfig.frycparry.option.weaknessForPlayersAmplifier": "Poziom osłabienia dla sparowanych graczy",
+  "text.autoconfig.frycparry.option.weaknessForPlayersAmplifier.@Tooltip": "Na przykład, kiedy ustawione na 2, gracz dostanie Osłabienie II gdy zostanie sparowany",
+
+  "text.autoconfig.frycparry.option.slownessForPlayersAfterParry": "Długość spowolnienia dla sparowanych graczy",
+  "text.autoconfig.frycparry.option.slownessForPlayersAfterParry.@Tooltip": "20 = 1 sekunda. Ustaw na 0 aby wyłączyć spowolnienie",
+  "text.autoconfig.frycparry.option.slownessForPlayersAmplifier": "Poziom spowolnienia dla sparowanych graczy",
+  "text.autoconfig.frycparry.option.slownessForPlayersAmplifier.@Tooltip": "Na przykład, kiedy ustawione na 5, gracz dostanie Spowolnienie V gdy zostanie sparowany",
+
+  "text.autoconfig.frycparry.option.weaknessAfterParry": "Długość osłabienia dla sparowanych mobów",
+  "text.autoconfig.frycparry.option.weaknessAfterParry.@Tooltip": "20 = 1 sekunda. Ustaw na 0 aby wyłączyć osłabienie",
+  "text.autoconfig.frycparry.option.weaknessAmplifier": "Poziom osłabienia dla sparowanych mobów",
+  "text.autoconfig.frycparry.option.weaknessAmplifier.@Tooltip": "Na przykład, kiedy ustawione na 2, mob dostanie Osłabienie II gdy zostanie sparowany",
+
+  "text.autoconfig.frycparry.option.slownessAfterParry": "Długość spowolnienia dla sparowanych mobów",
+  "text.autoconfig.frycparry.option.slownessAfterParry.@Tooltip": "20 = 1 sekunda. Ustaw na 0 aby wyłączyć spowolnienie",
+  "text.autoconfig.frycparry.option.slownessAmplifier": "Poziom spowolnienia dla sparowanych mobów",
+  "text.autoconfig.frycparry.option.slownessAmplifier.@Tooltip": "Na przykład, kiedy ustawione na 5, mob dostanie Spowolnienie V gdy zostanie sparowany",
+
+
+  "text.autoconfig.frycparry.option.cooldownAfterBlockAction": "Czas odnowienia bloku po zmianie przedmiotu lub przerwaniu blokowania",
+  "text.autoconfig.frycparry.option.cooldownForBlockAfterSwordAttack": "Czas odnowienia bloku po zaatakowaniu wroga mieczem",
+  "text.autoconfig.frycparry.option.cooldownForBlockAfterAxeAttack": "Czas odnowienia bloku po zaatakowaniu wroga toporem"
 }

@@ -23,8 +23,8 @@ abstract class SwordMixin extends ToolItem implements Vanishable {
     //cooldown for block after attacking
     @Inject(method = "postHit(Lnet/minecraft/item/ItemStack;Lnet/minecraft/entity/LivingEntity;Lnet/minecraft/entity/LivingEntity;)Z", at = @At("HEAD"))
     private void blockCooldownAfterAttacking(ItemStack stack, LivingEntity target, LivingEntity attacker, CallbackInfoReturnable<Boolean> ret) {
-        if(attacker instanceof PlayerEntity player){
-            if(FrycParry.config.enableBlockingWithSword && !player.getItemCooldownManager().isCoolingDown(stack.getItem())) player.getItemCooldownManager().set(stack.getItem(), 12);
+        if(FrycParry.config.cooldownForBlockAfterSwordAttack > 0 && attacker instanceof PlayerEntity player){
+            if(FrycParry.config.enableBlockingWithSword && !player.getItemCooldownManager().isCoolingDown(stack.getItem())) player.getItemCooldownManager().set(stack.getItem(), FrycParry.config.cooldownForBlockAfterSwordAttack);
         }
     }
 
@@ -41,8 +41,8 @@ abstract class SwordMixin extends ToolItem implements Vanishable {
 
     //cooldown after using block
     public void onStoppedUsing(ItemStack stack, World world, LivingEntity user, int remainingUseTicks) {
-        if(user instanceof PlayerEntity player){
-            if(!player.getItemCooldownManager().isCoolingDown(stack.getItem())) player.getItemCooldownManager().set(stack.getItem(), 20);
+        if(FrycParry.config.cooldownAfterBlockAction > 0 && user instanceof PlayerEntity player){
+            if(!player.getItemCooldownManager().isCoolingDown(stack.getItem())) player.getItemCooldownManager().set(stack.getItem(), FrycParry.config.cooldownAfterBlockAction);
         }
     }
 

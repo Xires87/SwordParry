@@ -2,7 +2,9 @@
   "text.autoconfig.frycparry.title": "Sword Parry Config",
   "text.autoconfig.frycparry.category.parry": "Parrying",
   "text.autoconfig.frycparry.category.block": "Blocking",
-  "text.autoconfig.frycparry.category.multiplayer": "Multiplayer",
+  "text.autoconfig.frycparry.category.parry_effects": "Parry Effects",
+  "text.autoconfig.frycparry.category.multiplayer": "Parry Effects (PVP)",
+  "text.autoconfig.frycparry.category.cooldown": "Cooldown",
 
 
   "text.autoconfig.frycparry.option.shieldParryTicks": "Shield parry ticks",
@@ -34,5 +36,28 @@
   "text.autoconfig.frycparry.option.axeBlockArrowDamageTaken": "% of damage taken when blocking arrows with axe",
   "text.autoconfig.frycparry.option.axeBlockArrowDamageTaken.@Tooltip": "For example, if this option is set to 10, player will get 10% of the original damage after blocking arrow with axe",
 
-  "text.autoconfig.frycparry.option.weaknessForPlayersAfterParry": "Apply weakness to parried players"
+  "text.autoconfig.frycparry.option.weaknessForPlayersAfterParry": "Weakness duration for parried players",
+  "text.autoconfig.frycparry.option.weaknessForPlayersAfterParry.@Tooltip": "20 = 1 second. Set it to 0 to disable weakness",
+  "text.autoconfig.frycparry.option.weaknessForPlayersAmplifier": "Weakness amplifier for parried players",
+  "text.autoconfig.frycparry.option.weaknessForPlayersAmplifier.@Tooltip": "For example, when set to 2, player will get Weakness II after getting parried",
+
+  "text.autoconfig.frycparry.option.slownessForPlayersAfterParry": "Slowness duration for parried players",
+  "text.autoconfig.frycparry.option.slownessForPlayersAfterParry.@Tooltip": "20 = 1 second. Set it to 0 to disable slowness",
+  "text.autoconfig.frycparry.option.slownessForPlayersAmplifier": "Slowness amplifier for parried players",
+  "text.autoconfig.frycparry.option.slownessForPlayersAmplifier.@Tooltip": "For example, when set to 5, player will get Slowness V after getting parried",
+
+  "text.autoconfig.frycparry.option.weaknessAfterParry": "Weakness duration for parried mobs",
+  "text.autoconfig.frycparry.option.weaknessAfterParry.@Tooltip": "20 = 1 second. Set it to 0 to disable weakness",
+  "text.autoconfig.frycparry.option.weaknessAmplifier": "Weakness amplifier for parried mobs",
+  "text.autoconfig.frycparry.option.weaknessAmplifier.@Tooltip": "For example, when set to 2, mob will get Weakness II after getting parried",
+
+  "text.autoconfig.frycparry.option.slownessAfterParry": "Slowness duration for parried mobs",
+  "text.autoconfig.frycparry.option.slownessAfterParry.@Tooltip": "20 = 1 second. Set it to 0 to disable slowness",
+  "text.autoconfig.frycparry.option.slownessAmplifier": "Slowness amplifier for parried mobs",
+  "text.autoconfig.frycparry.option.slownessAmplifier.@Tooltip": "For example, when set to 5, mob will get Slowness V after getting parried",
+
+
+  "text.autoconfig.frycparry.option.cooldownAfterBlockAction": "Block cooldown after switching item or interrupting block action",
+  "text.autoconfig.frycparry.option.cooldownForBlockAfterSwordAttack": "Block cooldown after attacking enemy with sword",
+  "text.autoconfig.frycparry.option.cooldownForBlockAfterAxeAttack": "Block cooldown after attacking enemy with axe"
 }

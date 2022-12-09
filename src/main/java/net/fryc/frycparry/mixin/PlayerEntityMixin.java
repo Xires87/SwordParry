@@ -26,8 +26,9 @@ abstract class PlayerEntityMixin extends LivingEntity {
         if(((item instanceof SwordItem && FrycParry.config.enableBlockingWithSword) ||
                 (item instanceof AxeItem && FrycParry.config.enableBlockingWithAxe)) && dys.getOffHandStack().isEmpty()){
             if(dys.isUsingItem()) dys.stopUsingItem();
-            if(!dys.getItemCooldownManager().isCoolingDown(item)) dys.getItemCooldownManager().set(item, 20);
-
+            if(FrycParry.config.cooldownAfterBlockAction > 0){
+                if(!dys.getItemCooldownManager().isCoolingDown(item)) dys.getItemCooldownManager().set(item, FrycParry.config.cooldownAfterBlockAction);
+            }
         }
     }
 }
