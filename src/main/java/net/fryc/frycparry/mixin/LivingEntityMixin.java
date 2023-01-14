@@ -1,6 +1,7 @@
 package net.fryc.frycparry.mixin;
 
 import net.fryc.frycparry.FrycParry;
+import net.fryc.frycparry.effects.ModEffects;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
@@ -56,11 +57,20 @@ abstract class LivingEntityMixin extends Entity{
             if(!source.isExplosive()){
                 if(source.getAttacker() instanceof LivingEntity attacker){
                     if(!(this.activeItemStack.getItem() instanceof ShieldItem && this.activeItemStack.getItem().getMaxUseTime(this.activeItemStack) - this.itemUseTimeLeft >= FrycParry.config.shieldParryTicks)){
-                        //knockback
-                        attacker.takeKnockback((double)(FrycParry.config.parryKnockbackStrength)/10, dys.getX() - attacker.getX(), dys.getZ() - attacker.getZ());
 
-                        //weakness and slowness for players
+                        //parry effects for players
                         if(attacker instanceof PlayerEntity player){
+                            int disarm = FrycParry.config.disarmForPlayersAfterParry;
+                            //knockback
+                            player.takeKnockback((double)(FrycParry.config.parryKnockbackStrengthForPlayers)/10, dys.getX() - attacker.getX(), dys.getZ() - attacker.getZ());
+                            player.velocityModified = true;
+                            if(disarm > 0){
+                                if(player.hasStatusEffect(ModEffects.DISARMED)){
+                                    if(player.getActiveStatusEffects().get(ModEffects.DISARMED).getDuration() < disarm) player.addStatusEffect(new StatusEffectInstance(ModEffects.DISARMED, disarm, 0));
+                                }
+                                else player.addStatusEffect(new StatusEffectInstance(ModEffects.DISARMED, disarm, 0));
+                            }
+
                             int weak = FrycParry.config.weaknessForPlayersAfterParry;
                             int weakAmpl = FrycParry.config.weaknessForPlayersAmplifier;
                             if(weak > 0 && weakAmpl > 0){
@@ -80,8 +90,12 @@ abstract class LivingEntityMixin extends Entity{
                             }
 
                         }
-                        //slowness and weakness for mobs
+                        //parry effects for mobs
                         else {
+                            //knockback
+                            attacker.takeKnockback((double)(FrycParry.config.parryKnockbackStrength)/10, dys.getX() - attacker.getX(), dys.getZ() - attacker.getZ());
+                            attacker.velocityModified = true;
+
                             int weak = FrycParry.config.weaknessAfterParry;
                             int weakAmpl = FrycParry.config.weaknessAmplifier;
                             if(weak > 0 && weakAmpl > 0){

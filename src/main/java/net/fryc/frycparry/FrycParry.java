@@ -4,6 +4,8 @@ import me.shedaniel.autoconfig.AutoConfig;
 import me.shedaniel.autoconfig.serializer.GsonConfigSerializer;
 import net.fabricmc.api.ModInitializer;
 import net.fryc.frycparry.config.FrycparryConfig;
+import net.fryc.frycparry.effects.ModEffects;
+import net.fryc.frycparry.enchantments.ModEnchantments;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -18,5 +20,8 @@ public class FrycParry implements ModInitializer {
     public void onInitialize() {
         AutoConfig.register(FrycparryConfig.class, GsonConfigSerializer::new);
         config = AutoConfig.getConfigHolder(FrycparryConfig.class).getConfig();
+
+        ModEffects.registerEffects();
+        ModEnchantments.registerModEnchantments();
     }
 }

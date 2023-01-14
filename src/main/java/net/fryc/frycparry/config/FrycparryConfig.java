@@ -46,9 +46,17 @@ public class FrycparryConfig implements ConfigData {
     @ConfigEntry.BoundedDiscrete(max = 100, min = 1)
     public int weaknessAmplifier = 1;
 
+
+    @ConfigEntry.Gui.Tooltip
+    @ConfigEntry.Category("multiplayer")
+    @ConfigEntry.BoundedDiscrete(max = 20, min = 1)
+    public int parryKnockbackStrengthForPlayers = 2;
     @ConfigEntry.Category("multiplayer")
     @ConfigEntry.Gui.Tooltip
-    public int weaknessForPlayersAfterParry = 65;
+    public int disarmForPlayersAfterParry = 45;
+    @ConfigEntry.Category("multiplayer")
+    @ConfigEntry.Gui.Tooltip
+    public int weaknessForPlayersAfterParry = 0;
     @ConfigEntry.Category("multiplayer")
     @ConfigEntry.Gui.Tooltip
     @ConfigEntry.BoundedDiscrete(max = 100, min = 1)
