@@ -2,9 +2,11 @@ package net.fryc.frycparry.mixin;
 
 import net.fryc.frycparry.FrycParry;
 import net.fryc.frycparry.effects.ModEffects;
+import net.fryc.frycparry.enchantments.ModEnchantments;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
@@ -34,13 +36,14 @@ abstract class LivingEntityMixin extends Entity{
     private void shieldBlocking(DamageSource source, CallbackInfoReturnable<Boolean> ret) {
         LivingEntity dys = ((LivingEntity)(Object)this);
         if((this.activeItemStack.getItem() instanceof SwordItem || this.activeItemStack.getItem() instanceof AxeItem) && dys.getOffHandStack().isEmpty()){
+            int predictionEnchantmentLevel = ModEnchantments.getPredictionEnchantment(dys);
             if(this.activeItemStack.getItem() instanceof SwordItem){
-                if(this.activeItemStack.getItem().getMaxUseTime(this.activeItemStack) - this.itemUseTimeLeft >= FrycParry.config.swordParryTicks || source.isExplosive()){
+                if(this.activeItemStack.getItem().getMaxUseTime(this.activeItemStack) - this.itemUseTimeLeft >= FrycParry.config.swordParryTicks + predictionEnchantmentLevel || source.isExplosive()){
                     ret.setReturnValue(false);
                 }
             }
             else if(this.activeItemStack.getItem() instanceof AxeItem){
-                if(this.activeItemStack.getItem().getMaxUseTime(this.activeItemStack) - this.itemUseTimeLeft >= FrycParry.config.axeParryTicks || source.isExplosive()){
+                if(this.activeItemStack.getItem().getMaxUseTime(this.activeItemStack) - this.itemUseTimeLeft >= FrycParry.config.axeParryTicks + predictionEnchantmentLevel || source.isExplosive()){
                     ret.setReturnValue(false);
                 }
             }
@@ -56,15 +59,20 @@ abstract class LivingEntityMixin extends Entity{
         if(!source.isProjectile()){
             if(!source.isExplosive()){
                 if(source.getAttacker() instanceof LivingEntity attacker){
-                    if(!(this.activeItemStack.getItem() instanceof ShieldItem && this.activeItemStack.getItem().getMaxUseTime(this.activeItemStack) - this.itemUseTimeLeft >= FrycParry.config.shieldParryTicks)){
+                    if(!(this.activeItemStack.getItem() instanceof ShieldItem && this.activeItemStack.getItem().getMaxUseTime(this.activeItemStack) - this.itemUseTimeLeft >= FrycParry.config.shieldParryTicks + ModEnchantments.getPredictionEnchantment(dys))){
+
+                        //parry enchantment
+                        int parryEnchantmentLevel = ModEnchantments.getParryEnchantment(dys);
 
                         //parry effects for players
                         if(attacker instanceof PlayerEntity player){
-                            int disarm = FrycParry.config.disarmForPlayersAfterParry;
                             //knockback
-                            player.takeKnockback((double)(FrycParry.config.parryKnockbackStrengthForPlayers)/10, dys.getX() - attacker.getX(), dys.getZ() - attacker.getZ());
+                            player.takeKnockback((double)(FrycParry.config.parryKnockbackStrengthForPlayers + parryEnchantmentLevel * 0.65)/10, dys.getX() - attacker.getX(), dys.getZ() - attacker.getZ());
                             player.velocityModified = true;
+
+                            int disarm = FrycParry.config.disarmForPlayersAfterParry;
                             if(disarm > 0){
+                                disarm = disarm + parryEnchantmentLevel * 5;
                                 if(player.hasStatusEffect(ModEffects.DISARMED)){
                                     if(player.getActiveStatusEffects().get(ModEffects.DISARMED).getDuration() < disarm) player.addStatusEffect(new StatusEffectInstance(ModEffects.DISARMED, disarm, 0));
                                 }
@@ -74,6 +82,7 @@ abstract class LivingEntityMixin extends Entity{
                             int weak = FrycParry.config.weaknessForPlayersAfterParry;
                             int weakAmpl = FrycParry.config.weaknessForPlayersAmplifier;
                             if(weak > 0 && weakAmpl > 0){
+                                weak = (int) (weak + weak * (parryEnchantmentLevel * 0.15));
                                 if(player.hasStatusEffect(StatusEffects.WEAKNESS)){
                                     if(player.getActiveStatusEffects().get(StatusEffects.WEAKNESS).getDuration() < weak) player.addStatusEffect(new StatusEffectInstance(StatusEffects.WEAKNESS, weak, weakAmpl - 1));
                                 }
@@ -83,6 +92,7 @@ abstract class LivingEntityMixin extends Entity{
                             int slow = FrycParry.config.slownessForPlayersAfterParry;
                             int slowAmp = FrycParry.config.slownessForPlayersAmplifier;
                             if(slow > 0 && slowAmp > 0){
+                                slow = (int) (slow + slow * (parryEnchantmentLevel * 0.2));
                                 if(player.hasStatusEffect(StatusEffects.SLOWNESS)){
                                     if(player.getActiveStatusEffects().get(StatusEffects.SLOWNESS).getDuration() < slow) player.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, slow, slowAmp - 1));
                                 }
@@ -93,12 +103,13 @@ abstract class LivingEntityMixin extends Entity{
                         //parry effects for mobs
                         else {
                             //knockback
-                            attacker.takeKnockback((double)(FrycParry.config.parryKnockbackStrength)/10, dys.getX() - attacker.getX(), dys.getZ() - attacker.getZ());
+                            attacker.takeKnockback((double)(FrycParry.config.parryKnockbackStrength + parryEnchantmentLevel * 0.95)/10, dys.getX() - attacker.getX(), dys.getZ() - attacker.getZ());
                             attacker.velocityModified = true;
 
                             int weak = FrycParry.config.weaknessAfterParry;
                             int weakAmpl = FrycParry.config.weaknessAmplifier;
                             if(weak > 0 && weakAmpl > 0){
+                                weak = (int) (weak + weak * (parryEnchantmentLevel * 0.22));
                                 if(attacker.hasStatusEffect(StatusEffects.WEAKNESS)){
                                     if(attacker.getActiveStatusEffects().get(StatusEffects.WEAKNESS).getDuration() < weak) attacker.addStatusEffect(new StatusEffectInstance(StatusEffects.WEAKNESS, weak, weakAmpl - 1));
                                 }
@@ -108,6 +119,7 @@ abstract class LivingEntityMixin extends Entity{
                             int slow = FrycParry.config.slownessAfterParry;
                             int slowAmp = FrycParry.config.slownessAmplifier;
                             if(slow > 0 && slowAmp > 0){
+                                slow = (int) (slow + slow * (parryEnchantmentLevel * 0.3));
                                 if(attacker.hasStatusEffect(StatusEffects.SLOWNESS)){
                                     if(attacker.getActiveStatusEffects().get(StatusEffects.SLOWNESS).getDuration() < slow) attacker.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, slow, slowAmp - 1));
                                 }
@@ -115,12 +127,26 @@ abstract class LivingEntityMixin extends Entity{
                             }
                         }
 
-                        //disabling block
-                        if(attacker.disablesShield() && dys instanceof PlayerEntity player){
-                            player.getItemCooldownManager().set(player.getMainHandStack().getItem(), 100);
-                            dys.stopUsingItem();
-                            dys.swingHand(dys.getActiveHand(), true);
+                        //counterattack enchantment
+                        if(dys instanceof  PlayerEntity player){
+
+                            //counterattack enchantment
+                            int counterattackEnchantmentLevel = ModEnchantments.getCounterattackEnchantment(player);
+                            if(counterattackEnchantmentLevel > 0){
+                                double ctrattack_damage = player.getAttributes().getValue(EntityAttributes.GENERIC_ATTACK_DAMAGE);
+                                if(player.getOffHandStack().isEmpty()) ctrattack_damage *= (counterattackEnchantmentLevel * 0.2) + 0.1;
+                                else ctrattack_damage *= (counterattackEnchantmentLevel * 0.1) + 0.1;
+                                attacker.damage(DamageSource.player(player), (float) ctrattack_damage);
+                            }
+
+                            //disabling block
+                            if(attacker.disablesShield()){
+                                player.getItemCooldownManager().set(player.getMainHandStack().getItem(), 100);
+                                dys.stopUsingItem();
+                                dys.swingHand(dys.getActiveHand(), true);
+                            }
                         }
+
                     }
 
                 }

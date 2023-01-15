@@ -10,21 +10,21 @@ public class FrycparryConfig implements ConfigData {
     @ConfigEntry.Gui.Tooltip
     @ConfigEntry.Category("parry")
     @ConfigEntry.BoundedDiscrete(max = 30, min = 1)
-    public int shieldParryTicks = 5;
+    public int shieldParryTicks = 4;
 
     @ConfigEntry.Category("parry")
     public boolean enableBlockingWithSword = true;
     @ConfigEntry.Gui.Tooltip
     @ConfigEntry.Category("parry")
     @ConfigEntry.BoundedDiscrete(max = 30, min = 1)
-    public int swordParryTicks = 5;
+    public int swordParryTicks = 4;
 
     @ConfigEntry.Category("parry")
     public boolean enableBlockingWithAxe = true;
     @ConfigEntry.Gui.Tooltip
     @ConfigEntry.Category("parry")
     @ConfigEntry.BoundedDiscrete(max = 30, min = 1)
-    public int axeParryTicks = 5;
+    public int axeParryTicks = 4;
 
     @ConfigEntry.Gui.Tooltip
     @ConfigEntry.Category("parry_effects")

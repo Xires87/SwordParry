@@ -22,12 +22,13 @@ abstract class ShieldMixin extends Item {
         }
     }
 
+    //makes shield enchantable
     public boolean isEnchantable(ItemStack stack) {
         return !stack.hasEnchantments();
     }
 
     public int getEnchantability() {
-        return 10;
+        return 12;
     }
 
 }

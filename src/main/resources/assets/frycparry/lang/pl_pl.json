@@ -1,4 +1,10 @@
 {
+  "enchantment.frycparry.prediction_enchantment": "Przewidywanie",
+  "enchantment.frycparry.counterattack_enchantment": "Kontratak",
+  "enchantment.frycparry.parry_enchantment": "Parowanie",
+
+  "effect.frycparry.disarmed": "Rozbrojony",
+
   "text.autoconfig.frycparry.title": "Konfiguracja Sword Parry",
   "text.autoconfig.frycparry.category.parry": "Parowanie",
   "text.autoconfig.frycparry.category.block": "Blokowanie",
@@ -12,6 +18,12 @@
 
   "text.autoconfig.frycparry.option.enableBlockingWithSword": "Włącz blokowanie i parowanie mieczem",
 
+  "text.autoconfig.frycparry.option.disarmForPlayersAfterParry": "Długość rozbrojenia dla sparowanych graczy",
+  "text.autoconfig.frycparry.option.disarmForPlayersAfterParry.@Tooltip": "20 = 1 sekunda. Ustaw na 0 aby wyłączyć rozbrojenie",
+
+  "text.autoconfig.frycparry.option.parryKnockbackStrengthForPlayers": "Siła odepchnięcia po parowaniu gracza",
+  "text.autoconfig.frycparry.option.parryKnockbackStrengthForPlayers.@Tooltip": "Siła z jaką zostanie odepchnięty gracz po sparowaniu",
+
   "text.autoconfig.frycparry.option.swordParryTicks": "Klatki (ticks) parowania dla mieczy",
   "text.autoconfig.frycparry.option.swordParryTicks.@Tooltip": "Przykładowo, kiedy ta opcja jest ustawiona na 10, pierwsze 10 ticków blokowania mieczem będzie liczone jako parowanie",
 
@@ -20,7 +32,7 @@
   "text.autoconfig.frycparry.option.axeParryTicks": "Klatki (ticks) parowania dla toporów",
   "text.autoconfig.frycparry.option.axeParryTicks.@Tooltip": "Przykładowo, kiedy ta opcja jest ustawiona na 10, pierwsze 10 ticków blokowania siekierą będzie liczone jako parowanie",
 
-  "text.autoconfig.frycparry.option.parryKnockbackStrength": "Siła odepchnięcia po parowaniu",
+  "text.autoconfig.frycparry.option.parryKnockbackStrength": "Siła odepchnięcia po parowaniu moba",
   "text.autoconfig.frycparry.option.parryKnockbackStrength.@Tooltip": "Siła z jaką zostanie odepchnięty wróg po sparowaniu",
 
   "text.autoconfig.frycparry.option.interruptSwordBlockActionAfterParryOrBlock": "Przerwij blokowanie po zablokowaniu lub sparowaniu ataku mieczem",
@@ -55,7 +67,6 @@
   "text.autoconfig.frycparry.option.slownessAfterParry.@Tooltip": "20 = 1 sekunda. Ustaw na 0 aby wyłączyć spowolnienie",
   "text.autoconfig.frycparry.option.slownessAmplifier": "Poziom spowolnienia dla sparowanych mobów",
   "text.autoconfig.frycparry.option.slownessAmplifier.@Tooltip": "Na przykład, kiedy ustawione na 5, mob dostanie Spowolnienie V gdy zostanie sparowany",
-
 
   "text.autoconfig.frycparry.option.cooldownAfterBlockAction": "Czas odnowienia bloku po zmianie przedmiotu lub przerwaniu blokowania",
   "text.autoconfig.frycparry.option.cooldownForBlockAfterSwordAttack": "Czas odnowienia bloku po zaatakowaniu wroga mieczem",

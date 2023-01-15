@@ -2,13 +2,14 @@ package net.fryc.frycparry.enchantments;
 
 import net.fryc.frycparry.FrycParry;
 import net.minecraft.enchantment.Enchantment;
+import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.enchantment.EnchantmentTarget;
 import net.minecraft.entity.EquipmentSlot;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 
 public class ModEnchantments {
-
     public static final EquipmentSlot[] HANDS = new EquipmentSlot[]{EquipmentSlot.MAINHAND, EquipmentSlot.OFFHAND};
 
     public static Enchantment PREDICTION = register("prediction_enchantment",
@@ -28,5 +29,17 @@ public class ModEnchantments {
 
     public static void registerModEnchantments(){
         FrycParry.LOGGER.info("Registering enchantments for " + FrycParry.MOD_ID);
+    }
+
+    public static int getParryEnchantment(LivingEntity entity){
+        return EnchantmentHelper.getEquipmentLevel(ModEnchantments.PARRY, entity);
+    }
+
+    public static int getPredictionEnchantment(LivingEntity entity){
+        return EnchantmentHelper.getEquipmentLevel(ModEnchantments.PREDICTION, entity);
+    }
+
+    public static int getCounterattackEnchantment(LivingEntity entity){
+        return EnchantmentHelper.getEquipmentLevel(ModEnchantments.COUNTERATTACK, entity);
     }
 }
