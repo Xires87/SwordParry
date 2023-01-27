@@ -1,6 +1,5 @@
 package net.fryc.frycparry.mixin;
 
-import net.fryc.frycparry.FrycParry;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.enchantment.EnchantmentLevelEntry;
 import net.minecraft.item.*;
@@ -26,7 +25,6 @@ abstract class EnchantmentHelperMixin {
             bl = false;
             if(lastIndex > 0) lastIndex--;
             for(int i = lastIndex;i < list2.size(); i++){
-                FrycParry.LOGGER.info(list2.get(i).enchantment.getTranslationKey());
                 if(isEnchantmentForShield(list2.get(i).enchantment.getTranslationKey())){
                     list2.remove(i);
                     lastIndex = i;
