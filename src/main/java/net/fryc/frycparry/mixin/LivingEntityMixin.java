@@ -3,6 +3,7 @@ package net.fryc.frycparry.mixin;
 import net.fryc.frycparry.FrycParry;
 import net.fryc.frycparry.effects.ModEffects;
 import net.fryc.frycparry.enchantments.ModEnchantments;
+import net.fryc.frycparry.helpers.DualWieldingHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
@@ -35,7 +36,7 @@ abstract class LivingEntityMixin extends Entity{
     @Inject(method = "blockedByShield(Lnet/minecraft/entity/damage/DamageSource;)Z", at = @At("HEAD"), cancellable = true)
     private void shieldBlocking(DamageSource source, CallbackInfoReturnable<Boolean> ret) {
         LivingEntity dys = ((LivingEntity)(Object)this);
-        if((this.activeItemStack.getItem() instanceof SwordItem || this.activeItemStack.getItem() instanceof AxeItem) && dys.getOffHandStack().isEmpty()){
+        if((this.activeItemStack.getItem() instanceof SwordItem || this.activeItemStack.getItem() instanceof AxeItem) && (dys.getOffHandStack().isEmpty() || DualWieldingHelper.checkDualWielding((PlayerEntity) dys))){
             int predictionEnchantmentLevel = ModEnchantments.getPredictionEnchantment(dys);
             if(this.activeItemStack.getItem() instanceof SwordItem){
                 if(this.activeItemStack.getItem().getMaxUseTime(this.activeItemStack) - this.itemUseTimeLeft >= FrycParry.config.swordParryTicks + predictionEnchantmentLevel || source.isExplosive()){
@@ -140,15 +141,22 @@ abstract class LivingEntityMixin extends Entity{
                             }
 
                             //disabling block
-                            if(attacker.disablesShield()){
-                                player.getItemCooldownManager().set(player.getMainHandStack().getItem(), 100);
+                            if(attacker.disablesShield() && FrycParry.config.disableBlockAfterParryingAxeAttack){
+                                if(this.activeItemStack.getItem() instanceof ShieldItem) player.disableShield(true);
+                                else {
+                                    player.getItemCooldownManager().set(player.getMainHandStack().getItem(), 100);
+                                    if(DualWieldingHelper.checkDualWielding(player)) player.getItemCooldownManager().set(player.getOffHandStack().getItem(), 100);
+                                }
                                 dys.stopUsingItem();
                                 dys.swingHand(dys.getActiveHand(), true);
                             }
                         }
 
-                    }
 
+                    }
+                    else if(this.activeItemStack.getItem() instanceof ShieldItem && attacker.disablesShield() && dys instanceof PlayerEntity player){
+                        player.disableShield(true);
+                    }
                 }
             }
         }
@@ -159,7 +167,9 @@ abstract class LivingEntityMixin extends Entity{
 
         //damaging item
         if(!(dys.getMainHandStack().getItem() instanceof ShieldItem || dys.getOffHandStack().getItem() instanceof ShieldItem)){
-            dys.getMainHandStack().setDamage(dys.getMainHandStack().getDamage() + 1);
+            dys.getMainHandStack().damage(1, dys, (player) -> {
+                player.sendToolBreakStatus(player.getActiveHand());
+            });
         }
     }
 
@@ -182,7 +192,8 @@ abstract class LivingEntityMixin extends Entity{
                 amount *= ((float)(FrycParry.config.swordBlockMeleeDamageTaken)/100);
                 b = 30;
                 if(attacker.disablesShield() && dys instanceof PlayerEntity player){
-                    player.getItemCooldownManager().set(player.getMainHandStack().getItem(), 100);
+                    player.getItemCooldownManager().set(player.getMainHandStack().getItem(), 160);
+                    if(DualWieldingHelper.checkDualWielding(player)) player.getItemCooldownManager().set(player.getOffHandStack().getItem(), 160);
                     dys.stopUsingItem();
                 }
             }
@@ -194,7 +205,9 @@ abstract class LivingEntityMixin extends Entity{
 
             //damaging item
             if(!(dys.getMainHandStack().getItem() instanceof  ShieldItem || dys.getOffHandStack().getItem() instanceof ShieldItem)){
-                dys.getMainHandStack().setDamage(dys.getMainHandStack().getDamage() + 1);
+                dys.getMainHandStack().damage(1, dys, (player) -> {
+                    player.sendToolBreakStatus(player.getActiveHand());
+                });
             }
         }
         return amount;
@@ -242,7 +255,7 @@ abstract class LivingEntityMixin extends Entity{
     private byte init(byte status) {
         if(status == 29){
             LivingEntity entity = ((LivingEntity)(Object)this);
-            if(entity.getOffHandStack().isEmpty() && (entity.getMainHandStack().getItem() instanceof SwordItem || entity.getMainHandStack().getItem() instanceof AxeItem)){
+            if((entity.getOffHandStack().isEmpty() || DualWieldingHelper.checkDualWielding((PlayerEntity) entity)) && (entity.getMainHandStack().getItem() instanceof SwordItem || entity.getMainHandStack().getItem() instanceof AxeItem)){
                 status = 30;
             }
         }

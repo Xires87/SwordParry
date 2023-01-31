@@ -1,6 +1,7 @@
 package net.fryc.frycparry.mixin;
 
 import net.fryc.frycparry.FrycParry;
+import net.fryc.frycparry.helpers.DualWieldingHelper;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.*;
@@ -32,7 +33,7 @@ abstract class SwordMixin extends ToolItem implements Vanishable {
     public TypedActionResult<ItemStack> use(World world, PlayerEntity user, Hand hand) {
         ItemStack itemStack = user.getStackInHand(hand);
         if(!FrycParry.config.enableBlockingWithSword) return TypedActionResult.fail(user.getStackInHand(hand));
-        if(user.getOffHandStack().isEmpty() && user.getMainHandStack().getItem() instanceof SwordItem){
+        if((DualWieldingHelper.checkDualWielding(user) || user.getOffHandStack().isEmpty()) && user.getMainHandStack().getItem() instanceof SwordItem){
             user.setCurrentHand(hand);
             return TypedActionResult.consume(itemStack);
         }

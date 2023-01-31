@@ -25,6 +25,13 @@ public class FrycparryConfig implements ConfigData {
     @ConfigEntry.Category("parry")
     @ConfigEntry.BoundedDiscrete(max = 30, min = 1)
     public int axeParryTicks = 4;
+    @ConfigEntry.Gui.Tooltip
+    @ConfigEntry.Category("parry")
+    public boolean disableBlockAfterParryingAxeAttack = false;
+
+    @ConfigEntry.Gui.Tooltip
+    @ConfigEntry.Category("parry")
+    public boolean enableBlockingWhenDualWielding = false;
 
     @ConfigEntry.Gui.Tooltip
     @ConfigEntry.Category("parry_effects")
