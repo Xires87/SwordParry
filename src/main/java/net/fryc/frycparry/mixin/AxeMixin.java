@@ -1,7 +1,7 @@
 package net.fryc.frycparry.mixin;
 
 import net.fryc.frycparry.FrycParry;
-import net.fryc.frycparry.helpers.DualWieldingHelper;
+import net.fryc.frycparry.util.ParryHelper;
 import net.minecraft.block.Block;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -32,7 +32,7 @@ abstract class AxeMixin extends MiningToolItem {
     public TypedActionResult<ItemStack> use(World world, PlayerEntity user, Hand hand) {
         ItemStack itemStack = user.getStackInHand(hand);
         if(!FrycParry.config.enableBlockingWithAxe) return TypedActionResult.fail(user.getStackInHand(hand));
-        if((DualWieldingHelper.checkDualWielding(user) || user.getOffHandStack().isEmpty()) && user.getMainHandStack().getItem() instanceof AxeItem){
+        if((ParryHelper.checkDualWielding(user) || user.getOffHandStack().isEmpty()) && user.getMainHandStack().getItem() instanceof AxeItem){
             user.setCurrentHand(hand);
             return TypedActionResult.consume(itemStack);
         }

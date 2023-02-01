@@ -2,7 +2,7 @@ package net.fryc.frycparry.mixin;
 
 import net.fryc.frycparry.FrycParry;
 import net.fryc.frycparry.effects.ModEffects;
-import net.fryc.frycparry.helpers.DualWieldingHelper;
+import net.fryc.frycparry.util.ParryHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
@@ -30,7 +30,7 @@ abstract class PlayerEntityMixin extends LivingEntity {
         PlayerEntity dys = ((PlayerEntity)(Object)this);
         Item item = dys.getMainHandStack().getItem();
         if(((item instanceof SwordItem && FrycParry.config.enableBlockingWithSword) ||
-                (item instanceof AxeItem && FrycParry.config.enableBlockingWithAxe)) && (dys.getOffHandStack().isEmpty() || DualWieldingHelper.checkDualWielding(dys))){
+                (item instanceof AxeItem && FrycParry.config.enableBlockingWithAxe)) && (dys.getOffHandStack().isEmpty() || ParryHelper.checkDualWielding(dys))){
             if(dys.isUsingItem()) dys.stopUsingItem();
             if(FrycParry.config.cooldownAfterBlockAction > 0){
                 if(!dys.getItemCooldownManager().isCoolingDown(item)) dys.getItemCooldownManager().set(item, FrycParry.config.cooldownAfterBlockAction);
