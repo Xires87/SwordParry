@@ -33,11 +33,11 @@ public abstract class SwordMixin extends ToolItem implements Vanishable {
     public TypedActionResult<ItemStack> use(World world, PlayerEntity user, Hand hand) {
         ItemStack itemStack = user.getStackInHand(hand);
         if(!FrycParry.config.enableBlockingWithSword) return TypedActionResult.fail(user.getStackInHand(hand));
-        if((ParryHelper.checkDualWielding(user) || user.getOffHandStack().isEmpty()) && user.getMainHandStack().getItem() instanceof SwordItem){
+        if((ParryHelper.checkDualWieldingItems(user) || ParryHelper.checkDualWieldingWeapons(user) || user.getOffHandStack().isEmpty()) && user.getMainHandStack().getItem() instanceof SwordItem){
             user.setCurrentHand(hand);
-            return TypedActionResult.consume(itemStack);
+            return TypedActionResult.pass(itemStack);
         }
-        else return TypedActionResult.pass(user.getStackInHand(hand));
+        else return TypedActionResult.fail(user.getStackInHand(hand));
     }
 
 

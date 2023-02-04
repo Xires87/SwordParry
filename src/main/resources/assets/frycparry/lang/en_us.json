@@ -27,6 +27,12 @@
   "text.autoconfig.frycparry.option.axeParryTicks": "Axe parry ticks",
   "text.autoconfig.frycparry.option.axeParryTicks.@Tooltip": "Parry ticks for axe. For example, if this option is set to 10, the first 10 ticks of blocking with axe will count as parry",
 
+  "text.autoconfig.frycparry.option.disableBlockAfterParryingAxeAttack": "Disable block action after parrying axe attack",
+  "text.autoconfig.frycparry.option.disableBlockAfterParryingAxeAttack.@Tooltip": "When turned on, axe attack will set cooldown whether it was parry or not",
+
+  "text.autoconfig.frycparry.option.enableBlockingWhenDualWielding": "Dual wielding settings (!!! setting to 2 is not recommended !!!)",
+  "text.autoconfig.frycparry.option.enableBlockingWhenDualWielding.@Tooltip": "0 - player can block and parry with empty offhand;  1 - player can also block and parry when dual wields weapons; 2 - player can block and parry with any item in offhand (!! MAY CAUSE MANY BUGS AND CONFLICTS !!)",
+
   "text.autoconfig.frycparry.option.parryKnockbackStrength": "Parry knockback strength for parried mobs",
   "text.autoconfig.frycparry.option.parryKnockbackStrength.@Tooltip": "Defines the strength of knockback enemy will take after parry",
 

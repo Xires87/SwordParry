@@ -32,11 +32,11 @@ abstract class AxeMixin extends MiningToolItem {
     public TypedActionResult<ItemStack> use(World world, PlayerEntity user, Hand hand) {
         ItemStack itemStack = user.getStackInHand(hand);
         if(!FrycParry.config.enableBlockingWithAxe) return TypedActionResult.fail(user.getStackInHand(hand));
-        if((ParryHelper.checkDualWielding(user) || user.getOffHandStack().isEmpty()) && user.getMainHandStack().getItem() instanceof AxeItem){
+        if((ParryHelper.checkDualWieldingItems(user) || ParryHelper.checkDualWieldingWeapons(user) || user.getOffHandStack().isEmpty()) && user.getMainHandStack().getItem() instanceof AxeItem){
             user.setCurrentHand(hand);
-            return TypedActionResult.consume(itemStack);
+            return TypedActionResult.pass(itemStack);
         }
-        else return TypedActionResult.pass(user.getStackInHand(hand));
+        else return TypedActionResult.fail(user.getStackInHand(hand));
     }
 
     //cooldown after using block

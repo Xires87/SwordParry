@@ -30,7 +30,7 @@ abstract class PlayerEntityMixin extends LivingEntity {
         PlayerEntity dys = ((PlayerEntity)(Object)this);
         Item item = dys.getMainHandStack().getItem();
         if(((item instanceof SwordItem && FrycParry.config.enableBlockingWithSword) ||
-                (item instanceof AxeItem && FrycParry.config.enableBlockingWithAxe)) && (dys.getOffHandStack().isEmpty() || ParryHelper.checkDualWielding(dys))){
+                (item instanceof AxeItem && FrycParry.config.enableBlockingWithAxe)) && (dys.getOffHandStack().isEmpty() || ParryHelper.checkDualWieldingWeapons(dys) || ParryHelper.checkDualWieldingItems(dys))){
             if(dys.isUsingItem()) dys.stopUsingItem();
             if(FrycParry.config.cooldownAfterBlockAction > 0){
                 if(!dys.getItemCooldownManager().isCoolingDown(item)) dys.getItemCooldownManager().set(item, FrycParry.config.cooldownAfterBlockAction);

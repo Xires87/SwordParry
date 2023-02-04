@@ -32,6 +32,12 @@
   "text.autoconfig.frycparry.option.axeParryTicks": "Klatki (ticks) parowania dla toporów",
   "text.autoconfig.frycparry.option.axeParryTicks.@Tooltip": "Przykładowo, kiedy ta opcja jest ustawiona na 10, pierwsze 10 ticków blokowania siekierą będzie liczone jako parowanie",
 
+  "text.autoconfig.frycparry.option.disableBlockAfterParryingAxeAttack": "Wyłącz blokowanie po sparowaniu siekiery",
+  "text.autoconfig.frycparry.option.disableBlockAfterParryingAxeAttack.@Tooltip": "Kiedy włączone, siekiery będą wyłączać blokowanie niezależnie od tego czy atak był sparowany czy nie",
+
+  "text.autoconfig.frycparry.option.enableBlockingWhenDualWielding": "Opcje dla trzymania broni w dwóch rękach (!!! ustawienie na 2 jest niezalecane !!!)",
+  "text.autoconfig.frycparry.option.enableBlockingWhenDualWielding.@Tooltip": "0 - gracz może blokować i parować kiedy jego druga ręka jest pusta;  1 - gracz może również blokować i parować kiedy dzierży dwie bronie; 2 - gracz może blokować i parować z dowolnym przedmiotem w drugiej ręce (!! MOŻE SPOWODOWAĆ WIELE BŁĘDÓW I KONFLIKTÓW !!)",
+
   "text.autoconfig.frycparry.option.parryKnockbackStrength": "Siła odepchnięcia po parowaniu moba",
   "text.autoconfig.frycparry.option.parryKnockbackStrength.@Tooltip": "Siła z jaką zostanie odepchnięty wróg po sparowaniu",
 

@@ -31,7 +31,8 @@ public class FrycparryConfig implements ConfigData {
 
     @ConfigEntry.Gui.Tooltip
     @ConfigEntry.Category("parry")
-    public boolean enableBlockingWhenDualWielding = false;
+    @ConfigEntry.BoundedDiscrete(max = 2, min = 0)
+    public int enableBlockingWhenDualWielding = 0;
 
     @ConfigEntry.Gui.Tooltip
     @ConfigEntry.Category("parry_effects")
