@@ -1,6 +1,7 @@
 package net.fryc.frycparry;
 
 import net.fabricmc.api.ClientModInitializer;
+import net.fryc.frycparry.keybind.ModKeyBinds;
 import net.fryc.frycparry.util.ParryHelper;
 import net.minecraft.client.item.ModelPredicateProviderRegistry;
 import net.minecraft.item.AxeItem;
@@ -17,6 +18,8 @@ public class FrycParryClient implements ClientModInitializer {
         ModelPredicateProviderRegistry.register(new Identifier("axeparry"), (stack, world, entity, seed) -> {
             return entity != null && (entity.getOffHandStack().isEmpty() || ParryHelper.checkDualWieldingWeapons(entity) || ParryHelper.checkDualWieldingItems(entity)) && entity.isUsingItem() && entity.getActiveItem().getItem() instanceof AxeItem ? 1.0F : 0.0F;
         });
+
+        ModKeyBinds.register();
 
     }
 }

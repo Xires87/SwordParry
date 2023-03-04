@@ -1,5 +1,8 @@
 {
 
+  "key.category.frycparry.key_category_swordparry": "Sword Parry",
+  "key.frycparry.key_parry": "Parry",
+
   "enchantment.frycparry.prediction_enchantment": "Reflex",
   "enchantment.frycparry.counterattack_enchantment": "Counterattack",
   "enchantment.frycparry.parry_enchantment": "Parry",
@@ -30,8 +33,8 @@
   "text.autoconfig.frycparry.option.disableBlockAfterParryingAxeAttack": "Disable block action after parrying axe attack",
   "text.autoconfig.frycparry.option.disableBlockAfterParryingAxeAttack.@Tooltip": "When turned on, axe attack will set cooldown whether it was parry or not",
 
-  "text.autoconfig.frycparry.option.enableBlockingWhenDualWielding": "Dual wielding settings (!!! setting to 2 is not recommended !!!)",
-  "text.autoconfig.frycparry.option.enableBlockingWhenDualWielding.@Tooltip": "0 - player can block and parry with empty offhand;  1 - player can also block and parry when dual wields weapons; 2 - player can block and parry with any item in offhand (!! MAY CAUSE MANY BUGS AND CONFLICTS !!)",
+  "text.autoconfig.frycparry.option.enableBlockingWhenDualWielding": "Dual wielding settings (parry key recommended)",
+  "text.autoconfig.frycparry.option.enableBlockingWhenDualWielding.@Tooltip": "0 - player can block and parry with empty offhand;  1 - player can also block and parry when dual wields weapons; 2 - player can block and parry with any item in offhand (it is recommended to block with parry key (R by default) to avoid conflicts)",
 
   "text.autoconfig.frycparry.option.parryKnockbackStrength": "Parry knockback strength for parried mobs",
   "text.autoconfig.frycparry.option.parryKnockbackStrength.@Tooltip": "Defines the strength of knockback enemy will take after parry",

@@ -1,4 +1,7 @@
 {
+  "key.category.frycparry.key_category_swordparry": "Sword Parry",
+  "key.frycparry.key_parry": "Blokowanie",
+
   "enchantment.frycparry.prediction_enchantment": "Refleks",
   "enchantment.frycparry.counterattack_enchantment": "Kontratak",
   "enchantment.frycparry.parry_enchantment": "Parowanie",
@@ -35,8 +38,8 @@
   "text.autoconfig.frycparry.option.disableBlockAfterParryingAxeAttack": "Wyłącz blokowanie po sparowaniu siekiery",
   "text.autoconfig.frycparry.option.disableBlockAfterParryingAxeAttack.@Tooltip": "Kiedy włączone, siekiery będą wyłączać blokowanie niezależnie od tego czy atak był sparowany czy nie",
 
-  "text.autoconfig.frycparry.option.enableBlockingWhenDualWielding": "Opcje dla trzymania broni w dwóch rękach (!!! ustawienie na 2 jest niezalecane !!!)",
-  "text.autoconfig.frycparry.option.enableBlockingWhenDualWielding.@Tooltip": "0 - gracz może blokować i parować kiedy jego druga ręka jest pusta;  1 - gracz może również blokować i parować kiedy dzierży dwie bronie; 2 - gracz może blokować i parować z dowolnym przedmiotem w drugiej ręce (!! MOŻE SPOWODOWAĆ WIELE BŁĘDÓW I KONFLIKTÓW !!)",
+  "text.autoconfig.frycparry.option.enableBlockingWhenDualWielding": "Opcje dla trzymania broni w dwóch rękach (zalecany przycisk do parowania)",
+  "text.autoconfig.frycparry.option.enableBlockingWhenDualWielding.@Tooltip": "0 - gracz może blokować i parować kiedy jego druga ręka jest pusta;  1 - gracz może również blokować i parować kiedy dzierży dwie bronie; 2 - gracz może blokować i parować z dowolnym przedmiotem w drugiej ręce (zaleca się używać przycisku do parowania (domyślnie R) aby uniknąć konfliktów)",
 
   "text.autoconfig.frycparry.option.parryKnockbackStrength": "Siła odepchnięcia po parowaniu moba",
   "text.autoconfig.frycparry.option.parryKnockbackStrength.@Tooltip": "Siła z jaką zostanie odepchnięty wróg po sparowaniu",
