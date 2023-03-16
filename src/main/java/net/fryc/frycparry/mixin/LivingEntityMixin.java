@@ -14,6 +14,7 @@ import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.PersistentProjectileEntity;
 import net.minecraft.item.*;
+import net.minecraft.registry.tag.DamageTypeTags;
 import net.minecraft.util.UseAction;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
@@ -39,17 +40,17 @@ abstract class LivingEntityMixin extends Entity{
         if((this.activeItemStack.getItem() instanceof SwordItem || this.activeItemStack.getItem() instanceof AxeItem)){
             int predictionEnchantmentLevel = ModEnchantments.getPredictionEnchantment(dys);
             if(this.activeItemStack.getItem() instanceof SwordItem){
-                if(this.activeItemStack.getItem().getMaxUseTime(this.activeItemStack) - this.itemUseTimeLeft >= FrycParry.config.swordParryTicks + predictionEnchantmentLevel || source.isExplosive()){
+                if(this.activeItemStack.getItem().getMaxUseTime(this.activeItemStack) - this.itemUseTimeLeft >= FrycParry.config.swordParryTicks + predictionEnchantmentLevel || source.isIn(DamageTypeTags.IS_EXPLOSION)){
                     ret.setReturnValue(false);
                 }
             }
             else if(this.activeItemStack.getItem() instanceof AxeItem){
-                if(this.activeItemStack.getItem().getMaxUseTime(this.activeItemStack) - this.itemUseTimeLeft >= FrycParry.config.axeParryTicks + predictionEnchantmentLevel || source.isExplosive()){
+                if(this.activeItemStack.getItem().getMaxUseTime(this.activeItemStack) - this.itemUseTimeLeft >= FrycParry.config.axeParryTicks + predictionEnchantmentLevel || source.isIn(DamageTypeTags.IS_EXPLOSION)){
                     ret.setReturnValue(false);
                 }
             }
         }
-        else if(!(this.activeItemStack.getItem() instanceof ShieldItem) || (source.isExplosive() && this.activeItemStack.getItem().getMaxUseTime(this.activeItemStack) - this.itemUseTimeLeft < 5)){
+        else if(!(this.activeItemStack.getItem() instanceof ShieldItem) || (source.isIn(DamageTypeTags.IS_EXPLOSION) && this.activeItemStack.getItem().getMaxUseTime(this.activeItemStack) - this.itemUseTimeLeft < 5)){
             ret.setReturnValue(false);
         }
     }
@@ -57,8 +58,8 @@ abstract class LivingEntityMixin extends Entity{
     @Inject(method = "damage(Lnet/minecraft/entity/damage/DamageSource;F)Z", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/LivingEntity;damageShield(F)V", shift = At.Shift.AFTER))
     private void parry(DamageSource source, float amount, CallbackInfoReturnable<Boolean> ret) {
         LivingEntity dys = ((LivingEntity)(Object)this);
-        if(!source.isProjectile()){
-            if(!source.isExplosive()){
+        if(!source.isIn(DamageTypeTags.IS_PROJECTILE)){
+            if(!source.isIn(DamageTypeTags.IS_EXPLOSION)){
                 if(source.getAttacker() instanceof LivingEntity attacker){
                     if(!(this.activeItemStack.getItem() instanceof ShieldItem && this.activeItemStack.getItem().getMaxUseTime(this.activeItemStack) - this.itemUseTimeLeft >= FrycParry.config.shieldParryTicks + ModEnchantments.getPredictionEnchantment(dys))){
 
@@ -137,7 +138,7 @@ abstract class LivingEntityMixin extends Entity{
                                 double ctrattack_damage = player.getAttributes().getValue(EntityAttributes.GENERIC_ATTACK_DAMAGE);
                                 if(player.getOffHandStack().isEmpty()) ctrattack_damage *= (counterattackEnchantmentLevel * 0.2) + 0.1;
                                 else ctrattack_damage *= (counterattackEnchantmentLevel * 0.1) + 0.1;
-                                attacker.damage(DamageSource.player(player), (float) ctrattack_damage);
+                                attacker.damage(world.getDamageSources().playerAttack(player),(float) ctrattack_damage);
                             }
 
                             //disabling block
@@ -178,13 +179,13 @@ abstract class LivingEntityMixin extends Entity{
         LivingEntity dys = ((LivingEntity)(Object)this);
         if(amount > 0.0F && !dys.blockedByShield(source) && this.blockedByWeapon(source, dys)){
             byte b = 2;
-            if(source.isExplosive()){
+            if(source.isIn(DamageTypeTags.IS_EXPLOSION)){
                 if(this.activeItemStack.getItem() instanceof ShieldItem){
                     amount *= 0.8F;
                     b = 29;
                 }
             }
-            else if(source.isProjectile()){
+            else if(source.isIn(DamageTypeTags.IS_PROJECTILE)){
                 amount *= ((float)(FrycParry.config.swordBlockArrowDamageTaken)/100);
                 b =30;
             }
@@ -234,7 +235,7 @@ abstract class LivingEntityMixin extends Entity{
             }
         }
 
-        if (!source.bypassesArmor() && user.isBlocking() && !bl) {
+        if (!source.isIn(DamageTypeTags.BYPASSES_ARMOR) && user.isBlocking() && !bl) {
             Vec3d vec3d = source.getPosition();
             if (vec3d != null) {
                 Vec3d vec3d2 = user.getRotationVec(1.0F);
