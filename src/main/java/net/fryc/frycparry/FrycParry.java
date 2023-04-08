@@ -23,5 +23,9 @@ public class FrycParry implements ModInitializer {
 
         ModEffects.registerEffects();
         ModEnchantments.registerModEnchantments();
+
+        /*
+        todo poprawic tam wszystko zeby sie parowalo i ogarnac zeby mozna bylo normalnie uzywac zeby konfliktow ne bylo
+         */
     }
 }

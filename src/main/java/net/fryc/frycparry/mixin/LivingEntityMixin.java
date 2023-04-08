@@ -3,49 +3,58 @@ package net.fryc.frycparry.mixin;
 import net.fryc.frycparry.FrycParry;
 import net.fryc.frycparry.effects.ModEffects;
 import net.fryc.frycparry.enchantments.ModEnchantments;
+import net.fryc.frycparry.util.CanBlock;
 import net.fryc.frycparry.util.ParryHelper;
+import net.fryc.frycparry.util.ParryItem;
+import net.minecraft.entity.Attackable;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
+import net.minecraft.entity.data.DataTracker;
+import net.minecraft.entity.data.TrackedData;
+import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.PersistentProjectileEntity;
 import net.minecraft.item.*;
 import net.minecraft.registry.tag.DamageTypeTags;
+import net.minecraft.util.Hand;
 import net.minecraft.util.UseAction;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.*;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
+import java.util.Optional;
+
 @Mixin(LivingEntity.class)
-abstract class LivingEntityMixin extends Entity{
+abstract class LivingEntityMixin extends Entity implements Attackable, CanBlock {
     @Shadow protected ItemStack activeItemStack;
     @Shadow protected int itemUseTimeLeft;
+
+    private static final TrackedData<Boolean> BLOCKING_DATA;
+    private static final TrackedData<Boolean> PARRY_DATA;
 
     public LivingEntityMixin(EntityType<?> type, World world) {
         super(type, world);
     }
 
 
-    //makes blockedByShield method return true only when attack was blocked with shield
+    //makes blockedByShield method return true only when attack was blocked with shield or parried
     @Inject(method = "blockedByShield(Lnet/minecraft/entity/damage/DamageSource;)Z", at = @At("HEAD"), cancellable = true)
     private void shieldBlocking(DamageSource source, CallbackInfoReturnable<Boolean> ret) {
         LivingEntity dys = ((LivingEntity)(Object)this);
-        if((this.activeItemStack.getItem() instanceof SwordItem || this.activeItemStack.getItem() instanceof AxeItem)){
+        if(this.activeItemStack.getItem() instanceof ToolItem tool){
             int predictionEnchantmentLevel = ModEnchantments.getPredictionEnchantment(dys);
-            if(this.activeItemStack.getItem() instanceof SwordItem){
-                if(this.activeItemStack.getItem().getMaxUseTime(this.activeItemStack) - this.itemUseTimeLeft >= FrycParry.config.swordParryTicks + predictionEnchantmentLevel || source.isIn(DamageTypeTags.IS_EXPLOSION)){
-                    ret.setReturnValue(false);
-                }
-            }
-            else if(this.activeItemStack.getItem() instanceof AxeItem){
-                if(this.activeItemStack.getItem().getMaxUseTime(this.activeItemStack) - this.itemUseTimeLeft >= FrycParry.config.axeParryTicks + predictionEnchantmentLevel || source.isIn(DamageTypeTags.IS_EXPLOSION)){
+            if(((ParryItem) tool).getUseParryAction(this.activeItemStack) == UseAction.BLOCK){
+                ParryItem parryItem = (ParryItem) tool;
+                if(this.activeItemStack.getMaxUseTime() - this.itemUseTimeLeft >= parryItem.getParryTicks() + predictionEnchantmentLevel || source.isIn(DamageTypeTags.IS_EXPLOSION)){
                     ret.setReturnValue(false);
                 }
             }
@@ -65,6 +74,7 @@ abstract class LivingEntityMixin extends Entity{
 
                         //parry enchantment
                         int parryEnchantmentLevel = ModEnchantments.getParryEnchantment(dys);
+                        ((CanBlock) dys).setParryDataToTrue();
 
                         //parry effects for players
                         if(attacker instanceof PlayerEntity player){
@@ -161,7 +171,7 @@ abstract class LivingEntityMixin extends Entity{
                 }
             }
         }
-        if((FrycParry.config.interruptAxeBlockActionAfterParryOrBlock && this.activeItemStack.getItem() instanceof AxeItem) || (FrycParry.config.interruptSwordBlockActionAfterParryOrBlock && this.activeItemStack.getItem() instanceof SwordItem)){
+        if(!(this.activeItemStack.getItem() instanceof ShieldItem)){
             dys.stopUsingItem();
             dys.swingHand(dys.getActiveHand(), true);
         }
@@ -186,26 +196,25 @@ abstract class LivingEntityMixin extends Entity{
                 }
             }
             else if(source.isIn(DamageTypeTags.IS_PROJECTILE)){
-                amount *= ((float)(FrycParry.config.swordBlockArrowDamageTaken)/100);
+                amount *= ((ParryItem) this.activeItemStack.getItem()).getProjectileDamageTakenAfterBlock();
                 b =30;
             }
             else if(source.getAttacker() instanceof LivingEntity attacker){
-                amount *= ((float)(FrycParry.config.swordBlockMeleeDamageTaken)/100);
+                amount *= ((ParryItem) this.activeItemStack.getItem()).getMeleeDamageTakenAfterBlock();
                 b = 30;
                 if(attacker.disablesShield() && dys instanceof PlayerEntity player){
                     player.getItemCooldownManager().set(player.getMainHandStack().getItem(), 160);
-                    if(ParryHelper.checkDualWieldingWeapons(player)) player.getItemCooldownManager().set(player.getOffHandStack().getItem(), 160);
                     dys.stopUsingItem();
                 }
             }
             dys.world.sendEntityStatus(this, b);
 
-            if((FrycParry.config.interruptAxeBlockActionAfterParryOrBlock && this.activeItemStack.getItem() instanceof AxeItem) || (FrycParry.config.interruptSwordBlockActionAfterParryOrBlock && this.activeItemStack.getItem() instanceof SwordItem)){
+            if(!(this.activeItemStack.getItem() instanceof ShieldItem)){
                 dys.stopUsingItem();
             }
 
             //damaging item
-            if(!(dys.getMainHandStack().getItem() instanceof  ShieldItem || dys.getOffHandStack().getItem() instanceof ShieldItem)){
+            if(!ParryHelper.hasShieldEquipped(dys)){
                 dys.getMainHandStack().damage(1, dys, (player) -> {
                     player.sendToolBreakStatus(player.getActiveHand());
                 });
@@ -221,7 +230,12 @@ abstract class LivingEntityMixin extends Entity{
         LivingEntity dys = ((LivingEntity)(Object)this);
         if (dys.isUsingItem() && !this.activeItemStack.isEmpty()) {
             Item item = this.activeItemStack.getItem();
-            ret.setReturnValue(item.getUseAction(this.activeItemStack) == UseAction.BLOCK);
+            if(item instanceof ToolItem && item.getUseAction(this.activeItemStack) != UseAction.BLOCK){
+                ret.setReturnValue(((ParryItem) item).getUseParryAction(this.activeItemStack) == UseAction.BLOCK && dys.getDataTracker().get(BLOCKING_DATA));
+            }
+            else {
+                ret.setReturnValue(item.getUseAction(this.activeItemStack) == UseAction.BLOCK);
+            }
         }
     }
 
@@ -256,11 +270,61 @@ abstract class LivingEntityMixin extends Entity{
     private byte init(byte status) {
         if(status == 29){
             LivingEntity entity = ((LivingEntity)(Object)this);
-            if((entity.getOffHandStack().isEmpty() || ParryHelper.checkDualWieldingWeapons((PlayerEntity) entity) || ParryHelper.checkDualWieldingItems((PlayerEntity) entity)) && (entity.getMainHandStack().getItem() instanceof SwordItem || entity.getMainHandStack().getItem() instanceof AxeItem)){
+            if(ParryHelper.canParry(entity)){
                 status = 30;
             }
         }
         return status;
     }
+
+    //starts tracking BLOCKING_DATA and PARRY_DATA
+    @Inject(method = "initDataTracker()V", at = @At("HEAD"))
+    private void initBlockingData(CallbackInfo info) {
+        LivingEntity dys = ((LivingEntity)(Object)this);
+        dys.getDataTracker().startTracking(BLOCKING_DATA, false);
+        dys.getDataTracker().startTracking(PARRY_DATA, false);
+    }
+
+
+    //item wont be used (finishUsing()) when itemUseTimeLeft reaches 0 (when BLOCKING_DATA is true)
+    @Inject(method = "consumeItem()V", at = @At("HEAD"), cancellable = true)
+    private void dontConsumeItem(CallbackInfo info) {
+        LivingEntity dys = ((LivingEntity)(Object)this);
+        if(dys.getDataTracker().get(BLOCKING_DATA)) info.cancel();
+    }
+
+
+
+
+
+    public void setBlockingDataToTrue(){
+        ((LivingEntity)(Object)this).getDataTracker().set(BLOCKING_DATA, true);
+    }
+
+    public void setBlockingDataToFalse(){
+        ((LivingEntity)(Object)this).getDataTracker().set(BLOCKING_DATA, false);
+    }
+
+    public boolean getBlockingDataValue(){
+        return ((LivingEntity)(Object)this).getDataTracker().get(BLOCKING_DATA);
+    }
+
+    public void setParryDataToTrue(){
+        ((LivingEntity)(Object)this).getDataTracker().set(PARRY_DATA, true);
+    }
+
+    public void setParryDataToFalse(){
+        ((LivingEntity)(Object)this).getDataTracker().set(PARRY_DATA, false);
+    }
+
+    public boolean getParryDataValue(){
+        return ((LivingEntity)(Object)this).getDataTracker().get(PARRY_DATA);
+    }
+
+    static{
+        BLOCKING_DATA = DataTracker.registerData(LivingEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
+        PARRY_DATA = DataTracker.registerData(LivingEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
+    }
+
 
 }

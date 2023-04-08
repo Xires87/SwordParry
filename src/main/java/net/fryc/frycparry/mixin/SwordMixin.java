@@ -20,7 +20,7 @@ public abstract class SwordMixin extends ToolItem implements Vanishable {
         super(material, settings);
     }
 
-
+    /*
     //cooldown for block after attacking
     @Inject(method = "postHit(Lnet/minecraft/item/ItemStack;Lnet/minecraft/entity/LivingEntity;Lnet/minecraft/entity/LivingEntity;)Z", at = @At("HEAD"))
     private void blockCooldownAfterAttacking(ItemStack stack, LivingEntity target, LivingEntity attacker, CallbackInfoReturnable<Boolean> ret) {
@@ -30,7 +30,7 @@ public abstract class SwordMixin extends ToolItem implements Vanishable {
     }
 
     //lets you block with sword only if your off hand is empty
-    public TypedActionResult<ItemStack> use(World world, PlayerEntity user, Hand hand) {
+    public TypedActionResult<ItemStack> useParry(World world, PlayerEntity user, Hand hand) {
         ItemStack itemStack = user.getStackInHand(hand);
         if(!FrycParry.config.enableBlockingWithSword) return TypedActionResult.fail(user.getStackInHand(hand));
         if((ParryHelper.checkDualWieldingItems(user) || ParryHelper.checkDualWieldingWeapons(user) || user.getOffHandStack().isEmpty()) && user.getMainHandStack().getItem() instanceof SwordItem){
@@ -56,4 +56,23 @@ public abstract class SwordMixin extends ToolItem implements Vanishable {
     public int getMaxUseTime(ItemStack stack) {
         return 72000;
     }
+
+     */
+
+    public int getParryTicks(){
+        return FrycParry.config.swordParryTicks;
+    }
+
+    public float getMeleeDamageTakenAfterBlock(){
+        return (float) FrycParry.config.swordBlockMeleeDamageTaken/100;
+    }
+
+    public float getProjectileDamageTakenAfterBlock(){
+        return (float) FrycParry.config.swordBlockArrowDamageTaken/100;
+    }
+
+    public int getCooldownAfterParryAction(){
+        return FrycParry.config.cooldownAfterSwordParryAction;
+    }
+
 }

@@ -7,27 +7,66 @@ import me.shedaniel.autoconfig.annotation.ConfigEntry;
 @Config(name = "frycparry")
 public class FrycparryConfig implements ConfigData {
 
+    //shield
     @ConfigEntry.Gui.Tooltip
-    @ConfigEntry.Category("parry")
+    @ConfigEntry.Category("shield")
     @ConfigEntry.BoundedDiscrete(max = 30, min = 1)
     public int shieldParryTicks = 4;
 
-    @ConfigEntry.Category("parry")
+    @ConfigEntry.Category("shield")
+    public int cooldownAfterShieldParryAction = 18;
+
+    // todo reszta opcji configu (i opcja do automatycznego wylaczania blokowania tarcza kiedy sie sparuje)
+
+    //sword
+    @ConfigEntry.Category("sword")
     public boolean enableBlockingWithSword = true;
+
     @ConfigEntry.Gui.Tooltip
-    @ConfigEntry.Category("parry")
+    @ConfigEntry.Category("sword")
     @ConfigEntry.BoundedDiscrete(max = 30, min = 1)
     public int swordParryTicks = 4;
 
-    @ConfigEntry.Category("parry")
-    public boolean enableBlockingWithAxe = true;
     @ConfigEntry.Gui.Tooltip
-    @ConfigEntry.Category("parry")
+    @ConfigEntry.Category("sword")
+    @ConfigEntry.BoundedDiscrete(max = 99, min = 1)
+    public int swordBlockMeleeDamageTaken = 50;
+
+    @ConfigEntry.Gui.Tooltip
+    @ConfigEntry.Category("sword")
+    @ConfigEntry.BoundedDiscrete(max = 99, min = 1)
+    public int swordBlockArrowDamageTaken = 90;
+
+    @ConfigEntry.Category("sword")
+    @ConfigEntry.BoundedDiscrete(max = 100, min = 0)
+    public int cooldownAfterSwordParryAction = 12;
+
+    //axe
+    @ConfigEntry.Category("axe")
+    public boolean enableBlockingWithAxe = true;
+
+    @ConfigEntry.Gui.Tooltip
+    @ConfigEntry.Category("axe")
     @ConfigEntry.BoundedDiscrete(max = 30, min = 1)
     public int axeParryTicks = 4;
     @ConfigEntry.Gui.Tooltip
-    @ConfigEntry.Category("parry")
+    @ConfigEntry.Category("axe")
     public boolean disableBlockAfterParryingAxeAttack = false;
+
+    @ConfigEntry.Gui.Tooltip
+    @ConfigEntry.Category("axe")
+    @ConfigEntry.BoundedDiscrete(max = 99, min = 1)
+    public int axeBlockMeleeDamageTaken = 43;
+
+    @ConfigEntry.Gui.Tooltip
+    @ConfigEntry.Category("axe")
+    @ConfigEntry.BoundedDiscrete(max = 99, min = 1)
+    public int axeBlockArrowDamageTaken = 85;
+
+    @ConfigEntry.Category("axe")
+    @ConfigEntry.BoundedDiscrete(max = 100, min = 0)
+    public int cooldownAfterAxeParryAction = 15;
+
 
     @ConfigEntry.Gui.Tooltip
     @ConfigEntry.Category("parry")
@@ -57,7 +96,7 @@ public class FrycparryConfig implements ConfigData {
 
     @ConfigEntry.Gui.Tooltip
     @ConfigEntry.Category("multiplayer")
-    @ConfigEntry.BoundedDiscrete(max = 20, min = 1)
+    @ConfigEntry.BoundedDiscrete(max = 20, min = -20)
     public int parryKnockbackStrengthForPlayers = 2;
     @ConfigEntry.Category("multiplayer")
     @ConfigEntry.Gui.Tooltip
@@ -67,52 +106,27 @@ public class FrycparryConfig implements ConfigData {
     public int weaknessForPlayersAfterParry = 0;
     @ConfigEntry.Category("multiplayer")
     @ConfigEntry.Gui.Tooltip
-    @ConfigEntry.BoundedDiscrete(max = 100, min = 1)
+    @ConfigEntry.BoundedDiscrete(max = 20, min = -20)
     public int weaknessForPlayersAmplifier = 1;
     @ConfigEntry.Category("multiplayer")
     @ConfigEntry.Gui.Tooltip
     public int slownessForPlayersAfterParry = 100;
     @ConfigEntry.Category("multiplayer")
     @ConfigEntry.Gui.Tooltip
-    @ConfigEntry.BoundedDiscrete(max = 100, min = 1)
+    @ConfigEntry.BoundedDiscrete(max = 20, min = -20)
     public int slownessForPlayersAmplifier = 1;
 
 
-    @ConfigEntry.Category("block")
-    public boolean interruptSwordBlockActionAfterParryOrBlock = true;
 
-    @ConfigEntry.Category("block")
-    public boolean interruptAxeBlockActionAfterParryOrBlock = true;
-    @ConfigEntry.Gui.Tooltip
-    @ConfigEntry.Category("block")
-    @ConfigEntry.BoundedDiscrete(max = 99, min = 1)
-    public int swordBlockMeleeDamageTaken = 50;
 
-    @ConfigEntry.Gui.Tooltip
-    @ConfigEntry.Category("block")
-    @ConfigEntry.BoundedDiscrete(max = 99, min = 1)
-    public int swordBlockArrowDamageTaken = 90;
 
-    @ConfigEntry.Gui.Tooltip
-    @ConfigEntry.Category("block")
-    @ConfigEntry.BoundedDiscrete(max = 99, min = 1)
-    public int axeBlockMeleeDamageTaken = 40;
-
-    @ConfigEntry.Gui.Tooltip
-    @ConfigEntry.Category("block")
-    @ConfigEntry.BoundedDiscrete(max = 99, min = 1)
-    public int axeBlockArrowDamageTaken = 85;
 
 
     @ConfigEntry.Category("cooldown")
     @ConfigEntry.BoundedDiscrete(max = 100, min = 0)
-    public int cooldownAfterBlockAction = 20;
+    public int cooldownAfterInterruptingBlockAction = 24;
 
-    @ConfigEntry.Category("cooldown")
-    @ConfigEntry.BoundedDiscrete(max = 100, min = 0)
-    public int cooldownForBlockAfterSwordAttack = 12;
-    @ConfigEntry.Category("cooldown")
-    @ConfigEntry.BoundedDiscrete(max = 100, min = 0)
-    public int cooldownForBlockAfterAxeAttack = 15;
+
+
 
 }

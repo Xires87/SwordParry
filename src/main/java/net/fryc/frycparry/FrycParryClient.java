@@ -11,6 +11,7 @@ import net.minecraft.util.Identifier;
 public class FrycParryClient implements ClientModInitializer {
     @Override
     public void onInitializeClient() {
+        /*
         ModelPredicateProviderRegistry.register(new Identifier("parry"), (stack, world, entity, seed) -> {
             return entity != null && (entity.getOffHandStack().isEmpty() || ParryHelper.checkDualWieldingWeapons(entity) || ParryHelper.checkDualWieldingItems(entity)) && entity.isUsingItem() && entity.getActiveItem().getItem() instanceof SwordItem ? 1.0F : 0.0F;
         });
@@ -18,6 +19,8 @@ public class FrycParryClient implements ClientModInitializer {
         ModelPredicateProviderRegistry.register(new Identifier("axeparry"), (stack, world, entity, seed) -> {
             return entity != null && (entity.getOffHandStack().isEmpty() || ParryHelper.checkDualWieldingWeapons(entity) || ParryHelper.checkDualWieldingItems(entity)) && entity.isUsingItem() && entity.getActiveItem().getItem() instanceof AxeItem ? 1.0F : 0.0F;
         });
+ todo usunac niepotrzebne modele, powyzszy kod i zrobic (hehe) animacje
+         */
 
         ModKeyBinds.register();
 

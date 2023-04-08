@@ -1,6 +1,8 @@
 package net.fryc.frycparry.mixin;
 
 import net.fryc.frycparry.FrycParry;
+import net.fryc.frycparry.util.CanBlock;
+import net.fryc.frycparry.util.ParryItem;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
@@ -16,11 +18,29 @@ abstract class ShieldMixin extends Item {
     }
 
     //cooldown after using a shield
+
     public void onStoppedUsing(ItemStack stack, World world, LivingEntity user, int remainingUseTicks) {
-        if(FrycParry.config.cooldownAfterBlockAction > 0 && user instanceof PlayerEntity player){
-            if(!player.getItemCooldownManager().isCoolingDown(stack.getItem())) player.getItemCooldownManager().set(stack.getItem(), FrycParry.config.cooldownAfterBlockAction);
+        Item item = stack.getItem();
+
+        if(user instanceof PlayerEntity player){
+            if(((CanBlock) user).getParryDataValue()){
+                if(FrycParry.config.cooldownAfterShieldParryAction > 0){
+                    if(!player.getItemCooldownManager().isCoolingDown(item)) player.getItemCooldownManager().set(item, FrycParry.config.cooldownAfterShieldParryAction);
+                }
+            }
+            else {
+                if(FrycParry.config.cooldownAfterInterruptingBlockAction > 0){
+                    if(!player.getItemCooldownManager().isCoolingDown(item)) player.getItemCooldownManager().set(item, FrycParry.config.cooldownAfterInterruptingBlockAction);
+                }
+            }
         }
+
+        // todo zrobic zeby PARRY_DATA ustawialo sie na false po jakims czasie i jak sie zablokuje atak tarcza
+        ((CanBlock) user).setParryDataToFalse();
     }
+
+
+    // todo zrobic zeby nie mogl blokowac kiedy ma disarma
 
     //makes shield enchantable
     public boolean isEnchantable(ItemStack stack) {
