@@ -1,7 +1,10 @@
 package net.fryc.frycparry.mixin;
 
+import net.fryc.frycparry.effects.ModEffects;
 import net.fryc.frycparry.util.OnParryInteraction;
+import net.fryc.frycparry.util.ParryHelper;
 import net.fryc.frycparry.util.ServerParryInteraction;
+import net.fryc.frycparry.util.ServerParryKeyUser;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.NetworkThreadUtils;
 import net.minecraft.network.listener.ServerPlayPacketListener;
@@ -25,7 +28,16 @@ abstract class ServerPlayNetworkHandlerMixin implements EntityTrackingListener, 
     @Shadow
     public void updateSequence(int sequence) {
     }
+
+    @Shadow
+    public void onPlayerInteractItem(PlayerInteractItemC2SPacket packet) {
+    }
+
     public void onPlayerInteractItemParry(PlayerInteractItemC2SPacket packet) {
+        if(!(((ServerParryKeyUser) this.player).getPressedParryKeyValue())){
+            onPlayerInteractItem(packet);
+            return;
+        }
         NetworkThreadUtils.forceMainThread(packet, ((ServerPlayNetworkHandler)(Object)this), this.player.getWorld());
         this.updateSequence(packet.getSequence());
         ServerWorld serverWorld = this.player.getWorld();
@@ -43,4 +55,6 @@ abstract class ServerPlayNetworkHandlerMixin implements EntityTrackingListener, 
 
         }
     }
+
+
 }

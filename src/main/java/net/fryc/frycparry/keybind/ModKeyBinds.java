@@ -2,7 +2,10 @@ package net.fryc.frycparry.keybind;
 
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
+import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
+import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 import net.fryc.frycparry.effects.ModEffects;
+import net.fryc.frycparry.network.ModPackets;
 import net.fryc.frycparry.util.CanBlock;
 import net.fryc.frycparry.util.ParryHelper;
 import net.fryc.frycparry.util.ParryInteraction;
@@ -24,7 +27,7 @@ public class ModKeyBinds {
 
     public static void registerKeyInputs() {
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
-            if(parrykey.wasPressed()) {
+            if(parrykey.isPressed()) {
                 ClientPlayerEntity player = client.player;
                 if(player != null && client.interactionManager != null){
                     if(!player.isUsingItem() && !player.hasStatusEffect(ModEffects.DISARMED)){
@@ -36,6 +39,7 @@ public class ModKeyBinds {
                         }
                         else{
                             if(ParryHelper.canParry(player) && ((ParryItem) player.getMainHandStack().getItem()).getUseParryAction(player.getMainHandStack()) == UseAction.BLOCK){
+                                ClientPlayNetworking.send(ModPackets.PARRY_ID, PacketByteBufs.create()); //<----- informs server that player pressed parry key
                                 ((ParryInteraction) client.interactionManager).interactItemParry(client.player, Hand.MAIN_HAND);
                             }
                         }

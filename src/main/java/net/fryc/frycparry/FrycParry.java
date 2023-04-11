@@ -6,6 +6,7 @@ import net.fabricmc.api.ModInitializer;
 import net.fryc.frycparry.config.FrycparryConfig;
 import net.fryc.frycparry.effects.ModEffects;
 import net.fryc.frycparry.enchantments.ModEnchantments;
+import net.fryc.frycparry.network.ModPackets;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -21,11 +22,12 @@ public class FrycParry implements ModInitializer {
         AutoConfig.register(FrycparryConfig.class, GsonConfigSerializer::new);
         config = AutoConfig.getConfigHolder(FrycparryConfig.class).getConfig();
 
+        ModPackets.registerC2SPackets();
         ModEffects.registerEffects();
         ModEnchantments.registerModEnchantments();
 
         /*
-        todo poprawic tam wszystko zeby sie parowalo i ogarnac zeby mozna bylo normalnie uzywac zeby konfliktow ne bylo
+        todo zrobic networking zeby dzialalo na serwerze
          */
     }
 }

@@ -2,6 +2,7 @@ package net.fryc.frycparry;
 
 import net.fabricmc.api.ClientModInitializer;
 import net.fryc.frycparry.keybind.ModKeyBinds;
+import net.fryc.frycparry.network.ModPackets;
 import net.fryc.frycparry.util.ParryHelper;
 import net.minecraft.client.item.ModelPredicateProviderRegistry;
 import net.minecraft.item.AxeItem;

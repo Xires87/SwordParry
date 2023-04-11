@@ -15,11 +15,14 @@
     "EnchantmentHelperMixin",
     "ServerPlayerInteractionManagerMixin",
     "ServerPlayNetworkHandlerMixin",
-    "PlayerInteractItemC2SPacketMixin"
+    "PlayerInteractItemC2SPacketMixin",
+    "ServerPlayerEntityMixin"
   ],
   "client": [
     "MinecraftClientMixin",
-    "ClientPlayerInteractionManagerMixin"
+    "ClientPlayerInteractionManagerMixin",
+    "PlayerEntityRendererMixin",
+    "HeldItemRendererMixin"
   ],
   "injectors": {
     "defaultRequire": 1

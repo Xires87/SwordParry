@@ -4,11 +4,13 @@ import net.fryc.frycparry.FrycParry;
 import net.fryc.frycparry.util.CanBlock;
 import net.fryc.frycparry.util.ParryHelper;
 import net.fryc.frycparry.util.ParryItem;
+import net.fryc.frycparry.util.ServerParryKeyUser;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ToolItem;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.Hand;
 import net.minecraft.util.TypedActionResult;
 import net.minecraft.util.UseAction;
@@ -52,6 +54,10 @@ abstract class ToolItemMixin extends Item implements ParryItem {
                     if(!player.getItemCooldownManager().isCoolingDown(item)) player.getItemCooldownManager().set(item, FrycParry.config.cooldownAfterInterruptingBlockAction);
                 }
             }
+
+            if(player instanceof ServerPlayerEntity sPlayer){
+                ((ServerParryKeyUser) sPlayer).changePressedParryKeyValueToFalse(); //<----- informs server that player is no longer holding parry key
+            }
         }
 
         ((CanBlock) user).setParryDataToFalse();
@@ -76,6 +82,6 @@ abstract class ToolItemMixin extends Item implements ParryItem {
     }
 
     public int getCooldownAfterParryAction(){
-        return 15;
+        return 18;
     }
 }

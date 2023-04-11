@@ -4,6 +4,7 @@ import net.minecraft.entity.data.TrackedData;
 
 public interface CanBlock {
 
+    //for living entity
     void setBlockingDataToTrue();
 
     void setBlockingDataToFalse();
@@ -15,4 +16,5 @@ public interface CanBlock {
     void setParryDataToFalse();
 
     boolean getParryDataValue();
+
 }
