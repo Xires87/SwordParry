@@ -50,8 +50,8 @@ abstract class ToolItemMixin extends Item implements ParryItem {
                 }
             }
             else {
-                if(FrycParry.config.cooldownAfterInterruptingBlockAction > 0){
-                    if(!player.getItemCooldownManager().isCoolingDown(item)) player.getItemCooldownManager().set(item, FrycParry.config.cooldownAfterInterruptingBlockAction);
+                if(((ParryItem) item).getCooldownAfterInterruptingBlockAction() > 0){
+                    if(!player.getItemCooldownManager().isCoolingDown(item)) player.getItemCooldownManager().set(item, ((ParryItem) item).getCooldownAfterInterruptingBlockAction());
                 }
             }
 
@@ -83,5 +83,28 @@ abstract class ToolItemMixin extends Item implements ParryItem {
 
     public int getCooldownAfterParryAction(){
         return 18;
+    }
+
+    public int getCooldownAfterInterruptingBlockAction(){
+        return 28;
+    }
+
+    public double getKnockbackAfterParryAction(){
+        return 4;
+    }
+    public int getSlownessAfterParryAction(){
+        return 60;
+    }
+    public int getSlownessAmplifierAfterParryAction(){
+        return 1;
+    }
+    public int getWeaknessAfterParryAction(){
+        return 0;
+    }
+    public int getWeaknessAmplifierAfterParryAction(){
+        return 1;
+    }
+    public int getDisarmedAfterParryAction(){
+        return 20;
     }
 }

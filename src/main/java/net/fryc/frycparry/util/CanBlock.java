@@ -1,10 +1,9 @@
 package net.fryc.frycparry.util;
 
-import net.minecraft.entity.data.TrackedData;
 
 public interface CanBlock {
 
-    //for living entity
+    //for LivingEntity
     void setBlockingDataToTrue();
 
     void setBlockingDataToFalse();

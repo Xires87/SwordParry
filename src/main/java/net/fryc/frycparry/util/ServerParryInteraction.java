@@ -8,5 +8,6 @@ import net.minecraft.world.World;
 
 public interface ServerParryInteraction {
 
+    //for ServerPlayerInteractionManager
     ActionResult interactItemParry(ServerPlayerEntity player, World world, ItemStack stack, Hand hand);
 }

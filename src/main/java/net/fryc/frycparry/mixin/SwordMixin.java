@@ -15,49 +15,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(SwordItem.class)
-public abstract class SwordMixin extends ToolItem implements Vanishable {
-    public SwordMixin(ToolMaterial material, Settings settings) {
-        super(material, settings);
-    }
-
-    /*
-    //cooldown for block after attacking
-    @Inject(method = "postHit(Lnet/minecraft/item/ItemStack;Lnet/minecraft/entity/LivingEntity;Lnet/minecraft/entity/LivingEntity;)Z", at = @At("HEAD"))
-    private void blockCooldownAfterAttacking(ItemStack stack, LivingEntity target, LivingEntity attacker, CallbackInfoReturnable<Boolean> ret) {
-        if(FrycParry.config.cooldownForBlockAfterSwordAttack > 0 && attacker instanceof PlayerEntity player){
-            if(FrycParry.config.enableBlockingWithSword && !player.getItemCooldownManager().isCoolingDown(stack.getItem())) player.getItemCooldownManager().set(stack.getItem(), FrycParry.config.cooldownForBlockAfterSwordAttack);
-        }
-    }
-
-    //lets you block with sword only if your off hand is empty
-    public TypedActionResult<ItemStack> useParry(World world, PlayerEntity user, Hand hand) {
-        ItemStack itemStack = user.getStackInHand(hand);
-        if(!FrycParry.config.enableBlockingWithSword) return TypedActionResult.fail(user.getStackInHand(hand));
-        if((ParryHelper.checkDualWieldingItems(user) || ParryHelper.checkDualWieldingWeapons(user) || user.getOffHandStack().isEmpty()) && user.getMainHandStack().getItem() instanceof SwordItem){
-            user.setCurrentHand(hand);
-            return TypedActionResult.pass(itemStack);
-        }
-        else return TypedActionResult.fail(user.getStackInHand(hand));
-    }
-
-
-
-    //cooldown after using block
-    public void onStoppedUsing(ItemStack stack, World world, LivingEntity user, int remainingUseTicks) {
-        if(FrycParry.config.cooldownAfterBlockAction > 0 && user instanceof PlayerEntity player){
-            if(!player.getItemCooldownManager().isCoolingDown(stack.getItem())) player.getItemCooldownManager().set(stack.getItem(), FrycParry.config.cooldownAfterBlockAction);
-        }
-    }
-
-    public UseAction getUseAction(ItemStack stack) {
-        return UseAction.BLOCK;
-    }
-
-    public int getMaxUseTime(ItemStack stack) {
-        return 72000;
-    }
-
-     */
+abstract class SwordMixin {
 
     public int getParryTicks(){
         return FrycParry.config.swordParryTicks;
@@ -73,6 +31,27 @@ public abstract class SwordMixin extends ToolItem implements Vanishable {
 
     public int getCooldownAfterParryAction(){
         return FrycParry.config.cooldownAfterSwordParryAction;
+    }
+    public int getCooldownAfterInterruptingBlockAction(){
+        return FrycParry.config.cooldownAfterInterruptingSwordBlockAction;
+    }
+    public double getKnockbackAfterParryAction(){
+        return FrycParry.config.swordParryKnockbackStrength;
+    }
+    public int getSlownessAfterParryAction(){
+        return FrycParry.config.swordSlownessAfterParry;
+    }
+    public int getSlownessAmplifierAfterParryAction(){
+        return FrycParry.config.swordSlownessAfterParryAmplifier;
+    }
+    public int getWeaknessAfterParryAction(){
+        return FrycParry.config.swordWeaknessAfterParry;
+    }
+    public int getWeaknessAmplifierAfterParryAction(){
+        return FrycParry.config.swordWeaknessAfterParryAmplifier;
+    }
+    public int getDisarmedAfterParryAction(){
+        return FrycParry.config.swordDisarmAfterParry;
     }
 
 }

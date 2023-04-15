@@ -25,9 +25,9 @@ public class ParryHelper {
     public static boolean isItemParryDisabled(Item item){
         if(item instanceof SwordItem) return !FrycParry.config.enableBlockingWithSword;
         if(item instanceof AxeItem) return !FrycParry.config.enableBlockingWithAxe;
-        //if(item instanceof PickaxeItem) return !FrycParry.config.; todo
-        //if(item instanceof ShovelItem) return !FrycParry.config.;
-        //if(item instanceof HoeItem) return !FrycParry.config.;
+        if(item instanceof PickaxeItem) return !FrycParry.config.enableBlockingWithPickaxe;
+        if(item instanceof ShovelItem) return !FrycParry.config.enableBlockingWithShovel;
+        if(item instanceof HoeItem) return !FrycParry.config.enableBlockingWithHoe;
         return false;
     }
 }

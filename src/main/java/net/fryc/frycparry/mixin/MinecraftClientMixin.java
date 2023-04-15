@@ -13,9 +13,11 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 @Mixin(MinecraftClient.class)
 abstract class MinecraftClientMixin extends ReentrantThreadExecutor<Runnable> implements WindowEventHandler {
 
+
     public MinecraftClientMixin(String string) {
         super(string);
     }
+
 
 
     @Redirect(method = "Lnet/minecraft/client/MinecraftClient;handleInputEvents()V", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/network/ClientPlayerInteractionManager;stopUsingItem(Lnet/minecraft/entity/player/PlayerEntity;)V"))

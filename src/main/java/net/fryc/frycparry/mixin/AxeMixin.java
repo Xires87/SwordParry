@@ -17,20 +17,9 @@ import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 
 @Mixin(AxeItem.class)
-abstract class AxeMixin extends MiningToolItem {
-    protected AxeMixin(float attackDamage, float attackSpeed, ToolMaterial material, TagKey<Block> effectiveBlocks, Settings settings) {
-        super(attackDamage, attackSpeed, material, effectiveBlocks, settings);
-    }
+abstract class AxeMixin {
 
-    //cooldown for block after attacking
     /*
-    public boolean postHit(ItemStack stack, LivingEntity target, LivingEntity attacker) {
-        if(FrycParry.config.cooldownForBlockAfterAxeAttack > 0 && attacker instanceof PlayerEntity player){
-            if(FrycParry.config.enableBlockingWithAxe && !player.getItemCooldownManager().isCoolingDown(stack.getItem())) player.getItemCooldownManager().set(stack.getItem(), FrycParry.config.cooldownForBlockAfterAxeAttack);
-        }
-        super.postHit(stack, target, attacker);
-        return true;
-    }
 
     //lets you block with sword only if your off hand is empty
     public TypedActionResult<ItemStack> use(World world, PlayerEntity user, Hand hand) {
@@ -46,13 +35,6 @@ abstract class AxeMixin extends MiningToolItem {
     }
 
 
-    //cooldown after using block
-    public void onStoppedUsing(ItemStack stack, World world, LivingEntity user, int remainingUseTicks) {
-        if(FrycParry.config.cooldownAfterBlockAction > 0 && user instanceof PlayerEntity player){
-            if(!player.getItemCooldownManager().isCoolingDown(stack.getItem())) player.getItemCooldownManager().set(stack.getItem(), FrycParry.config.cooldownAfterBlockAction);
-        }
-    }
-
 
      */
 
@@ -60,15 +42,40 @@ abstract class AxeMixin extends MiningToolItem {
     //    return UseAction.BOW;
     //}
 
-//todo zrobic siekierke i inne narzedzia
     public int getParryTicks(){
-        return 4;
+        return FrycParry.config.axeParryTicks;
     }
 
     public float getMeleeDamageTakenAfterBlock(){
-        return 0.55F;
+        return (float) FrycParry.config.axeBlockMeleeDamageTaken/100;
     }
+
     public float getProjectileDamageTakenAfterBlock(){
-        return 0.10F;
+        return (float) FrycParry.config.axeBlockArrowDamageTaken/100;
+    }
+
+    public int getCooldownAfterParryAction(){
+        return FrycParry.config.cooldownAfterAxeParryAction;
+    }
+    public int getCooldownAfterInterruptingBlockAction(){
+        return FrycParry.config.cooldownAfterInterruptingAxeBlockAction;
+    }
+    public double getKnockbackAfterParryAction(){
+        return FrycParry.config.axeParryKnockbackStrength;
+    }
+    public int getSlownessAfterParryAction(){
+        return FrycParry.config.axeSlownessAfterParry;
+    }
+    public int getSlownessAmplifierAfterParryAction(){
+        return FrycParry.config.axeSlownessAfterParryAmplifier;
+    }
+    public int getWeaknessAfterParryAction(){
+        return FrycParry.config.axeWeaknessAfterParry;
+    }
+    public int getWeaknessAmplifierAfterParryAction(){
+        return FrycParry.config.axeWeaknessAfterParryAmplifier;
+    }
+    public int getDisarmedAfterParryAction(){
+        return FrycParry.config.axeDisarmAfterParry;
     }
 }

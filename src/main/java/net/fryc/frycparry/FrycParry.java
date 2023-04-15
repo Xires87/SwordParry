@@ -26,8 +26,5 @@ public class FrycParry implements ModInitializer {
         ModEffects.registerEffects();
         ModEnchantments.registerModEnchantments();
 
-        /*
-        todo zrobic networking zeby dzialalo na serwerze
-         */
     }
 }

@@ -10,7 +10,7 @@ public class CounterAttackEnchantment extends Enchantment {
     protected CounterAttackEnchantment(Rarity weight, EnchantmentTarget type, EquipmentSlot... slotTypes) {
         super(weight, type, slotTypes);
     }
-
+//todo pozmieniac w enchantach zeby wchodzily tylko na narzedzia
     public int getMaxLevel() {
         return 2;
     }

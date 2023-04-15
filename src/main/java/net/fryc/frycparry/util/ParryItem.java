@@ -10,6 +10,7 @@ import net.minecraft.world.World;
 
 public interface ParryItem {
 
+    //for ToolItem
     UseAction getUseParryAction(ItemStack stack);
 
 
@@ -24,4 +25,11 @@ public interface ParryItem {
     float getProjectileDamageTakenAfterBlock();
 
     int getCooldownAfterParryAction();
+    int getCooldownAfterInterruptingBlockAction();
+    double getKnockbackAfterParryAction();
+    int getSlownessAfterParryAction();
+    int getSlownessAmplifierAfterParryAction();
+    int getWeaknessAfterParryAction();
+    int getWeaknessAmplifierAfterParryAction();
+    int getDisarmedAfterParryAction();
 }

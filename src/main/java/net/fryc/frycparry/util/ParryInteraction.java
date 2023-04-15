@@ -6,7 +6,7 @@ import net.minecraft.util.Hand;
 
 public interface ParryInteraction {
 
+    //for ClientPlayerInteractionManager
     ActionResult interactItemParry(PlayerEntity player, Hand hand);
 
-    //todo scalic te interfejsy zeby mniej klas bylo (jesli mozna)
 }
