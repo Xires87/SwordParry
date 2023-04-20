@@ -1,8 +1,6 @@
 package net.fryc.frycparry.mixin;
 
-import net.fryc.frycparry.effects.ModEffects;
 import net.fryc.frycparry.util.OnParryInteraction;
-import net.fryc.frycparry.util.ParryHelper;
 import net.fryc.frycparry.util.ServerParryInteraction;
 import net.fryc.frycparry.util.ServerParryKeyUser;
 import net.minecraft.item.ItemStack;
@@ -14,7 +12,6 @@ import net.minecraft.server.network.ServerPlayNetworkHandler;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.EntityTrackingListener;
 import net.minecraft.server.world.ServerWorld;
-import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import org.spongepowered.asm.mixin.Mixin;

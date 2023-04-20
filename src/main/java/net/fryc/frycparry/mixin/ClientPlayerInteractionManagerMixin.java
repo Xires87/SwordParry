@@ -46,7 +46,6 @@ abstract class ClientPlayerInteractionManagerMixin implements ParryInteraction {
             MutableObject<ActionResult> mutableObject = new MutableObject();
             this.sendSequencedPacket(this.client.world, (sequence) -> {
                 PlayerInteractItemC2SPacket playerInteractItemC2SPacket = new PlayerInteractItemC2SPacket(hand, sequence);
-                //((IsParry) playerInteractItemC2SPacket).isParry(); //todo chyba musze tu wyslac pakiet zeby na serwerze tez sie to wykonalo
                 ItemStack itemStack = player.getStackInHand(hand);
                 if (player.getItemCooldownManager().isCoolingDown(itemStack.getItem())) {
                     mutableObject.setValue(ActionResult.PASS);

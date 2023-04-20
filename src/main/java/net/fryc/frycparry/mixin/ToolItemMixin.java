@@ -1,6 +1,5 @@
 package net.fryc.frycparry.mixin;
 
-import net.fryc.frycparry.FrycParry;
 import net.fryc.frycparry.util.CanBlock;
 import net.fryc.frycparry.util.ParryHelper;
 import net.fryc.frycparry.util.ParryItem;

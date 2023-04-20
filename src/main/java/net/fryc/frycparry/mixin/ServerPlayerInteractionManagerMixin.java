@@ -23,7 +23,7 @@ abstract class ServerPlayerInteractionManagerMixin implements ServerParryInterac
         return this.gameMode.isCreative();
     }
 
-    //trzeba zmienic linijki z komentarzami obok
+
     public ActionResult interactItemParry(ServerPlayerEntity player, World world, ItemStack stack, Hand hand) {
         if (this.gameMode == GameMode.SPECTATOR) {
             return ActionResult.PASS;
