@@ -6,7 +6,6 @@ import net.fryc.frycparry.enchantments.ModEnchantments;
 import net.fryc.frycparry.util.CanBlock;
 import net.fryc.frycparry.util.ParryHelper;
 import net.fryc.frycparry.util.ParryItem;
-import net.minecraft.entity.Attackable;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
@@ -20,7 +19,6 @@ import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.PersistentProjectileEntity;
 import net.minecraft.item.*;
-import net.minecraft.registry.tag.DamageTypeTags;
 import net.minecraft.util.UseAction;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
@@ -32,7 +30,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 
 @Mixin(LivingEntity.class)
-abstract class LivingEntityMixin extends Entity implements Attackable, CanBlock {
+abstract class LivingEntityMixin extends Entity implements CanBlock {
     @Shadow protected ItemStack activeItemStack;
     @Shadow protected int itemUseTimeLeft;
 
@@ -55,12 +53,12 @@ abstract class LivingEntityMixin extends Entity implements Attackable, CanBlock 
             int predictionEnchantmentLevel = ModEnchantments.getPredictionEnchantment(dys);
             if(((ParryItem) tool).getUseParryAction(this.activeItemStack) == UseAction.BLOCK){
                 ParryItem parryItem = (ParryItem) tool;
-                if(this.activeItemStack.getMaxUseTime() - this.itemUseTimeLeft >= parryItem.getParryTicks() + predictionEnchantmentLevel || source.isIn(DamageTypeTags.IS_EXPLOSION)){
+                if(this.activeItemStack.getMaxUseTime() - this.itemUseTimeLeft >= parryItem.getParryTicks() + predictionEnchantmentLevel || source.isExplosive()){
                     ret.setReturnValue(false);
                 }
             }
         }
-        else if(!(this.activeItemStack.getItem() instanceof ShieldItem) || (source.isIn(DamageTypeTags.IS_EXPLOSION) && this.activeItemStack.getItem().getMaxUseTime(this.activeItemStack) - this.itemUseTimeLeft < 5)){
+        else if(!(this.activeItemStack.getItem() instanceof ShieldItem) || (source.isExplosive() && this.activeItemStack.getItem().getMaxUseTime(this.activeItemStack) - this.itemUseTimeLeft < 5)){
             ret.setReturnValue(false);
         }
     }
@@ -68,8 +66,8 @@ abstract class LivingEntityMixin extends Entity implements Attackable, CanBlock 
     @Inject(method = "damage(Lnet/minecraft/entity/damage/DamageSource;F)Z", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/LivingEntity;damageShield(F)V", shift = At.Shift.AFTER))
     private void parry(DamageSource source, float amount, CallbackInfoReturnable<Boolean> ret) {
         LivingEntity dys = ((LivingEntity)(Object)this);
-        if(!source.isIn(DamageTypeTags.IS_PROJECTILE)){
-            if(!source.isIn(DamageTypeTags.IS_EXPLOSION)){
+        if(!source.isProjectile()){
+            if(!source.isExplosive()){
                 if(source.getAttacker() instanceof LivingEntity attacker){
                     if(!(this.activeItemStack.getItem() instanceof ShieldItem && this.activeItemStack.getItem().getMaxUseTime(this.activeItemStack) - this.itemUseTimeLeft >= ((ParryItem) this.activeItemStack.getItem()).getParryTicks() + ModEnchantments.getPredictionEnchantment(dys))){
 
@@ -146,7 +144,7 @@ abstract class LivingEntityMixin extends Entity implements Attackable, CanBlock 
                                 double ctrattack_damage = player.getAttributes().getValue(EntityAttributes.GENERIC_ATTACK_DAMAGE);
                                 if(player.getOffHandStack().isEmpty()) ctrattack_damage *= (counterattackEnchantmentLevel * 0.2) + 0.1;
                                 else ctrattack_damage *= (counterattackEnchantmentLevel * 0.1) + 0.1;
-                                attacker.damage(world.getDamageSources().playerAttack(player),(float) ctrattack_damage);
+                                attacker.damage(DamageSource.player(player),(float) ctrattack_damage);
                             }
 
                             //disabling block
@@ -188,13 +186,13 @@ abstract class LivingEntityMixin extends Entity implements Attackable, CanBlock 
         LivingEntity dys = ((LivingEntity)(Object)this);
         if(amount > 0.0F && !dys.blockedByShield(source) && this.blockedByWeapon(source, dys)){
             byte b = 2;
-            if(source.isIn(DamageTypeTags.IS_EXPLOSION)){
+            if(source.isExplosive()){
                 if(this.activeItemStack.getItem() instanceof ShieldItem){
                     amount *= 0.8F;
                     b = 29;
                 }
             }
-            else if(source.isIn(DamageTypeTags.IS_PROJECTILE)){
+            else if(source.isExplosive()){
                 amount *= ((ParryItem) this.activeItemStack.getItem()).getProjectileDamageTakenAfterBlock();
                 b =30;
             }
@@ -248,7 +246,7 @@ abstract class LivingEntityMixin extends Entity implements Attackable, CanBlock 
             }
         }
 
-        if (!source.isIn(DamageTypeTags.BYPASSES_ARMOR) && user.isBlocking() && !bl) {
+        if (!source.bypassesArmor() && user.isBlocking() && !bl) {
             Vec3d vec3d = source.getPosition();
             if (vec3d != null) {
                 Vec3d vec3d2 = user.getRotationVec(1.0F);

@@ -2,8 +2,8 @@ package net.fryc.frycparry.mixin;
 
 
 import net.fryc.frycparry.util.OnParryInteraction;
+import net.minecraft.network.Packet;
 import net.minecraft.network.listener.ServerPlayPacketListener;
-import net.minecraft.network.packet.Packet;
 import net.minecraft.network.packet.c2s.play.PlayerInteractItemC2SPacket;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
