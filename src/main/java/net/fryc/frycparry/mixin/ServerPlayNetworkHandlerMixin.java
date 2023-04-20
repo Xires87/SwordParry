@@ -41,7 +41,7 @@ abstract class ServerPlayNetworkHandlerMixin implements EntityTrackingListener, 
         Hand hand = packet.getHand();
         ItemStack itemStack = this.player.getStackInHand(hand);
         this.player.updateLastActionTime();
-        if (!itemStack.isEmpty() && itemStack.isItemEnabled(serverWorld.getEnabledFeatures())) {
+        if (!itemStack.isEmpty()) {
             ActionResult actionResult = ((ServerParryInteraction) this.player.interactionManager).interactItemParry(this.player, serverWorld, itemStack, hand);
             /*
             if (actionResult.shouldSwingHand()) {

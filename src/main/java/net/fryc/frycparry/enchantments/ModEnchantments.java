@@ -6,9 +6,8 @@ import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.enchantment.EnchantmentTarget;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.registry.Registries;
-import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.registry.Registry;
 
 public class ModEnchantments {
     public static final EquipmentSlot[] HANDS = new EquipmentSlot[]{EquipmentSlot.MAINHAND, EquipmentSlot.OFFHAND};
@@ -25,7 +24,7 @@ public class ModEnchantments {
 
 
     private static Enchantment register(String name, Enchantment enchantment) {
-        return Registry.register(Registries.ENCHANTMENT, new Identifier(FrycParry.MOD_ID, name), enchantment);
+        return Registry.register(Registry.ENCHANTMENT, new Identifier(FrycParry.MOD_ID, name), enchantment);
     }
 
     public static void registerModEnchantments(){

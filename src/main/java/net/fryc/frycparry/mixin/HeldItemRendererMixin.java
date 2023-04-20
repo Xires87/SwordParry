@@ -4,7 +4,7 @@ import net.fryc.frycparry.util.CanBlock;
 import net.minecraft.client.network.AbstractClientPlayerEntity;
 import net.minecraft.client.render.item.HeldItemRenderer;
 import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.util.math.RotationAxis;
+import net.minecraft.util.math.Vec3f;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
@@ -18,9 +18,9 @@ abstract class HeldItemRendererMixin {
     private MatrixStack renderFirstPersonAnimationWhenBlocking(MatrixStack matrices, AbstractClientPlayerEntity player) {
         if(((CanBlock) player).getBlockingDataValue()){
             matrices.translate(-0.3F, 0.05F, -0.2F);
-            matrices.multiply(RotationAxis.POSITIVE_X.rotationDegrees(-25.0F));
-            matrices.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(-1.0F));
-            matrices.multiply(RotationAxis.POSITIVE_Z.rotationDegrees(15.0F));
+            matrices.multiply(Vec3f.POSITIVE_X.getDegreesQuaternion(-25.0F));
+            matrices.multiply(Vec3f.POSITIVE_Y.getDegreesQuaternion(-1.0F));
+            matrices.multiply(Vec3f.POSITIVE_Z.getDegreesQuaternion(15.0F));
         }
         return matrices;
     }

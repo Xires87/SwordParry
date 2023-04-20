@@ -1,6 +1,5 @@
 package net.fryc.frycparry.mixin;
 
-import net.fabricmc.fabric.api.item.v1.FabricItemStack;
 import net.fryc.frycparry.util.CanBlock;
 import net.fryc.frycparry.util.ParryItem;
 import net.minecraft.entity.LivingEntity;
@@ -13,7 +12,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(ItemStack.class)
-abstract class ItemStackMixin implements FabricItemStack {
+abstract class ItemStackMixin {
 
 
     @Inject(method = "onStoppedUsing(Lnet/minecraft/world/World;Lnet/minecraft/entity/LivingEntity;I)V", at = @At("HEAD"), cancellable = true)
