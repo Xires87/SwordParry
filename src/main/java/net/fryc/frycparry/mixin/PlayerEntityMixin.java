@@ -29,7 +29,7 @@ abstract class PlayerEntityMixin extends LivingEntity {
 
 
 
-    @Inject(method = "tick()V", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/player/PlayerEntity;resetLastAttackedTicks()V", shift = At.Shift.AFTER))
+    @Inject(method = "tick()V", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/player/PlayerEntity;resetLastAttackedTicks()V", shift = At.Shift.BEFORE))
     private void setBlockCooldownOnItemSwap(CallbackInfo info) {
         PlayerEntity dys = ((PlayerEntity)(Object)this);
         Item item = dys.getMainHandStack().getItem();
@@ -40,7 +40,7 @@ abstract class PlayerEntityMixin extends LivingEntity {
         ((CanBlock) dys).setParryDataToFalse();
         if(dys instanceof ServerPlayerEntity sPlayer){
             ((ServerParryKeyUser) sPlayer).changePressedParryKeyValueToFalse();
-        }//todo naprawic cooldown przy switchowaniu itemow
+        }
 
         if(ParryHelper.canParry(dys) && !ParryHelper.isItemParryDisabled(dys.getMainHandStack().getItem())){
             if(!dys.getItemCooldownManager().isCoolingDown(dys.getMainHandStack().getItem())) dys.getItemCooldownManager().set(dys.getMainHandStack().getItem(), ((ParryItem) dys.getMainHandStack().getItem()).getCooldownAfterInterruptingBlockAction());
@@ -69,7 +69,7 @@ abstract class PlayerEntityMixin extends LivingEntity {
     private void setCooldownForParry(CallbackInfo info) {
         PlayerEntity dys = ((PlayerEntity)(Object)this);
         if(this.lastAttackedTicks > 10){
-            if(ParryHelper.canParry(dys)){
+            if(ParryHelper.canParry(dys) && !ParryHelper.isItemParryDisabled(dys.getMainHandStack().getItem())){
                 if(!dys.getItemCooldownManager().isCoolingDown(dys.getMainHandStack().getItem())) dys.getItemCooldownManager().set(dys.getMainHandStack().getItem(), 10);
             }
             else if(ParryHelper.hasShieldEquipped(dys)){

@@ -1,6 +1,6 @@
 package net.fryc.frycparry.enchantments;
 
-import net.fryc.frycparry.FrycParry;
+import net.fryc.frycparry.util.ParryHelper;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentTarget;
 import net.minecraft.entity.EquipmentSlot;
@@ -26,6 +26,6 @@ public class ParryEnchantment extends Enchantment {
     @Override
     public boolean isAcceptableItem(ItemStack stack) {
         Item item = stack.getItem();
-        return item instanceof ShieldItem || (item instanceof SwordItem && FrycParry.config.enableBlockingWithSword) || (item instanceof AxeItem && FrycParry.config.enableBlockingWithAxe);
+        return item instanceof ShieldItem || !ParryHelper.isItemParryDisabled(item);
     }
 }

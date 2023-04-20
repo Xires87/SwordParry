@@ -1,5 +1,4 @@
 {
-
   "key.category.frycparry.key_category_swordparry": "Sword Parry",
   "key.frycparry.key_parry": "Parry",
 
@@ -10,76 +9,144 @@
   "effect.frycparry.disarmed": "Disarmed",
 
   "text.autoconfig.frycparry.title": "Sword Parry Config",
-  "text.autoconfig.frycparry.category.parry": "Parrying",
-  "text.autoconfig.frycparry.category.block": "Blocking",
-  "text.autoconfig.frycparry.category.parry_effects": "Parry Effects",
-  "text.autoconfig.frycparry.category.multiplayer": "Parry Effects (PVP)",
-  "text.autoconfig.frycparry.category.cooldown": "Cooldown",
+  "text.autoconfig.frycparry.category.shield": "Shield",
+  "text.autoconfig.frycparry.category.sword": "Sword",
+  "text.autoconfig.frycparry.category.axe": "Axe",
+  "text.autoconfig.frycparry.category.shovel": "Shovel",
+  "text.autoconfig.frycparry.category.hoe": "Hoe",
+  "text.autoconfig.frycparry.category.pickaxe": "Pickaxe",
+  "text.autoconfig.frycparry.category.multiplayer": "PvP",
+  "text.autoconfig.frycparry.category.global": "Other",
 
-
-  "text.autoconfig.frycparry.option.shieldParryTicks": "Shield parry ticks",
-  "text.autoconfig.frycparry.option.shieldParryTicks.@Tooltip": "Parry ticks for shield. For example, if this option is set to 10, the first 10 ticks of blocking with shield will count as parry",
-
-  "text.autoconfig.frycparry.option.enableBlockingWithSword": "Enable blocking and parrying with swords",
-
-  "text.autoconfig.frycparry.option.swordParryTicks": "Sword parry ticks",
-  "text.autoconfig.frycparry.option.swordParryTicks.@Tooltip": "Parry ticks for sword. For example, if this option is set to 10, the first 10 ticks of blocking with sword will count as parry",
-
-  "text.autoconfig.frycparry.option.enableBlockingWithAxe": "Enable blocking and parrying with axes",
-
-  "text.autoconfig.frycparry.option.axeParryTicks": "Axe parry ticks",
-  "text.autoconfig.frycparry.option.axeParryTicks.@Tooltip": "Parry ticks for axe. For example, if this option is set to 10, the first 10 ticks of blocking with axe will count as parry",
 
   "text.autoconfig.frycparry.option.disableBlockAfterParryingAxeAttack": "Disable block action after parrying axe attack",
   "text.autoconfig.frycparry.option.disableBlockAfterParryingAxeAttack.@Tooltip": "When turned on, axe attack will set cooldown whether it was parry or not",
 
-  "text.autoconfig.frycparry.option.enableBlockingWhenDualWielding": "Dual wielding settings (parry key recommended)",
-  "text.autoconfig.frycparry.option.enableBlockingWhenDualWielding.@Tooltip": "0 - player can block and parry with empty offhand;  1 - player can also block and parry when dual wields weapons; 2 - player can block and parry with any item in offhand (it is recommended to block with parry key (R by default) to avoid conflicts)",
+  "text.autoconfig.frycparry.option.enchantmentsForShieldsCanAppearOnWeaponsInChests": "Make enchantments for shield appear on swords and axes found in chests",
+  "text.autoconfig.frycparry.option.enchantmentsForShieldsCanAppearOnWeaponsInChests.@Tooltip": "This option doesn't do anything when blocking with axes and swords is disabled",
 
-  "text.autoconfig.frycparry.option.parryKnockbackStrength": "Parry knockback strength for parried mobs",
-  "text.autoconfig.frycparry.option.parryKnockbackStrength.@Tooltip": "Defines the strength of knockback enemy will take after parry",
-
-  "text.autoconfig.frycparry.option.disarmForPlayersAfterParry": "Disarm duration for parried players",
-  "text.autoconfig.frycparry.option.disarmForPlayersAfterParry.@Tooltip": "20 = 1 second. Set it to 0 to disable disarm",
-
-  "text.autoconfig.frycparry.option.parryKnockbackStrengthForPlayers": "Parry knockback strength for parried players",
-  "text.autoconfig.frycparry.option.parryKnockbackStrengthForPlayers.@Tooltip": "Defines the strength of knockback player will take after parry",
-
-  "text.autoconfig.frycparry.option.interruptSwordBlockActionAfterParryOrBlock": "Interrupt block action after successful block or parry with sword",
-  "text.autoconfig.frycparry.option.interruptAxeBlockActionAfterParryOrBlock": "Interrupt block action after successful block or parry with axe",
-
-  "text.autoconfig.frycparry.option.swordBlockMeleeDamageTaken": "% of damage taken when blocking melee attacks with sword",
-  "text.autoconfig.frycparry.option.swordBlockMeleeDamageTaken.@Tooltip": "For example, if this option is set to 90, player will get 90% of the original damage after blocking melee attack with sword",
-  "text.autoconfig.frycparry.option.swordBlockArrowDamageTaken": "% of damage taken when blocking arrows with sword",
-  "text.autoconfig.frycparry.option.swordBlockArrowDamageTaken.@Tooltip": "For example, if this option is set to 90, player will get 90% of the original damage after blocking arrow with sword",
-
-  "text.autoconfig.frycparry.option.axeBlockMeleeDamageTaken": "% of damage taken when blocking melee attacks with axe",
-  "text.autoconfig.frycparry.option.axeBlockMeleeDamageTaken.@Tooltip": "For example, if this option is set to 10, player will get 10% of the original damage after blocking melee attack with axe",
-  "text.autoconfig.frycparry.option.axeBlockArrowDamageTaken": "% of damage taken when blocking arrows with axe",
-  "text.autoconfig.frycparry.option.axeBlockArrowDamageTaken.@Tooltip": "For example, if this option is set to 10, player will get 10% of the original damage after blocking arrow with axe",
-
-  "text.autoconfig.frycparry.option.weaknessForPlayersAfterParry": "Weakness duration for parried players",
-  "text.autoconfig.frycparry.option.weaknessForPlayersAfterParry.@Tooltip": "20 = 1 second. Set it to 0 to disable weakness",
-  "text.autoconfig.frycparry.option.weaknessForPlayersAmplifier": "Weakness amplifier for parried players",
-  "text.autoconfig.frycparry.option.weaknessForPlayersAmplifier.@Tooltip": "For example, when set to 2, player will get Weakness II after getting parried",
-
-  "text.autoconfig.frycparry.option.slownessForPlayersAfterParry": "Slowness duration for parried players",
-  "text.autoconfig.frycparry.option.slownessForPlayersAfterParry.@Tooltip": "20 = 1 second. Set it to 0 to disable slowness",
-  "text.autoconfig.frycparry.option.slownessForPlayersAmplifier": "Slowness amplifier for parried players",
-  "text.autoconfig.frycparry.option.slownessForPlayersAmplifier.@Tooltip": "For example, when set to 5, player will get Slowness V after getting parried",
-
-  "text.autoconfig.frycparry.option.weaknessAfterParry": "Weakness duration for parried mobs",
-  "text.autoconfig.frycparry.option.weaknessAfterParry.@Tooltip": "20 = 1 second. Set it to 0 to disable weakness",
-  "text.autoconfig.frycparry.option.weaknessAmplifier": "Weakness amplifier for parried mobs",
-  "text.autoconfig.frycparry.option.weaknessAmplifier.@Tooltip": "For example, when set to 2, mob will get Weakness II after getting parried",
-
-  "text.autoconfig.frycparry.option.slownessAfterParry": "Slowness duration for parried mobs",
-  "text.autoconfig.frycparry.option.slownessAfterParry.@Tooltip": "20 = 1 second. Set it to 0 to disable slowness",
-  "text.autoconfig.frycparry.option.slownessAmplifier": "Slowness amplifier for parried mobs",
-  "text.autoconfig.frycparry.option.slownessAmplifier.@Tooltip": "For example, when set to 5, mob will get Slowness V after getting parried",
+  "text.autoconfig.frycparry.option.enableBlockingWhenDualWielding": "Dual wielding settings",
+  "text.autoconfig.frycparry.option.enableBlockingWhenDualWielding.@Tooltip": "0 - player can block and parry with empty offhand;  1 - player can also block and parry when dual wields weapons; 2 - player can block and parry with any item in offhand;",
 
 
-  "text.autoconfig.frycparry.option.cooldownAfterBlockAction": "Block cooldown after switching item or interrupting block action",
-  "text.autoconfig.frycparry.option.cooldownForBlockAfterSwordAttack": "Block cooldown after attacking enemy with sword",
-  "text.autoconfig.frycparry.option.cooldownForBlockAfterAxeAttack": "Block cooldown after attacking enemy with axe"
+
+  "text.autoconfig.frycparry.option.parryKnockbackStrengthForPlayersModifier": "Reduce knockback strength for players by:",
+  "text.autoconfig.frycparry.option.parryKnockbackStrengthForPlayersModifier.@Tooltip": "Example: when set to 3, and knockback strength of active item is 9, knockback strength for parried player will be 6 (9 - 3 = 6)",
+  "text.autoconfig.frycparry.option.weaknessForPlayersAfterParryModifier": "Reduce weakness duration for players by:",
+  "text.autoconfig.frycparry.option.weaknessForPlayersAfterParryModifier.@Tooltip": "Example: when set to 30, and weakness duration of active item is 100, weakness duration for parried player will be 70 (100 - 30 = 70)",
+  "text.autoconfig.frycparry.option.weaknessForPlayersAmplifierModifier": "Reduce weakness amplifier for players by:",
+  "text.autoconfig.frycparry.option.weaknessForPlayersAmplifierModifier.@Tooltip": "Example: when set to 1, and weakness amplifier of active item is 2, weakness amplifier for parried player will be 1 (2 - 1 = 1)",
+  "text.autoconfig.frycparry.option.slownessForPlayersAfterParryModifier": "Reduce slowness duration for players by:",
+  "text.autoconfig.frycparry.option.slownessForPlayersAfterParryModifier.@Tooltip": "Example: when set to -30, and slowness duration of active item is 100, slowness duration for parried player will be 130 (100 - (-30) = 130)",
+  "text.autoconfig.frycparry.option.slownessForPlayersAmplifierModifier": "Reduce slowness amplifier for players by:",
+  "text.autoconfig.frycparry.option.slownessForPlayersAmplifierModifier.@Tooltip": "Example: when set to -1, and slowness amplifier of active item is 1, slowness amplifier for parried player will be 2 (1 - (-1) = 2)",
+
+
+  "text.autoconfig.frycparry.option.enableBlockingWithPickaxe": "Enable blocking and parrying",
+  "text.autoconfig.frycparry.option.enableBlockingWithAxe": "Enable blocking and parrying",
+  "text.autoconfig.frycparry.option.enableBlockingWithSword": "Enable blocking and parrying",
+  "text.autoconfig.frycparry.option.enableBlockingWithShovel": "Enable blocking and parrying",
+  "text.autoconfig.frycparry.option.enableBlockingWithHoe": "Enable blocking and parrying",
+
+
+  "text.autoconfig.frycparry.option.cooldownAfterInterruptingShieldBlockAction": "Cooldown after switching item, blocking attack or interrupting block action",
+  "text.autoconfig.frycparry.option.cooldownAfterInterruptingAxeBlockAction": "Cooldown after switching item, blocking attack or interrupting block action",
+  "text.autoconfig.frycparry.option.cooldownAfterInterruptingPickaxeBlockAction": "Cooldown after switching item, blocking attack or interrupting block action",
+  "text.autoconfig.frycparry.option.cooldownAfterInterruptingSwordBlockAction": "Cooldown after switching item, blocking attack or interrupting block action",
+  "text.autoconfig.frycparry.option.cooldownAfterInterruptingShovelBlockAction": "Cooldown after switching item, blocking attack or interrupting block action",
+  "text.autoconfig.frycparry.option.cooldownAfterInterruptingHoeBlockAction": "Cooldown after switching item, blocking attack or interrupting block action",
+
+
+  "text.autoconfig.frycparry.option.cooldownAfterShieldParryAction": "Cooldown after parrying attack or projectile",
+  "text.autoconfig.frycparry.option.cooldownAfterAxeParryAction": "Cooldown after parrying attack or projectile",
+  "text.autoconfig.frycparry.option.cooldownAfterPickaxeParryAction": "Cooldown after parrying attack or projectile",
+  "text.autoconfig.frycparry.option.cooldownAfterSwordParryAction": "Cooldown after parrying attack or projectile",
+  "text.autoconfig.frycparry.option.cooldownAfterShovelParryAction": "Cooldown after parrying attack or projectile",
+  "text.autoconfig.frycparry.option.cooldownAfterHoeParryAction": "Cooldown after parrying attack or projectile",
+
+
+  "text.autoconfig.frycparry.option.shieldParryTicks": "Parry ticks",
+  "text.autoconfig.frycparry.option.shieldParryTicks.@Tooltip": "Example: when set to 10, the first 10 ticks of blocking with this item will count as parry",
+  "text.autoconfig.frycparry.option.axeParryTicks": "Parry ticks",
+  "text.autoconfig.frycparry.option.axeParryTicks.@Tooltip": "Example: when set to 10, the first 10 ticks of blocking with this item will count as parry",
+  "text.autoconfig.frycparry.option.pickaxeParryTicks": "Parry ticks",
+  "text.autoconfig.frycparry.option.pickaxeParryTicks.@Tooltip": "Example: when set to 10, the first 10 ticks of blocking with this item will count as parry",
+  "text.autoconfig.frycparry.option.swordParryTicks": "Parry ticks",
+  "text.autoconfig.frycparry.option.swordParryTicks.@Tooltip": "Example: when set to 10, the first 10 ticks of blocking with this item will count as parry",
+  "text.autoconfig.frycparry.option.shovelParryTicks": "Parry ticks",
+  "text.autoconfig.frycparry.option.shovelParryTicks.@Tooltip": "Example: when set to 10, the first 10 ticks of blocking with this item will count as parry",
+  "text.autoconfig.frycparry.option.hoeParryTicks": "Parry ticks",
+  "text.autoconfig.frycparry.option.hoeParryTicks.@Tooltip": "Example: when set to 10, the first 10 ticks of blocking with this item will count as parry",
+
+
+  "text.autoconfig.frycparry.option.pickaxeBlockMeleeDamageTaken": "% of damage taken after blocking melee attack",
+  "text.autoconfig.frycparry.option.pickaxeBlockMeleeDamageTaken.@Tooltip": "Example: when set to 15, player will take 15% of the original damage after blocking melee attack",
+  "text.autoconfig.frycparry.option.axeBlockMeleeDamageTaken": "% of damage taken after blocking melee attack",
+  "text.autoconfig.frycparry.option.axeBlockMeleeDamageTaken.@Tooltip": "Example: when set to 15, player will take 15% of the original damage after blocking melee attack",
+  "text.autoconfig.frycparry.option.swordBlockMeleeDamageTaken": "% of damage taken after blocking melee attack",
+  "text.autoconfig.frycparry.option.swordBlockMeleeDamageTaken.@Tooltip": "Example: when set to 15, player will take 15% of the original damage after blocking melee attack",
+  "text.autoconfig.frycparry.option.shovelBlockMeleeDamageTaken": "% of damage taken after blocking melee attack",
+  "text.autoconfig.frycparry.option.shovelBlockMeleeDamageTaken.@Tooltip": "Example: when set to 15, player will take 15% of the original damage after blocking melee attack",
+  "text.autoconfig.frycparry.option.hoeBlockMeleeDamageTaken": "% of damage taken after blocking melee attack",
+  "text.autoconfig.frycparry.option.hoeBlockMeleeDamageTaken.@Tooltip": "Example: when set to 15, player will take 15% of the original damage after blocking melee attack",
+
+
+  "text.autoconfig.frycparry.option.pickaxeBlockArrowDamageTaken": "% of damage taken after blocking projectile",
+  "text.autoconfig.frycparry.option.pickaxeBlockArrowDamageTaken.@Tooltip": "Example: when set to 90, player will take 90% of the original damage after blocking projectile",
+  "text.autoconfig.frycparry.option.axeBlockArrowDamageTaken": "% of damage taken after blocking projectile",
+  "text.autoconfig.frycparry.option.axeBlockArrowDamageTaken.@Tooltip": "Example: when set to 90, player will take 90% of the original damage after blocking projectile",
+  "text.autoconfig.frycparry.option.swordBlockArrowDamageTaken": "% of damage taken after blocking projectile",
+  "text.autoconfig.frycparry.option.swordBlockArrowDamageTaken.@Tooltip": "Example: when set to 90, player will take 90% of the original damage after blocking projectile",
+  "text.autoconfig.frycparry.option.shovelBlockArrowDamageTaken": "% of damage taken after blocking projectile",
+  "text.autoconfig.frycparry.option.shovelBlockArrowDamageTaken.@Tooltip": "Example: when set to 90, player will take 90% of the original damage after blocking projectile",
+  "text.autoconfig.frycparry.option.hoeBlockArrowDamageTaken": "% of damage taken after blocking projectile",
+  "text.autoconfig.frycparry.option.hoeBlockArrowDamageTaken.@Tooltip": "Example: when set to 90, player will take 90% of the original damage after blocking projectile",
+
+
+  "text.autoconfig.frycparry.option.shieldParryKnockbackStrength": "Parry knockback strength",
+  "text.autoconfig.frycparry.option.swordParryKnockbackStrength": "Parry knockback strength",
+  "text.autoconfig.frycparry.option.axeParryKnockbackStrength": "Parry knockback strength",
+  "text.autoconfig.frycparry.option.shovelParryKnockbackStrength": "Parry knockback strength",
+  "text.autoconfig.frycparry.option.hoeParryKnockbackStrength": "Parry knockback strength",
+  "text.autoconfig.frycparry.option.pickaxeParryKnockbackStrength": "Parry knockback strength",
+
+
+  "text.autoconfig.frycparry.option.shieldSlownessAfterParry": "Parry slowness duration",
+  "text.autoconfig.frycparry.option.swordSlownessAfterParry": "Parry slowness duration",
+  "text.autoconfig.frycparry.option.axeSlownessAfterParry": "Parry slowness duration",
+  "text.autoconfig.frycparry.option.pickaxeSlownessAfterParry": "Parry slowness duration",
+  "text.autoconfig.frycparry.option.hoeSlownessAfterParry": "Parry slowness duration",
+  "text.autoconfig.frycparry.option.shovelSlownessAfterParry": "Parry slowness duration",
+  
+
+  "text.autoconfig.frycparry.option.shieldSlownessAfterParryAmplifier": "Parry slowness amplifier",
+  "text.autoconfig.frycparry.option.swordSlownessAfterParryAmplifier": "Parry slowness amplifier",
+  "text.autoconfig.frycparry.option.axeSlownessAfterParryAmplifier": "Parry slowness amplifier",
+  "text.autoconfig.frycparry.option.pickaxeSlownessAfterParryAmplifier": "Parry slowness amplifier",
+  "text.autoconfig.frycparry.option.hoeSlownessAfterParryAmplifier": "Parry slowness amplifier",
+  "text.autoconfig.frycparry.option.shovelSlownessAfterParryAmplifier": "Parry slowness amplifier",
+
+
+  "text.autoconfig.frycparry.option.shieldWeaknessAfterParry": "Parry weakness duration",
+  "text.autoconfig.frycparry.option.swordWeaknessAfterParry": "Parry weakness duration",
+  "text.autoconfig.frycparry.option.axeWeaknessAfterParry": "Parry weakness duration",
+  "text.autoconfig.frycparry.option.pickaxeWeaknessAfterParry": "Parry weakness duration",
+  "text.autoconfig.frycparry.option.hoeWeaknessAfterParry": "Parry weakness duration",
+  "text.autoconfig.frycparry.option.shovelWeaknessAfterParry": "Parry weakness duration",
+
+
+  "text.autoconfig.frycparry.option.shieldWeaknessAfterParryAmplifier": "Parry weakness amplifier",
+  "text.autoconfig.frycparry.option.swordWeaknessAfterParryAmplifier": "Parry weakness amplifier",
+  "text.autoconfig.frycparry.option.axeWeaknessAfterParryAmplifier": "Parry weakness amplifier",
+  "text.autoconfig.frycparry.option.pickaxeWeaknessAfterParryAmplifier": "Parry weakness amplifier",
+  "text.autoconfig.frycparry.option.hoeWeaknessAfterParryAmplifier": "Parry weakness amplifier",
+  "text.autoconfig.frycparry.option.shovelWeaknessAfterParryAmplifier": "Parry weakness amplifier",
+  
+
+  "text.autoconfig.frycparry.option.shieldDisarmAfterParry": "Parry disarm duration (for players only)",
+  "text.autoconfig.frycparry.option.swordDisarmAfterParry": "Parry disarm duration (for players only)",
+  "text.autoconfig.frycparry.option.axeDisarmAfterParry": "Parry disarm duration (for players only)",
+  "text.autoconfig.frycparry.option.pickaxeDisarmAfterParry": "Parry disarm duration (for players only)",
+  "text.autoconfig.frycparry.option.hoeDisarmAfterParry": "Parry disarm duration (for players only)",
+  "text.autoconfig.frycparry.option.shovelDisarmAfterParry": "Parry disarm duration (for players only)"
 }

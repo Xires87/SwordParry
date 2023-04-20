@@ -1,6 +1,6 @@
 package net.fryc.frycparry.enchantments;
 
-import net.fryc.frycparry.FrycParry;
+import net.fryc.frycparry.util.ParryHelper;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentTarget;
 import net.minecraft.entity.EquipmentSlot;
@@ -10,7 +10,7 @@ public class CounterAttackEnchantment extends Enchantment {
     protected CounterAttackEnchantment(Rarity weight, EnchantmentTarget type, EquipmentSlot... slotTypes) {
         super(weight, type, slotTypes);
     }
-//todo pozmieniac w enchantach zeby wchodzily tylko na narzedzia
+
     public int getMaxLevel() {
         return 2;
     }
@@ -26,6 +26,6 @@ public class CounterAttackEnchantment extends Enchantment {
     @Override
     public boolean isAcceptableItem(ItemStack stack) {
         Item item = stack.getItem();
-        return item instanceof ShieldItem || (item instanceof SwordItem && FrycParry.config.enableBlockingWithSword) || (item instanceof AxeItem && FrycParry.config.enableBlockingWithAxe);
+        return item instanceof ShieldItem || !ParryHelper.isItemParryDisabled(item);
     }
 }

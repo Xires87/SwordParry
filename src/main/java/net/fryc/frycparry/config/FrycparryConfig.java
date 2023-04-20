@@ -17,10 +17,12 @@ public class FrycparryConfig implements ConfigData {
     @ConfigEntry.Category("shield")
     public int shieldSlownessAfterParry = 100;
     @ConfigEntry.Category("shield")
+    @ConfigEntry.BoundedDiscrete(max = 99, min = 1)
     public int shieldSlownessAfterParryAmplifier = 1;
     @ConfigEntry.Category("shield")
     public int shieldWeaknessAfterParry = 0;
     @ConfigEntry.Category("shield")
+    @ConfigEntry.BoundedDiscrete(max = 99, min = 1)
     public int shieldWeaknessAfterParryAmplifier = 1;
     @ConfigEntry.Category("shield")
     public int shieldDisarmAfterParry = 45;
@@ -42,12 +44,12 @@ public class FrycparryConfig implements ConfigData {
 
     @ConfigEntry.Gui.Tooltip
     @ConfigEntry.Category("sword")
-    @ConfigEntry.BoundedDiscrete(max = 99, min = 1)
+    @ConfigEntry.BoundedDiscrete(max = 100, min = 0)
     public int swordBlockMeleeDamageTaken = 50;
 
     @ConfigEntry.Gui.Tooltip
     @ConfigEntry.Category("sword")
-    @ConfigEntry.BoundedDiscrete(max = 99, min = 1)
+    @ConfigEntry.BoundedDiscrete(max = 100, min = 0)
     public int swordBlockArrowDamageTaken = 90;
 
     @ConfigEntry.Category("sword")
@@ -57,12 +59,14 @@ public class FrycparryConfig implements ConfigData {
     public int swordSlownessAfterParry = 100;
 
     @ConfigEntry.Category("sword")
+    @ConfigEntry.BoundedDiscrete(max = 99, min = 1)
     public int swordSlownessAfterParryAmplifier = 1;
 
     @ConfigEntry.Category("sword")
     public int swordWeaknessAfterParry = 0;
 
     @ConfigEntry.Category("sword")
+    @ConfigEntry.BoundedDiscrete(max = 99, min = 1)
     public int swordWeaknessAfterParryAmplifier = 1;
 
     @ConfigEntry.Category("sword")
@@ -71,7 +75,6 @@ public class FrycparryConfig implements ConfigData {
     @ConfigEntry.Category("sword")
     public int cooldownAfterInterruptingSwordBlockAction = 20;
     @ConfigEntry.Category("sword")
-    @ConfigEntry.BoundedDiscrete(max = 100, min = 0)
     public int cooldownAfterSwordParryAction = 12;
 
     //axe
@@ -85,12 +88,12 @@ public class FrycparryConfig implements ConfigData {
 
     @ConfigEntry.Gui.Tooltip
     @ConfigEntry.Category("axe")
-    @ConfigEntry.BoundedDiscrete(max = 99, min = 1)
+    @ConfigEntry.BoundedDiscrete(max = 100, min = 0)
     public int axeBlockMeleeDamageTaken = 43;
 
     @ConfigEntry.Gui.Tooltip
     @ConfigEntry.Category("axe")
-    @ConfigEntry.BoundedDiscrete(max = 99, min = 1)
+    @ConfigEntry.BoundedDiscrete(max = 100, min = 0)
     public int axeBlockArrowDamageTaken = 85;
 
     @ConfigEntry.Category("axe")
@@ -100,12 +103,14 @@ public class FrycparryConfig implements ConfigData {
     public int axeSlownessAfterParry = 100;
 
     @ConfigEntry.Category("axe")
+    @ConfigEntry.BoundedDiscrete(max = 99, min = 1)
     public int axeSlownessAfterParryAmplifier = 1;
 
     @ConfigEntry.Category("axe")
     public int axeWeaknessAfterParry = 0;
 
     @ConfigEntry.Category("axe")
+    @ConfigEntry.BoundedDiscrete(max = 99, min = 1)
     public int axeWeaknessAfterParryAmplifier = 1;
 
     @ConfigEntry.Category("axe")
@@ -115,7 +120,6 @@ public class FrycparryConfig implements ConfigData {
     public int cooldownAfterInterruptingAxeBlockAction = 24;
 
     @ConfigEntry.Category("axe")
-    @ConfigEntry.BoundedDiscrete(max = 100, min = 0)
     public int cooldownAfterAxeParryAction = 15;
 
 
@@ -145,12 +149,14 @@ public class FrycparryConfig implements ConfigData {
     public int shovelSlownessAfterParry = 110;
 
     @ConfigEntry.Category("shovel")
+    @ConfigEntry.BoundedDiscrete(max = 99, min = 1)
     public int shovelSlownessAfterParryAmplifier = 1;
 
     @ConfigEntry.Category("shovel")
     public int shovelWeaknessAfterParry = 0;
 
     @ConfigEntry.Category("shovel")
+    @ConfigEntry.BoundedDiscrete(max = 99, min = 1)
     public int shovelWeaknessAfterParryAmplifier = 1;
 
     @ConfigEntry.Category("shovel")
@@ -160,7 +166,6 @@ public class FrycparryConfig implements ConfigData {
     public int cooldownAfterInterruptingShovelBlockAction = 30;
 
     @ConfigEntry.Category("shovel")
-    @ConfigEntry.BoundedDiscrete(max = 100, min = 0)
     public int cooldownAfterShovelParryAction = 20;
 
 
@@ -190,12 +195,14 @@ public class FrycparryConfig implements ConfigData {
     public int hoeSlownessAfterParry = 40;
 
     @ConfigEntry.Category("hoe")
+    @ConfigEntry.BoundedDiscrete(max = 99, min = 1)
     public int hoeSlownessAfterParryAmplifier = 1;
 
     @ConfigEntry.Category("hoe")
     public int hoeWeaknessAfterParry = 0;
 
     @ConfigEntry.Category("hoe")
+    @ConfigEntry.BoundedDiscrete(max = 99, min = 1)
     public int hoeWeaknessAfterParryAmplifier = 1;
 
     @ConfigEntry.Category("hoe")
@@ -205,7 +212,6 @@ public class FrycparryConfig implements ConfigData {
     public int cooldownAfterInterruptingHoeBlockAction = 8;
 
     @ConfigEntry.Category("hoe")
-    @ConfigEntry.BoundedDiscrete(max = 100, min = 0)
     public int cooldownAfterHoeParryAction = 2;
 
 
@@ -235,12 +241,14 @@ public class FrycparryConfig implements ConfigData {
     public int pickaxeSlownessAfterParry = 100;
 
     @ConfigEntry.Category("pickaxe")
+    @ConfigEntry.BoundedDiscrete(max = 99, min = 1)
     public int pickaxeSlownessAfterParryAmplifier = 1;
 
     @ConfigEntry.Category("pickaxe")
     public int pickaxeWeaknessAfterParry = 0;
 
     @ConfigEntry.Category("pickaxe")
+    @ConfigEntry.BoundedDiscrete(max = 99, min = 1)
     public int pickaxeWeaknessAfterParryAmplifier = 1;
 
     @ConfigEntry.Category("pickaxe")
@@ -250,28 +258,24 @@ public class FrycparryConfig implements ConfigData {
     public int cooldownAfterInterruptingPickaxeBlockAction = 35;
 
     @ConfigEntry.Category("pickaxe")
-    @ConfigEntry.BoundedDiscrete(max = 100, min = 0)
     public int cooldownAfterPickaxeParryAction = 28;
 
 
     //multiplayer modifiers
     @ConfigEntry.Gui.Tooltip
     @ConfigEntry.Category("multiplayer")
-    @ConfigEntry.BoundedDiscrete(max = 20, min = -20)
     public int parryKnockbackStrengthForPlayersModifier = 7;
     @ConfigEntry.Category("multiplayer")
     @ConfigEntry.Gui.Tooltip
     public int weaknessForPlayersAfterParryModifier = 0;
     @ConfigEntry.Category("multiplayer")
     @ConfigEntry.Gui.Tooltip
-    @ConfigEntry.BoundedDiscrete(max = 20, min = -20)
     public int weaknessForPlayersAmplifierModifier = 0;
     @ConfigEntry.Category("multiplayer")
     @ConfigEntry.Gui.Tooltip
     public int slownessForPlayersAfterParryModifier = 0;
     @ConfigEntry.Category("multiplayer")
     @ConfigEntry.Gui.Tooltip
-    @ConfigEntry.BoundedDiscrete(max = 20, min = -20)
     public int slownessForPlayersAmplifierModifier = 0;
 
 
@@ -280,6 +284,10 @@ public class FrycparryConfig implements ConfigData {
     @ConfigEntry.Gui.Tooltip
     @ConfigEntry.Category("global")
     public boolean disableBlockAfterParryingAxeAttack = false;
+
+    @ConfigEntry.Gui.Tooltip
+    @ConfigEntry.Category("global")
+    public boolean enchantmentsForShieldsCanAppearOnWeaponsInChests = false;
 
     @ConfigEntry.Gui.Tooltip
     @ConfigEntry.Category("global")

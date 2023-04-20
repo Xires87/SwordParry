@@ -1,5 +1,6 @@
 package net.fryc.frycparry.effects;
 
+import net.fryc.frycparry.util.ParryHelper;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.attribute.AttributeContainer;
 import net.minecraft.entity.effect.StatusEffect;
@@ -19,12 +20,13 @@ public class DisarmedEffect extends StatusEffect {
             ItemStack offItem = player.getOffHandStack();
 
             if(!offItem.isEmpty()){
-                if(isShieldOrBowOrWeapon(offItem.getItem())){
+                if(isShieldOrBowOrTool(offItem.getItem())){
                     player.getItemCooldownManager().set(offItem.getItem(), duration);
                 }
             }
+
             if(!mainItem.isEmpty()){
-                if(isShieldOrBowOrWeapon(offItem.getItem())){
+                if(isShieldOrBowOrTool(mainItem.getItem())){
                     player.getItemCooldownManager().set(mainItem.getItem(), duration);
                 }
             }
@@ -32,8 +34,8 @@ public class DisarmedEffect extends StatusEffect {
         super.onApplied(entity, attributes, amplifier);
     }
 
-    private boolean isShieldOrBowOrWeapon(Item item){
-        return item instanceof ShieldItem  || item instanceof BowItem || item instanceof CrossbowItem || item instanceof TridentItem || item instanceof SwordItem || item instanceof AxeItem;
+    private static boolean isShieldOrBowOrTool(Item item){
+        return item instanceof ShieldItem || item instanceof BowItem || item instanceof CrossbowItem || item instanceof TridentItem || (item instanceof ToolItem && !ParryHelper.isItemParryDisabled(item));
     }
 
 }

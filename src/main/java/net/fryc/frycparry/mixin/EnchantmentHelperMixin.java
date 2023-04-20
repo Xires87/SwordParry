@@ -1,5 +1,7 @@
 package net.fryc.frycparry.mixin;
 
+import net.fryc.frycparry.FrycParry;
+import net.fryc.frycparry.util.ParryHelper;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.enchantment.EnchantmentLevelEntry;
 import net.minecraft.item.*;
@@ -35,7 +37,7 @@ abstract class EnchantmentHelperMixin {
         }
 
         return list2;
-    } //todo zrobic opcje do configu zeby enchanty do tarczy nie pojawialy sie w skrzynkach i zeby mozna bylo na wszystko wrzucic te enchanty (chociaz chyba juz mozna)
+    }
 
     private static boolean isEnchantmentForShield(String translationKey){
         if(Objects.equals(translationKey, "enchantment.frycparry.prediction_enchantment")) return true;
@@ -46,6 +48,7 @@ abstract class EnchantmentHelperMixin {
     }
 
     private static boolean isWeaponThatCanBlock(Item item){
-        return item instanceof SwordItem || item instanceof AxeItem;
+        if(!FrycParry.config.enchantmentsForShieldsCanAppearOnWeaponsInChests) return false;
+        return (item instanceof SwordItem || item instanceof AxeItem) && !ParryHelper.isItemParryDisabled(item);
     }
 }
