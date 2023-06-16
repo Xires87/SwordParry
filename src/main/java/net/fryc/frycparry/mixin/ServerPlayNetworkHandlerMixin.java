@@ -35,9 +35,9 @@ abstract class ServerPlayNetworkHandlerMixin implements EntityTrackingListener, 
             onPlayerInteractItem(packet);
             return;
         }
-        NetworkThreadUtils.forceMainThread(packet, ((ServerPlayNetworkHandler)(Object)this), this.player.getWorld());
+        NetworkThreadUtils.forceMainThread(packet, ((ServerPlayNetworkHandler)(Object)this), this.player.getServerWorld());
         this.updateSequence(packet.getSequence());
-        ServerWorld serverWorld = this.player.getWorld();
+        ServerWorld serverWorld = this.player.getServerWorld();
         Hand hand = packet.getHand();
         ItemStack itemStack = this.player.getStackInHand(hand);
         this.player.updateLastActionTime();

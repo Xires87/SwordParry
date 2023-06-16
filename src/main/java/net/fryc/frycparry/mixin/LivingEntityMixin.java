@@ -146,7 +146,7 @@ abstract class LivingEntityMixin extends Entity implements Attackable, CanBlock 
                                 double ctrattack_damage = player.getAttributes().getValue(EntityAttributes.GENERIC_ATTACK_DAMAGE);
                                 if(player.getOffHandStack().isEmpty()) ctrattack_damage *= (counterattackEnchantmentLevel * 0.2) + 0.1;
                                 else ctrattack_damage *= (counterattackEnchantmentLevel * 0.1) + 0.1;
-                                attacker.damage(world.getDamageSources().playerAttack(player),(float) ctrattack_damage);
+                                attacker.damage(attacker.getWorld().getDamageSources().playerAttack(player),(float) ctrattack_damage);
                             }
 
                             //disabling block
@@ -206,7 +206,7 @@ abstract class LivingEntityMixin extends Entity implements Attackable, CanBlock 
                     dys.stopUsingItem();
                 }
             }
-            dys.world.sendEntityStatus(this, b);
+            dys.getWorld().sendEntityStatus(this, b);
 
             if(!(this.activeItemStack.getItem() instanceof ShieldItem)){
                 dys.stopUsingItem();
