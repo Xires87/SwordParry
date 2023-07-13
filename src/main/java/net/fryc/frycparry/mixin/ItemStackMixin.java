@@ -16,6 +16,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 abstract class ItemStackMixin implements FabricItemStack {
 
 
+    // its probably useless but I prefer to keep it
     @Inject(method = "onStoppedUsing(Lnet/minecraft/world/World;Lnet/minecraft/entity/LivingEntity;I)V", at = @At("HEAD"), cancellable = true)
     private void stopUsingItemParry(World world, LivingEntity user, int remainingUseTicks, CallbackInfo info) {
         ItemStack dys = ((ItemStack)(Object)this);

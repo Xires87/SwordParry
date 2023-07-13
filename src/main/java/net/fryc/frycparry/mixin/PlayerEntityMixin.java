@@ -33,7 +33,10 @@ abstract class PlayerEntityMixin extends LivingEntity {
     private void setBlockCooldownOnItemSwap(CallbackInfo info) {
         PlayerEntity dys = ((PlayerEntity)(Object)this);
         Item item = dys.getMainHandStack().getItem();
-        if(dys.isUsingItem()) dys.stopUsingItem();
+        if(dys.isUsingItem()){
+            if(((CanBlock) dys).getBlockingDataValue()) ((CanBlock) dys).stopUsingItemParry();
+            else dys.stopUsingItem();
+        }
 
         //onStoppedUsingParry() is not used when player switches item while blocking
         ((CanBlock) dys).setBlockingDataToFalse();

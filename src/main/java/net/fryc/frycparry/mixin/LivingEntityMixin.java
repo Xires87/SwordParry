@@ -154,7 +154,7 @@ abstract class LivingEntityMixin extends Entity implements CanBlock {
                                     player.getItemCooldownManager().set(player.getMainHandStack().getItem(), 100);
                                     if(ParryHelper.checkDualWieldingWeapons(player)) player.getItemCooldownManager().set(player.getOffHandStack().getItem(), 100);
                                 }
-                                dys.stopUsingItem();
+                                ((CanBlock) dys).stopUsingItemParry();
                                 dys.swingHand(dys.getActiveHand(), true);
                             }
                         }
@@ -169,7 +169,7 @@ abstract class LivingEntityMixin extends Entity implements CanBlock {
             }
         }
         if(!(this.activeItemStack.getItem() instanceof ShieldItem)){
-            dys.stopUsingItem();
+            ((CanBlock) dys).stopUsingItemParry();
             dys.swingHand(dys.getActiveHand(), true);
         }
 
@@ -201,13 +201,13 @@ abstract class LivingEntityMixin extends Entity implements CanBlock {
                 b = 30;
                 if(attacker.disablesShield() && dys instanceof PlayerEntity player){
                     player.getItemCooldownManager().set(player.getMainHandStack().getItem(), 160);
-                    dys.stopUsingItem();
+                    ((CanBlock) dys).stopUsingItemParry();
                 }
             }
             dys.world.sendEntityStatus(this, b);
 
             if(!(this.activeItemStack.getItem() instanceof ShieldItem)){
-                dys.stopUsingItem();
+                ((CanBlock) dys).stopUsingItemParry();
             }
 
             //damaging item
@@ -295,6 +295,27 @@ abstract class LivingEntityMixin extends Entity implements CanBlock {
         LivingEntity dys = ((LivingEntity)(Object)this);
         if(parryDataTimer > 0) parryDataTimer--;
         else if(((CanBlock) dys).getParryDataValue()) ((CanBlock) dys).setParryDataToFalse();
+    }
+
+    // cancels stopUsingItem() method when BLOCKING_DATA is true
+    @Inject(method = "stopUsingItem()V", at = @At("HEAD"), cancellable = true)
+    private void removeBlockDelay(CallbackInfo info) {
+        LivingEntity dys = ((LivingEntity)(Object)this);
+        if(((CanBlock) dys).getBlockingDataValue()) info.cancel();
+    }
+
+    // method to stop blocking with parry key
+    public void stopUsingItemParry() {
+        LivingEntity dys = ((LivingEntity)(Object)this);
+        if (!this.activeItemStack.isEmpty() && this.activeItemStack.getItem() instanceof ToolItem tool) {
+            ((ParryItem) tool).onStoppedUsingParry(this.activeItemStack, dys.getWorld(), dys, dys.getItemUseTimeLeft());
+        }
+        else{
+            dys.stopUsingItem();
+            return;
+        }
+
+        dys.clearActiveItem();
     }
 
 
