@@ -19,7 +19,7 @@ abstract class MinecraftClientMixin extends ReentrantThreadExecutor<Runnable> im
     }
 
 
-
+// required for shield blocking with parry key
     @Redirect(method = "Lnet/minecraft/client/MinecraftClient;handleInputEvents()V", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/network/ClientPlayerInteractionManager;stopUsingItem(Lnet/minecraft/entity/player/PlayerEntity;)V"))
     private void pressed(ClientPlayerInteractionManager manager, PlayerEntity player) {
         MinecraftClient dys = ((MinecraftClient)(Object)this);

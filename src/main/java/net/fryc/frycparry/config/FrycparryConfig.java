@@ -3,6 +3,7 @@ package net.fryc.frycparry.config;
 import me.shedaniel.autoconfig.ConfigData;
 import me.shedaniel.autoconfig.annotation.Config;
 import me.shedaniel.autoconfig.annotation.ConfigEntry;
+import me.shedaniel.cloth.clothconfig.shadowed.blue.endless.jankson.Comment;
 
 @Config(name = "frycparry")
 public class FrycparryConfig implements ConfigData {
@@ -34,19 +35,23 @@ public class FrycparryConfig implements ConfigData {
 
 
     //sword
+    @Comment("Sword")
     @ConfigEntry.Category("sword")
     public boolean enableBlockingWithSword = true;
+
 
     @ConfigEntry.Gui.Tooltip
     @ConfigEntry.Category("sword")
     @ConfigEntry.BoundedDiscrete(max = 30, min = 0)
     public int swordParryTicks = 4;
 
+    @Comment("% of damage TAKEN (not reduced) after blocking melee attack: the higher this value, the more damage player takes when blocking")
     @ConfigEntry.Gui.Tooltip
     @ConfigEntry.Category("sword")
     @ConfigEntry.BoundedDiscrete(max = 100, min = 0)
     public int swordBlockMeleeDamageTaken = 50;
 
+    @Comment("% of damage TAKEN (not reduced) after blocking projectile: the higher this value, the more damage player takes when blocking")
     @ConfigEntry.Gui.Tooltip
     @ConfigEntry.Category("sword")
     @ConfigEntry.BoundedDiscrete(max = 100, min = 0)
@@ -78,6 +83,7 @@ public class FrycparryConfig implements ConfigData {
     public int cooldownAfterSwordParryAction = 12;
 
     //axe
+    @Comment("Axe")
     @ConfigEntry.Category("axe")
     public boolean enableBlockingWithAxe = true;
 
@@ -86,11 +92,13 @@ public class FrycparryConfig implements ConfigData {
     @ConfigEntry.BoundedDiscrete(max = 30, min = 0)
     public int axeParryTicks = 4;
 
+    @Comment("% of damage TAKEN (not reduced) after blocking melee attack: the higher this value, the more damage player takes when blocking")
     @ConfigEntry.Gui.Tooltip
     @ConfigEntry.Category("axe")
     @ConfigEntry.BoundedDiscrete(max = 100, min = 0)
     public int axeBlockMeleeDamageTaken = 43;
 
+    @Comment("% of damage TAKEN (not reduced) after blocking projectile: the higher this value, the more damage player takes when blocking")
     @ConfigEntry.Gui.Tooltip
     @ConfigEntry.Category("axe")
     @ConfigEntry.BoundedDiscrete(max = 100, min = 0)
@@ -124,6 +132,7 @@ public class FrycparryConfig implements ConfigData {
 
 
     //shovel
+    @Comment("Shovel")
     @ConfigEntry.Category("shovel")
     public boolean enableBlockingWithShovel = true;
 
@@ -132,11 +141,13 @@ public class FrycparryConfig implements ConfigData {
     @ConfigEntry.BoundedDiscrete(max = 30, min = 0)
     public int shovelParryTicks = 2;
 
+    @Comment("% of damage TAKEN (not reduced) after blocking melee attack: the higher this value, the more damage player takes when blocking")
     @ConfigEntry.Gui.Tooltip
     @ConfigEntry.Category("shovel")
     @ConfigEntry.BoundedDiscrete(max = 100, min = 0)
     public int shovelBlockMeleeDamageTaken = 71;
 
+    @Comment("% of damage TAKEN (not reduced) after blocking projectile: the higher this value, the more damage player takes when blocking")
     @ConfigEntry.Gui.Tooltip
     @ConfigEntry.Category("shovel")
     @ConfigEntry.BoundedDiscrete(max = 100, min = 0)
@@ -170,6 +181,7 @@ public class FrycparryConfig implements ConfigData {
 
 
     //hoe
+    @Comment("Hoe")
     @ConfigEntry.Category("hoe")
     public boolean enableBlockingWithHoe = true;
 
@@ -178,11 +190,13 @@ public class FrycparryConfig implements ConfigData {
     @ConfigEntry.BoundedDiscrete(max = 30, min = 0)
     public int hoeParryTicks = 1;
 
+    @Comment("% of damage TAKEN (not reduced) after blocking melee attack: the higher this value, the more damage player takes when blocking")
     @ConfigEntry.Gui.Tooltip
     @ConfigEntry.Category("hoe")
     @ConfigEntry.BoundedDiscrete(max = 100, min = 0)
     public int hoeBlockMeleeDamageTaken = 85;
 
+    @Comment("% of damage TAKEN (not reduced) after blocking projectile: the higher this value, the more damage player takes when blocking")
     @ConfigEntry.Gui.Tooltip
     @ConfigEntry.Category("hoe")
     @ConfigEntry.BoundedDiscrete(max = 100, min = 0)
@@ -216,6 +230,7 @@ public class FrycparryConfig implements ConfigData {
 
 
     //pickaxe
+    @Comment("Pickaxe")
     @ConfigEntry.Category("pickaxe")
     public boolean enableBlockingWithPickaxe = true;
 
@@ -224,11 +239,13 @@ public class FrycparryConfig implements ConfigData {
     @ConfigEntry.BoundedDiscrete(max = 30, min = 0)
     public int pickaxeParryTicks = 0;
 
+    @Comment("% of damage TAKEN (not reduced) after blocking melee attack: the higher this value, the more damage player takes when blocking")
     @ConfigEntry.Gui.Tooltip
     @ConfigEntry.Category("pickaxe")
     @ConfigEntry.BoundedDiscrete(max = 100, min = 0)
     public int pickaxeBlockMeleeDamageTaken = 80;
 
+    @Comment("% of damage TAKEN (not reduced) after blocking projectile: the higher this value, the more damage player takes when blocking")
     @ConfigEntry.Gui.Tooltip
     @ConfigEntry.Category("pickaxe")
     @ConfigEntry.BoundedDiscrete(max = 100, min = 0)
@@ -262,18 +279,23 @@ public class FrycparryConfig implements ConfigData {
 
 
     //multiplayer modifiers
+    @Comment("Example: when set to 3, and knockback strength of active item is 9, knockback strength for parried player will be 6 (9 - 3 = 6)")
     @ConfigEntry.Gui.Tooltip
     @ConfigEntry.Category("multiplayer")
     public int parryKnockbackStrengthForPlayersModifier = 7;
+    @Comment("Example: when set to 30, and weakness duration of active item is 100, weakness duration for parried player will be 70 (100 - 30 = 70)")
     @ConfigEntry.Category("multiplayer")
     @ConfigEntry.Gui.Tooltip
     public int weaknessForPlayersAfterParryModifier = 0;
+    @Comment("Example: when set to 1, and weakness amplifier of active item is 2, weakness amplifier for parried player will be 1 (2 - 1 = 1)")
     @ConfigEntry.Category("multiplayer")
     @ConfigEntry.Gui.Tooltip
     public int weaknessForPlayersAmplifierModifier = 0;
+    @Comment("Example: when set to -30, and slowness duration of active item is 100, slowness duration for parried player will be 130 (100 - (-30) = 130)")
     @ConfigEntry.Category("multiplayer")
     @ConfigEntry.Gui.Tooltip
     public int slownessForPlayersAfterParryModifier = 0;
+    @Comment("Example: when set to -1, and slowness amplifier of active item is 1, slowness amplifier for parried player will be 2 (1 - (-1) = 2)")
     @ConfigEntry.Category("multiplayer")
     @ConfigEntry.Gui.Tooltip
     public int slownessForPlayersAmplifierModifier = 0;
@@ -281,14 +303,17 @@ public class FrycparryConfig implements ConfigData {
 
 
     //global settings
+    @Comment("When true, axe attack will set cooldown whether it was parry or not")
     @ConfigEntry.Gui.Tooltip
     @ConfigEntry.Category("global")
     public boolean disableBlockAfterParryingAxeAttack = false;
 
+    @Comment("This option doesn't do anything when blocking with axes and swords is disabled")
     @ConfigEntry.Gui.Tooltip
     @ConfigEntry.Category("global")
     public boolean enchantmentsForShieldsCanAppearOnWeaponsInChests = false;
 
+    @Comment("Dual wielding settings: 0 - player can block and parry with empty offhand;  1 - player can also block and parry when dual wields weapons; 2 - player can block and parry with any item in offhand;")
     @ConfigEntry.Gui.Tooltip
     @ConfigEntry.Category("global")
     @ConfigEntry.BoundedDiscrete(max = 2, min = 0)

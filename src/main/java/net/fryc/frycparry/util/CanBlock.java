@@ -16,4 +16,6 @@ public interface CanBlock {
 
     boolean getParryDataValue();
 
+    void stopUsingItemParry();
+
 }
