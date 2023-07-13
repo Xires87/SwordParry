@@ -26,6 +26,5 @@ public class FrycParry implements ModInitializer {
         ModEffects.registerEffects();
         ModEnchantments.registerModEnchantments();
 
-        // todo https://github.com/ZsoltMolnarrr/SpellEngine/blob/1.19.2/common/src/main/java/net/spell_engine/mixin/ItemStackMixin.java#L26  <---- 169 linijka
     }
 }
