@@ -1,0 +1,18 @@
+package net.fryc.frycparry.network.c2s;
+
+import net.fabricmc.fabric.api.networking.v1.PacketSender;
+import net.fryc.frycparry.util.CanBlock;
+import net.fryc.frycparry.util.ServerParryKeyUser;
+import net.minecraft.network.PacketByteBuf;
+import net.minecraft.server.MinecraftServer;
+import net.minecraft.server.network.ServerPlayNetworkHandler;
+import net.minecraft.server.network.ServerPlayerEntity;
+
+public class NotHoldingParryKeyC2SPacket {
+
+    public static void receive(MinecraftServer server, ServerPlayerEntity player, ServerPlayNetworkHandler handler, PacketByteBuf buf, PacketSender responseSender){
+        ((ServerParryKeyUser) player).changePressedParryKeyValueToFalse();
+        ((CanBlock) player).setBlockingDataToFalse();
+        ((CanBlock) player).setParryDataToFalse();
+    }
+}

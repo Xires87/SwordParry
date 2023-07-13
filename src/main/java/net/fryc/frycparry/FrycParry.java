@@ -1,7 +1,7 @@
 package net.fryc.frycparry;
 
 import me.shedaniel.autoconfig.AutoConfig;
-import me.shedaniel.autoconfig.serializer.GsonConfigSerializer;
+import me.shedaniel.autoconfig.serializer.JanksonConfigSerializer;
 import net.fabricmc.api.ModInitializer;
 import net.fryc.frycparry.config.FrycparryConfig;
 import net.fryc.frycparry.effects.ModEffects;
@@ -19,7 +19,7 @@ public class FrycParry implements ModInitializer {
 
     @Override
     public void onInitialize() {
-        AutoConfig.register(FrycparryConfig.class, GsonConfigSerializer::new);
+        AutoConfig.register(FrycparryConfig.class, JanksonConfigSerializer::new);
         config = AutoConfig.getConfigHolder(FrycparryConfig.class).getConfig();
 
         ModPackets.registerC2SPackets();
