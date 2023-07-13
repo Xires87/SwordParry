@@ -6,6 +6,7 @@ import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 import net.fryc.frycparry.effects.ModEffects;
 import net.fryc.frycparry.network.ModPackets;
+import net.fryc.frycparry.util.CanBlock;
 import net.fryc.frycparry.util.ParryHelper;
 import net.fryc.frycparry.util.ParryInteraction;
 import net.fryc.frycparry.util.ParryItem;
@@ -22,11 +23,14 @@ public class ModKeyBinds {
 
     public static KeyBinding parrykey;
 
+    private static boolean bl = false;
+
     public static void registerKeyInputs() {
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
-            if(parrykey.isPressed()) {
-                ClientPlayerEntity player = client.player;
-                if(player != null && client.interactionManager != null){
+            ClientPlayerEntity player = client.player;
+            if(player != null && client.interactionManager != null){
+                if(parrykey.isPressed()) {
+                    bl = true;
                     if(!player.isUsingItem() && !player.hasStatusEffect(ModEffects.DISARMED)){
                         if(player.getMainHandStack().getUseAction() == UseAction.BLOCK){
                             client.interactionManager.interactItem(client.player, Hand.MAIN_HAND);
@@ -36,10 +40,24 @@ public class ModKeyBinds {
                         }
                         else{
                             if(ParryHelper.canParry(player) && ((ParryItem) player.getMainHandStack().getItem()).getUseParryAction(player.getMainHandStack()) == UseAction.BLOCK){
-                                ClientPlayNetworking.send(ModPackets.PARRY_ID, PacketByteBufs.create()); //<----- informs server that player pressed parry key
+                                ClientPlayNetworking.send(ModPackets.PARRY_ID, PacketByteBufs.empty()); //<----- informs server that player pressed parry key
                                 ((ParryInteraction) client.interactionManager).interactItemParry(client.player, Hand.MAIN_HAND);
                             }
                         }
+                    }
+                }
+                else {
+                    if(!player.isUsingItem()){
+                        if(bl){
+                            ((CanBlock) player).setBlockingDataToFalse();
+                            ((CanBlock) player).setParryDataToFalse();
+                            ClientPlayNetworking.send(ModPackets.NOT_HOLDING_PARRY_KEY_ID, PacketByteBufs.empty());
+                            bl = false;
+                        }
+                    }
+                    else if(((CanBlock) player).getBlockingDataValue()){
+                        ((ParryInteraction) client.interactionManager).stopUsingItemParry(player);
+                        ClientPlayNetworking.send(ModPackets.STOP_BLOCKING_ID, PacketByteBufs.empty());
                     }
                 }
             }

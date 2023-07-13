@@ -1,5 +1,9 @@
 package net.fryc.frycparry.mixin;
 
+import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
+import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
+import net.fryc.frycparry.network.ModPackets;
+import net.fryc.frycparry.util.CanBlock;
 import net.fryc.frycparry.util.ParryInteraction;
 import net.fryc.frycparry.util.ParryItem;
 import net.minecraft.client.MinecraftClient;
@@ -69,5 +73,11 @@ abstract class ClientPlayerInteractionManagerMixin implements ParryInteraction {
             });
             return (ActionResult)mutableObject.getValue();
         }
+    }
+
+    public void stopUsingItemParry(PlayerEntity player) {
+        this.syncSelectedSlot();
+        ClientPlayNetworking.send(ModPackets.STOP_BLOCKING_ID, PacketByteBufs.empty());
+        ((CanBlock) player).stopUsingItemParry();
     }
 }
