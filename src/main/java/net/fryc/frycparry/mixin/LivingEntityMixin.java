@@ -23,7 +23,6 @@ import net.minecraft.util.UseAction;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.*;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
@@ -31,8 +30,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(LivingEntity.class)
 abstract class LivingEntityMixin extends Entity implements CanBlock {
-    @Shadow protected ItemStack activeItemStack;
-    @Shadow protected int itemUseTimeLeft;
 
     private static final TrackedData<Boolean> BLOCKING_DATA;
     private static final TrackedData<Boolean> PARRY_DATA;
@@ -49,16 +46,16 @@ abstract class LivingEntityMixin extends Entity implements CanBlock {
     @Inject(method = "blockedByShield(Lnet/minecraft/entity/damage/DamageSource;)Z", at = @At("HEAD"), cancellable = true)
     private void shieldBlocking(DamageSource source, CallbackInfoReturnable<Boolean> ret) {
         LivingEntity dys = ((LivingEntity)(Object)this);
-        if(this.activeItemStack.getItem() instanceof ToolItem tool){
+        if(dys.getActiveItem().getItem() instanceof ToolItem tool){
             int predictionEnchantmentLevel = ModEnchantments.getPredictionEnchantment(dys);
-            if(((ParryItem) tool).getUseParryAction(this.activeItemStack) == UseAction.BLOCK){
+            if(((ParryItem) tool).getUseParryAction(dys.getActiveItem()) == UseAction.BLOCK){
                 ParryItem parryItem = (ParryItem) tool;
-                if(this.activeItemStack.getMaxUseTime() - this.itemUseTimeLeft >= parryItem.getParryTicks() + predictionEnchantmentLevel || source.isExplosive()){
+                if(dys.getActiveItem().getMaxUseTime() - dys.getItemUseTimeLeft() >= parryItem.getParryTicks() + predictionEnchantmentLevel || source.isExplosive()){
                     ret.setReturnValue(false);
                 }
             }
         }
-        else if(!(this.activeItemStack.getItem() instanceof ShieldItem) || (source.isExplosive() && this.activeItemStack.getItem().getMaxUseTime(this.activeItemStack) - this.itemUseTimeLeft < 5)){
+        else if(!(dys.getActiveItem().getItem() instanceof ShieldItem) || (source.isExplosive() && dys.getActiveItem().getItem().getMaxUseTime(dys.getActiveItem()) - dys.getItemUseTimeLeft() < 5)){
             ret.setReturnValue(false);
         }
     }
@@ -66,10 +63,11 @@ abstract class LivingEntityMixin extends Entity implements CanBlock {
     @Inject(method = "damage(Lnet/minecraft/entity/damage/DamageSource;F)Z", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/LivingEntity;damageShield(F)V", shift = At.Shift.AFTER))
     private void parry(DamageSource source, float amount, CallbackInfoReturnable<Boolean> ret) {
         LivingEntity dys = ((LivingEntity)(Object)this);
+        if(dys.getActiveItem().isEmpty() || !(dys.getActiveItem().getItem() instanceof ToolItem || dys.getActiveItem().getItem() instanceof ShieldItem)) return;
         if(!source.isProjectile()){
             if(!source.isExplosive()){
                 if(source.getAttacker() instanceof LivingEntity attacker){
-                    if(!(this.activeItemStack.getItem() instanceof ShieldItem && this.activeItemStack.getItem().getMaxUseTime(this.activeItemStack) - this.itemUseTimeLeft >= ((ParryItem) this.activeItemStack.getItem()).getParryTicks() + ModEnchantments.getPredictionEnchantment(dys))){
+                    if(!(dys.getActiveItem().getItem() instanceof ShieldItem && dys.getActiveItem().getItem().getMaxUseTime(dys.getActiveItem()) - dys.getItemUseTimeLeft() >= ((ParryItem) dys.getActiveItem().getItem()).getParryTicks() + ModEnchantments.getPredictionEnchantment(dys))){
 
                         parryDataTimer = 10;
                         ((CanBlock) dys).setParryDataToTrue();
@@ -78,11 +76,11 @@ abstract class LivingEntityMixin extends Entity implements CanBlock {
                         int parryEnchantmentLevel = ModEnchantments.getParryEnchantment(dys);
 
                         //variables for parry effects
-                        double knockback = ((ParryItem) this.activeItemStack.getItem()).getKnockbackAfterParryAction();
-                        int slowness = ((ParryItem) this.activeItemStack.getItem()).getSlownessAfterParryAction();
-                        int slownessAmp = ((ParryItem) this.activeItemStack.getItem()).getSlownessAmplifierAfterParryAction();
-                        int weakness = ((ParryItem) this.activeItemStack.getItem()).getWeaknessAfterParryAction();
-                        int weaknessAmp = ((ParryItem) this.activeItemStack.getItem()).getWeaknessAmplifierAfterParryAction();
+                        double knockback = ((ParryItem) dys.getActiveItem().getItem()).getKnockbackAfterParryAction();
+                        int slowness = ((ParryItem) dys.getActiveItem().getItem()).getSlownessAfterParryAction();
+                        int slownessAmp = ((ParryItem) dys.getActiveItem().getItem()).getSlownessAmplifierAfterParryAction();
+                        int weakness = ((ParryItem) dys.getActiveItem().getItem()).getWeaknessAfterParryAction();
+                        int weaknessAmp = ((ParryItem) dys.getActiveItem().getItem()).getWeaknessAmplifierAfterParryAction();
                         int disarmed = 0;
 
                         float[] modifiers = new float[3];
@@ -93,7 +91,7 @@ abstract class LivingEntityMixin extends Entity implements CanBlock {
                             slownessAmp -= FrycParry.config.slownessForPlayersAmplifierModifier;
                             weakness -= FrycParry.config.weaknessForPlayersAfterParryModifier;
                             weaknessAmp -= FrycParry.config.weaknessForPlayersAmplifierModifier;
-                            disarmed = ((ParryItem) this.activeItemStack.getItem()).getDisarmedAfterParryAction();
+                            disarmed = ((ParryItem) dys.getActiveItem().getItem()).getDisarmedAfterParryAction();
                         }
                         else {
                             modifiers[0] = 0.95F; modifiers[1] = 0.3F; modifiers[2] = 0.22F;
@@ -149,7 +147,7 @@ abstract class LivingEntityMixin extends Entity implements CanBlock {
 
                             //disabling block
                             if(attacker.disablesShield() && FrycParry.config.disableBlockAfterParryingAxeAttack){
-                                if(this.activeItemStack.getItem() instanceof ShieldItem) player.disableShield(true);
+                                if(dys.getActiveItem().getItem() instanceof ShieldItem) player.disableShield(true);
                                 else {
                                     player.getItemCooldownManager().set(player.getMainHandStack().getItem(), 100);
                                     if(ParryHelper.checkDualWieldingWeapons(player)) player.getItemCooldownManager().set(player.getOffHandStack().getItem(), 100);
@@ -161,14 +159,14 @@ abstract class LivingEntityMixin extends Entity implements CanBlock {
 
 
                     }
-                    else if(this.activeItemStack.getItem() instanceof ShieldItem && dys instanceof PlayerEntity player){
+                    else if(dys.getActiveItem().getItem() instanceof ShieldItem && dys instanceof PlayerEntity player){
                         if(((CanBlock) player).getParryDataValue()) ((CanBlock) player).setParryDataToFalse();
                         if(attacker.disablesShield()) player.disableShield(true);
                     }
                 }
             }
         }
-        if(!(this.activeItemStack.getItem() instanceof ShieldItem)){
+        if(!(dys.getActiveItem().getItem() instanceof ShieldItem)){
             ((CanBlock) dys).stopUsingItemParry();
             dys.swingHand(dys.getActiveHand(), true);
         }
@@ -184,20 +182,21 @@ abstract class LivingEntityMixin extends Entity implements CanBlock {
     @ModifyVariable(method = "damage(Lnet/minecraft/entity/damage/DamageSource;F)Z", at = @At("HEAD"), ordinal = 0)
     private float blocking(float amount, DamageSource source) {
         LivingEntity dys = ((LivingEntity)(Object)this);
+        if(dys.getActiveItem().isEmpty() || !(dys.getActiveItem().getItem() instanceof ToolItem || dys.getActiveItem().getItem() instanceof ShieldItem)) return amount;
         if(amount > 0.0F && !dys.blockedByShield(source) && this.blockedByWeapon(source, dys)){
             byte b = 2;
             if(source.isExplosive()){
-                if(this.activeItemStack.getItem() instanceof ShieldItem){
+                if(dys.getActiveItem().getItem() instanceof ShieldItem){
                     amount *= 0.8F;
                     b = 29;
                 }
             }
-            else if(source.isExplosive()){
-                amount *= ((ParryItem) this.activeItemStack.getItem()).getProjectileDamageTakenAfterBlock();
+            else if(source.isProjectile()){
+                amount *= ((ParryItem) dys.getActiveItem().getItem()).getProjectileDamageTakenAfterBlock();
                 b =30;
             }
             else if(source.getAttacker() instanceof LivingEntity attacker){
-                amount *= ((ParryItem) this.activeItemStack.getItem()).getMeleeDamageTakenAfterBlock();
+                amount *= ((ParryItem) dys.getActiveItem().getItem()).getMeleeDamageTakenAfterBlock();
                 b = 30;
                 if(attacker.disablesShield() && dys instanceof PlayerEntity player){
                     player.getItemCooldownManager().set(player.getMainHandStack().getItem(), 160);
@@ -206,7 +205,7 @@ abstract class LivingEntityMixin extends Entity implements CanBlock {
             }
             dys.world.sendEntityStatus(this, b);
 
-            if(!(this.activeItemStack.getItem() instanceof ShieldItem)){
+            if(!(dys.getActiveItem().getItem() instanceof ShieldItem)){
                 ((CanBlock) dys).stopUsingItemParry();
             }
 
@@ -225,13 +224,13 @@ abstract class LivingEntityMixin extends Entity implements CanBlock {
     @Inject(method = "isBlocking()Z", at = @At("HEAD"), cancellable = true)
     private void removeBlockDelay(CallbackInfoReturnable<Boolean> ret) {
         LivingEntity dys = ((LivingEntity)(Object)this);
-        if (dys.isUsingItem() && !this.activeItemStack.isEmpty()) {
-            Item item = this.activeItemStack.getItem();
-            if(item instanceof ToolItem && item.getUseAction(this.activeItemStack) != UseAction.BLOCK){
-                ret.setReturnValue(((ParryItem) item).getUseParryAction(this.activeItemStack) == UseAction.BLOCK && dys.getDataTracker().get(BLOCKING_DATA)); //<--- BLOCKING_DATA is required to block with items that doesn't have UseAction.BLOCK
+        if (dys.isUsingItem() && !dys.getActiveItem().isEmpty()) {
+            Item item = dys.getActiveItem().getItem();
+            if(item instanceof ToolItem && item.getUseAction(dys.getActiveItem()) != UseAction.BLOCK){
+                ret.setReturnValue(((ParryItem) item).getUseParryAction(dys.getActiveItem()) == UseAction.BLOCK && dys.getDataTracker().get(BLOCKING_DATA)); //<--- BLOCKING_DATA is required to block with items that doesn't have UseAction.BLOCK
             }
             else {
-                ret.setReturnValue(item.getUseAction(this.activeItemStack) == UseAction.BLOCK);
+                ret.setReturnValue(item.getUseAction(dys.getActiveItem()) == UseAction.BLOCK);
             }
         }
     }
@@ -307,8 +306,8 @@ abstract class LivingEntityMixin extends Entity implements CanBlock {
     // method to stop blocking with parry key
     public void stopUsingItemParry() {
         LivingEntity dys = ((LivingEntity)(Object)this);
-        if (!this.activeItemStack.isEmpty() && this.activeItemStack.getItem() instanceof ToolItem tool) {
-            ((ParryItem) tool).onStoppedUsingParry(this.activeItemStack, dys.getWorld(), dys, dys.getItemUseTimeLeft());
+        if (!dys.getActiveItem().isEmpty() && dys.getActiveItem().getItem() instanceof ToolItem tool) {
+            ((ParryItem) tool).onStoppedUsingParry(dys.getActiveItem(), dys.getWorld(), dys, dys.getItemUseTimeLeft());
         }
         else{
             dys.stopUsingItem();
