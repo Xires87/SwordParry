@@ -2,7 +2,6 @@ package net.fryc.frycparry.effects;
 
 import net.fryc.frycparry.util.ParryHelper;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.attribute.AttributeContainer;
 import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffectCategory;
 import net.minecraft.entity.player.PlayerEntity;
@@ -13,7 +12,7 @@ public class DisarmedEffect extends StatusEffect {
         super(statusEffectCategory, color);
     }
 
-    public void onApplied(LivingEntity entity, AttributeContainer attributes, int amplifier) {
+    public void onApplied(LivingEntity entity, int amplifier) {
         if(entity instanceof PlayerEntity player){
             int duration = player.getActiveStatusEffects().get(ModEffects.DISARMED).getDuration();
             ItemStack mainItem = player.getMainHandStack();
@@ -31,7 +30,7 @@ public class DisarmedEffect extends StatusEffect {
                 }
             }
         }
-        super.onApplied(entity, attributes, amplifier);
+        super.onApplied(entity, amplifier);
     }
 
     private static boolean isShieldOrBowOrTool(Item item){
