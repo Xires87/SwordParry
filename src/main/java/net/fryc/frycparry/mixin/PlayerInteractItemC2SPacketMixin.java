@@ -14,7 +14,7 @@ abstract class PlayerInteractItemC2SPacketMixin implements Packet<ServerPlayPack
 
     @Redirect(method = "Lnet/minecraft/network/packet/c2s/play/PlayerInteractItemC2SPacket;apply(Lnet/minecraft/network/listener/ServerPlayPacketListener;)V", at = @At(value = "INVOKE", target = "Lnet/minecraft/network/listener/ServerPlayPacketListener;onPlayerInteractItem(Lnet/minecraft/network/packet/c2s/play/PlayerInteractItemC2SPacket;)V"))
     private void injected(ServerPlayPacketListener listener, PlayerInteractItemC2SPacket packet) {
-        ((OnParryInteraction) listener).onPlayerInteractItemParry(packet);
+        ((OnParryInteraction) listener).onPlayerInteractItemParry(packet); // todo sprobowac zrobic wlasny pakiet zeby nie ingerowac w pakiety minecrafta
     }
 
 }
