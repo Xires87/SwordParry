@@ -1,7 +1,6 @@
 package net.fryc.frycparry.mixin;
 
 import net.fryc.frycparry.FrycParry;
-import net.fryc.frycparry.effects.ModEffects;
 import net.fryc.frycparry.enchantments.ModEnchantments;
 import net.fryc.frycparry.util.CanBlock;
 import net.fryc.frycparry.util.ParryHelper;
@@ -10,22 +9,23 @@ import net.minecraft.entity.Attackable;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
-import net.minecraft.entity.effect.StatusEffectInstance;
-import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.PersistentProjectileEntity;
-import net.minecraft.item.*;
+import net.minecraft.item.Item;
+import net.minecraft.item.ShieldItem;
+import net.minecraft.item.ToolItem;
 import net.minecraft.registry.tag.DamageTypeTags;
 import net.minecraft.util.UseAction;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.injection.*;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.ModifyVariable;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
@@ -74,80 +74,15 @@ abstract class LivingEntityMixin extends Entity implements Attackable, CanBlock 
                         parryDataTimer = 10;
                         ((CanBlock) dys).setParryDataToTrue();
 
-                        //parry enchantment
-                        int parryEnchantmentLevel = ModEnchantments.getParryEnchantment(dys);
-
-                        //variables for parry effects
-                        double knockback = ((ParryItem) dys.getActiveItem().getItem()).getKnockbackAfterParryAction();
-                        int slowness = ((ParryItem) dys.getActiveItem().getItem()).getSlownessAfterParryAction();
-                        int slownessAmp = ((ParryItem) dys.getActiveItem().getItem()).getSlownessAmplifierAfterParryAction();
-                        int weakness = ((ParryItem) dys.getActiveItem().getItem()).getWeaknessAfterParryAction();
-                        int weaknessAmp = ((ParryItem) dys.getActiveItem().getItem()).getWeaknessAmplifierAfterParryAction();
-                        int disarmed = 0;
-
-                        float[] modifiers = new float[3];
-                        if(attacker instanceof PlayerEntity) {
-                            modifiers[0] = 0.65F; modifiers[1] = 0.2F; modifiers[2] = 0.15F;
-                            knockback -= FrycParry.config.parryKnockbackStrengthForPlayersModifier;
-                            slowness -= FrycParry.config.slownessForPlayersAfterParryModifier;
-                            slownessAmp -= FrycParry.config.slownessForPlayersAmplifierModifier;
-                            weakness -= FrycParry.config.weaknessForPlayersAfterParryModifier;
-                            weaknessAmp -= FrycParry.config.weaknessForPlayersAmplifierModifier;
-                            disarmed = ((ParryItem) dys.getActiveItem().getItem()).getDisarmedAfterParryAction();
-                        }
-                        else {
-                            modifiers[0] = 0.95F; modifiers[1] = 0.3F; modifiers[2] = 0.22F;
-                        }
-
-                        //knockback
-                        if(knockback > 0){
-                            attacker.takeKnockback((knockback + parryEnchantmentLevel * modifiers[0])/10, dys.getX() - attacker.getX(), dys.getZ() - attacker.getZ());
-                            attacker.velocityModified = true;
-                        }
-
-                        //slowness
-                        if(slowness > 0){
-                            slowness = (int) (slowness + slowness * (parryEnchantmentLevel * modifiers[1]));
-                            slownessAmp--;
-                            if(slownessAmp < 0) slownessAmp = 0;
-                            if(attacker.hasStatusEffect(StatusEffects.SLOWNESS)){
-                                if(attacker.getActiveStatusEffects().get(StatusEffects.SLOWNESS).getDuration() < slowness) attacker.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, slowness, slownessAmp));
-                            }
-                            else attacker.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, slowness, slownessAmp));
-                        }
-
-                        //weakness
-                        if(weakness > 0){
-                            weakness = (int) (weakness + weakness * (parryEnchantmentLevel * modifiers[2]));
-                            weaknessAmp--;
-                            if(weaknessAmp < 0) weaknessAmp = 0;
-                            if(attacker.hasStatusEffect(StatusEffects.WEAKNESS)){
-                                if(attacker.getActiveStatusEffects().get(StatusEffects.WEAKNESS).getDuration() < weakness) attacker.addStatusEffect(new StatusEffectInstance(StatusEffects.WEAKNESS, weakness, weaknessAmp));
-                            }
-                            else attacker.addStatusEffect(new StatusEffectInstance(StatusEffects.WEAKNESS, weakness, weaknessAmp));
-                        }
-
-                        //disarm
-                        if(disarmed > 0){
-                            disarmed = disarmed + parryEnchantmentLevel * 5;
-                            if(attacker.hasStatusEffect(ModEffects.DISARMED)){
-                                if(attacker.getActiveStatusEffects().get(ModEffects.DISARMED).getDuration() < disarmed) attacker.addStatusEffect(new StatusEffectInstance(ModEffects.DISARMED, disarmed, 0));
-                            }
-                            else attacker.addStatusEffect(new StatusEffectInstance(ModEffects.DISARMED, disarmed, 0));
-                        }
+                        //applying parry effects
+                        ParryHelper.applyParryEffects(dys, attacker);
 
                         //counterattack enchantment and disabling block
                         if(dys instanceof  PlayerEntity player){
                             //counterattack enchantment
-                            int counterattackEnchantmentLevel = ModEnchantments.getCounterattackEnchantment(player);
-                            if(counterattackEnchantmentLevel > 0){
-                                double ctrattack_damage = player.getAttributes().getValue(EntityAttributes.GENERIC_ATTACK_DAMAGE);
-                                if(player.getOffHandStack().isEmpty()) ctrattack_damage *= (counterattackEnchantmentLevel * 0.2) + 0.1;
-                                else ctrattack_damage *= (counterattackEnchantmentLevel * 0.1) + 0.1;
-                                attacker.damage(attacker.getWorld().getDamageSources().playerAttack(player),(float) ctrattack_damage);
-                            }
+                            ParryHelper.applyCounterattackEffects(player, attacker);
 
-                            //disabling block
+                            //disabling block after parrying axe attack (when config allows it)
                             if(attacker.disablesShield() && FrycParry.config.disableBlockAfterParryingAxeAttack){
                                 if(dys.getActiveItem().getItem() instanceof ShieldItem) player.disableShield(true);
                                 else {
@@ -158,9 +93,8 @@ abstract class LivingEntityMixin extends Entity implements Attackable, CanBlock 
                                 dys.swingHand(dys.getActiveHand(), true);
                             }
                         }
-
-
                     }
+                    // triggered when player blocks attack with shield
                     else if(dys.getActiveItem().getItem() instanceof ShieldItem && dys instanceof PlayerEntity player){
                         if(((CanBlock) player).getParryDataValue()) ((CanBlock) player).setParryDataToFalse();
                         if(attacker.disablesShield()) player.disableShield(true);
@@ -168,12 +102,13 @@ abstract class LivingEntityMixin extends Entity implements Attackable, CanBlock 
                 }
             }
         }
+        // interrupting block action after PARRYING attack with weapon or tool
         if(!(dys.getActiveItem().getItem() instanceof ShieldItem)){
             ((CanBlock) dys).stopUsingItemParry();
             dys.swingHand(dys.getActiveHand(), true);
         }
 
-        //damaging item
+        //damaging item that is not shield
         if(!(dys.getMainHandStack().getItem() instanceof ShieldItem || dys.getOffHandStack().getItem() instanceof ShieldItem)){
             dys.getMainHandStack().damage(1, dys, (player) -> {
                 player.sendToolBreakStatus(player.getActiveHand());
@@ -188,6 +123,7 @@ abstract class LivingEntityMixin extends Entity implements Attackable, CanBlock 
         if(amount > 0.0F && !dys.blockedByShield(source) && this.blockedByWeapon(source, dys)){
             byte b = 2;
             if(source.isIn(DamageTypeTags.IS_EXPLOSION)){
+                // when shield is not held for 5 ticks, explosion will deal 80% of its damage
                 if(dys.getActiveItem().getItem() instanceof ShieldItem){
                     amount *= 0.8F;
                     b = 29;
@@ -207,11 +143,12 @@ abstract class LivingEntityMixin extends Entity implements Attackable, CanBlock 
             }
             dys.getWorld().sendEntityStatus(this, b);
 
+            // interrupting block action after BLOCKING attack with weapon or tool
             if(!(dys.getActiveItem().getItem() instanceof ShieldItem)){
                 ((CanBlock) dys).stopUsingItemParry();
             }
 
-            //damaging item
+            //damaging item that is not shield
             if(!ParryHelper.hasShieldEquipped(dys)){
                 dys.getMainHandStack().damage(1, dys, (player) -> {
                     player.sendToolBreakStatus(player.getActiveHand());
@@ -291,6 +228,7 @@ abstract class LivingEntityMixin extends Entity implements Attackable, CanBlock 
         if(dys.getDataTracker().get(BLOCKING_DATA)) info.cancel();
     }
 
+    // makes PARRY_DATA false after 10 ticks
     @Inject(method = "tick()V", at = @At("TAIL"))
     private void decrementParryDataTimer(CallbackInfo info) {
         LivingEntity dys = ((LivingEntity)(Object)this);
