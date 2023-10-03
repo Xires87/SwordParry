@@ -20,28 +20,36 @@ import org.lwjgl.glfw.GLFW;
 public class ModKeyBinds {
     public static final String KEY_CATEGORY_SWORDPARRY = "key.category.frycparry.key_category_swordparry";
     public static final String KEY_PARRY = "key.frycparry.key_parry";
+    public static final String KEY_DONT_PARRY = "key.frycparry.key_dont_parry";
 
     public static KeyBinding parrykey;
+    public static KeyBinding dontParryKey;
 
     private static boolean bl = false;
+
 
     public static void registerKeyInputs() {
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
             ClientPlayerEntity player = client.player;
+            boolean rightClick = parrykey.isUnbound();
             if(player != null && client.interactionManager != null){
-                if(parrykey.isPressed()) {
-                    bl = true;
+                if(parrykey.isPressed() || (rightClick && client.options.useKey.isPressed())) {
                     if(!player.isUsingItem() && !player.hasStatusEffect(ModEffects.DISARMED)){
-                        if(player.getMainHandStack().getUseAction() == UseAction.BLOCK){
-                            client.interactionManager.interactItem(client.player, Hand.MAIN_HAND);
-                        }
-                        else if(player.getOffHandStack().getUseAction() == UseAction.BLOCK){
-                            client.interactionManager.interactItem(client.player, Hand.OFF_HAND);
-                        }
-                        else{
-                            if(ParryHelper.canParry(player) && ((ParryItem) player.getMainHandStack().getItem()).getUseParryAction(player.getMainHandStack()) == UseAction.BLOCK){
-                                ClientPlayNetworking.send(ModPackets.PARRY_ID, PacketByteBufs.empty()); //<----- informs server that player pressed parry key
-                                ((ParryInteraction) client.interactionManager).interactItemParry(client.player, Hand.MAIN_HAND);
+                        if(!dontParryKey.isPressed()){
+                            bl = true;
+                            if(player.getMainHandStack().getUseAction() == UseAction.BLOCK){
+                                client.interactionManager.interactItem(client.player, Hand.MAIN_HAND);
+                            }
+                            else if(player.getOffHandStack().getUseAction() == UseAction.BLOCK){
+                                client.interactionManager.interactItem(client.player, Hand.OFF_HAND);
+                            }
+                            else{
+                                if(ParryHelper.canParry(player)){
+                                    if(((ParryItem) player.getMainHandStack().getItem()).getUseParryAction(player.getMainHandStack()) == UseAction.BLOCK){
+                                        ClientPlayNetworking.send(ModPackets.PARRY_ID, PacketByteBufs.empty()); //<----- informs server that player pressed parry key
+                                        ((ParryInteraction) client.interactionManager).interactItemParry(client.player, Hand.MAIN_HAND);
+                                    }
+                                }
                             }
                         }
                     }
@@ -56,8 +64,8 @@ public class ModKeyBinds {
                         }
                     }
                     else if(((CanBlock) player).getBlockingDataValue()){
-                        ((ParryInteraction) client.interactionManager).stopUsingItemParry(player);
-                        ClientPlayNetworking.send(ModPackets.STOP_BLOCKING_ID, PacketByteBufs.empty());
+                        ((ParryInteraction) client.interactionManager).stopUsingItemParry(player); // <---- it sends STOP_BLOCKING_ID packet
+                        //ClientPlayNetworking.send(ModPackets.STOP_BLOCKING_ID, PacketByteBufs.empty());
                     }
                 }
             }
@@ -69,6 +77,12 @@ public class ModKeyBinds {
                 KEY_PARRY,
                 InputUtil.Type.KEYSYM,
                 GLFW.GLFW_KEY_R,
+                KEY_CATEGORY_SWORDPARRY
+        ));
+        dontParryKey = KeyBindingHelper.registerKeyBinding(new KeyBinding(
+                KEY_DONT_PARRY,
+                InputUtil.Type.KEYSYM,
+                GLFW.GLFW_KEY_UNKNOWN,
                 KEY_CATEGORY_SWORDPARRY
         ));
 

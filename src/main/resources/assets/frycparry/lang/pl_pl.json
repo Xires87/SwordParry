@@ -1,6 +1,7 @@
 {
   "key.category.frycparry.key_category_swordparry": "Sword Parry",
-  "key.frycparry.key_parry": "Blokowanie",
+  "key.frycparry.key_parry": "Blokowanie (ustaw na Nieprzypisane by blokować klawiszem Użycia)",
+  "key.frycparry.key_dont_parry": "Zapobiegaj używaniu blokowania",
 
   "enchantment.frycparry.prediction_enchantment": "Refleks",
   "enchantment.frycparry.counterattack_enchantment": "Kontratak",
