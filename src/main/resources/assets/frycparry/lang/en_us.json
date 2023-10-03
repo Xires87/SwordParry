@@ -1,6 +1,7 @@
 {
   "key.category.frycparry.key_category_swordparry": "Sword Parry",
-  "key.frycparry.key_parry": "Parry",
+  "key.frycparry.key_parry": "Parry (set it to Unbound to parry with Use Key)",
+  "key.frycparry.key_dont_parry": "Prevent using parry",
 
   "enchantment.frycparry.prediction_enchantment": "Reflex",
   "enchantment.frycparry.counterattack_enchantment": "Counterattack",

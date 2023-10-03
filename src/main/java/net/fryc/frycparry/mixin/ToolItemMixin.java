@@ -24,10 +24,9 @@ abstract class ToolItemMixin extends Item implements ParryItem {
     }
 
 
-    //lets you block with sword only if your off hand is empty
     public TypedActionResult<ItemStack> useParry(World world, PlayerEntity user, Hand hand) {
         ItemStack itemStack = user.getStackInHand(hand);
-        if(ParryHelper.isItemParryDisabled(itemStack.getItem())) return TypedActionResult.fail(user.getStackInHand(hand));
+        if(ParryHelper.isItemParryDisabled(itemStack.getItem()) || hand == Hand.OFF_HAND) return TypedActionResult.fail(user.getStackInHand(hand));// <-- disables offhand parrying and parrying with disabled items
         if(ParryHelper.canParry(user)){
             user.setCurrentHand(hand);
             ((CanBlock) user).setBlockingDataToTrue();
