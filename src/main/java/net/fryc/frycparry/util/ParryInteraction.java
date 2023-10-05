@@ -9,6 +9,6 @@ public interface ParryInteraction {
     //for ClientPlayerInteractionManager
     ActionResult interactItemParry(PlayerEntity player, Hand hand);
 
-    public void stopUsingItemParry(PlayerEntity player);
+    void stopUsingItemParry(PlayerEntity player);
 
 }

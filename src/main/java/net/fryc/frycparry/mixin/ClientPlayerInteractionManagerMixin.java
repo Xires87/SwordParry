@@ -9,12 +9,9 @@ import net.fryc.frycparry.util.ParryItem;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientPlayNetworkHandler;
 import net.minecraft.client.network.ClientPlayerInteractionManager;
-import net.minecraft.client.network.SequencedPacketCreator;
-import net.minecraft.client.world.ClientWorld;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ToolItem;
-import net.minecraft.network.packet.c2s.play.PlayerInteractItemC2SPacket;
 import net.minecraft.network.packet.c2s.play.PlayerMoveC2SPacket;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
@@ -37,9 +34,6 @@ abstract class ClientPlayerInteractionManagerMixin implements ParryInteraction {
     private void syncSelectedSlot() {
     }
 
-    @Shadow
-    private void sendSequencedPacket(ClientWorld world, SequencedPacketCreator packetCreator){
-    }
 
     public ActionResult interactItemParry(PlayerEntity player, Hand hand) {
         if (this.gameMode == GameMode.SPECTATOR) {
@@ -48,29 +42,26 @@ abstract class ClientPlayerInteractionManagerMixin implements ParryInteraction {
             this.syncSelectedSlot();
             this.networkHandler.sendPacket(new PlayerMoveC2SPacket.Full(player.getX(), player.getY(), player.getZ(), player.getYaw(), player.getPitch(), player.isOnGround()));
             MutableObject<ActionResult> mutableObject = new MutableObject();
-            this.sendSequencedPacket(this.client.world, (sequence) -> {
-                PlayerInteractItemC2SPacket playerInteractItemC2SPacket = new PlayerInteractItemC2SPacket(hand, sequence);
-                ItemStack itemStack = player.getStackInHand(hand);
-                if (player.getItemCooldownManager().isCoolingDown(itemStack.getItem())) {
-                    mutableObject.setValue(ActionResult.PASS);
-                    return playerInteractItemC2SPacket;
-                } else {
-                    TypedActionResult<ItemStack> typedActionResult;
-                    if(itemStack.getItem() instanceof ToolItem tool){
-                        typedActionResult = ((ParryItem) tool).useParry(this.client.world, player, hand);
-                    }
-                    else {
-                        typedActionResult = TypedActionResult.fail(itemStack);
-                    }
-                    ItemStack itemStack2 = (ItemStack)typedActionResult.getValue();
-                    if (itemStack2 != itemStack) {
-                        player.setStackInHand(hand, itemStack2);
-                    }
-
-                    mutableObject.setValue(typedActionResult.getResult());
-                    return playerInteractItemC2SPacket;
+            ItemStack itemStack = player.getStackInHand(hand);
+            if (player.getItemCooldownManager().isCoolingDown(itemStack.getItem())) {
+                mutableObject.setValue(ActionResult.PASS);
+                return (ActionResult)mutableObject.getValue();
+            } else {
+                TypedActionResult<ItemStack> typedActionResult;
+                if(itemStack.getItem() instanceof ToolItem tool){
+                    typedActionResult = ((ParryItem) tool).useParry(this.client.world, player, hand);
+                    ClientPlayNetworking.send(ModPackets.START_PARRYING_ID, PacketByteBufs.empty());
                 }
-            });
+                else {
+                    typedActionResult = TypedActionResult.fail(itemStack);
+                }
+                ItemStack itemStack2 = (ItemStack)typedActionResult.getValue();
+                if (itemStack2 != itemStack) {
+                    player.setStackInHand(hand, itemStack2);
+                }
+
+                mutableObject.setValue(typedActionResult.getResult());
+            }
             return (ActionResult)mutableObject.getValue();
         }
     }

@@ -29,7 +29,6 @@ public class ModEnchantments {
     }
 
     public static void registerModEnchantments(){
-        FrycParry.LOGGER.info("Registering enchantments for " + FrycParry.MOD_ID);
     }
 
     public static int getParryEnchantment(LivingEntity entity){

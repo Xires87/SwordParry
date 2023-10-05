@@ -5,13 +5,12 @@ import net.fryc.frycparry.effects.ModEffects;
 import net.fryc.frycparry.util.CanBlock;
 import net.fryc.frycparry.util.ParryHelper;
 import net.fryc.frycparry.util.ParryItem;
-import net.fryc.frycparry.util.ServerParryKeyUser;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.*;
-import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.item.Item;
+import net.minecraft.item.ShieldItem;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -41,11 +40,8 @@ abstract class PlayerEntityMixin extends LivingEntity {
         //onStoppedUsingParry() is not used when player switches item while blocking
         ((CanBlock) dys).setBlockingDataToFalse();
         ((CanBlock) dys).setParryDataToFalse();
-        if(dys instanceof ServerPlayerEntity sPlayer){
-            ((ServerParryKeyUser) sPlayer).changePressedParryKeyValueToFalse();
-        }
 
-        if(ParryHelper.canParry(dys) && !ParryHelper.isItemParryDisabled(dys.getMainHandStack().getItem())){
+        if(ParryHelper.canParry(dys) && !ParryHelper.isItemParryDisabled(dys.getWorld() ,dys.getMainHandStack().getItem())){
             if(!dys.getItemCooldownManager().isCoolingDown(dys.getMainHandStack().getItem())) dys.getItemCooldownManager().set(dys.getMainHandStack().getItem(), ((ParryItem) dys.getMainHandStack().getItem()).getCooldownAfterInterruptingBlockAction());
         }
         else {
@@ -72,7 +68,7 @@ abstract class PlayerEntityMixin extends LivingEntity {
     private void setCooldownForParry(CallbackInfo info) {
         PlayerEntity dys = ((PlayerEntity)(Object)this);
         if(this.lastAttackedTicks > 10){
-            if(ParryHelper.canParry(dys) && !ParryHelper.isItemParryDisabled(dys.getMainHandStack().getItem())){
+            if(ParryHelper.canParry(dys) && !ParryHelper.isItemParryDisabled(dys.getWorld(), dys.getMainHandStack().getItem())){
                 if(!dys.getItemCooldownManager().isCoolingDown(dys.getMainHandStack().getItem())) dys.getItemCooldownManager().set(dys.getMainHandStack().getItem(), 10);
             }
             else if(ParryHelper.hasShieldEquipped(dys)){

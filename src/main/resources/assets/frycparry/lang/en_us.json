@@ -26,7 +26,7 @@
   "text.autoconfig.frycparry.option.enchantmentsForShieldsCanAppearOnWeaponsInChests": "Make enchantments for shield appear on swords and axes found in chests",
   "text.autoconfig.frycparry.option.enchantmentsForShieldsCanAppearOnWeaponsInChests.@Tooltip": "This option doesn't do anything when blocking with axes and swords is disabled",
 
-  "text.autoconfig.frycparry.option.enableBlockingWhenDualWielding": "Dual wielding settings",
+  "text.autoconfig.frycparry.option.enableBlockingWhenDualWielding": "Dual wielding settings [Restart Required]",
   "text.autoconfig.frycparry.option.enableBlockingWhenDualWielding.@Tooltip": "0 - player can block and parry with empty offhand;  1 - player can also block and parry when dual wields weapons; 2 - player can block and parry with any item in offhand;",
 
 
@@ -43,11 +43,11 @@
   "text.autoconfig.frycparry.option.slownessForPlayersAmplifierModifier.@Tooltip": "Example: when set to -1, and slowness amplifier of active item is 1, slowness amplifier for parried player will be 2 (1 - (-1) = 2)",
 
 
-  "text.autoconfig.frycparry.option.enableBlockingWithPickaxe": "Enable blocking and parrying",
-  "text.autoconfig.frycparry.option.enableBlockingWithAxe": "Enable blocking and parrying",
-  "text.autoconfig.frycparry.option.enableBlockingWithSword": "Enable blocking and parrying",
-  "text.autoconfig.frycparry.option.enableBlockingWithShovel": "Enable blocking and parrying",
-  "text.autoconfig.frycparry.option.enableBlockingWithHoe": "Enable blocking and parrying",
+  "text.autoconfig.frycparry.option.enableBlockingWithPickaxe": "Enable blocking and parrying [Restart Required]",
+  "text.autoconfig.frycparry.option.enableBlockingWithAxe": "Enable blocking and parrying [Restart Required]",
+  "text.autoconfig.frycparry.option.enableBlockingWithSword": "Enable blocking and parrying [Restart Required]",
+  "text.autoconfig.frycparry.option.enableBlockingWithShovel": "Enable blocking and parrying [Restart Required]",
+  "text.autoconfig.frycparry.option.enableBlockingWithHoe": "Enable blocking and parrying [Restart Required]",
 
 
   "text.autoconfig.frycparry.option.cooldownAfterInterruptingShieldBlockAction": "Cooldown after switching item, blocking attack or interrupting block action",

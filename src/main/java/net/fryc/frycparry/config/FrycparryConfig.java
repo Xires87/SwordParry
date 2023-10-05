@@ -37,6 +37,7 @@ public class FrycparryConfig implements ConfigData {
     //sword
     @Comment("Sword")
     @ConfigEntry.Category("sword")
+    @ConfigEntry.Gui.RequiresRestart
     public boolean enableBlockingWithSword = true;
 
 
@@ -85,6 +86,7 @@ public class FrycparryConfig implements ConfigData {
     //axe
     @Comment("Axe")
     @ConfigEntry.Category("axe")
+    @ConfigEntry.Gui.RequiresRestart
     public boolean enableBlockingWithAxe = true;
 
     @ConfigEntry.Gui.Tooltip
@@ -134,6 +136,7 @@ public class FrycparryConfig implements ConfigData {
     //shovel
     @Comment("Shovel")
     @ConfigEntry.Category("shovel")
+    @ConfigEntry.Gui.RequiresRestart
     public boolean enableBlockingWithShovel = true;
 
     @ConfigEntry.Gui.Tooltip
@@ -183,6 +186,7 @@ public class FrycparryConfig implements ConfigData {
     //hoe
     @Comment("Hoe")
     @ConfigEntry.Category("hoe")
+    @ConfigEntry.Gui.RequiresRestart
     public boolean enableBlockingWithHoe = true;
 
     @ConfigEntry.Gui.Tooltip
@@ -232,6 +236,7 @@ public class FrycparryConfig implements ConfigData {
     //pickaxe
     @Comment("Pickaxe")
     @ConfigEntry.Category("pickaxe")
+    @ConfigEntry.Gui.RequiresRestart
     public boolean enableBlockingWithPickaxe = true;
 
     @ConfigEntry.Gui.Tooltip
@@ -303,6 +308,11 @@ public class FrycparryConfig implements ConfigData {
 
 
     //global settings
+
+    @ConfigEntry.Category("global")
+    @ConfigEntry.Gui.Tooltip
+    @ConfigEntry.Gui.RequiresRestart
+    public boolean enableBlockingWithOtherTools = false;
     @Comment("When true, axe attack will set cooldown whether it was parry or not")
     @ConfigEntry.Gui.Tooltip
     @ConfigEntry.Category("global")
@@ -317,6 +327,7 @@ public class FrycparryConfig implements ConfigData {
     @ConfigEntry.Gui.Tooltip
     @ConfigEntry.Category("global")
     @ConfigEntry.BoundedDiscrete(max = 2, min = 0)
+    @ConfigEntry.Gui.RequiresRestart
     public int enableBlockingWhenDualWielding = 0;
 
 }

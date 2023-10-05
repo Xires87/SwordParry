@@ -9,23 +9,50 @@ import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.*;
+import net.minecraft.world.World;
 
 public class ParryHelper {
 
+    public static int dualWieldingSettings = FrycParry.config.enableBlockingWhenDualWielding;
+    public static boolean enableBlockingWithSword = FrycParry.config.enableBlockingWithSword;
+    public static boolean enableBlockingWithAxe = FrycParry.config.enableBlockingWithAxe;
+    public static boolean enableBlockingWithPickaxe = FrycParry.config.enableBlockingWithPickaxe;
+    public static boolean enableBlockingWithShovel = FrycParry.config.enableBlockingWithShovel;
+    public static boolean enableBlockingWithHoe = FrycParry.config.enableBlockingWithHoe;
+    public static boolean enableBlockingWithOtherTools = FrycParry.config.enableBlockingWithOtherTools;
+
     public static boolean canParry(LivingEntity user){
-        return user.getMainHandStack().getItem() instanceof ToolItem && !hasShieldEquipped(user) && (user.getOffHandStack().isEmpty() || checkDualWieldingWeapons(user) || checkDualWieldingItems());
+        return user.getMainHandStack().getItem() instanceof ToolItem && !hasShieldEquipped(user) && (user.getOffHandStack().isEmpty() || checkDualWieldingWeapons(user) || checkDualWieldingItems(user));
     }
 
     public static boolean checkDualWieldingWeapons(LivingEntity user){
+        if(user.getWorld().isClient()){
+            return dualWieldingSettings > 0 && user.getOffHandStack().getItem() instanceof ToolItem;
+        }
         return FrycParry.config.enableBlockingWhenDualWielding > 0 && user.getOffHandStack().getItem() instanceof ToolItem;
     }
 
-    public static boolean checkDualWieldingItems(){
+    public static boolean checkDualWieldingItems(LivingEntity user){
+        if(user.getWorld().isClient()){
+            return dualWieldingSettings > 1;
+        }
         return FrycParry.config.enableBlockingWhenDualWielding > 1;
     }
 
     public static boolean hasShieldEquipped(LivingEntity user){
         return user.getMainHandStack().getItem() instanceof ShieldItem || user.getOffHandStack().getItem() instanceof ShieldItem;
+    }
+
+    public static boolean isItemParryDisabled(World world, Item item){
+        if(world.isClient()){
+            if(item instanceof SwordItem) return !enableBlockingWithSword;
+            if(item instanceof AxeItem) return !enableBlockingWithAxe;
+            if(item instanceof PickaxeItem) return !enableBlockingWithPickaxe;
+            if(item instanceof ShovelItem) return !enableBlockingWithShovel;
+            if(item instanceof HoeItem) return !enableBlockingWithHoe;
+            return !enableBlockingWithOtherTools;
+        }
+        return isItemParryDisabled(item);
     }
 
     public static boolean isItemParryDisabled(Item item){
@@ -34,7 +61,7 @@ public class ParryHelper {
         if(item instanceof PickaxeItem) return !FrycParry.config.enableBlockingWithPickaxe;
         if(item instanceof ShovelItem) return !FrycParry.config.enableBlockingWithShovel;
         if(item instanceof HoeItem) return !FrycParry.config.enableBlockingWithHoe;
-        return false;
+        return !FrycParry.config.enableBlockingWithOtherTools;
     }
 
     public static void applyParryEffects(LivingEntity user, LivingEntity attacker){
