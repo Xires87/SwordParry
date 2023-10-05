@@ -3,13 +3,11 @@ package net.fryc.frycparry.mixin;
 import net.fryc.frycparry.util.CanBlock;
 import net.fryc.frycparry.util.ParryHelper;
 import net.fryc.frycparry.util.ParryItem;
-import net.fryc.frycparry.util.ServerParryKeyUser;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ToolItem;
-import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.Hand;
 import net.minecraft.util.TypedActionResult;
 import net.minecraft.util.UseAction;
@@ -26,7 +24,7 @@ abstract class ToolItemMixin extends Item implements ParryItem {
 
     public TypedActionResult<ItemStack> useParry(World world, PlayerEntity user, Hand hand) {
         ItemStack itemStack = user.getStackInHand(hand);
-        if(ParryHelper.isItemParryDisabled(itemStack.getItem()) || hand == Hand.OFF_HAND) return TypedActionResult.fail(user.getStackInHand(hand));// <-- disables offhand parrying and parrying with disabled items
+        if(ParryHelper.isItemParryDisabled(user.getWorld(), itemStack.getItem()) || hand == Hand.OFF_HAND) return TypedActionResult.fail(user.getStackInHand(hand));// <-- disables offhand parrying and parrying with disabled items
         if(ParryHelper.canParry(user)){
             user.setCurrentHand(hand);
             ((CanBlock) user).setBlockingDataToTrue();
@@ -51,10 +49,6 @@ abstract class ToolItemMixin extends Item implements ParryItem {
                 if(((ParryItem) item).getCooldownAfterInterruptingBlockAction() > 0){
                     if(!player.getItemCooldownManager().isCoolingDown(item)) player.getItemCooldownManager().set(item, ((ParryItem) item).getCooldownAfterInterruptingBlockAction());
                 }
-            }
-
-            if(player instanceof ServerPlayerEntity sPlayer){
-                ((ServerParryKeyUser) sPlayer).changePressedParryKeyValueToFalse(); //<----- informs server that player is no longer holding parry key
             }
         }
 

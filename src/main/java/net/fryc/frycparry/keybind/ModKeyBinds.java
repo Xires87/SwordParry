@@ -2,14 +2,9 @@ package net.fryc.frycparry.keybind;
 
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
-import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
-import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
+import net.fryc.frycparry.FrycParryClient;
 import net.fryc.frycparry.effects.ModEffects;
-import net.fryc.frycparry.network.ModPackets;
-import net.fryc.frycparry.util.CanBlock;
-import net.fryc.frycparry.util.ParryHelper;
-import net.fryc.frycparry.util.ParryInteraction;
-import net.fryc.frycparry.util.ParryItem;
+import net.fryc.frycparry.util.*;
 import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.client.option.KeyBinding;
 import net.minecraft.client.util.InputUtil;
@@ -26,16 +21,20 @@ public class ModKeyBinds {
     public static KeyBinding dontParryKey;
 
     private static boolean bl = false;
+    private static boolean dontParryKeyPressed = false;
 
 
     public static void registerKeyInputs() {
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
+            if(dontParryKey.wasPressed()){
+                dontParryKeyPressed = !dontParryKeyPressed;
+            }
             ClientPlayerEntity player = client.player;
             boolean rightClick = parrykey.isUnbound();
             if(player != null && client.interactionManager != null){
                 if(parrykey.isPressed() || (rightClick && client.options.useKey.isPressed())) {
                     if(!player.isUsingItem() && !player.hasStatusEffect(ModEffects.DISARMED)){
-                        if(!dontParryKey.isPressed()){
+                        if(!isDontParryKeyPressed()){
                             bl = true;
                             if(player.getMainHandStack().getUseAction() == UseAction.BLOCK){
                                 client.interactionManager.interactItem(client.player, Hand.MAIN_HAND);
@@ -44,10 +43,11 @@ public class ModKeyBinds {
                                 client.interactionManager.interactItem(client.player, Hand.OFF_HAND);
                             }
                             else{
-                                if(ParryHelper.canParry(player)){
-                                    if(((ParryItem) player.getMainHandStack().getItem()).getUseParryAction(player.getMainHandStack()) == UseAction.BLOCK){
-                                        ClientPlayNetworking.send(ModPackets.PARRY_ID, PacketByteBufs.empty()); //<----- informs server that player pressed parry key
-                                        ((ParryInteraction) client.interactionManager).interactItemParry(client.player, Hand.MAIN_HAND);
+                                if(ClientParryHelper.canParry(player)){ // <-- checking client sided config
+                                    if(ParryHelper.canParry(player)){ // <-- checking server sided config
+                                        if(((ParryItem) player.getMainHandStack().getItem()).getUseParryAction(player.getMainHandStack()) == UseAction.BLOCK){
+                                            ((ParryInteraction) client.interactionManager).interactItemParry(client.player, Hand.MAIN_HAND);
+                                        }
                                     }
                                 }
                             }
@@ -59,13 +59,11 @@ public class ModKeyBinds {
                         if(bl){
                             ((CanBlock) player).setBlockingDataToFalse();
                             ((CanBlock) player).setParryDataToFalse();
-                            ClientPlayNetworking.send(ModPackets.NOT_HOLDING_PARRY_KEY_ID, PacketByteBufs.empty());
                             bl = false;
                         }
                     }
                     else if(((CanBlock) player).getBlockingDataValue()){
                         ((ParryInteraction) client.interactionManager).stopUsingItemParry(player); // <---- it sends STOP_BLOCKING_ID packet
-                        //ClientPlayNetworking.send(ModPackets.STOP_BLOCKING_ID, PacketByteBufs.empty());
                     }
                 }
             }
@@ -87,5 +85,10 @@ public class ModKeyBinds {
         ));
 
         registerKeyInputs();
+    }
+
+    private static boolean isDontParryKeyPressed(){
+        if(FrycParryClient.config.holdDontUseParryKey) return dontParryKey.isPressed();
+        return dontParryKeyPressed;
     }
 }

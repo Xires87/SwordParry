@@ -26,7 +26,7 @@
   "text.autoconfig.frycparry.option.enchantmentsForShieldsCanAppearOnWeaponsInChests": "Zaklęcia dla tarczy pojawiają się na mieczach i siekierach znalezionych w skrzyniach",
   "text.autoconfig.frycparry.option.enchantmentsForShieldsCanAppearOnWeaponsInChests.@Tooltip": "Ta opcja nic nie robi kiedy blokowanie mieczem i siekierą jest wyłączone",
 
-  "text.autoconfig.frycparry.option.enableBlockingWhenDualWielding": "Ustawienia dla trzymania w dwóch rękach",
+  "text.autoconfig.frycparry.option.enableBlockingWhenDualWielding": "Ustawienia dla trzymania w dwóch rękach  [Wymagany Restart]",
   "text.autoconfig.frycparry.option.enableBlockingWhenDualWielding.@Tooltip": "0 - gracz może blokować i parować kiedy jego druga ręka jest pusta;  1 - gracz może też blokować i parować kiedy trzyma narzędzie w drugiej ręce; 2 - gracz może blokować i parować z jakimkolwiek przedmiotem w drugiej ręce;",
 
 
@@ -43,11 +43,11 @@
   "text.autoconfig.frycparry.option.slownessForPlayersAmplifierModifier.@Tooltip": "Przykład: kiedy ustawione na -1, i moc spowolnienia aktywnego przedmiotu to 1, sparowany gracz dostanie spowolnienie o mocy 2 (1 - (-1) = 2)",
 
 
-  "text.autoconfig.frycparry.option.enableBlockingWithPickaxe": "Włącz blokowanie i parowanie",
-  "text.autoconfig.frycparry.option.enableBlockingWithAxe": "Włącz blokowanie i parowanie",
-  "text.autoconfig.frycparry.option.enableBlockingWithSword": "Włącz blokowanie i parowanie",
-  "text.autoconfig.frycparry.option.enableBlockingWithShovel": "Włącz blokowanie i parowanie",
-  "text.autoconfig.frycparry.option.enableBlockingWithHoe": "Włącz blokowanie i parowanie",
+  "text.autoconfig.frycparry.option.enableBlockingWithPickaxe": "Włącz blokowanie i parowanie [Wymagany Restart]",
+  "text.autoconfig.frycparry.option.enableBlockingWithAxe": "Włącz blokowanie i parowanie [Wymagany Restart]",
+  "text.autoconfig.frycparry.option.enableBlockingWithSword": "Włącz blokowanie i parowanie [Wymagany Restart]",
+  "text.autoconfig.frycparry.option.enableBlockingWithShovel": "Włącz blokowanie i parowanie [Wymagany Restart]",
+  "text.autoconfig.frycparry.option.enableBlockingWithHoe": "Włącz blokowanie i parowanie [Wymagany Restart]",
 
 
   "text.autoconfig.frycparry.option.cooldownAfterInterruptingShieldBlockAction": "Czas odnowienia po zmianie przedmiotu, zablokowaniu ataku, lub przerwaniu blokowania",
