@@ -19,6 +19,8 @@
   "text.autoconfig.frycparry.category.multiplayer": "PvP",
   "text.autoconfig.frycparry.category.global": "Inne",
 
+  "text.autoconfig.frycparry.option.enableBlockingWithOtherTools": "Włącz blokowanie innymi narzędziami",
+  "text.autoconfig.frycparry.option.enableBlockingWithOtherTools.@Tooltip": "Dla zmodowanych przedmiotów, które nie są mieczami, łopatami, siekierami (itd.), ale są narzędziami w kodzie (ToolItem)",
 
   "text.autoconfig.frycparry.option.disableBlockAfterParryingAxeAttack": "Wyłącz blok po sparowaniu ataku siekierą",
   "text.autoconfig.frycparry.option.disableBlockAfterParryingAxeAttack.@Tooltip": "Kiedy włączone, ataki siekierą będą wyłączać blokowanie niezależnie od tego czy zostały sparowane czy nie",

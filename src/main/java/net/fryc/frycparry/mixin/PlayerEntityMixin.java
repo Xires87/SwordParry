@@ -15,7 +15,6 @@ import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(PlayerEntity.class)
@@ -83,17 +82,38 @@ abstract class PlayerEntityMixin extends LivingEntity {
 
     }
 
-
+    /*
     @Redirect(method = "Lnet/minecraft/entity/player/PlayerEntity;attack(Lnet/minecraft/entity/Entity;)V", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/Entity;isAttackable()Z"))
     private boolean unAttackable(Entity target) {
         PlayerEntity dys = ((PlayerEntity)(Object)this);
         return target.isAttackable() && !dys.hasStatusEffect(ModEffects.DISARMED);
     }
+     */
 
+    @Inject(method = "Lnet/minecraft/entity/player/PlayerEntity;attack(Lnet/minecraft/entity/Entity;)V", at = @At("HEAD"), cancellable = true)
+    private void cancelAttackWhenDisarmed(Entity target, CallbackInfo info) {
+        PlayerEntity dys = ((PlayerEntity)(Object)this);
+        if(dys.hasStatusEffect(ModEffects.DISARMED)){
+            info.cancel();
+        }
+    }
+
+
+
+    /*
     @Redirect(method = "Lnet/minecraft/entity/player/PlayerEntity;takeShieldHit(Lnet/minecraft/entity/LivingEntity;)V", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/LivingEntity;disablesShield()Z"))
     private boolean dontDisableShield(LivingEntity attacker) {
         return false;
     }
+     */
+
+    @Inject(method = "Lnet/minecraft/entity/player/PlayerEntity;takeShieldHit(Lnet/minecraft/entity/LivingEntity;)V", at = @At("HEAD"), cancellable = true)
+    private void dontDisableShield(LivingEntity attacker, CallbackInfo info) {
+        super.takeShieldHit(attacker);
+        info.cancel();
+    }
+
+
 
 
 }
