@@ -20,6 +20,9 @@
   "text.autoconfig.frycparry.category.global": "Other",
 
 
+  "text.autoconfig.frycparry.option.enableBlockingWithOtherTools": "Enable blocking with other tools",
+  "text.autoconfig.frycparry.option.enableBlockingWithOtherTools.@Tooltip": "For modded items that are not swords, shovels, axes (etc), but are tools in code (ToolItem)",
+
   "text.autoconfig.frycparry.option.disableBlockAfterParryingAxeAttack": "Disable block action after parrying axe attack",
   "text.autoconfig.frycparry.option.disableBlockAfterParryingAxeAttack.@Tooltip": "When turned on, axe attack will set cooldown whether it was parry or not",
 
