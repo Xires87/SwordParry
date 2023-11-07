@@ -8,6 +8,7 @@ import net.fryc.frycparry.util.*;
 import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.client.option.KeyBinding;
 import net.minecraft.client.util.InputUtil;
+import net.minecraft.text.Text;
 import net.minecraft.util.Hand;
 import net.minecraft.util.UseAction;
 import org.lwjgl.glfw.GLFW;
@@ -26,12 +27,14 @@ public class ModKeyBinds {
 
     public static void registerKeyInputs() {
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
-            if(dontParryKey.wasPressed()){
-                dontParryKeyPressed = !dontParryKeyPressed;
-            }
             ClientPlayerEntity player = client.player;
             boolean rightClick = parrykey.isUnbound();
             if(player != null && client.interactionManager != null){
+                if(dontParryKey.wasPressed()){
+                    dontParryKeyPressed = !dontParryKeyPressed;
+                    if(!FrycParryClient.config.holdDontUseParryKey) player.sendMessage(Text.of("Prevent using parry: " + dontParryKeyPressed), true);
+                }
+
                 if(parrykey.isPressed() || (rightClick && client.options.useKey.isPressed())) {
                     if(!player.isUsingItem() && !player.hasStatusEffect(ModEffects.DISARMED)){
                         if(!isDontParryKeyPressed()){
