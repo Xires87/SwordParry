@@ -10,8 +10,8 @@ import net.fabricmc.api.Environment;
 @Config(name="frycparryClient")
 public class FrycparryClientConfig implements ConfigData {
 
-    @Comment("When false, dontUseParryKey is switchable (press it to disable blocking and parrying, and press again to enable)")
-    public boolean holdDontUseParryKey = true;
+    @Comment("When false, dontUseParryKey is toggleable (press it to disable blocking and parrying, and press again to enable)")
+    public boolean holdDontUseParryKey = false;
 
     @Comment("If you play singleplayer, use server sided config (frycparry.json5) for options under this comment. " +
             "These options only disable keybind (game behaves like you have never pressed parry key if you have a disabled item in your mainhand)." +
