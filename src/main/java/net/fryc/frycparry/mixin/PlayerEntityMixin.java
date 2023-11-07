@@ -66,16 +66,17 @@ abstract class PlayerEntityMixin extends LivingEntity {
     @Inject(method = "resetLastAttackedTicks()V", at = @At("HEAD"))
     private void setCooldownForParry(CallbackInfo info) {
         PlayerEntity dys = ((PlayerEntity)(Object)this);
-        if(this.lastAttackedTicks > 10){
+        if(this.lastAttackedTicks > 4){
+            int cooldownProgress = (int) dys.getAttackCooldownProgressPerTick() - 1; // <-- cooldown based on attack speed
             if(ParryHelper.canParry(dys) && !ParryHelper.isItemParryDisabled(dys.getWorld(), dys.getMainHandStack().getItem())){
-                if(!dys.getItemCooldownManager().isCoolingDown(dys.getMainHandStack().getItem())) dys.getItemCooldownManager().set(dys.getMainHandStack().getItem(), 10);
+                if(!dys.getItemCooldownManager().isCoolingDown(dys.getMainHandStack().getItem())) dys.getItemCooldownManager().set(dys.getMainHandStack().getItem(), cooldownProgress);
             }
             else if(ParryHelper.hasShieldEquipped(dys)){
                 if(dys.getMainHandStack().getItem() instanceof ShieldItem){
-                    if(!dys.getItemCooldownManager().isCoolingDown(dys.getMainHandStack().getItem())) dys.getItemCooldownManager().set(dys.getMainHandStack().getItem(), 10);
+                    if(!dys.getItemCooldownManager().isCoolingDown(dys.getMainHandStack().getItem())) dys.getItemCooldownManager().set(dys.getMainHandStack().getItem(), cooldownProgress);
                 }
                 else {
-                    if(!dys.getItemCooldownManager().isCoolingDown(dys.getOffHandStack().getItem())) dys.getItemCooldownManager().set(dys.getOffHandStack().getItem(), 10);
+                    if(!dys.getItemCooldownManager().isCoolingDown(dys.getOffHandStack().getItem())) dys.getItemCooldownManager().set(dys.getOffHandStack().getItem(), cooldownProgress);
                 }
             }
         }
