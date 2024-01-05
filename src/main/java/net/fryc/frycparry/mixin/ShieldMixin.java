@@ -3,7 +3,6 @@ package net.fryc.frycparry.mixin;
 import net.fryc.frycparry.FrycParry;
 import net.fryc.frycparry.effects.ModEffects;
 import net.fryc.frycparry.util.CanBlock;
-import net.fryc.frycparry.util.ParryHelper;
 import net.fryc.frycparry.util.ParryItem;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -17,11 +16,10 @@ import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(ShieldItem.class)
-abstract class ShieldMixin extends Item implements ParryItem{
+abstract class ShieldMixin extends Item implements ParryItem {
     public ShieldMixin(Settings settings) {
         super(settings);
     }
@@ -51,6 +49,10 @@ abstract class ShieldMixin extends Item implements ParryItem{
         }
 
         ((CanBlock) user).setParryDataToFalse();
+    }
+
+    public int getMaxUseTimeParry(){
+        return 72000;
     }
 
 

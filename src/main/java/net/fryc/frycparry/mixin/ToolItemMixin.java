@@ -26,7 +26,7 @@ abstract class ToolItemMixin extends Item implements ParryItem {
         ItemStack itemStack = user.getStackInHand(hand);
         if(ParryHelper.isItemParryDisabled(user.getWorld(), itemStack.getItem()) || hand == Hand.OFF_HAND) return TypedActionResult.fail(user.getStackInHand(hand));// <-- disables offhand parrying and parrying with disabled items
         if(ParryHelper.canParry(user)){
-            user.setCurrentHand(hand);
+            ((CanBlock) user).setCurrentHandParry(hand);
             ((CanBlock) user).setBlockingDataToTrue();
             return TypedActionResult.success(itemStack);
         }
@@ -58,6 +58,10 @@ abstract class ToolItemMixin extends Item implements ParryItem {
 
     public UseAction getUseParryAction(ItemStack stack) {
         return UseAction.BLOCK;
+    }
+
+    public int getMaxUseTimeParry(){
+        return 72000;
     }
 
 
