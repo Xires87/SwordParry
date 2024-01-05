@@ -9,6 +9,7 @@ import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.*;
+import net.minecraft.util.UseAction;
 import net.minecraft.world.World;
 
 public class ParryHelper {
@@ -40,7 +41,7 @@ public class ParryHelper {
     }
 
     public static boolean hasShieldEquipped(LivingEntity user){
-        return user.getMainHandStack().getItem() instanceof ShieldItem || user.getOffHandStack().getItem() instanceof ShieldItem;
+        return user.getMainHandStack().getUseAction() == UseAction.BLOCK || user.getOffHandStack().getUseAction() == UseAction.BLOCK;
     }
 
     public static boolean isItemParryDisabled(World world, Item item){

@@ -66,17 +66,18 @@ abstract class LivingEntityMixin extends Entity implements Attackable, CanBlock 
                 }
             }
         }
-        else if(!(dys.getActiveItem().getUseAction() == UseAction.BLOCK) || (source.isIn(DamageTypeTags.IS_EXPLOSION) && dys.getActiveItem().getItem().getMaxUseTime(dys.getActiveItem()) - dys.getItemUseTimeLeft() < 5)){
+        else if(dys.getActiveItem().getUseAction() != UseAction.BLOCK || (source.isIn(DamageTypeTags.IS_EXPLOSION) && dys.getActiveItem().getItem().getMaxUseTime(dys.getActiveItem()) - dys.getItemUseTimeLeft() < 5)){
             ret.setReturnValue(false);
         }
     }
-// todo przetestowac z simply swordami
+
     @Inject(method = "damage(Lnet/minecraft/entity/damage/DamageSource;F)Z", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/LivingEntity;damageShield(F)V", shift = At.Shift.AFTER))
     private void parry(DamageSource source, float amount, CallbackInfoReturnable<Boolean> ret) {
         LivingEntity dys = ((LivingEntity)(Object)this);
         if(dys.getActiveItem().isEmpty() || !(dys.getActiveItem().getItem() instanceof ToolItem || dys.getActiveItem().getItem() instanceof ShieldItem)) return;
+        int maxUseTime = dys.getActiveItem().getUseAction() == UseAction.BLOCK ? dys.getActiveItem().getMaxUseTime() : ((ParryItem) dys.getActiveItem().getItem()).getMaxUseTimeParry();
         if(!source.isIn(DamageTypeTags.IS_EXPLOSION)){
-            if(!(dys.getActiveItem().getUseAction() == UseAction.BLOCK && ((ParryItem) dys.getActiveItem().getItem()).getMaxUseTimeParry() - dys.getItemUseTimeLeft() >= ((ParryItem) dys.getActiveItem().getItem()).getParryTicks() + ModEnchantments.getPredictionEnchantment(dys))){
+            if(!(dys.getActiveItem().getUseAction() == UseAction.BLOCK && maxUseTime - dys.getItemUseTimeLeft() >= ((ParryItem) dys.getActiveItem().getItem()).getParryTicks() + ModEnchantments.getPredictionEnchantment(dys))){
 
                 parryDataTimer = 10;
                 ((CanBlock) dys).setParryDataToTrue();
@@ -274,7 +275,7 @@ abstract class LivingEntityMixin extends Entity implements Attackable, CanBlock 
     protected void setLivingFlag(int mask, boolean value) {
     }
 
-    // todo wyczyscic kod (narazie tylko osobny maxUseTime zrobilem)
+
     public void setCurrentHandParry(Hand hand) {
         LivingEntity dys = ((LivingEntity)(Object)this);
         ItemStack itemStack = dys.getStackInHand(hand);

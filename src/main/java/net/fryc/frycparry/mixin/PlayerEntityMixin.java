@@ -11,6 +11,7 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ShieldItem;
+import net.minecraft.util.UseAction;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -72,7 +73,7 @@ abstract class PlayerEntityMixin extends LivingEntity {
                 if(!dys.getItemCooldownManager().isCoolingDown(dys.getMainHandStack().getItem())) dys.getItemCooldownManager().set(dys.getMainHandStack().getItem(), cooldownProgress);
             }
             else if(ParryHelper.hasShieldEquipped(dys)){
-                if(dys.getMainHandStack().getItem() instanceof ShieldItem){
+                if(dys.getMainHandStack().getUseAction() == UseAction.BLOCK){
                     if(!dys.getItemCooldownManager().isCoolingDown(dys.getMainHandStack().getItem())) dys.getItemCooldownManager().set(dys.getMainHandStack().getItem(), cooldownProgress);
                 }
                 else {
