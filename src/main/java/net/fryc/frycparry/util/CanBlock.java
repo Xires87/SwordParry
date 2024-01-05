@@ -1,6 +1,8 @@
 package net.fryc.frycparry.util;
 
 
+import net.minecraft.util.Hand;
+
 public interface CanBlock {
 
     //for LivingEntity
@@ -17,5 +19,7 @@ public interface CanBlock {
     boolean getParryDataValue();
 
     void stopUsingItemParry();
+
+    void setCurrentHandParry(Hand hand);
 
 }

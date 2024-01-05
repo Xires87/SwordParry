@@ -32,4 +32,6 @@ public interface ParryItem {
     int getWeaknessAfterParryAction();
     int getWeaknessAmplifierAfterParryAction();
     int getDisarmedAfterParryAction();
+
+    int getMaxUseTimeParry();
 }
