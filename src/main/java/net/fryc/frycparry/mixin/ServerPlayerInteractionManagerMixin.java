@@ -1,7 +1,7 @@
 package net.fryc.frycparry.mixin;
 
-import net.fryc.frycparry.util.ParryItem;
-import net.fryc.frycparry.util.ServerParryInteraction;
+import net.fryc.frycparry.util.interfaces.ParryItem;
+import net.fryc.frycparry.util.interfaces.ServerParryInteraction;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ToolItem;
 import net.minecraft.server.network.ServerPlayerEntity;

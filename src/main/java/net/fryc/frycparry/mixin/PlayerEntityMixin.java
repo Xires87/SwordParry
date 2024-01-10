@@ -2,9 +2,9 @@ package net.fryc.frycparry.mixin;
 
 import net.fryc.frycparry.FrycParry;
 import net.fryc.frycparry.effects.ModEffects;
-import net.fryc.frycparry.util.CanBlock;
+import net.fryc.frycparry.util.interfaces.CanBlock;
 import net.fryc.frycparry.util.ParryHelper;
-import net.fryc.frycparry.util.ParryItem;
+import net.fryc.frycparry.util.interfaces.ParryItem;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;

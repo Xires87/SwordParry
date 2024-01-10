@@ -1,11 +1,11 @@
-package net.fryc.frycparry.mixin;
+package net.fryc.frycparry.mixin.client;
 
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 import net.fryc.frycparry.network.ModPackets;
-import net.fryc.frycparry.util.CanBlock;
-import net.fryc.frycparry.util.ParryInteraction;
-import net.fryc.frycparry.util.ParryItem;
+import net.fryc.frycparry.util.interfaces.CanBlock;
+import net.fryc.frycparry.util.interfaces.ParryInteraction;
+import net.fryc.frycparry.util.interfaces.ParryItem;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientPlayNetworkHandler;
 import net.minecraft.client.network.ClientPlayerInteractionManager;

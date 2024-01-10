@@ -1,8 +1,8 @@
-package net.fryc.frycparry.mixin;
+package net.fryc.frycparry.mixin.items;
 
-import net.fryc.frycparry.util.CanBlock;
+import net.fryc.frycparry.util.interfaces.CanBlock;
 import net.fryc.frycparry.util.ParryHelper;
-import net.fryc.frycparry.util.ParryItem;
+import net.fryc.frycparry.util.interfaces.ParryItem;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;

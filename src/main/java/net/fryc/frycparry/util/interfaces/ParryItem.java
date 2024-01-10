@@ -1,4 +1,4 @@
-package net.fryc.frycparry.util;
+package net.fryc.frycparry.util.interfaces;
 
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
