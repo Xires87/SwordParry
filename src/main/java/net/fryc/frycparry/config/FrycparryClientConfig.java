@@ -13,6 +13,19 @@ public class FrycparryClientConfig implements ConfigData {
     @Comment("When false, dontUseParryKey is toggleable (press it to disable blocking and parrying, and press again to enable)")
     public boolean holdDontUseParryKey = false;
 
+    @Comment("Rotation, translation and scale of items when blocking")
+    public float itemRotationX = 171f; // todo zrobic moje te bo nie chce takiego jak w starym mc
+    public float itemRotationY = 13f;
+    public float itemRotationZ = 165f;
+
+    public float itemTranslationX = -2.8f;
+    public float itemTranslationY = -0.2f;
+    public float itemTranslationZ = -5f;
+
+    public float itemScaleX = 1.0f;
+    public float itemScaleY = 1.0f;
+    public float itemScaleZ = 1.0f;
+
     @Comment("If you play singleplayer, use server sided config (frycparry.json5) for options under this comment. " +
             "These options only disable keybind (game behaves like you have never pressed parry key if you have a disabled item in your mainhand)." +
             "You will still get cooldowns after swapping or using disabled items")

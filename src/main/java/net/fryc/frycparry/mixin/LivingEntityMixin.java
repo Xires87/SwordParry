@@ -2,9 +2,9 @@ package net.fryc.frycparry.mixin;
 
 import net.fryc.frycparry.FrycParry;
 import net.fryc.frycparry.enchantments.ModEnchantments;
-import net.fryc.frycparry.util.CanBlock;
+import net.fryc.frycparry.util.interfaces.CanBlock;
 import net.fryc.frycparry.util.ParryHelper;
-import net.fryc.frycparry.util.ParryItem;
+import net.fryc.frycparry.util.interfaces.ParryItem;
 import net.minecraft.entity.Attackable;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;

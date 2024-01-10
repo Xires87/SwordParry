@@ -1,6 +1,6 @@
-package net.fryc.frycparry.mixin;
+package net.fryc.frycparry.mixin.client;
 
-import net.fryc.frycparry.util.CanBlock;
+import net.fryc.frycparry.util.interfaces.CanBlock;
 import net.minecraft.client.network.AbstractClientPlayerEntity;
 import net.minecraft.client.render.entity.PlayerEntityRenderer;
 import net.minecraft.client.render.entity.model.BipedEntityModel;

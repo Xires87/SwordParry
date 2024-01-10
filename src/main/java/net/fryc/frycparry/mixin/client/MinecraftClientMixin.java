@@ -1,4 +1,4 @@
-package net.fryc.frycparry.mixin;
+package net.fryc.frycparry.mixin.client;
 
 import net.fryc.frycparry.keybind.ModKeyBinds;
 import net.minecraft.client.MinecraftClient;

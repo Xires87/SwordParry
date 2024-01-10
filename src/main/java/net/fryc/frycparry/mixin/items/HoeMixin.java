@@ -1,4 +1,4 @@
-package net.fryc.frycparry.mixin;
+package net.fryc.frycparry.mixin.items;
 
 import net.fryc.frycparry.FrycParry;
 import net.minecraft.item.HoeItem;

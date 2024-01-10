@@ -4,15 +4,15 @@
   "package": "net.fryc.frycparry.mixin",
   "compatibilityLevel": "JAVA_17",
   "mixins": [
-    "ItemStackMixin",
+    "items/ItemStackMixin",
+    "items/ShieldMixin",
+    "items/SwordMixin",
+    "items/AxeMixin",
+    "items/PickaxeMixin",
+    "items/ShovelMixin",
+    "items/HoeMixin",
+    "items/ToolItemMixin",
     "LivingEntityMixin",
-    "ShieldMixin",
-    "SwordMixin",
-    "AxeMixin",
-    "PickaxeMixin",
-    "ShovelMixin",
-    "HoeMixin",
-    "ToolItemMixin",
     "PlayerEntityMixin",
     "EnchantmentHelperMixin",
     "ServerPlayerInteractionManagerMixin",
@@ -20,10 +20,12 @@
     "ServerWorldMixin"
   ],
   "client": [
-    "MinecraftClientMixin",
-    "ClientPlayerInteractionManagerMixin",
-    "PlayerEntityRendererMixin",
-    "HeldItemRendererMixin"
+    "client/MinecraftClientMixin",
+    "client/ClientPlayerInteractionManagerMixin",
+    "client/PlayerEntityRendererMixin",
+    "client/HeldItemRendererMixin",
+    "client/TransformationMixin",
+    "client/ItemRendererMixin"
   ],
   "injectors": {
     "defaultRequire": 1

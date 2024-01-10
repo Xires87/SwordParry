@@ -1,7 +1,7 @@
 package net.fryc.frycparry.mixin;
 
-import net.fryc.frycparry.util.OnParryInteraction;
-import net.fryc.frycparry.util.ServerParryInteraction;
+import net.fryc.frycparry.util.interfaces.OnParryInteraction;
+import net.fryc.frycparry.util.interfaces.ServerParryInteraction;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.listener.ServerPlayPacketListener;
 import net.minecraft.network.listener.TickablePacketListener;

@@ -1,9 +1,9 @@
-package net.fryc.frycparry.mixin;
+package net.fryc.frycparry.mixin.items;
 
 import net.fryc.frycparry.FrycParry;
 import net.fryc.frycparry.effects.ModEffects;
-import net.fryc.frycparry.util.CanBlock;
-import net.fryc.frycparry.util.ParryItem;
+import net.fryc.frycparry.util.interfaces.CanBlock;
+import net.fryc.frycparry.util.interfaces.ParryItem;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
@@ -84,7 +84,7 @@ abstract class ShieldMixin extends Item implements ParryItem {
         return FrycParry.config.shieldParryTicks;
     }
 
-    //it doesn't work anyway
+    //it doesn't work anyway todo make it work
     public float getMeleeDamageTakenAfterBlock(){
         return 0f;
     }
