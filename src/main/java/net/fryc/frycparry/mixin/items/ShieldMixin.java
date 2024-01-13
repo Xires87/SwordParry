@@ -84,7 +84,7 @@ abstract class ShieldMixin extends Item implements ParryItem {
         return FrycParry.config.shieldParryTicks;
     }
 
-    //it doesn't work anyway todo make it work
+    // todo dac opcje w configu zeby z tarcza tez mozna bylo dmg dostawac
     public float getMeleeDamageTakenAfterBlock(){
         return 0f;
     }

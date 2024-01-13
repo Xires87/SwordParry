@@ -4,13 +4,18 @@ import net.fryc.frycparry.FrycParry;
 import net.fryc.frycparry.effects.ModEffects;
 import net.fryc.frycparry.enchantments.ModEnchantments;
 import net.fryc.frycparry.util.interfaces.ParryItem;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.attribute.EntityAttributes;
+import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.projectile.PersistentProjectileEntity;
 import net.minecraft.item.*;
+import net.minecraft.registry.tag.DamageTypeTags;
 import net.minecraft.util.UseAction;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 
 public class ParryHelper {
@@ -23,7 +28,7 @@ public class ParryHelper {
     public static boolean enableBlockingWithHoe = FrycParry.config.enableBlockingWithHoe;
     public static boolean enableBlockingWithOtherTools = FrycParry.config.enableBlockingWithOtherTools;
 
-    public static boolean canParry(LivingEntity user){
+    public static boolean canParryWithoutShield(LivingEntity user){
         return user.getMainHandStack().getItem() instanceof ToolItem && !hasShieldEquipped(user) && (user.getOffHandStack().isEmpty() || checkDualWieldingWeapons(user) || checkDualWieldingItems(user));
     }
 
@@ -43,6 +48,56 @@ public class ParryHelper {
 
     public static boolean hasShieldEquipped(LivingEntity user){
         return user.getMainHandStack().getUseAction() == UseAction.BLOCK || user.getOffHandStack().getUseAction() == UseAction.BLOCK;
+    }
+
+    public static boolean blockingFullyNegatesDamage(DamageSource source, ItemStack stack, LivingEntity user){
+        if(source.isIn(DamageTypeTags.IS_EXPLOSION)){
+            return user.getActiveItem().getUseAction() == UseAction.BLOCK && user.getActiveItem().getMaxUseTime() - user.getItemUseTimeLeft() >= 5;
+        }
+        if(stack.getItem() instanceof ParryItem parryItem){
+            if(source.isIn(DamageTypeTags.IS_PROJECTILE)){
+                return parryItem.getProjectileDamageTakenAfterBlock() <= 0f;
+            }
+            return parryItem.getMeleeDamageTakenAfterBlock() <= 0f;
+        }
+        return true;
+    }
+
+    /**
+     *  !!! use only after attackWasBlocked() check !!!
+     */
+    public static boolean attackWasParried(DamageSource source, ItemStack stack, LivingEntity user){
+        if(source.isIn(DamageTypeTags.IS_EXPLOSION)) return false;
+        if(stack.getItem() instanceof ParryItem parryItem){
+            int maxUseTime = user.getActiveItem().getUseAction() == UseAction.BLOCK ? user.getActiveItem().getMaxUseTime() : ((ParryItem) user.getActiveItem().getItem()).getMaxUseTimeParry();
+            return maxUseTime - user.getItemUseTimeLeft() < parryItem.getParryTicks() + ModEnchantments.getPredictionEnchantment(user);
+        }
+        return false;
+    }
+
+    //vanilla blockedByShield method with additional parameter
+    public static boolean attackWasBlocked(DamageSource source, LivingEntity user) {
+        Entity entity = source.getSource();
+        boolean bl = false;
+        if (entity instanceof PersistentProjectileEntity persistentProjectileEntity) {
+            if (persistentProjectileEntity.getPierceLevel() > 0) {
+                bl = true;
+            }
+        }
+
+        if (!source.isIn(DamageTypeTags.BYPASSES_ARMOR) && user.isBlocking() && !bl) {
+            Vec3d vec3d = source.getPosition();
+            if (vec3d != null) {
+                Vec3d vec3d2 = user.getRotationVec(1.0F);
+                Vec3d vec3d3 = vec3d.relativize(user.getPos()).normalize();
+                vec3d3 = new Vec3d(vec3d3.x, 0.0, vec3d3.z);
+                if (vec3d3.dotProduct(vec3d2) < 0.0) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
     }
 
     public static boolean isItemParryDisabled(World world, Item item){
