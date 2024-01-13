@@ -14,11 +14,11 @@ public class FrycparryClientConfig implements ConfigData {
     public boolean holdDontUseParryKey = false;
 
     @Comment("Rotation, translation and scale of items when blocking")
-    public float itemRotationX = 171f; // todo zrobic moje te bo nie chce takiego jak w starym mc
-    public float itemRotationY = 13f;
-    public float itemRotationZ = 165f;
+    public float itemRotationX = 121f;
+    public float itemRotationY = -83f;
+    public float itemRotationZ = 185f;
 
-    public float itemTranslationX = -2.8f;
+    public float itemTranslationX = 1.0f;
     public float itemTranslationY = -0.2f;
     public float itemTranslationZ = -5f;
 
