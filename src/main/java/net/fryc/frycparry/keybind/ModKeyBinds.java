@@ -51,7 +51,7 @@ public class ModKeyBinds {
                             }
                             else{
                                 if(ClientParryHelper.canParry(player)){ // <-- checking client sided config
-                                    if(ParryHelper.canParry(player)){ // <-- checking server sided config
+                                    if(ParryHelper.canParryWithoutShield(player)){ // <-- checking server sided config
                                         if(((ParryItem) player.getMainHandStack().getItem()).getUseParryAction(player.getMainHandStack()) == UseAction.BLOCK){
                                             ((ParryInteraction) client.interactionManager).interactItemParry(client.player, Hand.MAIN_HAND);
                                         }

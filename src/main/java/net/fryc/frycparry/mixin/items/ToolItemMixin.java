@@ -25,7 +25,7 @@ abstract class ToolItemMixin extends Item implements ParryItem {
     public TypedActionResult<ItemStack> useParry(World world, PlayerEntity user, Hand hand) {
         ItemStack itemStack = user.getStackInHand(hand);
         if(ParryHelper.isItemParryDisabled(user.getWorld(), itemStack.getItem()) || hand == Hand.OFF_HAND) return TypedActionResult.fail(user.getStackInHand(hand));// <-- disables offhand parrying and parrying with disabled items
-        if(ParryHelper.canParry(user)){
+        if(ParryHelper.canParryWithoutShield(user)){
             ((CanBlock) user).setCurrentHandParry(hand);
             ((CanBlock) user).setBlockingDataToTrue();
             return TypedActionResult.success(itemStack);

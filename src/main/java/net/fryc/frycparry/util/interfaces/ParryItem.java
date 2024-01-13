@@ -10,7 +10,7 @@ import net.minecraft.world.World;
 
 public interface ParryItem {
 
-    //for ToolItem
+    //for ToolItem and ShieldItem
     UseAction getUseParryAction(ItemStack stack);
 
 

@@ -1,9 +1,8 @@
 package net.fryc.frycparry.mixin;
 
 import net.fryc.frycparry.FrycParry;
-import net.fryc.frycparry.enchantments.ModEnchantments;
-import net.fryc.frycparry.util.interfaces.CanBlock;
 import net.fryc.frycparry.util.ParryHelper;
+import net.fryc.frycparry.util.interfaces.CanBlock;
 import net.fryc.frycparry.util.interfaces.ParryItem;
 import net.minecraft.entity.Attackable;
 import net.minecraft.entity.Entity;
@@ -14,7 +13,6 @@ import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.projectile.PersistentProjectileEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ShieldItem;
@@ -22,7 +20,6 @@ import net.minecraft.item.ToolItem;
 import net.minecraft.registry.tag.DamageTypeTags;
 import net.minecraft.util.Hand;
 import net.minecraft.util.UseAction;
-import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.minecraft.world.event.GameEvent;
 import org.spongepowered.asm.mixin.Mixin;
@@ -53,71 +50,73 @@ abstract class LivingEntityMixin extends Entity implements Attackable, CanBlock 
     }
 
 
-    //makes blockedByShield method return true only when attack was blocked with shield or parried
+    //makes blockedByShield method return true only when attack was fully blocked (no dmg) or parried
     @Inject(method = "blockedByShield(Lnet/minecraft/entity/damage/DamageSource;)Z", at = @At("HEAD"), cancellable = true)
     private void shieldBlocking(DamageSource source, CallbackInfoReturnable<Boolean> ret) {
         LivingEntity dys = ((LivingEntity)(Object)this);
-        if(dys.getActiveItem().getItem() instanceof ToolItem tool && dys.getActiveItem().getUseAction() != UseAction.BLOCK){
-            int predictionEnchantmentLevel = ModEnchantments.getPredictionEnchantment(dys);
-            if(((ParryItem) tool).getUseParryAction(dys.getActiveItem()) == UseAction.BLOCK){
-                ParryItem parryItem = (ParryItem) tool;
-                if(parryItem.getMaxUseTimeParry() - dys.getItemUseTimeLeft() >= parryItem.getParryTicks() + predictionEnchantmentLevel || source.isIn(DamageTypeTags.IS_EXPLOSION)){
-                    ret.setReturnValue(false);
-                }
-            }
-        }
-        else if(dys.getActiveItem().getUseAction() != UseAction.BLOCK || (source.isIn(DamageTypeTags.IS_EXPLOSION) && dys.getActiveItem().getItem().getMaxUseTime(dys.getActiveItem()) - dys.getItemUseTimeLeft() < 5)){
+        if(!ParryHelper.canParryWithoutShield(dys) && !ParryHelper.hasShieldEquipped(dys)){
             ret.setReturnValue(false);
+        }
+        else{
+            if(!((CanBlock) dys).getParryDataValue() && !ParryHelper.blockingFullyNegatesDamage(source, dys.getActiveItem(), dys)){
+                ret.setReturnValue(false);
+            }
         }
     }
 
     @Inject(method = "damage(Lnet/minecraft/entity/damage/DamageSource;F)Z", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/LivingEntity;damageShield(F)V", shift = At.Shift.AFTER))
-    private void parry(DamageSource source, float amount, CallbackInfoReturnable<Boolean> ret) {
+    private void parryOrFullyBlock(DamageSource source, float amount, CallbackInfoReturnable<Boolean> ret) {
         LivingEntity dys = ((LivingEntity)(Object)this);
-        if(dys.getActiveItem().isEmpty() || !(dys.getActiveItem().getItem() instanceof ToolItem || dys.getActiveItem().getItem() instanceof ShieldItem)) return;
-        int maxUseTime = dys.getActiveItem().getUseAction() == UseAction.BLOCK ? dys.getActiveItem().getMaxUseTime() : ((ParryItem) dys.getActiveItem().getItem()).getMaxUseTimeParry();
-        if(!source.isIn(DamageTypeTags.IS_EXPLOSION)){
-            if(!(dys.getActiveItem().getUseAction() == UseAction.BLOCK && maxUseTime - dys.getItemUseTimeLeft() >= ((ParryItem) dys.getActiveItem().getItem()).getParryTicks() + ModEnchantments.getPredictionEnchantment(dys))){
+        boolean shouldSwingHand = false;
+        if(dys.getActiveItem().isEmpty() || !(dys.getActiveItem().getItem() instanceof ParryItem)) return;
+        if(((CanBlock) dys).getParryDataValue()){ // <--- checks if attack was parried
+            parryDataTimer = 10;
+            shouldSwingHand = true;
 
-                parryDataTimer = 10;
-                ((CanBlock) dys).setParryDataToTrue();
+            if(source.getAttacker() instanceof LivingEntity attacker){
+                if(!source.isIn(DamageTypeTags.IS_PROJECTILE)){
+                    //applying parry effects
+                    ParryHelper.applyParryEffects(dys, attacker);
 
-                if(source.getAttacker() instanceof LivingEntity attacker){
-                    if(!source.isIn(DamageTypeTags.IS_PROJECTILE)){
-                        //applying parry effects
-                        ParryHelper.applyParryEffects(dys, attacker);
+                    //counterattack enchantment and disabling block
+                    if(dys instanceof  PlayerEntity player){
+                        //counterattack enchantment
+                        ParryHelper.applyCounterattackEffects(player, attacker);
 
-                        //counterattack enchantment and disabling block
-                        if(dys instanceof  PlayerEntity player){
-                            //counterattack enchantment
-                            ParryHelper.applyCounterattackEffects(player, attacker);
-
-                            //disabling block after parrying axe attack (when config allows it)
-                            if(attacker.disablesShield() && FrycParry.config.disableBlockAfterParryingAxeAttack){
-                                if(dys.getActiveItem().getItem() instanceof ShieldItem) player.disableShield(true);
-                                else {
-                                    player.getItemCooldownManager().set(player.getMainHandStack().getItem(), 100);
-                                    if(ParryHelper.checkDualWieldingWeapons(player)) player.getItemCooldownManager().set(player.getOffHandStack().getItem(), 100);
-                                }
-                                ((CanBlock) dys).stopUsingItemParry();
-                                dys.swingHand(dys.getActiveHand(), true);
+                        //disabling block after parrying axe attack (when config allows it)
+                        if(attacker.disablesShield() && FrycParry.config.disableBlockAfterParryingAxeAttack){
+                            if(dys.getActiveItem().getItem() instanceof ShieldItem) player.disableShield(true);
+                            else {
+                                player.getItemCooldownManager().set(player.getMainHandStack().getItem(), 100);
+                                if(ParryHelper.checkDualWieldingWeapons(player)) player.getItemCooldownManager().set(player.getOffHandStack().getItem(), 100);
                             }
+                            ((CanBlock) dys).stopUsingItemParry();
+                            dys.swingHand(dys.getActiveHand(), true);
                         }
                     }
                 }
             }
-            else if(dys.getActiveItem().getItem() instanceof ShieldItem && dys instanceof PlayerEntity player){ // <-- triggered when player blocks attack with shield
-                if(((CanBlock) player).getParryDataValue()) ((CanBlock) player).setParryDataToFalse();
+        }
+        else {
+            ((CanBlock) dys).setParryDataToFalse(); // <--- redundant
+            if(dys instanceof PlayerEntity player){
                 if(source.getAttacker() instanceof LivingEntity attacker){
-                    if(attacker.disablesShield()) player.disableShield(true);
+                    if(attacker.disablesShield()){
+                        if(dys.getActiveItem().getItem() instanceof ShieldItem){
+                            if(attacker.disablesShield()) player.disableShield(true);
+                        }
+                        else {
+                            player.getItemCooldownManager().set(player.getMainHandStack().getItem(), 160);
+                        }
+                    }
                 }
             }
         }
 
-        // interrupting block action after PARRYING attack with weapon or tool
+        // interrupting block action after PARRYING or FULLY BLOCKING (no dmg) attack with tool
         if(dys.getActiveItem().getUseAction() != UseAction.BLOCK){
             ((CanBlock) dys).stopUsingItemParry();
-            dys.swingHand(dys.getActiveHand(), true);
+            if(shouldSwingHand) dys.swingHand(dys.getActiveHand(), true);
         }
 
         //damaging item that is not shield
@@ -131,40 +130,70 @@ abstract class LivingEntityMixin extends Entity implements Attackable, CanBlock 
     @ModifyVariable(method = "damage(Lnet/minecraft/entity/damage/DamageSource;F)Z", at = @At("HEAD"), ordinal = 0)
     private float blocking(float amount, DamageSource source) {
         LivingEntity dys = ((LivingEntity)(Object)this);
-        if(dys.getActiveItem().isEmpty() || !(dys.getActiveItem().getItem() instanceof ToolItem || dys.getActiveItem().getItem() instanceof ShieldItem)) return amount;
-        if(amount > 0.0F && !dys.blockedByShield(source) && this.blockedByWeapon(source, dys)){
-            byte b = 2;
-            if(source.isIn(DamageTypeTags.IS_EXPLOSION)){
-                // when shield is not held for 5 ticks, explosion will deal 80% of its damage
-                if(dys.getActiveItem().getUseAction() == UseAction.BLOCK){
-                    amount *= 0.8F;
-                    b = 29;
+        if(dys.getActiveItem().isEmpty() || !(dys.getActiveItem().getItem() instanceof ParryItem)) return amount;
+        if(ParryHelper.attackWasBlocked(source, dys)){
+            if(ParryHelper.attackWasParried(source, dys.getActiveItem(), dys)){ // todo przetestowac parryDataTimer na tarczy
+                ((CanBlock) dys).setParryDataToTrue();
+                return amount;
+            }
+            if(amount > 0.0F && !dys.blockedByShield(source)){
+                byte b = 2;
+                boolean changeStatus = false;
+                float originalDamage = amount;
+
+                if(source.isIn(DamageTypeTags.IS_EXPLOSION)){
+                    // when shield is not held for 5 ticks, explosion will deal 80% of its damage
+                    if(dys.getActiveItem().getUseAction() == UseAction.BLOCK){
+                        amount *= 0.8F;
+                        changeStatus = true;
+                    }
                 }
-            }
-            else if(source.isIn(DamageTypeTags.IS_PROJECTILE)){
-                amount *= ((ParryItem) dys.getActiveItem().getItem()).getProjectileDamageTakenAfterBlock();
-                b =30;
-            }
-            else if(source.getAttacker() instanceof LivingEntity attacker){
-                amount *= ((ParryItem) dys.getActiveItem().getItem()).getMeleeDamageTakenAfterBlock();
-                b = 30;
-                if(attacker.disablesShield() && dys instanceof PlayerEntity player){
-                    player.getItemCooldownManager().set(player.getMainHandStack().getItem(), 160);
+                else if(source.isIn(DamageTypeTags.IS_PROJECTILE)){
+                    amount *= ((ParryItem) dys.getActiveItem().getItem()).getProjectileDamageTakenAfterBlock();
+                    changeStatus = true;
+                }
+                else if(source.getAttacker() instanceof LivingEntity attacker){
+                    amount *= ((ParryItem) dys.getActiveItem().getItem()).getMeleeDamageTakenAfterBlock();
+                    changeStatus = true;
+                    if(attacker.disablesShield() && dys instanceof PlayerEntity player){
+                        if(player.getActiveItem().getItem() instanceof ShieldItem){
+                            player.disableShield(true);
+                        }
+                        else {
+                            player.getItemCooldownManager().set(player.getMainHandStack().getItem(), 160);
+                            ((CanBlock) dys).stopUsingItemParry();
+                        }
+                        b = 30;
+                        changeStatus = false;
+                    }
+                }
+
+                if(changeStatus){
+                    if(dys.getActiveItem().getItem() instanceof ShieldItem){
+                        b = 29;
+                    }
+                    else {
+                        b = 30;
+                    }
+                }
+                dys.getWorld().sendEntityStatus(this, b);
+
+                // interrupting block action after BLOCKING attack with tool
+                if(dys.getActiveItem().getUseAction() != UseAction.BLOCK){
                     ((CanBlock) dys).stopUsingItemParry();
                 }
-            }
-            dys.getWorld().sendEntityStatus(this, b);
 
-            // interrupting block action after BLOCKING attack with weapon or tool
-            if(dys.getActiveItem().getUseAction() != UseAction.BLOCK){
-                ((CanBlock) dys).stopUsingItemParry();
-            }
-
-            //damaging item that is not shield
-            if(!ParryHelper.hasShieldEquipped(dys)){
-                dys.getMainHandStack().damage(1, dys, (player) -> {
-                    player.sendToolBreakStatus(player.getActiveHand());
-                });
+                //damaging item that is not shield
+                if(!ParryHelper.hasShieldEquipped(dys)){
+                    dys.getMainHandStack().damage(1, dys, (player) -> {
+                        player.sendToolBreakStatus(player.getActiveHand());
+                    });
+                    //if(dys.getActiveItem().isEmpty()) ((CanBlock) dys).stopUsingItemParry();
+                }
+                else {
+                    dys.damageShield(originalDamage);
+                    if(dys.getActiveItem().isEmpty()) dys.stopUsingItem();
+                }
             }
         }
         return amount;
@@ -186,38 +215,13 @@ abstract class LivingEntityMixin extends Entity implements Attackable, CanBlock 
         }
     }
 
-    //vanilla blockedByShield method with additional parameter
-    public boolean blockedByWeapon(DamageSource source, LivingEntity user) {
-        Entity entity = source.getSource();
-        boolean bl = false;
-        if (entity instanceof PersistentProjectileEntity persistentProjectileEntity) {
-            if (persistentProjectileEntity.getPierceLevel() > 0) {
-                bl = true;
-            }
-        }
-
-        if (!source.isIn(DamageTypeTags.BYPASSES_ARMOR) && user.isBlocking() && !bl) {
-            Vec3d vec3d = source.getPosition();
-            if (vec3d != null) {
-                Vec3d vec3d2 = user.getRotationVec(1.0F);
-                Vec3d vec3d3 = vec3d.relativize(user.getPos()).normalize();
-                vec3d3 = new Vec3d(vec3d3.x, 0.0, vec3d3.z);
-                if (vec3d3.dotProduct(vec3d2) < 0.0) {
-                    return true;
-                }
-            }
-        }
-
-        return false;
-    }
-
 
     //plays SoundEvents.ITEM_SHIELD_BREAK sound when attack is blocked with tool
     @ModifyVariable(at = @At("HEAD"), method = "handleStatus(B)V")
     private byte init(byte status) {
         if(status == 29){
             LivingEntity entity = ((LivingEntity)(Object)this);
-            if(ParryHelper.canParry(entity)){
+            if(ParryHelper.canParryWithoutShield(entity)){
                 status = 30;
             }
         }

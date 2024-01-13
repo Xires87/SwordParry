@@ -41,7 +41,7 @@ abstract class PlayerEntityMixin extends LivingEntity {
         ((CanBlock) dys).setBlockingDataToFalse();
         ((CanBlock) dys).setParryDataToFalse();
 
-        if(ParryHelper.canParry(dys) && !ParryHelper.isItemParryDisabled(dys.getWorld() ,dys.getMainHandStack().getItem())){
+        if(ParryHelper.canParryWithoutShield(dys) && !ParryHelper.isItemParryDisabled(dys.getWorld() ,dys.getMainHandStack().getItem())){
             if(!dys.getItemCooldownManager().isCoolingDown(dys.getMainHandStack().getItem())) dys.getItemCooldownManager().set(dys.getMainHandStack().getItem(), ((ParryItem) dys.getMainHandStack().getItem()).getCooldownAfterInterruptingBlockAction());
         }
         else {
@@ -69,16 +69,16 @@ abstract class PlayerEntityMixin extends LivingEntity {
         PlayerEntity dys = ((PlayerEntity)(Object)this);
         if(this.lastAttackedTicks > 4 && !dys.handSwinging){
             int cooldownProgress = (int) dys.getAttackCooldownProgressPerTick() - 1; // <-- cooldown based on attack speed
-            if(ParryHelper.canParry(dys) && !ParryHelper.isItemParryDisabled(dys.getWorld(), dys.getMainHandStack().getItem())){
-                if(!dys.getItemCooldownManager().isCoolingDown(dys.getMainHandStack().getItem())) dys.getItemCooldownManager().set(dys.getMainHandStack().getItem(), cooldownProgress);
-            }
-            else if(ParryHelper.hasShieldEquipped(dys)){
+            if(ParryHelper.hasShieldEquipped(dys)){
                 if(dys.getMainHandStack().getUseAction() == UseAction.BLOCK){
                     if(!dys.getItemCooldownManager().isCoolingDown(dys.getMainHandStack().getItem())) dys.getItemCooldownManager().set(dys.getMainHandStack().getItem(), cooldownProgress);
                 }
                 else {
                     if(!dys.getItemCooldownManager().isCoolingDown(dys.getOffHandStack().getItem())) dys.getItemCooldownManager().set(dys.getOffHandStack().getItem(), cooldownProgress);
                 }
+            }
+            else if(ParryHelper.canParryWithoutShield(dys) && !ParryHelper.isItemParryDisabled(dys.getWorld(), dys.getMainHandStack().getItem())){
+                if(!dys.getItemCooldownManager().isCoolingDown(dys.getMainHandStack().getItem())) dys.getItemCooldownManager().set(dys.getMainHandStack().getItem(), cooldownProgress);
             }
         }
 
