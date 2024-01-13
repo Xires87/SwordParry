@@ -252,7 +252,7 @@ abstract class LivingEntityMixin extends Entity implements Attackable, CanBlock 
 
     // cancels stopUsingItem() method when BLOCKING_DATA is true
     @Inject(method = "stopUsingItem()V", at = @At("HEAD"), cancellable = true)
-    private void removeBlockDelay(CallbackInfo info) {
+    private void cancelStopUsingItem(CallbackInfo info) {
         LivingEntity dys = ((LivingEntity)(Object)this);
         if(((CanBlock) dys).getBlockingDataValue()) info.cancel();
     }

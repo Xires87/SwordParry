@@ -7,6 +7,7 @@ import net.minecraft.client.render.model.BakedModel;
 import net.minecraft.client.render.model.json.ModelTransformationMode;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.ToolItem;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -21,7 +22,7 @@ abstract class ItemRendererMixin {
             target = "Lnet/minecraft/client/util/math/MatrixStack;push()V", shift = At.Shift.AFTER))
     private void applyParryTransformationWhenNeeded(ItemStack stack, ModelTransformationMode renderMode, boolean leftHanded, MatrixStack matrices,
                                                     VertexConsumerProvider vertexConsumers, int light, int overlay, BakedModel model, CallbackInfo info){
-        if(renderMode == ModelTransformationMode.FIRST_PERSON_RIGHT_HAND && ItemRendererHelper.shouldApplyParryTransform){
+        if(renderMode == ModelTransformationMode.FIRST_PERSON_RIGHT_HAND && ItemRendererHelper.shouldApplyParryTransform && stack.getItem() instanceof ToolItem){
             ItemRendererHelper.applyParryTransform(matrices);
         }
     }
