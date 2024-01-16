@@ -40,7 +40,7 @@ abstract class ToolItemMixin extends Item implements ParryItem {
 
         //if player stops blocking after parry, cooldown is shorter (and depends on item used)
         if(user instanceof PlayerEntity player){
-            if(((CanBlock) user).getParryDataValue()){
+            if(((CanBlock) user).hasParriedRecently()){
                 if(((ParryItem) item).getCooldownAfterParryAction() > 0){
                     if(!player.getItemCooldownManager().isCoolingDown(item)) player.getItemCooldownManager().set(item, ((ParryItem) item).getCooldownAfterParryAction());
                 }
@@ -51,8 +51,6 @@ abstract class ToolItemMixin extends Item implements ParryItem {
                 }
             }
         }
-
-        ((CanBlock) user).setParryDataToFalse();
     }
 
 

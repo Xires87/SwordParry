@@ -2,7 +2,7 @@ package net.fryc.frycparry.util.client;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.fryc.frycparry.FrycParryClient;
+import net.fryc.frycparry.FrycParry;
 import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.item.*;
 
@@ -15,11 +15,11 @@ public class ClientParryHelper {
     }
 
     public static boolean isItemParryDisabled(Item item){
-        if(item instanceof SwordItem) return !FrycParryClient.config.enableBlockingWithSword;
-        if(item instanceof AxeItem) return !FrycParryClient.config.enableBlockingWithAxe;
-        if(item instanceof PickaxeItem) return !FrycParryClient.config.enableBlockingWithPickaxe;
-        if(item instanceof ShovelItem) return !FrycParryClient.config.enableBlockingWithShovel;
-        if(item instanceof HoeItem) return !FrycParryClient.config.enableBlockingWithHoe;
-        return !FrycParryClient.config.enableBlockingWithOtherTools;
+        if(item instanceof SwordItem) return !FrycParry.config.client.enableBlockingWithSword;
+        if(item instanceof AxeItem) return !FrycParry.config.client.enableBlockingWithAxe;
+        if(item instanceof PickaxeItem) return !FrycParry.config.client.enableBlockingWithPickaxe;
+        if(item instanceof ShovelItem) return !FrycParry.config.client.enableBlockingWithShovel;
+        if(item instanceof HoeItem) return !FrycParry.config.client.enableBlockingWithHoe;
+        return !FrycParry.config.client.enableBlockingWithOtherTools;
     }
 }

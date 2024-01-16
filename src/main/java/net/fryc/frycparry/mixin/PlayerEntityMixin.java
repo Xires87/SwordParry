@@ -46,10 +46,10 @@ abstract class PlayerEntityMixin extends LivingEntity {
         }
         else {
             if(dys.getMainHandStack().getItem() instanceof ShieldItem){
-                if(!dys.getItemCooldownManager().isCoolingDown(dys.getMainHandStack().getItem())) dys.getItemCooldownManager().set(dys.getMainHandStack().getItem(), FrycParry.config.cooldownAfterInterruptingShieldBlockAction);
+                if(!dys.getItemCooldownManager().isCoolingDown(dys.getMainHandStack().getItem())) dys.getItemCooldownManager().set(dys.getMainHandStack().getItem(), FrycParry.config.shield.cooldownAfterInterruptingShieldBlockAction);
             }
             else if(dys.getOffHandStack().getItem() instanceof ShieldItem) {
-                if(!dys.getItemCooldownManager().isCoolingDown(dys.getOffHandStack().getItem())) dys.getItemCooldownManager().set(dys.getOffHandStack().getItem(), FrycParry.config.cooldownAfterInterruptingShieldBlockAction);
+                if(!dys.getItemCooldownManager().isCoolingDown(dys.getOffHandStack().getItem())) dys.getItemCooldownManager().set(dys.getOffHandStack().getItem(), FrycParry.config.shield.cooldownAfterInterruptingShieldBlockAction);
             }
         }
     }
@@ -67,7 +67,7 @@ abstract class PlayerEntityMixin extends LivingEntity {
     @Inject(method = "resetLastAttackedTicks()V", at = @At("HEAD"))
     private void setCooldownForParry(CallbackInfo info) {
         PlayerEntity dys = ((PlayerEntity)(Object)this);
-        if(this.lastAttackedTicks > 4 && !dys.handSwinging){ // todo handSwinging powoduje bug na tarczy
+        if(!dys.handSwinging){
             int cooldownProgress = (int) dys.getAttackCooldownProgressPerTick() - 1; // <-- cooldown based on attack speed
             if(ParryHelper.hasShieldEquipped(dys)){
                 if(dys.getMainHandStack().getUseAction() == UseAction.BLOCK){

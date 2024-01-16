@@ -48,7 +48,7 @@ abstract class EnchantmentHelperMixin {
     }
 
     private static boolean isWeaponThatCanBlock(Item item){
-        if(!FrycParry.config.enchantmentsForShieldsCanAppearOnWeaponsInChests) return false;
+        if(!FrycParry.config.server.enchantmentsForShieldsCanAppearOnWeaponsInChests) return false;
         return (item instanceof SwordItem || item instanceof AxeItem) && !ParryHelper.isItemParryDisabled(item);
     }
 }

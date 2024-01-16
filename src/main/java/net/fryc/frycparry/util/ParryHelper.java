@@ -20,13 +20,13 @@ import net.minecraft.world.World;
 
 public class ParryHelper {
 
-    public static int dualWieldingSettings = FrycParry.config.enableBlockingWhenDualWielding;
-    public static boolean enableBlockingWithSword = FrycParry.config.enableBlockingWithSword;
-    public static boolean enableBlockingWithAxe = FrycParry.config.enableBlockingWithAxe;
-    public static boolean enableBlockingWithPickaxe = FrycParry.config.enableBlockingWithPickaxe;
-    public static boolean enableBlockingWithShovel = FrycParry.config.enableBlockingWithShovel;
-    public static boolean enableBlockingWithHoe = FrycParry.config.enableBlockingWithHoe;
-    public static boolean enableBlockingWithOtherTools = FrycParry.config.enableBlockingWithOtherTools;
+    public static int dualWieldingSettings = FrycParry.config.server.enableBlockingWhenDualWielding;
+    public static boolean enableBlockingWithSword = FrycParry.config.sword.enableBlockingWithSword;
+    public static boolean enableBlockingWithAxe = FrycParry.config.axe.enableBlockingWithAxe;
+    public static boolean enableBlockingWithPickaxe = FrycParry.config.pickaxe.enableBlockingWithPickaxe;
+    public static boolean enableBlockingWithShovel = FrycParry.config.shovel.enableBlockingWithShovel;
+    public static boolean enableBlockingWithHoe = FrycParry.config.hoe.enableBlockingWithHoe;
+    public static boolean enableBlockingWithOtherTools = FrycParry.config.server.enableBlockingWithOtherTools;
 
     public static boolean canParryWithoutShield(LivingEntity user){
         return user.getMainHandStack().getItem() instanceof ToolItem && !hasShieldEquipped(user) && (user.getOffHandStack().isEmpty() || checkDualWieldingWeapons(user) || checkDualWieldingItems(user));
@@ -36,14 +36,14 @@ public class ParryHelper {
         if(user.getWorld().isClient()){
             return dualWieldingSettings > 0 && user.getOffHandStack().getItem() instanceof ToolItem;
         }
-        return FrycParry.config.enableBlockingWhenDualWielding > 0 && user.getOffHandStack().getItem() instanceof ToolItem;
+        return FrycParry.config.server.enableBlockingWhenDualWielding > 0 && user.getOffHandStack().getItem() instanceof ToolItem;
     }
 
     public static boolean checkDualWieldingItems(LivingEntity user){
         if(user.getWorld().isClient()){
             return dualWieldingSettings > 1;
         }
-        return FrycParry.config.enableBlockingWhenDualWielding > 1;
+        return FrycParry.config.server.enableBlockingWhenDualWielding > 1;
     }
 
     public static boolean hasShieldEquipped(LivingEntity user){
@@ -113,12 +113,12 @@ public class ParryHelper {
     }
 
     public static boolean isItemParryDisabled(Item item){
-        if(item instanceof SwordItem) return !FrycParry.config.enableBlockingWithSword;
-        if(item instanceof AxeItem) return !FrycParry.config.enableBlockingWithAxe;
-        if(item instanceof PickaxeItem) return !FrycParry.config.enableBlockingWithPickaxe;
-        if(item instanceof ShovelItem) return !FrycParry.config.enableBlockingWithShovel;
-        if(item instanceof HoeItem) return !FrycParry.config.enableBlockingWithHoe;
-        return !FrycParry.config.enableBlockingWithOtherTools;
+        if(item instanceof SwordItem) return !FrycParry.config.sword.enableBlockingWithSword;
+        if(item instanceof AxeItem) return !FrycParry.config.axe.enableBlockingWithAxe;
+        if(item instanceof PickaxeItem) return !FrycParry.config.pickaxe.enableBlockingWithPickaxe;
+        if(item instanceof ShovelItem) return !FrycParry.config.shovel.enableBlockingWithShovel;
+        if(item instanceof HoeItem) return !FrycParry.config.hoe.enableBlockingWithHoe;
+        return !FrycParry.config.server.enableBlockingWithOtherTools;
     }
 
     public static void applyParryEffects(LivingEntity user, LivingEntity attacker){
@@ -136,11 +136,11 @@ public class ParryHelper {
         float[] modifiers = new float[3];
         if(attacker instanceof PlayerEntity) {
             modifiers[0] = 0.65F; modifiers[1] = 0.2F; modifiers[2] = 0.15F;
-            knockback -= FrycParry.config.parryKnockbackStrengthForPlayersModifier;
-            slowness -= FrycParry.config.slownessForPlayersAfterParryModifier;
-            slownessAmp -= FrycParry.config.slownessForPlayersAmplifierModifier;
-            weakness -= FrycParry.config.weaknessForPlayersAfterParryModifier;
-            weaknessAmp -= FrycParry.config.weaknessForPlayersAmplifierModifier;
+            knockback -= FrycParry.config.multiplayerModifiers.parryKnockbackStrengthForPlayersModifier;
+            slowness -= FrycParry.config.multiplayerModifiers.slownessForPlayersAfterParryModifier;
+            slownessAmp -= FrycParry.config.multiplayerModifiers.slownessForPlayersAmplifierModifier;
+            weakness -= FrycParry.config.multiplayerModifiers.weaknessForPlayersAfterParryModifier;
+            weaknessAmp -= FrycParry.config.multiplayerModifiers.weaknessForPlayersAmplifierModifier;
             disarmed = ((ParryItem) user.getActiveItem().getItem()).getDisarmedAfterParryAction();
         }
         else {
