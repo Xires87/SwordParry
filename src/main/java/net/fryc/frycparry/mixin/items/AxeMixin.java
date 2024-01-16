@@ -8,39 +8,39 @@ import org.spongepowered.asm.mixin.Mixin;
 abstract class AxeMixin {
 
     public int getParryTicks(){
-        return FrycParry.config.axeParryTicks;
+        return FrycParry.config.axe.axeParryTicks;
     }
 
     public float getMeleeDamageTakenAfterBlock(){
-        return (float) FrycParry.config.axeBlockMeleeDamageTaken/100;
+        return (float) FrycParry.config.axe.axeBlockMeleeDamageTaken/100;
     }
 
     public float getProjectileDamageTakenAfterBlock(){
-        return (float) FrycParry.config.axeBlockArrowDamageTaken/100;
+        return (float) FrycParry.config.axe.axeBlockArrowDamageTaken/100;
     }
 
     public int getCooldownAfterParryAction(){
-        return FrycParry.config.cooldownAfterAxeParryAction;
+        return FrycParry.config.axe.cooldownAfterAxeParryAction;
     }
     public int getCooldownAfterInterruptingBlockAction(){
-        return FrycParry.config.cooldownAfterInterruptingAxeBlockAction;
+        return FrycParry.config.axe.cooldownAfterInterruptingAxeBlockAction;
     }
     public double getKnockbackAfterParryAction(){
-        return FrycParry.config.axeParryKnockbackStrength;
+        return FrycParry.config.axe.axeParryKnockbackStrength;
     }
     public int getSlownessAfterParryAction(){
-        return FrycParry.config.axeSlownessAfterParry;
+        return FrycParry.config.axe.axeSlownessAfterParry;
     }
     public int getSlownessAmplifierAfterParryAction(){
-        return FrycParry.config.axeSlownessAfterParryAmplifier;
+        return FrycParry.config.axe.axeSlownessAfterParryAmplifier;
     }
     public int getWeaknessAfterParryAction(){
-        return FrycParry.config.axeWeaknessAfterParry;
+        return FrycParry.config.axe.axeWeaknessAfterParry;
     }
     public int getWeaknessAmplifierAfterParryAction(){
-        return FrycParry.config.axeWeaknessAfterParryAmplifier;
+        return FrycParry.config.axe.axeWeaknessAfterParryAmplifier;
     }
     public int getDisarmedAfterParryAction(){
-        return FrycParry.config.axeDisarmAfterParry;
+        return FrycParry.config.axe.axeDisarmAfterParry;
     }
 }

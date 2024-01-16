@@ -8,40 +8,40 @@ import org.spongepowered.asm.mixin.Mixin;
 abstract class SwordMixin {
 
     public int getParryTicks(){
-        return FrycParry.config.swordParryTicks;
+        return FrycParry.config.sword.swordParryTicks;
     }
 
     public float getMeleeDamageTakenAfterBlock(){
-        return (float) FrycParry.config.swordBlockMeleeDamageTaken/100;
+        return (float) FrycParry.config.sword.swordBlockMeleeDamageTaken/100;
     }
 
     public float getProjectileDamageTakenAfterBlock(){
-        return (float) FrycParry.config.swordBlockArrowDamageTaken/100;
+        return (float) FrycParry.config.sword.swordBlockArrowDamageTaken/100;
     }
 
     public int getCooldownAfterParryAction(){
-        return FrycParry.config.cooldownAfterSwordParryAction;
+        return FrycParry.config.sword.cooldownAfterSwordParryAction;
     }
     public int getCooldownAfterInterruptingBlockAction(){
-        return FrycParry.config.cooldownAfterInterruptingSwordBlockAction;
+        return FrycParry.config.sword.cooldownAfterInterruptingSwordBlockAction;
     }
     public double getKnockbackAfterParryAction(){
-        return FrycParry.config.swordParryKnockbackStrength;
+        return FrycParry.config.sword.swordParryKnockbackStrength;
     }
     public int getSlownessAfterParryAction(){
-        return FrycParry.config.swordSlownessAfterParry;
+        return FrycParry.config.sword.swordSlownessAfterParry;
     }
     public int getSlownessAmplifierAfterParryAction(){
-        return FrycParry.config.swordSlownessAfterParryAmplifier;
+        return FrycParry.config.sword.swordSlownessAfterParryAmplifier;
     }
     public int getWeaknessAfterParryAction(){
-        return FrycParry.config.swordWeaknessAfterParry;
+        return FrycParry.config.sword.swordWeaknessAfterParry;
     }
     public int getWeaknessAmplifierAfterParryAction(){
-        return FrycParry.config.swordWeaknessAfterParryAmplifier;
+        return FrycParry.config.sword.swordWeaknessAfterParryAmplifier;
     }
     public int getDisarmedAfterParryAction(){
-        return FrycParry.config.swordDisarmAfterParry;
+        return FrycParry.config.sword.swordDisarmAfterParry;
     }
 
 }

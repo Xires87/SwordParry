@@ -36,7 +36,7 @@ abstract class ShieldMixin extends Item implements ParryItem {
         Item item = stack.getItem();
 
         if(user instanceof PlayerEntity player){
-            if(((CanBlock) user).getParryDataValue()){
+            if(((CanBlock) user).hasParriedRecently()){
                 if(((ParryItem) item).getCooldownAfterParryAction() > 0){
                     if(!player.getItemCooldownManager().isCoolingDown(item)) player.getItemCooldownManager().set(item, ((ParryItem) item).getCooldownAfterParryAction());
                 }
@@ -47,8 +47,6 @@ abstract class ShieldMixin extends Item implements ParryItem {
                 }
             }
         }
-
-        ((CanBlock) user).setParryDataToFalse();
     }
 
     public int getMaxUseTimeParry(){
@@ -81,42 +79,40 @@ abstract class ShieldMixin extends Item implements ParryItem {
     //----------------------------------------------------------------------
 
     public int getParryTicks(){
-        return FrycParry.config.shieldParryTicks;
+        return FrycParry.config.shield.shieldParryTicks;
     }
 
-    // todo dac opcje w configu zeby z tarcza tez mozna bylo dmg dostawac
     public float getMeleeDamageTakenAfterBlock(){
-        return 0f;
+        return (float) FrycParry.config.shield.shieldBlockMeleeDamageTaken/100;
     }
 
     public float getProjectileDamageTakenAfterBlock(){
-        return 0f;
+        return (float) FrycParry.config.shield.shieldBlockArrowDamageTaken/100;
     }
-    //---------------------------------------------
 
     public int getCooldownAfterParryAction(){
-        return FrycParry.config.cooldownAfterShieldParryAction;
+        return FrycParry.config.shield.cooldownAfterShieldParryAction;
     }
     public int getCooldownAfterInterruptingBlockAction(){
-        return FrycParry.config.cooldownAfterInterruptingShieldBlockAction;
+        return FrycParry.config.shield.cooldownAfterInterruptingShieldBlockAction;
     }
     public double getKnockbackAfterParryAction(){
-        return FrycParry.config.shieldParryKnockbackStrength;
+        return FrycParry.config.shield.shieldParryKnockbackStrength;
     }
     public int getSlownessAfterParryAction(){
-        return FrycParry.config.shieldSlownessAfterParry;
+        return FrycParry.config.shield.shieldSlownessAfterParry;
     }
     public int getSlownessAmplifierAfterParryAction(){
-        return FrycParry.config.shieldSlownessAfterParryAmplifier;
+        return FrycParry.config.shield.shieldSlownessAfterParryAmplifier;
     }
     public int getWeaknessAfterParryAction(){
-        return FrycParry.config.shieldWeaknessAfterParry;
+        return FrycParry.config.shield.shieldWeaknessAfterParry;
     }
     public int getWeaknessAmplifierAfterParryAction(){
-        return FrycParry.config.shieldWeaknessAfterParryAmplifier;
+        return FrycParry.config.shield.shieldWeaknessAfterParryAmplifier;
     }
     public int getDisarmedAfterParryAction(){
-        return FrycParry.config.shieldDisarmAfterParry;
+        return FrycParry.config.shield.shieldDisarmAfterParry;
     }
 
 }

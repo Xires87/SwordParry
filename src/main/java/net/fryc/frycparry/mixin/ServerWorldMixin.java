@@ -18,13 +18,13 @@ abstract class ServerWorldMixin {
     @Inject(method = "onPlayerConnected(Lnet/minecraft/server/network/ServerPlayerEntity;)V", at = @At("TAIL"))
     private void sendConfigToClient(ServerPlayerEntity player, CallbackInfo info) {
         PacketByteBuf buf = PacketByteBufs.create();
-        buf.writeInt(FrycParry.config.enableBlockingWhenDualWielding);
-        buf.writeBoolean(FrycParry.config.enableBlockingWithSword);
-        buf.writeBoolean(FrycParry.config.enableBlockingWithAxe);
-        buf.writeBoolean(FrycParry.config.enableBlockingWithPickaxe);
-        buf.writeBoolean(FrycParry.config.enableBlockingWithShovel);
-        buf.writeBoolean(FrycParry.config.enableBlockingWithHoe);
-        buf.writeBoolean(FrycParry.config.enableBlockingWithOtherTools);
+        buf.writeInt(FrycParry.config.server.enableBlockingWhenDualWielding);
+        buf.writeBoolean(FrycParry.config.sword.enableBlockingWithSword);
+        buf.writeBoolean(FrycParry.config.axe.enableBlockingWithAxe);
+        buf.writeBoolean(FrycParry.config.pickaxe.enableBlockingWithPickaxe);
+        buf.writeBoolean(FrycParry.config.shovel.enableBlockingWithShovel);
+        buf.writeBoolean(FrycParry.config.hoe.enableBlockingWithHoe);
+        buf.writeBoolean(FrycParry.config.server.enableBlockingWithOtherTools);
         ServerPlayNetworking.send(player, ModPackets.ANSWER_CONFIG_ID, buf); // <--- informs client about server's config to avoid visual bugs
     }
 }

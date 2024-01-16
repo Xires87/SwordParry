@@ -37,7 +37,7 @@ abstract class LivingEntityMixin extends Entity implements Attackable, CanBlock 
     private static final TrackedData<Boolean> BLOCKING_DATA;
     private static final TrackedData<Boolean> PARRY_DATA;
 
-    public int parryDataTimer = 0;
+    public int parryTimer = 0;
 
     @Shadow
     protected ItemStack activeItemStack;
@@ -70,7 +70,8 @@ abstract class LivingEntityMixin extends Entity implements Attackable, CanBlock 
         boolean shouldSwingHand = false;
         if(dys.getActiveItem().isEmpty() || !(dys.getActiveItem().getItem() instanceof ParryItem)) return;
         if(((CanBlock) dys).getParryDataValue()){ // <--- checks if attack was parried
-            parryDataTimer = 10;
+            ((CanBlock) dys).setParryDataToFalse();
+            parryTimer = 10;
             shouldSwingHand = true;
 
             if(source.getAttacker() instanceof LivingEntity attacker){
@@ -84,7 +85,7 @@ abstract class LivingEntityMixin extends Entity implements Attackable, CanBlock 
                         ParryHelper.applyCounterattackEffects(player, attacker);
 
                         //disabling block after parrying axe attack (when config allows it)
-                        if(attacker.disablesShield() && FrycParry.config.disableBlockAfterParryingAxeAttack){
+                        if(attacker.disablesShield() && FrycParry.config.server.disableBlockAfterParryingAxeAttack){
                             if(dys.getActiveItem().getItem() instanceof ShieldItem) player.disableShield(true);
                             else {
                                 player.getItemCooldownManager().set(player.getMainHandStack().getItem(), 100);
@@ -98,7 +99,7 @@ abstract class LivingEntityMixin extends Entity implements Attackable, CanBlock 
             }
         }
         else {
-            ((CanBlock) dys).setParryDataToFalse(); // <--- redundant
+            ((CanBlock) dys).setParryDataToFalse();
             if(dys instanceof PlayerEntity player){
                 if(source.getAttacker() instanceof LivingEntity attacker){
                     if(attacker.disablesShield()){
@@ -132,7 +133,7 @@ abstract class LivingEntityMixin extends Entity implements Attackable, CanBlock 
         LivingEntity dys = ((LivingEntity)(Object)this);
         if(dys.getActiveItem().isEmpty() || !(dys.getActiveItem().getItem() instanceof ParryItem)) return amount;
         if(ParryHelper.attackWasBlocked(source, dys)){
-            if(ParryHelper.attackWasParried(source, dys.getActiveItem(), dys)){ // todo przetestowac parryDataTimer na tarczy
+            if(ParryHelper.attackWasParried(source, dys.getActiveItem(), dys)){
                 ((CanBlock) dys).setParryDataToTrue();
                 return amount;
             }
@@ -246,11 +247,11 @@ abstract class LivingEntityMixin extends Entity implements Attackable, CanBlock 
 
      */
 
-    // makes PARRY_DATA false after 10 ticks
+    // decrements parryTimer and makes PARRY_DATA false when parryTimer is 0
     @Inject(method = "tick()V", at = @At("TAIL"))
     private void decrementParryDataTimer(CallbackInfo info) {
         LivingEntity dys = ((LivingEntity)(Object)this);
-        if(parryDataTimer > 0) parryDataTimer--;
+        if(parryTimer > 0) parryTimer--;
         else if(((CanBlock) dys).getParryDataValue()) ((CanBlock) dys).setParryDataToFalse();
     }
 
@@ -293,6 +294,10 @@ abstract class LivingEntityMixin extends Entity implements Attackable, CanBlock 
             }
 
         }
+    }
+
+    public boolean hasParriedRecently(){
+        return parryTimer > 0;
     }
 
 

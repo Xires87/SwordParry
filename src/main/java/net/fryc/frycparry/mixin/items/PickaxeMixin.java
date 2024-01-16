@@ -8,39 +8,39 @@ import org.spongepowered.asm.mixin.Mixin;
 abstract class PickaxeMixin {
 
     public int getParryTicks(){
-        return FrycParry.config.pickaxeParryTicks;
+        return FrycParry.config.pickaxe.pickaxeParryTicks;
     }
 
     public float getMeleeDamageTakenAfterBlock(){
-        return (float) FrycParry.config.pickaxeBlockMeleeDamageTaken/100;
+        return (float) FrycParry.config.pickaxe.pickaxeBlockMeleeDamageTaken/100;
     }
 
     public float getProjectileDamageTakenAfterBlock(){
-        return (float) FrycParry.config.pickaxeBlockArrowDamageTaken/100;
+        return (float) FrycParry.config.pickaxe.pickaxeBlockArrowDamageTaken/100;
     }
 
     public int getCooldownAfterParryAction(){
-        return FrycParry.config.cooldownAfterPickaxeParryAction;
+        return FrycParry.config.pickaxe.cooldownAfterPickaxeParryAction;
     }
     public int getCooldownAfterInterruptingBlockAction(){
-        return FrycParry.config.cooldownAfterInterruptingPickaxeBlockAction;
+        return FrycParry.config.pickaxe.cooldownAfterInterruptingPickaxeBlockAction;
     }
     public double getKnockbackAfterParryAction(){
-        return FrycParry.config.pickaxeParryKnockbackStrength;
+        return FrycParry.config.pickaxe.pickaxeParryKnockbackStrength;
     }
     public int getSlownessAfterParryAction(){
-        return FrycParry.config.pickaxeSlownessAfterParry;
+        return FrycParry.config.pickaxe.pickaxeSlownessAfterParry;
     }
     public int getSlownessAmplifierAfterParryAction(){
-        return FrycParry.config.pickaxeSlownessAfterParryAmplifier;
+        return FrycParry.config.pickaxe.pickaxeSlownessAfterParryAmplifier;
     }
     public int getWeaknessAfterParryAction(){
-        return FrycParry.config.pickaxeWeaknessAfterParry;
+        return FrycParry.config.pickaxe.pickaxeWeaknessAfterParry;
     }
     public int getWeaknessAmplifierAfterParryAction(){
-        return FrycParry.config.pickaxeWeaknessAfterParryAmplifier;
+        return FrycParry.config.pickaxe.pickaxeWeaknessAfterParryAmplifier;
     }
     public int getDisarmedAfterParryAction(){
-        return FrycParry.config.pickaxeDisarmAfterParry;
+        return FrycParry.config.pickaxe.pickaxeDisarmAfterParry;
     }
 }

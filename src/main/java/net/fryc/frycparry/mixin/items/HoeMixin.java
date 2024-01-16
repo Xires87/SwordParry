@@ -8,39 +8,39 @@ import org.spongepowered.asm.mixin.Mixin;
 abstract class HoeMixin {
 
     public int getParryTicks(){
-        return FrycParry.config.hoeParryTicks;
+        return FrycParry.config.hoe.hoeParryTicks;
     }
 
     public float getMeleeDamageTakenAfterBlock(){
-        return (float) FrycParry.config.hoeBlockMeleeDamageTaken/100;
+        return (float) FrycParry.config.hoe.hoeBlockMeleeDamageTaken/100;
     }
 
     public float getProjectileDamageTakenAfterBlock(){
-        return (float) FrycParry.config.hoeBlockArrowDamageTaken/100;
+        return (float) FrycParry.config.hoe.hoeBlockArrowDamageTaken/100;
     }
 
     public int getCooldownAfterParryAction(){
-        return FrycParry.config.cooldownAfterHoeParryAction;
+        return FrycParry.config.hoe.cooldownAfterHoeParryAction;
     }
     public int getCooldownAfterInterruptingBlockAction(){
-        return FrycParry.config.cooldownAfterInterruptingHoeBlockAction;
+        return FrycParry.config.hoe.cooldownAfterInterruptingHoeBlockAction;
     }
     public double getKnockbackAfterParryAction(){
-        return FrycParry.config.hoeParryKnockbackStrength;
+        return FrycParry.config.hoe.hoeParryKnockbackStrength;
     }
     public int getSlownessAfterParryAction(){
-        return FrycParry.config.hoeSlownessAfterParry;
+        return FrycParry.config.hoe.hoeSlownessAfterParry;
     }
     public int getSlownessAmplifierAfterParryAction(){
-        return FrycParry.config.hoeSlownessAfterParryAmplifier;
+        return FrycParry.config.hoe.hoeSlownessAfterParryAmplifier;
     }
     public int getWeaknessAfterParryAction(){
-        return FrycParry.config.hoeWeaknessAfterParry;
+        return FrycParry.config.hoe.hoeWeaknessAfterParry;
     }
     public int getWeaknessAmplifierAfterParryAction(){
-        return FrycParry.config.hoeWeaknessAfterParryAmplifier;
+        return FrycParry.config.hoe.hoeWeaknessAfterParryAmplifier;
     }
     public int getDisarmedAfterParryAction(){
-        return FrycParry.config.hoeDisarmAfterParry;
+        return FrycParry.config.hoe.hoeDisarmAfterParry;
     }
 }

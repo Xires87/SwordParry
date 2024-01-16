@@ -11,6 +11,6 @@ public class ModMenuIntegration implements ModMenuApi {
 
     @Override
     public ConfigScreenFactory<?> getModConfigScreenFactory() {
-        return parent -> AutoConfig.getConfigScreen(FrycparryConfig.class, parent).get();
+        return parent -> AutoConfig.getConfigScreen(FrycParryConfig.class, parent).get();
     }
 }
