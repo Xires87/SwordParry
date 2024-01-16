@@ -24,7 +24,6 @@
     "client/ClientPlayerInteractionManagerMixin",
     "client/PlayerEntityRendererMixin",
     "client/HeldItemRendererMixin",
-    "client/TransformationMixin",
     "client/ItemRendererMixin"
   ],
   "injectors": {
