@@ -12,24 +12,30 @@ public class FrycparryClientConfig implements ConfigData {
     public boolean holdDontUseParryKey = false;
 
     @Comment("Rotation, translation and scale of items when blocking")
+    public boolean useOriginalRotation = false;
+
     @ConfigEntry.Gui.Tooltip
     public float itemRotationX = 121f;
     @ConfigEntry.Gui.Tooltip
     public float itemRotationY = -83f;
     @ConfigEntry.Gui.Tooltip
     public float itemRotationZ = 185f;
+
+    public boolean useOriginalTranslation = false;
     @ConfigEntry.Gui.Tooltip
-    public float itemTranslationX = 1.0f;
+    public float itemTranslationX = -1.5f;
     @ConfigEntry.Gui.Tooltip
-    public float itemTranslationY = -0.2f;
+    public float itemTranslationY = 2.2f;
     @ConfigEntry.Gui.Tooltip
-    public float itemTranslationZ = -5f;
+    public float itemTranslationZ = -1f;
+
+    public boolean useOriginalScale = true;
     @ConfigEntry.Gui.Tooltip
-    public float itemScaleX = 1.0f;
+    public float itemScaleX = 0.68f;
     @ConfigEntry.Gui.Tooltip
-    public float itemScaleY = 1.0f;
+    public float itemScaleY = 0.68f;
     @ConfigEntry.Gui.Tooltip
-    public float itemScaleZ = 1.0f;
+    public float itemScaleZ = 0.68f;
 
     @Comment("If you play singleplayer, use server sided config (axe.json5, sword.json5 etc.) for options under this comment. " +
             "These options only disable keybind (game behaves like you have never pressed parry key if you have a disabled item in your mainhand)." +

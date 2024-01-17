@@ -3,6 +3,7 @@ package net.fryc.frycparry.util.client;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fryc.frycparry.FrycParry;
+import net.minecraft.client.render.model.json.Transformation;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.math.MathHelper;
 import org.joml.Quaternionf;
@@ -14,16 +15,16 @@ public class ItemRendererHelper {
     public static boolean shouldApplyParryTransform = false;
 
 
-    public static void applyParryTransform(MatrixStack matrices){
-        float x = FrycParry.config.client.itemRotationX;
-        float y = FrycParry.config.client.itemRotationY;
-        float z = FrycParry.config.client.itemRotationZ;
+    public static void applyParryTransform(MatrixStack matrices, Transformation originalTransformation){
+        float x = FrycParry.config.client.useOriginalRotation ? originalTransformation.rotation.x() : FrycParry.config.client.itemRotationX;
+        float y = FrycParry.config.client.useOriginalRotation ? originalTransformation.rotation.y() : FrycParry.config.client.itemRotationY;
+        float z = FrycParry.config.client.useOriginalRotation ? originalTransformation.rotation.z() : FrycParry.config.client.itemRotationZ;
 
-        Vector3f vector3f = new Vector3f(FrycParry.config.client.itemTranslationX, FrycParry.config.client.itemTranslationY, FrycParry.config.client.itemTranslationZ);
+        Vector3f vector3f = FrycParry.config.client.useOriginalTranslation ? originalTransformation.translation : new Vector3f(FrycParry.config.client.itemTranslationX, FrycParry.config.client.itemTranslationY, FrycParry.config.client.itemTranslationZ);
         vector3f.mul(0.0625F);
         vector3f.set(MathHelper.clamp(vector3f.x, -5.0F, 5.0F), MathHelper.clamp(vector3f.y, -5.0F, 5.0F), MathHelper.clamp(vector3f.z, -5.0F, 5.0F));
 
-        Vector3f vector3f2 = new Vector3f(FrycParry.config.client.itemScaleX, FrycParry.config.client.itemScaleY, FrycParry.config.client.itemScaleZ);
+        Vector3f vector3f2 = FrycParry.config.client.useOriginalScale ? originalTransformation.scale : new Vector3f(FrycParry.config.client.itemScaleX, FrycParry.config.client.itemScaleY, FrycParry.config.client.itemScaleZ);
         vector3f2.set(MathHelper.clamp(vector3f2.x, -4.0F, 4.0F), MathHelper.clamp(vector3f2.y, -4.0F, 4.0F), MathHelper.clamp(vector3f2.z, -4.0F, 4.0F));
 
         matrices.translate(vector3f.x(), vector3f.y(), vector3f.z());
