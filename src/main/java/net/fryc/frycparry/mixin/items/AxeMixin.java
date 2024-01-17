@@ -43,4 +43,8 @@ abstract class AxeMixin {
     public int getDisarmedAfterParryAction(){
         return FrycParry.config.axe.axeDisarmAfterParry;
     }
+
+    public boolean shouldStopUsingItemAfterBlockOrParry(){
+        return FrycParry.config.axe.shouldStopUsingAxeAfterBlockOrParry;
+    }
 }

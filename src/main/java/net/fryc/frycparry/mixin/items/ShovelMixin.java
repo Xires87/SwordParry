@@ -43,4 +43,8 @@ abstract class ShovelMixin {
     public int getDisarmedAfterParryAction(){
         return FrycParry.config.shovel.shovelDisarmAfterParry;
     }
+
+    public boolean shouldStopUsingItemAfterBlockOrParry(){
+        return FrycParry.config.shovel.shouldStopUsingShovelAfterBlockOrParry;
+    }
 }

@@ -39,4 +39,6 @@ public class ShieldConfig implements ConfigData {
     public int cooldownAfterInterruptingShieldBlockAction = 26;
 
     public int cooldownAfterShieldParryAction = 16;
+
+    public boolean shouldStopUsingShieldAfterBlockOrParry = false;
 }

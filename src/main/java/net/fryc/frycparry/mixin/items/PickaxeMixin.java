@@ -43,4 +43,8 @@ abstract class PickaxeMixin {
     public int getDisarmedAfterParryAction(){
         return FrycParry.config.pickaxe.pickaxeDisarmAfterParry;
     }
+
+    public boolean shouldStopUsingItemAfterBlockOrParry(){
+        return FrycParry.config.pickaxe.shouldStopUsingPickaxeAfterBlockOrParry;
+    }
 }

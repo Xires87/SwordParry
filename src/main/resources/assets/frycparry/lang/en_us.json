@@ -159,6 +159,13 @@
   "text.autoconfig.frycparry.option.hoe.hoeDisarmAfterParry": "Parry disarm duration (for players only)",
   "text.autoconfig.frycparry.option.shovel.shovelDisarmAfterParry": "Parry disarm duration (for players only)",
 
+  "text.autoconfig.frycparry.option.shield.shouldStopUsingShieldAfterBlockOrParry": "Stop using item after block or parry",
+  "text.autoconfig.frycparry.option.sword.shouldStopUsingSwordAfterBlockOrParry": "Stop using item after block or parry",
+  "text.autoconfig.frycparry.option.axe.shouldStopUsingAxeAfterBlockOrParry": "Stop using item after block or parry",
+  "text.autoconfig.frycparry.option.pickaxe.shouldStopUsingPickaxeAfterBlockOrParry": "Stop using item after block or parry",
+  "text.autoconfig.frycparry.option.hoe.shouldStopUsingHoeAfterBlockOrParry": "Stop using item after block or parry",
+  "text.autoconfig.frycparry.option.shovel.shouldStopUsingShovelAfterBlockOrParry": "Stop using item after block or parry",
+
 
   "text.autoconfig.frycparry.option.client.holdDontUseParryKey": "Hold dontUseParryKey",
 

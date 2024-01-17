@@ -156,6 +156,13 @@
   "text.autoconfig.frycparry.option.hoe.hoeDisarmAfterParry": "Długość rozbrojenia z parowania (tylko dla graczy)",
   "text.autoconfig.frycparry.option.shovel.shovelDisarmAfterParry": "Długość rozbrojenia z parowania (tylko dla graczy)",
 
+  "text.autoconfig.frycparry.option.shield.shouldStopUsingShieldAfterBlockOrParry": "Przestań używać przedmiotu po zablokowaniu lub sparowaniu",
+  "text.autoconfig.frycparry.option.sword.shouldStopUsingSwordAfterBlockOrParry": "Przestań używać przedmiotu po zablokowaniu lub sparowaniu",
+  "text.autoconfig.frycparry.option.axe.shouldStopUsingAxeAfterBlockOrParry": "Przestań używać przedmiotu po zablokowaniu lub sparowaniu",
+  "text.autoconfig.frycparry.option.pickaxe.shouldStopUsingPickaxeAfterBlockOrParry": "Przestań używać przedmiotu po zablokowaniu lub sparowaniu",
+  "text.autoconfig.frycparry.option.hoe.shouldStopUsingHoeAfterBlockOrParry": "Przestań używać przedmiotu po zablokowaniu lub sparowaniu",
+  "text.autoconfig.frycparry.option.shovel.shouldStopUsingShovelAfterBlockOrParry": "Przestań używać przedmiotu po zablokowaniu lub sparowaniu",
+
   "text.autoconfig.frycparry.option.client.holdDontUseParryKey": "Trzymaj przycisk zapobiegajUżywaniuBlokowania",
 
   "text.autoconfig.frycparry.option.client.itemRotationX": "Obrót X",

@@ -116,4 +116,8 @@ abstract class ShieldMixin extends Item implements ParryItem {
         return FrycParry.config.shield.shieldDisarmAfterParry;
     }
 
+    public boolean shouldStopUsingItemAfterBlockOrParry(){
+        return FrycParry.config.shield.shouldStopUsingShieldAfterBlockOrParry;
+    }
+
 }
