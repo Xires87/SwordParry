@@ -51,4 +51,6 @@ public class AxeConfig implements ConfigData {
 
     
     public int cooldownAfterAxeParryAction = 15;
+
+    public boolean shouldStopUsingAxeAfterBlockOrParry = true;
 }

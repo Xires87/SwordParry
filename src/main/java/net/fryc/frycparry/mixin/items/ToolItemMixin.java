@@ -101,4 +101,8 @@ abstract class ToolItemMixin extends Item implements ParryItem {
     public int getDisarmedAfterParryAction(){
         return 20;
     }
+
+    public boolean shouldStopUsingItemAfterBlockOrParry(){
+        return true;
+    }
 }

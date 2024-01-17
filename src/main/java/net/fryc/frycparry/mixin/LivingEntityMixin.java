@@ -115,7 +115,7 @@ abstract class LivingEntityMixin extends Entity implements Attackable, CanBlock 
         }
 
         // interrupting block action after PARRYING or FULLY BLOCKING (no dmg) attack with tool
-        if(dys.getActiveItem().getUseAction() != UseAction.BLOCK){
+        if(((ParryItem) dys.getActiveItem().getItem()).shouldStopUsingItemAfterBlockOrParry()){
             ((CanBlock) dys).stopUsingItemParry();
             if(shouldSwingHand) dys.swingHand(dys.getActiveHand(), true);
         }
@@ -180,7 +180,7 @@ abstract class LivingEntityMixin extends Entity implements Attackable, CanBlock 
                 dys.getWorld().sendEntityStatus(this, b);
 
                 // interrupting block action after BLOCKING attack with tool
-                if(dys.getActiveItem().getUseAction() != UseAction.BLOCK){
+                if(((ParryItem) dys.getActiveItem().getItem()).shouldStopUsingItemAfterBlockOrParry()){
                     ((CanBlock) dys).stopUsingItemParry();
                 }
 

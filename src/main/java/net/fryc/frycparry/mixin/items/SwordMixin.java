@@ -44,4 +44,8 @@ abstract class SwordMixin {
         return FrycParry.config.sword.swordDisarmAfterParry;
     }
 
+    public boolean shouldStopUsingItemAfterBlockOrParry(){
+        return FrycParry.config.sword.shouldStopUsingSwordAfterBlockOrParry;
+    }
+
 }

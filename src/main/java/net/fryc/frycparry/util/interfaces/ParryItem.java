@@ -34,4 +34,6 @@ public interface ParryItem {
     int getDisarmedAfterParryAction();
 
     int getMaxUseTimeParry();
+
+    boolean shouldStopUsingItemAfterBlockOrParry();
 }

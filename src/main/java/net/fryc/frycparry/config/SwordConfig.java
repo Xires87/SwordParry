@@ -53,4 +53,6 @@ public class SwordConfig implements ConfigData {
 
     public int cooldownAfterSwordParryAction = 12;
 
+    public boolean shouldStopUsingSwordAfterBlockOrParry = true;
+
 }

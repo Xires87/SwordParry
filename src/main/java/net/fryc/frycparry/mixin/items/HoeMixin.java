@@ -43,4 +43,8 @@ abstract class HoeMixin {
     public int getDisarmedAfterParryAction(){
         return FrycParry.config.hoe.hoeDisarmAfterParry;
     }
+
+    public boolean shouldStopUsingItemAfterBlockOrParry(){
+        return FrycParry.config.hoe.shouldStopUsingHoeAfterBlockOrParry;
+    }
 }
