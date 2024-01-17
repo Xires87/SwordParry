@@ -4,7 +4,7 @@
   "version": "${version}",
 
   "name": "Sword Parry",
-  "description": "Lets you parry melee attacks and projectiles with tools or shields",
+  "description": "Lets you block and parry melee attacks and projectiles with shields, weapons and tools",
   "authors": [
     "Wookash Fryc"
   ],
