@@ -38,7 +38,7 @@ abstract class ItemRendererMixin {
                           VertexConsumerProvider vertexConsumers, int light, int overlay, BakedModel model) {
 
         if(renderMode == ModelTransformationMode.FIRST_PERSON_RIGHT_HAND && ItemRendererHelper.shouldApplyParryTransform && stack.getItem() instanceof ToolItem){
-            ItemRendererHelper.applyParryTransform(matrices);
+            ItemRendererHelper.applyParryTransform(matrices, transformation);
         }
         else {
             transformation.apply(leftHanded, matrices);

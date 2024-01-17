@@ -169,12 +169,15 @@
 
   "text.autoconfig.frycparry.option.client.holdDontUseParryKey": "Hold dontUseParryKey",
 
+  "text.autoconfig.frycparry.option.client.useOriginalRotation": "Use original rotation",
   "text.autoconfig.frycparry.option.client.itemRotationX": "X rotation",
   "text.autoconfig.frycparry.option.client.itemRotationY": "Y rotation",
   "text.autoconfig.frycparry.option.client.itemRotationZ": "Z rotation",
+  "text.autoconfig.frycparry.option.client.useOriginalTranslation": "Use original translation",
   "text.autoconfig.frycparry.option.client.itemTranslationX": "X translation",
   "text.autoconfig.frycparry.option.client.itemTranslationY": "Y translation",
   "text.autoconfig.frycparry.option.client.itemTranslationZ": "Z translation",
+  "text.autoconfig.frycparry.option.client.useOriginalScale": "Use original scale",
   "text.autoconfig.frycparry.option.client.itemScaleX": "X scale",
   "text.autoconfig.frycparry.option.client.itemScaleY": "Y scale",
   "text.autoconfig.frycparry.option.client.itemScaleZ": "Z scale",
