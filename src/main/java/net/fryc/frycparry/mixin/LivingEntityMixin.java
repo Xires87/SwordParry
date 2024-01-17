@@ -50,20 +50,6 @@ abstract class LivingEntityMixin extends Entity implements Attackable, CanBlock 
     }
 
 
-    //makes blockedByShield method return true only when attack was fully blocked (no dmg) or parried
-    @Inject(method = "blockedByShield(Lnet/minecraft/entity/damage/DamageSource;)Z", at = @At("HEAD"), cancellable = true)
-    private void shieldBlocking(DamageSource source, CallbackInfoReturnable<Boolean> ret) {
-        LivingEntity dys = ((LivingEntity)(Object)this);
-        if(!ParryHelper.canParryWithoutShield(dys) && !ParryHelper.hasShieldEquipped(dys)){
-            ret.setReturnValue(false);
-        }
-        else{
-            if(!((CanBlock) dys).getParryDataValue() && !ParryHelper.blockingFullyNegatesDamage(source, dys.getActiveItem(), dys)){
-                ret.setReturnValue(false);
-            }
-        }
-    }
-
     @Inject(method = "damage(Lnet/minecraft/entity/damage/DamageSource;F)Z", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/LivingEntity;damageShield(F)V", shift = At.Shift.AFTER))
     private void parryOrFullyBlock(DamageSource source, float amount, CallbackInfoReturnable<Boolean> ret) { // <----- executed only on server
         LivingEntity dys = ((LivingEntity)(Object)this);
