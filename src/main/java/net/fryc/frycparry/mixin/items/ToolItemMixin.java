@@ -1,7 +1,7 @@
 package net.fryc.frycparry.mixin.items;
 
-import net.fryc.frycparry.util.interfaces.CanBlock;
 import net.fryc.frycparry.util.ParryHelper;
+import net.fryc.frycparry.util.interfaces.CanBlock;
 import net.fryc.frycparry.util.interfaces.ParryItem;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -39,7 +39,7 @@ abstract class ToolItemMixin extends Item implements ParryItem {
         Item item = stack.getItem();
 
         //if player stops blocking after parry, cooldown is shorter (and depends on item used)
-        if(user instanceof PlayerEntity player){
+        if(user instanceof PlayerEntity player && !world.isClient()){
             if(((CanBlock) user).hasParriedRecently()){
                 if(((ParryItem) item).getCooldownAfterParryAction() > 0){
                     if(!player.getItemCooldownManager().isCoolingDown(item)) player.getItemCooldownManager().set(item, ((ParryItem) item).getCooldownAfterParryAction());
