@@ -2,6 +2,7 @@ package net.fryc.frycparry.config;
 
 import me.shedaniel.autoconfig.ConfigData;
 import me.shedaniel.autoconfig.annotation.Config;
+import me.shedaniel.autoconfig.annotation.ConfigEntry;
 import me.shedaniel.cloth.clothconfig.shadowed.blue.endless.jankson.Comment;
 
 @Config(name="client")
@@ -11,16 +12,23 @@ public class FrycparryClientConfig implements ConfigData {
     public boolean holdDontUseParryKey = false;
 
     @Comment("Rotation, translation and scale of items when blocking")
+    @ConfigEntry.Gui.Tooltip
     public float itemRotationX = 121f;
+    @ConfigEntry.Gui.Tooltip
     public float itemRotationY = -83f;
+    @ConfigEntry.Gui.Tooltip
     public float itemRotationZ = 185f;
-
+    @ConfigEntry.Gui.Tooltip
     public float itemTranslationX = 1.0f;
+    @ConfigEntry.Gui.Tooltip
     public float itemTranslationY = -0.2f;
+    @ConfigEntry.Gui.Tooltip
     public float itemTranslationZ = -5f;
-
+    @ConfigEntry.Gui.Tooltip
     public float itemScaleX = 1.0f;
+    @ConfigEntry.Gui.Tooltip
     public float itemScaleY = 1.0f;
+    @ConfigEntry.Gui.Tooltip
     public float itemScaleZ = 1.0f;
 
     @Comment("If you play singleplayer, use server sided config (axe.json5, sword.json5 etc.) for options under this comment. " +
