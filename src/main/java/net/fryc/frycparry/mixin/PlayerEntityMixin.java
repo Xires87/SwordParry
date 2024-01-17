@@ -1,6 +1,5 @@
 package net.fryc.frycparry.mixin;
 
-import net.fryc.frycparry.FrycParry;
 import net.fryc.frycparry.effects.ModEffects;
 import net.fryc.frycparry.util.interfaces.CanBlock;
 import net.fryc.frycparry.util.ParryHelper;
@@ -41,15 +40,22 @@ abstract class PlayerEntityMixin extends LivingEntity {
         ((CanBlock) dys).setBlockingDataToFalse();
         ((CanBlock) dys).setParryDataToFalse();
 
+        int cooldown;
         if(ParryHelper.canParryWithoutShield(dys) && !ParryHelper.isItemParryDisabled(dys.getWorld() ,dys.getMainHandStack().getItem())){
-            if(!dys.getItemCooldownManager().isCoolingDown(dys.getMainHandStack().getItem())) dys.getItemCooldownManager().set(dys.getMainHandStack().getItem(), ((ParryItem) dys.getMainHandStack().getItem()).getCooldownAfterInterruptingBlockAction());
+            cooldown = ((ParryItem) dys.getMainHandStack().getItem()).getCooldownAfterInterruptingBlockAction();
+            if(cooldown < 1) cooldown++;
+            if(!dys.getItemCooldownManager().isCoolingDown(dys.getMainHandStack().getItem())) dys.getItemCooldownManager().set(dys.getMainHandStack().getItem(), cooldown);
         }
         else {
             if(dys.getMainHandStack().getItem() instanceof ShieldItem){
-                if(!dys.getItemCooldownManager().isCoolingDown(dys.getMainHandStack().getItem())) dys.getItemCooldownManager().set(dys.getMainHandStack().getItem(), FrycParry.config.shield.cooldownAfterInterruptingShieldBlockAction);
+                cooldown = ((ParryItem) dys.getMainHandStack().getItem()).getCooldownAfterInterruptingBlockAction();
+                if(cooldown < 1) cooldown++;
+                if(!dys.getItemCooldownManager().isCoolingDown(dys.getMainHandStack().getItem())) dys.getItemCooldownManager().set(dys.getMainHandStack().getItem(), cooldown);
             }
             else if(dys.getOffHandStack().getItem() instanceof ShieldItem) {
-                if(!dys.getItemCooldownManager().isCoolingDown(dys.getOffHandStack().getItem())) dys.getItemCooldownManager().set(dys.getOffHandStack().getItem(), FrycParry.config.shield.cooldownAfterInterruptingShieldBlockAction);
+                cooldown = ((ParryItem) dys.getOffHandStack().getItem()).getCooldownAfterInterruptingBlockAction();
+                if(cooldown < 1) cooldown++;
+                if(!dys.getItemCooldownManager().isCoolingDown(dys.getOffHandStack().getItem())) dys.getItemCooldownManager().set(dys.getOffHandStack().getItem(), cooldown);
             }
         }
     }
@@ -67,7 +73,7 @@ abstract class PlayerEntityMixin extends LivingEntity {
     @Inject(method = "resetLastAttackedTicks()V", at = @At("HEAD"))
     private void setCooldownForParry(CallbackInfo info) {
         PlayerEntity dys = ((PlayerEntity)(Object)this);
-        if(!dys.handSwinging){
+        if(!dys.handSwinging && !dys.getWorld().isClient()){
             int cooldownProgress = (int) dys.getAttackCooldownProgressPerTick() - 1; // <-- cooldown based on attack speed
             if(ParryHelper.hasShieldEquipped(dys)){
                 if(dys.getMainHandStack().getUseAction() == UseAction.BLOCK){

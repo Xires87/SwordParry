@@ -35,8 +35,9 @@ abstract class ShieldMixin extends Item implements ParryItem {
     public void onStoppedUsing(ItemStack stack, World world, LivingEntity user, int remainingUseTicks) {
         Item item = stack.getItem();
 
-        if(user instanceof PlayerEntity player){
+        if(user instanceof PlayerEntity player && !world.isClient()){
             if(((CanBlock) user).hasParriedRecently()){
+                //player.sendMessage(Text.of("sparowano" + (world.isClient() ? " klient" : " serwer")));
                 if(((ParryItem) item).getCooldownAfterParryAction() > 0){
                     if(!player.getItemCooldownManager().isCoolingDown(item)) player.getItemCooldownManager().set(item, ((ParryItem) item).getCooldownAfterParryAction());
                 }

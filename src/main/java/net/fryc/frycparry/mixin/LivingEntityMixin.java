@@ -65,7 +65,7 @@ abstract class LivingEntityMixin extends Entity implements Attackable, CanBlock 
     }
 
     @Inject(method = "damage(Lnet/minecraft/entity/damage/DamageSource;F)Z", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/LivingEntity;damageShield(F)V", shift = At.Shift.AFTER))
-    private void parryOrFullyBlock(DamageSource source, float amount, CallbackInfoReturnable<Boolean> ret) {
+    private void parryOrFullyBlock(DamageSource source, float amount, CallbackInfoReturnable<Boolean> ret) { // <----- executed only on server
         LivingEntity dys = ((LivingEntity)(Object)this);
         boolean shouldSwingHand = false;
         if(dys.getActiveItem().isEmpty() || !(dys.getActiveItem().getItem() instanceof ParryItem)) return;
@@ -131,7 +131,7 @@ abstract class LivingEntityMixin extends Entity implements Attackable, CanBlock 
     @ModifyVariable(method = "damage(Lnet/minecraft/entity/damage/DamageSource;F)Z", at = @At("HEAD"), ordinal = 0)
     private float blocking(float amount, DamageSource source) {
         LivingEntity dys = ((LivingEntity)(Object)this);
-        if(dys.getActiveItem().isEmpty() || !(dys.getActiveItem().getItem() instanceof ParryItem)) return amount;
+        if(dys.getActiveItem().isEmpty() || !(dys.getActiveItem().getItem() instanceof ParryItem) || dys.getWorld().isClient()) return amount;
         if(ParryHelper.attackWasBlocked(source, dys)){
             if(ParryHelper.attackWasParried(source, dys.getActiveItem(), dys)){
                 ((CanBlock) dys).setParryDataToTrue();
@@ -251,8 +251,10 @@ abstract class LivingEntityMixin extends Entity implements Attackable, CanBlock 
     @Inject(method = "tick()V", at = @At("TAIL"))
     private void decrementParryDataTimer(CallbackInfo info) {
         LivingEntity dys = ((LivingEntity)(Object)this);
-        if(parryTimer > 0) parryTimer--;
-        else if(((CanBlock) dys).getParryDataValue()) ((CanBlock) dys).setParryDataToFalse();
+        if(!dys.getWorld().isClient()){ // <---- parry data is always false on client
+            if(parryTimer > 0) parryTimer--;
+            else if(((CanBlock) dys).getParryDataValue()) ((CanBlock) dys).setParryDataToFalse();
+        }
     }
 
     // cancels stopUsingItem() method when BLOCKING_DATA is true
