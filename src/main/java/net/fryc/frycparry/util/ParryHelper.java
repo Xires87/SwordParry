@@ -3,6 +3,7 @@ package net.fryc.frycparry.util;
 import net.fryc.frycparry.FrycParry;
 import net.fryc.frycparry.effects.ModEffects;
 import net.fryc.frycparry.enchantments.ModEnchantments;
+import net.fryc.frycparry.tag.ModItemTags;
 import net.fryc.frycparry.util.interfaces.ParryItem;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
@@ -14,7 +15,6 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.PersistentProjectileEntity;
 import net.minecraft.item.*;
 import net.minecraft.registry.tag.DamageTypeTags;
-import net.minecraft.util.UseAction;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 
@@ -29,14 +29,24 @@ public class ParryHelper {
     public static boolean enableBlockingWithOtherTools = FrycParry.config.server.enableBlockingWithOtherTools;
 
     public static boolean canParryWithoutShield(LivingEntity user){
-        return user.getMainHandStack().getItem() instanceof ToolItem && !hasShieldEquipped(user) && (user.getOffHandStack().isEmpty() || checkDualWieldingWeapons(user) || checkDualWieldingItems(user));
+        return isItemParryEnabled(user.getMainHandStack()) && !hasShieldEquipped(user) && isNonShieldParryingEnabled(user);
+    }
+
+    public static boolean isItemParryEnabled(ItemStack stack){
+        if(stack.isEmpty()) return false;
+        if(stack.isIn(ModItemTags.PARRYING_EXCLUDED_ITEMS)) return false;
+        return stack.getItem() instanceof ToolItem || stack.isIn(ModItemTags.ITEMS_CAN_PARRY);
+    }
+
+    public static boolean isNonShieldParryingEnabled(LivingEntity user){
+        return user.getOffHandStack().isEmpty() || checkDualWieldingWeapons(user) || checkDualWieldingItems(user);
     }
 
     public static boolean checkDualWieldingWeapons(LivingEntity user){
         if(user.getWorld().isClient()){
-            return dualWieldingSettings > 0 && user.getOffHandStack().getItem() instanceof ToolItem;
+            return dualWieldingSettings > 0 && isItemParryEnabled(user.getMainHandStack());
         }
-        return FrycParry.config.server.enableBlockingWhenDualWielding > 0 && user.getOffHandStack().getItem() instanceof ToolItem;
+        return FrycParry.config.server.enableBlockingWhenDualWielding > 0 && isItemParryEnabled(user.getMainHandStack());
     }
 
     public static boolean checkDualWieldingItems(LivingEntity user){
@@ -47,12 +57,12 @@ public class ParryHelper {
     }
 
     public static boolean hasShieldEquipped(LivingEntity user){
-        return user.getMainHandStack().getUseAction() == UseAction.BLOCK || user.getOffHandStack().getUseAction() == UseAction.BLOCK;
+        return user.getMainHandStack().getItem() instanceof ShieldItem || user.getOffHandStack().getItem() instanceof ShieldItem;
     }
 
     public static boolean blockingFullyNegatesDamage(DamageSource source, ItemStack stack, LivingEntity user){
         if(source.isIn(DamageTypeTags.IS_EXPLOSION)){
-            return user.getActiveItem().getUseAction() == UseAction.BLOCK && user.getActiveItem().getMaxUseTime() - user.getItemUseTimeLeft() >= 5;
+            return user.getActiveItem().getItem() instanceof ShieldItem && user.getActiveItem().getMaxUseTime() - user.getItemUseTimeLeft() >= 5;
         }
         if(stack.getItem() instanceof ParryItem parryItem){
             if(source.isIn(DamageTypeTags.IS_PROJECTILE)){
@@ -68,9 +78,9 @@ public class ParryHelper {
      */
     public static boolean attackWasParried(DamageSource source, ItemStack stack, LivingEntity user){
         if(source.isIn(DamageTypeTags.IS_EXPLOSION)) return false;
-        if(stack.getItem() instanceof ParryItem parryItem){
-            int maxUseTime = user.getActiveItem().getUseAction() == UseAction.BLOCK ? user.getActiveItem().getMaxUseTime() : ((ParryItem) user.getActiveItem().getItem()).getMaxUseTimeParry();
-            return maxUseTime - user.getItemUseTimeLeft() < parryItem.getParryTicks() + ModEnchantments.getPredictionEnchantment(user);
+        if(isItemParryEnabled(stack)){
+            int maxUseTime = user.getActiveItem().getItem() instanceof ShieldItem ? user.getActiveItem().getMaxUseTime() : ((ParryItem) user.getActiveItem().getItem()).getMaxUseTimeParry();
+            return maxUseTime - user.getItemUseTimeLeft() < ((ParryItem) stack.getItem()).getParryTicks() + ModEnchantments.getPredictionEnchantment(user);
         }
         return false;
     }

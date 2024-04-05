@@ -1,26 +1,23 @@
 package net.fryc.frycparry.mixin.items;
 
+import net.fabricmc.fabric.api.item.v1.FabricItem;
 import net.fryc.frycparry.util.ParryHelper;
 import net.fryc.frycparry.util.interfaces.CanBlock;
 import net.fryc.frycparry.util.interfaces.ParryItem;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemConvertible;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.ToolItem;
+import net.minecraft.resource.featuretoggle.ToggleableFeature;
 import net.minecraft.util.Hand;
 import net.minecraft.util.TypedActionResult;
 import net.minecraft.util.UseAction;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 
-@Mixin(ToolItem.class)
-abstract class ToolItemMixin extends Item {
-
-    public ToolItemMixin(Settings settings) {
-        super(settings);
-    }
-
+@Mixin(Item.class)
+abstract class ItemMixin implements ToggleableFeature, ItemConvertible, FabricItem, ParryItem {
 
     public TypedActionResult<ItemStack> useParry(World world, PlayerEntity user, Hand hand) {
         ItemStack itemStack = user.getStackInHand(hand);
@@ -64,7 +61,7 @@ abstract class ToolItemMixin extends Item {
 
 
     public int getParryTicks(){
-        return 1;
+        return 0;
     }
 
     public float getMeleeDamageTakenAfterBlock(){
@@ -105,4 +102,5 @@ abstract class ToolItemMixin extends Item {
     public boolean shouldStopUsingItemAfterBlockOrParry(){
         return true;
     }
+
 }

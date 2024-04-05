@@ -37,7 +37,7 @@ public class DisarmedEffect extends StatusEffect {
 
     private static boolean isShieldOrBowOrTool(World world, Item item){
         return item instanceof ShieldItem || item instanceof BowItem || item instanceof CrossbowItem ||
-                item instanceof TridentItem || (item instanceof ToolItem && !ParryHelper.isItemParryDisabled(world, item));
+                item instanceof TridentItem || (ParryHelper.isItemParryEnabled(item.getDefaultStack()) && !ParryHelper.isItemParryDisabled(world, item));
     }
 
 }

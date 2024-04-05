@@ -41,21 +41,23 @@ abstract class PlayerEntityMixin extends LivingEntity {
         ((CanBlock) dys).setParryDataToFalse();
 
         int cooldown;
-        if(ParryHelper.canParryWithoutShield(dys) && !ParryHelper.isItemParryDisabled(dys.getWorld() ,dys.getMainHandStack().getItem())){
-            cooldown = ((ParryItem) dys.getMainHandStack().getItem()).getCooldownAfterInterruptingBlockAction();
-            if(cooldown < 1) cooldown++;
-            if(!dys.getItemCooldownManager().isCoolingDown(dys.getMainHandStack().getItem())) dys.getItemCooldownManager().set(dys.getMainHandStack().getItem(), cooldown);
-        }
-        else {
-            if(dys.getMainHandStack().getItem() instanceof ShieldItem){
+        if(!ParryHelper.isItemParryDisabled(dys.getWorld(), dys.getMainHandStack().getItem())){
+            if(ParryHelper.canParryWithoutShield(dys)){
                 cooldown = ((ParryItem) dys.getMainHandStack().getItem()).getCooldownAfterInterruptingBlockAction();
                 if(cooldown < 1) cooldown++;
                 if(!dys.getItemCooldownManager().isCoolingDown(dys.getMainHandStack().getItem())) dys.getItemCooldownManager().set(dys.getMainHandStack().getItem(), cooldown);
             }
-            else if(dys.getOffHandStack().getItem() instanceof ShieldItem) {
-                cooldown = ((ParryItem) dys.getOffHandStack().getItem()).getCooldownAfterInterruptingBlockAction();
-                if(cooldown < 1) cooldown++;
-                if(!dys.getItemCooldownManager().isCoolingDown(dys.getOffHandStack().getItem())) dys.getItemCooldownManager().set(dys.getOffHandStack().getItem(), cooldown);
+            else {
+                if(dys.getMainHandStack().getItem() instanceof ShieldItem){
+                    cooldown = ((ParryItem) dys.getMainHandStack().getItem()).getCooldownAfterInterruptingBlockAction();
+                    if(cooldown < 1) cooldown++;
+                    if(!dys.getItemCooldownManager().isCoolingDown(dys.getMainHandStack().getItem())) dys.getItemCooldownManager().set(dys.getMainHandStack().getItem(), cooldown);
+                }
+                else if(dys.getOffHandStack().getItem() instanceof ShieldItem) {
+                    cooldown = ((ParryItem) dys.getOffHandStack().getItem()).getCooldownAfterInterruptingBlockAction();
+                    if(cooldown < 1) cooldown++;
+                    if(!dys.getItemCooldownManager().isCoolingDown(dys.getOffHandStack().getItem())) dys.getItemCooldownManager().set(dys.getOffHandStack().getItem(), cooldown);
+                }
             }
         }
     }

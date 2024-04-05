@@ -1,9 +1,9 @@
 package net.fryc.frycparry.mixin;
 
+import net.fryc.frycparry.util.ParryHelper;
 import net.fryc.frycparry.util.interfaces.ParryItem;
 import net.fryc.frycparry.util.interfaces.ServerParryInteraction;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.ToolItem;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.network.ServerPlayerInteractionManager;
 import net.minecraft.util.ActionResult;
@@ -34,8 +34,8 @@ abstract class ServerPlayerInteractionManagerMixin implements ServerParryInterac
             int j = stack.getDamage();
 
             TypedActionResult<ItemStack> typedActionResult;
-            if(stack.getItem() instanceof ToolItem tool){
-                typedActionResult = ((ParryItem) tool).useParry(world, player, hand);
+            if(ParryHelper.isItemParryEnabled(stack)){
+                typedActionResult = ((ParryItem) stack.getItem()).useParry(world, player, hand);
             }
             else {
                 typedActionResult = TypedActionResult.fail(stack);

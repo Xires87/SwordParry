@@ -3,6 +3,7 @@ package net.fryc.frycparry.mixin.client;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 import net.fryc.frycparry.network.ModPackets;
+import net.fryc.frycparry.util.ParryHelper;
 import net.fryc.frycparry.util.interfaces.CanBlock;
 import net.fryc.frycparry.util.interfaces.ParryInteraction;
 import net.fryc.frycparry.util.interfaces.ParryItem;
@@ -11,7 +12,6 @@ import net.minecraft.client.network.ClientPlayNetworkHandler;
 import net.minecraft.client.network.ClientPlayerInteractionManager;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.ToolItem;
 import net.minecraft.network.packet.c2s.play.PlayerMoveC2SPacket;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
@@ -48,8 +48,8 @@ abstract class ClientPlayerInteractionManagerMixin implements ParryInteraction {
                 return (ActionResult)mutableObject.getValue();
             } else {
                 TypedActionResult<ItemStack> typedActionResult;
-                if(itemStack.getItem() instanceof ToolItem tool){
-                    typedActionResult = ((ParryItem) tool).useParry(this.client.world, player, hand);
+                if(ParryHelper.isItemParryEnabled(itemStack)){
+                    typedActionResult = ((ParryItem) itemStack.getItem()).useParry(this.client.world, player, hand);
                     ClientPlayNetworking.send(ModPackets.START_PARRYING_ID, PacketByteBufs.empty());
                 }
                 else {

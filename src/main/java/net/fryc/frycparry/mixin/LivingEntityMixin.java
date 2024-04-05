@@ -16,7 +16,6 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ShieldItem;
-import net.minecraft.item.ToolItem;
 import net.minecraft.registry.tag.DamageTypeTags;
 import net.minecraft.util.Hand;
 import net.minecraft.util.UseAction;
@@ -54,7 +53,7 @@ abstract class LivingEntityMixin extends Entity implements Attackable, CanBlock 
     private void parryOrFullyBlock(DamageSource source, float amount, CallbackInfoReturnable<Boolean> ret) { // <----- executed only on server
         LivingEntity dys = ((LivingEntity)(Object)this);
         boolean shouldSwingHand = false;
-        if(dys.getActiveItem().isEmpty() || !(dys.getActiveItem().getItem() instanceof ParryItem)) return;
+        if(dys.getActiveItem().isEmpty() || !ParryHelper.isItemParryEnabled(dys.getActiveItem())) return;
         if(((CanBlock) dys).getParryDataValue()){ // <--- checks if attack was parried
             ((CanBlock) dys).setParryDataToFalse();
             parryTimer = 10;
@@ -75,6 +74,7 @@ abstract class LivingEntityMixin extends Entity implements Attackable, CanBlock 
                             if(dys.getActiveItem().getItem() instanceof ShieldItem) player.disableShield(true);
                             else {
                                 player.getItemCooldownManager().set(player.getMainHandStack().getItem(), 100);
+                                // todo other parts of code dont disable offhand item
                                 if(ParryHelper.checkDualWieldingWeapons(player)) player.getItemCooldownManager().set(player.getOffHandStack().getItem(), 100);
                             }
                             ((CanBlock) dys).stopUsingItemParry();
@@ -85,7 +85,7 @@ abstract class LivingEntityMixin extends Entity implements Attackable, CanBlock 
             }
         }
         else {
-            ((CanBlock) dys).setParryDataToFalse();
+            ((CanBlock) dys).setParryDataToFalse(); // <--- redundant
             if(dys instanceof PlayerEntity player){
                 if(source.getAttacker() instanceof LivingEntity attacker){
                     if(attacker.disablesShield()){
@@ -107,17 +107,19 @@ abstract class LivingEntityMixin extends Entity implements Attackable, CanBlock 
         }
 
         //damaging item that is not shield
-        if(!(dys.getMainHandStack().getItem() instanceof ShieldItem || dys.getOffHandStack().getItem() instanceof ShieldItem)){
-            dys.getMainHandStack().damage(1, dys, (player) -> {
-                player.sendToolBreakStatus(player.getActiveHand());
-            });
+        if(!ParryHelper.hasShieldEquipped(dys)){
+            if(dys.getMainHandStack().isDamageable()){
+                dys.getMainHandStack().damage(1, dys, (player) -> {
+                    player.sendToolBreakStatus(player.getActiveHand());
+                });
+            }
         }
     }
 
     @ModifyVariable(method = "damage(Lnet/minecraft/entity/damage/DamageSource;F)Z", at = @At("HEAD"), ordinal = 0)
     private float blocking(float amount, DamageSource source) {
         LivingEntity dys = ((LivingEntity)(Object)this);
-        if(dys.getActiveItem().isEmpty() || !(dys.getActiveItem().getItem() instanceof ParryItem) || dys.getWorld().isClient()) return amount;
+        if(dys.getActiveItem().isEmpty() || !ParryHelper.isItemParryEnabled(dys.getActiveItem()) || dys.getWorld().isClient()) return amount;
         if(ParryHelper.attackWasBlocked(source, dys)){
             if(ParryHelper.attackWasParried(source, dys.getActiveItem(), dys)){
                 ((CanBlock) dys).setParryDataToTrue();
@@ -130,7 +132,7 @@ abstract class LivingEntityMixin extends Entity implements Attackable, CanBlock 
 
                 if(source.isIn(DamageTypeTags.IS_EXPLOSION)){
                     // when shield is not held for 5 ticks, explosion will deal 80% of its damage
-                    if(dys.getActiveItem().getUseAction() == UseAction.BLOCK){
+                    if(dys.getActiveItem().getItem() instanceof ShieldItem){
                         amount *= 0.8F;
                         changeStatus = true;
                     }
@@ -172,9 +174,11 @@ abstract class LivingEntityMixin extends Entity implements Attackable, CanBlock 
 
                 //damaging item that is not shield
                 if(!ParryHelper.hasShieldEquipped(dys)){
-                    dys.getMainHandStack().damage(1, dys, (player) -> {
-                        player.sendToolBreakStatus(player.getActiveHand());
-                    });
+                    if(dys.getMainHandStack().isDamageable()){
+                        dys.getMainHandStack().damage(1, dys, (player) -> {
+                            player.sendToolBreakStatus(player.getActiveHand());
+                        });
+                    }
                     //if(dys.getActiveItem().isEmpty()) ((CanBlock) dys).stopUsingItemParry();
                 }
                 else {
@@ -193,7 +197,7 @@ abstract class LivingEntityMixin extends Entity implements Attackable, CanBlock 
         LivingEntity dys = ((LivingEntity)(Object)this);
         if (dys.isUsingItem() && !dys.getActiveItem().isEmpty()) {
             Item item = dys.getActiveItem().getItem();
-            if(item instanceof ToolItem && item.getUseAction(dys.getActiveItem()) != UseAction.BLOCK){
+            if(ParryHelper.isItemParryEnabled(dys.getActiveItem()) && item.getUseAction(dys.getActiveItem()) != UseAction.BLOCK){
                 ret.setReturnValue(((ParryItem) item).getUseParryAction(dys.getActiveItem()) == UseAction.BLOCK && dys.getDataTracker().get(BLOCKING_DATA)); //<--- BLOCKING_DATA is required to block with items that doesn't have UseAction.BLOCK
             }
             else {
@@ -224,15 +228,6 @@ abstract class LivingEntityMixin extends Entity implements Attackable, CanBlock 
     }
 
 
-    /* item wont be used (finishUsing()) when itemUseTimeLeft reaches 0 (when BLOCKING_DATA is true)
-    @Inject(method = "consumeItem()V", at = @At("HEAD"), cancellable = true)
-    private void dontConsumeItem(CallbackInfo info) {
-        LivingEntity dys = ((LivingEntity)(Object)this);
-        if(dys.getDataTracker().get(BLOCKING_DATA)) info.cancel();
-    }
-
-     */
-
     // decrements parryTimer and makes PARRY_DATA false when parryTimer is 0
     @Inject(method = "tick()V", at = @At("TAIL"))
     private void decrementParryDataTimer(CallbackInfo info) {
@@ -253,8 +248,8 @@ abstract class LivingEntityMixin extends Entity implements Attackable, CanBlock 
     // method to stop blocking with parry key
     public void stopUsingItemParry() {
         LivingEntity dys = ((LivingEntity)(Object)this);
-        if (!dys.getActiveItem().isEmpty() && dys.getActiveItem().getItem() instanceof ToolItem tool && dys.getActiveItem().getUseAction() != UseAction.BLOCK) {
-            ((ParryItem) tool).onStoppedUsingParry(dys.getActiveItem(), dys.getWorld(), dys, dys.getItemUseTimeLeft());
+        if (!dys.getActiveItem().isEmpty() && ParryHelper.isItemParryEnabled(dys.getActiveItem()) && !(dys.getActiveItem().getItem() instanceof ShieldItem)) {
+            ((ParryItem) dys.getActiveItem().getItem()).onStoppedUsingParry(dys.getActiveItem(), dys.getWorld(), dys, dys.getItemUseTimeLeft());
         }
         else{
             dys.stopUsingItem();
