@@ -4,6 +4,7 @@
   "package": "net.fryc.frycparry.mixin",
   "compatibilityLevel": "JAVA_17",
   "mixins": [
+    "items/ItemMixin",
     "items/ItemStackMixin",
     "items/ShieldMixin",
     "items/SwordMixin",

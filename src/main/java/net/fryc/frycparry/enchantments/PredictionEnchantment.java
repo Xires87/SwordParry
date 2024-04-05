@@ -26,7 +26,7 @@ public class PredictionEnchantment extends Enchantment {
     @Override
     public boolean isAcceptableItem(ItemStack stack) {
         Item item = stack.getItem();
-        return item instanceof ShieldItem || !ParryHelper.isItemParryDisabled(item);
+        return item instanceof ShieldItem || (!ParryHelper.isItemParryDisabled(item) && ParryHelper.isItemParryEnabled(stack));
     }
 
 }

@@ -19,7 +19,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(ShieldItem.class)
-abstract class ShieldMixin extends Item implements ParryItem {
+abstract class ShieldMixin extends Item {
     public ShieldMixin(Settings settings) {
         super(settings);
     }

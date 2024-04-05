@@ -44,17 +44,15 @@ public class ModKeyBinds {
                     if(!player.isUsingItem() && !player.hasStatusEffect(ModEffects.DISARMED)){
                         if(!isDontParryKeyPressed()){
                             bl = true;
-                            if(player.getMainHandStack().getUseAction() == UseAction.BLOCK && !player.getItemCooldownManager().isCoolingDown(player.getMainHandStack().getItem())){
-                                if(player.getMainHandStack().getItem() instanceof ShieldItem){
-                                    client.gameRenderer.firstPersonRenderer.resetEquipProgress(Hand.MAIN_HAND);
-                                }
+                            if(player.getMainHandStack().getItem() instanceof ShieldItem && !player.getItemCooldownManager().isCoolingDown(player.getMainHandStack().getItem())){
+
                                 client.interactionManager.interactItem(client.player, Hand.MAIN_HAND);
+                                client.gameRenderer.firstPersonRenderer.resetEquipProgress(Hand.MAIN_HAND);
                             }
-                            else if(player.getOffHandStack().getUseAction() == UseAction.BLOCK && !player.getItemCooldownManager().isCoolingDown(player.getOffHandStack().getItem())){
-                                if(player.getOffHandStack().getItem() instanceof ShieldItem){
-                                    client.gameRenderer.firstPersonRenderer.resetEquipProgress(Hand.OFF_HAND);
-                                }
+                            else if(player.getOffHandStack().getItem() instanceof ShieldItem && !player.getItemCooldownManager().isCoolingDown(player.getOffHandStack().getItem())){
+
                                 client.interactionManager.interactItem(client.player, Hand.OFF_HAND);
+                                client.gameRenderer.firstPersonRenderer.resetEquipProgress(Hand.OFF_HAND);
                             }
                             else{
                                 if(ClientParryHelper.canParry(player)){ // <-- checking client sided config

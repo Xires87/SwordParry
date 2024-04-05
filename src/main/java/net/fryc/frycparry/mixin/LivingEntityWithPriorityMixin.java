@@ -24,7 +24,7 @@ abstract class LivingEntityWithPriorityMixin extends Entity implements Attackabl
     @Inject(method = "blockedByShield(Lnet/minecraft/entity/damage/DamageSource;)Z", at = @At("HEAD"), cancellable = true)
     private void shieldBlocking(DamageSource source, CallbackInfoReturnable<Boolean> ret) {
         LivingEntity dys = ((LivingEntity)(Object)this);
-        if(!ParryHelper.canParryWithoutShield(dys) && !ParryHelper.hasShieldEquipped(dys)){
+        if(!ParryHelper.canParryWithoutShield(dys) && !ParryHelper.hasShieldEquipped(dys)){ // <---- hasShieldEquipped is not redundant DONT TOUCH
             ret.setReturnValue(false);
         }
         else{
