@@ -75,6 +75,7 @@ abstract class LivingEntityMixin extends Entity implements Attackable, CanBlock 
                             else {
                                 player.getItemCooldownManager().set(player.getMainHandStack().getItem(), 100);
                                 // todo other parts of code dont disable offhand item
+                                // todo wszystkie cooldowny oparte na attack speedzie
                                 if(ParryHelper.checkDualWieldingWeapons(player)) player.getItemCooldownManager().set(player.getOffHandStack().getItem(), 100);
                             }
                             ((CanBlock) dys).stopUsingItemParry();

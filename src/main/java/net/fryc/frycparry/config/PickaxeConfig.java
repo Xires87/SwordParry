@@ -53,4 +53,6 @@ public class PickaxeConfig implements ConfigData {
     public int cooldownAfterPickaxeParryAction = 28;
 
     public boolean shouldStopUsingPickaxeAfterBlockOrParry = true;
+
+    public int maxUseTime = 7200;
 }

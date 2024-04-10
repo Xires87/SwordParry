@@ -1,5 +1,6 @@
 package net.fryc.frycparry.util.interfaces;
 
+import net.fryc.frycparry.attributes.ParryAttributes;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
@@ -10,7 +11,9 @@ import net.minecraft.world.World;
 
 public interface ParryItem {
 
-    //for ToolItem and ShieldItem
+    void setParryAttributes(String parryAttributesId);
+    void setParryAttributes(ParryAttributes parryAttributes);
+    ParryAttributes getParryAttributes();
     UseAction getUseParryAction(ItemStack stack);
 
 

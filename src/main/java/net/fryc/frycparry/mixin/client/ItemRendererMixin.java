@@ -23,7 +23,7 @@ abstract class ItemRendererMixin {
     private void applyParryModelTransformation(ItemStack stack, ModelTransformationMode renderMode, boolean leftHanded, MatrixStack matrices,
                           VertexConsumerProvider vertexConsumers, int light, int overlay, BakedModel model, CallbackInfo info) {
 
-        if(renderMode == ModelTransformationMode.FIRST_PERSON_RIGHT_HAND && ItemRendererHelper.shouldApplyParryTransform && stack.getItem() instanceof ToolItem){
+        if(renderMode == ModelTransformationMode.FIRST_PERSON_RIGHT_HAND && ItemRendererHelper.shouldApplyParryTransform && stack.getItem() instanceof ToolItem){// todo zrobic zeby taga tez sprawdzalo i attack speeda
             matrices.pop();
             matrices.push();
             ItemRendererHelper.applyParryTransform(matrices, model.getTransformation().getTransformation(renderMode));

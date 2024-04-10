@@ -53,4 +53,5 @@ public class ShovelConfig implements ConfigData {
     public int cooldownAfterShovelParryAction = 20;
 
     public boolean shouldStopUsingShovelAfterBlockOrParry = true;
+    public int maxUseTime = 7200;
 }
