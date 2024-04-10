@@ -21,14 +21,16 @@ public interface ParryItem {
 
     void onStoppedUsingParry(ItemStack stack, World world, LivingEntity user, int remainingUseTicks);
 
+    ItemStack finishUsingParry(ItemStack stack, World world, LivingEntity user);
+
     int getParryTicks();
 
     float getMeleeDamageTakenAfterBlock();
 
     float getProjectileDamageTakenAfterBlock();
 
-    int getCooldownAfterParryAction();
-    int getCooldownAfterInterruptingBlockAction();
+    float getCooldownAfterParryAction();
+    float getCooldownAfterInterruptingBlockAction();
     double getKnockbackAfterParryAction();
     int getSlownessAfterParryAction();
     int getSlownessAmplifierAfterParryAction();

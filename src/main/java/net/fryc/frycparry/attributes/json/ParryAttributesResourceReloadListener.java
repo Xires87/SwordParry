@@ -32,8 +32,8 @@ public class ParryAttributesResourceReloadListener implements SimpleSynchronousR
                 int parryTicks = JsonHelper.getInt(jsonObject, "parryTicks");
                 float meleeDamageTakenAfterBlock = JsonHelper.getFloat(jsonObject, "meleeDamageTakenAfterBlock");
                 float projectileDamageTakenAfterBlock = JsonHelper.getFloat(jsonObject, "projectileDamageTakenAfterBlock");
-                int cooldownAfterParryAction = JsonHelper.getInt(jsonObject, "cooldownAfterParryAction");
-                int cooldownAfterInterruptingBlockAction = JsonHelper.getInt(jsonObject, "cooldownAfterInterruptingBlockAction");
+                float cooldownAfterParryAction = JsonHelper.getFloat(jsonObject, "cooldownAfterParryAction");
+                float cooldownAfterInterruptingBlockAction = JsonHelper.getFloat(jsonObject, "cooldownAfterInterruptingBlockAction");
 
                 int maxUseTime = JsonHelper.getInt(jsonObject, "maxUseTime", 7200);
                 boolean shouldStopUsingItemAfterBlockOrParry = JsonHelper.getBoolean(jsonObject, "shouldStopUsingItemAfterBlockOrParry", true);

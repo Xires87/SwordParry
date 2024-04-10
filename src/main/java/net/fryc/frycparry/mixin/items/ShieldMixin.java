@@ -1,6 +1,5 @@
 package net.fryc.frycparry.mixin.items;
 
-import net.fryc.frycparry.FrycParry;
 import net.fryc.frycparry.effects.ModEffects;
 import net.fryc.frycparry.util.interfaces.CanBlock;
 import net.fryc.frycparry.util.interfaces.ParryItem;
@@ -36,18 +35,30 @@ abstract class ShieldMixin extends Item {
         Item item = stack.getItem();
 
         if(user instanceof PlayerEntity player && !world.isClient()){
+            float cooldown;
             if(((CanBlock) user).hasParriedRecently()){
-                //player.sendMessage(Text.of("sparowano" + (world.isClient() ? " klient" : " serwer")));
-                if(((ParryItem) item).getCooldownAfterParryAction() > 0){
-                    if(!player.getItemCooldownManager().isCoolingDown(item)) player.getItemCooldownManager().set(item, ((ParryItem) item).getCooldownAfterParryAction());
-                }
+                cooldown = ((ParryItem) item).getCooldownAfterParryAction();
             }
             else {
-                if(((ParryItem) item).getCooldownAfterInterruptingBlockAction() > 0){
-                    if(!player.getItemCooldownManager().isCoolingDown(item)) player.getItemCooldownManager().set(item, ((ParryItem) item).getCooldownAfterInterruptingBlockAction());
-                }
+                cooldown = ((ParryItem) item).getCooldownAfterInterruptingBlockAction();
+            }
+
+            if(cooldown < 0){
+                cooldown = ((int) player.getAttackCooldownProgressPerTick() - 1) * (cooldown * -1);
+            }
+            if(cooldown > 0){
+                if(!player.getItemCooldownManager().isCoolingDown(item)) player.getItemCooldownManager().set(item, (int) cooldown);
             }
         }
+    }
+
+    public ItemStack finishUsing(ItemStack stack, World world, LivingEntity user) {
+        user.stopUsingItem();
+        return stack;
+    }
+
+    public ItemStack finishUsingParry(ItemStack stack, World world, LivingEntity user) {
+        return finishUsing(stack, world, user);
     }
 
     public int getMaxUseTimeParry(){
@@ -65,7 +76,6 @@ abstract class ShieldMixin extends Item {
         return 12;
     }
 
-    // zabezpieczenie na wypadek gdyby sie chcialy odpalic te metody
     public UseAction getUseParryAction(ItemStack stack){
         return UseAction.NONE;
     }
@@ -79,6 +89,7 @@ abstract class ShieldMixin extends Item {
     }
     //----------------------------------------------------------------------
 
+    /*
     public int getParryTicks(){
         return FrycParry.config.shield.shieldParryTicks;
     }
@@ -119,5 +130,7 @@ abstract class ShieldMixin extends Item {
     public boolean shouldStopUsingItemAfterBlockOrParry(){
         return FrycParry.config.shield.shouldStopUsingShieldAfterBlockOrParry;
     }
+
+     */
 
 }

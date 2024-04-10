@@ -61,10 +61,10 @@ public class OtherConfig implements ConfigData {
     public int disarmAfterParry = 20;
 
 
-    public int cooldownAfterInterruptingBlockAction = 35;
+    public float cooldownAfterInterruptingBlockAction = 35;
 
 
-    public int cooldownAfterParryAction = 28;
+    public float cooldownAfterParryAction = 28;
 
     public boolean shouldStopUsingAfterBlockOrParry = true;
 

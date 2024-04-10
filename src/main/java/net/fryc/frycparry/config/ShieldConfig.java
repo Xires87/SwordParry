@@ -36,9 +36,9 @@ public class ShieldConfig implements ConfigData {
 
     public int shieldDisarmAfterParry = 45;
 
-    public int cooldownAfterInterruptingShieldBlockAction = 26;
+    public float cooldownAfterInterruptingShieldBlockAction = 26;
 
-    public int cooldownAfterShieldParryAction = 16;
+    public float cooldownAfterShieldParryAction = 16;
 
     public boolean shouldStopUsingShieldAfterBlockOrParry = false;
 }

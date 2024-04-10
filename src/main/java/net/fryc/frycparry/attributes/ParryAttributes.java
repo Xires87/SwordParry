@@ -9,8 +9,8 @@ public class ParryAttributes {
     private final int parryTicks;
     private final float meleeDamageTakenAfterBlock;
     private final float projectileDamageTakenAfterBlock;
-    private final int cooldownAfterParryAction;
-    private final int cooldownAfterInterruptingBlockAction;
+    private final float cooldownAfterParryAction;
+    private final float cooldownAfterInterruptingBlockAction;
     private final int maxUseTime;
     private final boolean shouldStopUsingItemAfterBlockOrParry;
     private final double knockbackAfterParryAction;
@@ -39,7 +39,7 @@ public class ParryAttributes {
     }
 
     public ParryAttributes(int parryTicks, float meleeDamageTakenAfterBlock, float projectileDamageTakenAfterBlock,
-                           int cooldownAfterParryAction, int cooldownAfterInterruptingBlockAction,
+                           float cooldownAfterParryAction, float cooldownAfterInterruptingBlockAction,
                            int maxUseTime, boolean shouldStopUsingItemAfterBlockOrParry,
                            double knockbackAfterParryAction, int slownessAfterParryAction,
                            int slownessAmplifierAfterParryAction, int weaknessAfterParryAction,
@@ -65,7 +65,7 @@ public class ParryAttributes {
     }
 
     public static ParryAttributes create(String id, int parryTicks, float meleeDamageTakenAfterBlock, float projectileDamageTakenAfterBlock,
-                                         int cooldownAfterParryAction, int cooldownAfterInterruptingBlockAction,
+                                         float cooldownAfterParryAction, float cooldownAfterInterruptingBlockAction,
                                          int maxUseTime, boolean shouldStopUsingItemAfterBlockOrParry,
                                          double knockbackAfterParryAction, int slownessAfterParryAction,
                                          int slownessAmplifierAfterParryAction, int weaknessAfterParryAction,
@@ -101,11 +101,11 @@ public class ParryAttributes {
         return this.projectileDamageTakenAfterBlock;
     }
 
-    public int getCooldownAfterParryAction(){
+    public float getCooldownAfterParryAction(){
         return this.cooldownAfterParryAction;
     }
 
-    public int getCooldownAfterInterruptingBlockAction(){
+    public float getCooldownAfterInterruptingBlockAction(){
         return this.cooldownAfterInterruptingBlockAction;
     }
 
