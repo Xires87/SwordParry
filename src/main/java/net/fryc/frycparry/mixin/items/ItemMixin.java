@@ -1,6 +1,7 @@
 package net.fryc.frycparry.mixin.items;
 
 import net.fabricmc.fabric.api.item.v1.FabricItem;
+import net.fryc.frycparry.attributes.ParryAttributes;
 import net.fryc.frycparry.util.ParryHelper;
 import net.fryc.frycparry.util.interfaces.CanBlock;
 import net.fryc.frycparry.util.interfaces.ParryItem;
@@ -18,6 +19,18 @@ import org.spongepowered.asm.mixin.Mixin;
 
 @Mixin(Item.class)
 abstract class ItemMixin implements ToggleableFeature, ItemConvertible, FabricItem, ParryItem {
+
+    private ParryAttributes parryAttributes = ParryAttributes.DEFAULT;
+
+    public void setParryAttributes(String parryAttributesId){
+        this.parryAttributes = ParryAttributes.get(parryAttributesId);
+    }
+    public void setParryAttributes(ParryAttributes parryAttributes){
+        this.parryAttributes = parryAttributes;
+    }
+    public ParryAttributes getParryAttributes(){
+        return this.parryAttributes;
+    }
 
     public TypedActionResult<ItemStack> useParry(World world, PlayerEntity user, Hand hand) {
         ItemStack itemStack = user.getStackInHand(hand);
@@ -56,51 +69,51 @@ abstract class ItemMixin implements ToggleableFeature, ItemConvertible, FabricIt
     }
 
     public int getMaxUseTimeParry(){
-        return 72000;
+        return ((ParryItem)((Item)(Object)this)).getParryAttributes().getMaxUseTimeParry();
     }
 
 
     public int getParryTicks(){
-        return 0;
+        return ((ParryItem)((Item)(Object)this)).getParryAttributes().getParryTicks();
     }
 
     public float getMeleeDamageTakenAfterBlock(){
-        return 0.80F;
+        return ((ParryItem)((Item)(Object)this)).getParryAttributes().getMeleeDamageTakenAfterBlock();
     }
 
     public float getProjectileDamageTakenAfterBlock(){
-        return 0.95F;
+        return ((ParryItem)((Item)(Object)this)).getParryAttributes().getProjectileDamageTakenAfterBlock();
     }
 
     public int getCooldownAfterParryAction(){
-        return 18;
+        return ((ParryItem)((Item)(Object)this)).getParryAttributes().getCooldownAfterParryAction();
     }
 
     public int getCooldownAfterInterruptingBlockAction(){
-        return 28;
+        return ((ParryItem)((Item)(Object)this)).getParryAttributes().getCooldownAfterInterruptingBlockAction();
     }
 
     public double getKnockbackAfterParryAction(){
-        return 4;
+        return ((ParryItem)((Item)(Object)this)).getParryAttributes().getKnockbackAfterParryAction();
     }
     public int getSlownessAfterParryAction(){
-        return 60;
+        return ((ParryItem)((Item)(Object)this)).getParryAttributes().getSlownessAfterParryAction();
     }
     public int getSlownessAmplifierAfterParryAction(){
-        return 1;
+        return ((ParryItem)((Item)(Object)this)).getParryAttributes().getSlownessAmplifierAfterParryAction();
     }
     public int getWeaknessAfterParryAction(){
-        return 0;
+        return ((ParryItem)((Item)(Object)this)).getParryAttributes().getWeaknessAfterParryAction();
     }
     public int getWeaknessAmplifierAfterParryAction(){
-        return 1;
+        return ((ParryItem)((Item)(Object)this)).getParryAttributes().getWeaknessAmplifierAfterParryAction();
     }
     public int getDisarmedAfterParryAction(){
-        return 20;
+        return ((ParryItem)((Item)(Object)this)).getParryAttributes().getDisarmedAfterParryAction();
     }
 
     public boolean shouldStopUsingItemAfterBlockOrParry(){
-        return true;
+        return ((ParryItem)((Item)(Object)this)).getParryAttributes().shouldStopUsingItemAfterBlockOrParry();
     }
 
 }

@@ -56,4 +56,5 @@ public class HoeConfig implements ConfigData {
     public int cooldownAfterHoeParryAction = 2;
 
     public boolean shouldStopUsingHoeAfterBlockOrParry = true;
+    public int maxUseTime = 7200;
 }

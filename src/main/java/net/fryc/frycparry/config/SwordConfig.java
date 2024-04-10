@@ -55,4 +55,6 @@ public class SwordConfig implements ConfigData {
 
     public boolean shouldStopUsingSwordAfterBlockOrParry = true;
 
+    public int maxUseTime = 7200;
+
 }
