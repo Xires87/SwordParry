@@ -50,17 +50,26 @@ abstract class ItemMixin implements ToggleableFeature, ItemConvertible, FabricIt
 
         //if player stops blocking after parry, cooldown is shorter (and depends on item used)
         if(user instanceof PlayerEntity player && !world.isClient()){
+            float cooldown;
             if(((CanBlock) user).hasParriedRecently()){
-                if(((ParryItem) item).getCooldownAfterParryAction() > 0){
-                    if(!player.getItemCooldownManager().isCoolingDown(item)) player.getItemCooldownManager().set(item, ((ParryItem) item).getCooldownAfterParryAction());
-                }
+                cooldown = ((ParryItem) item).getCooldownAfterParryAction();
             }
             else {
-                if(((ParryItem) item).getCooldownAfterInterruptingBlockAction() > 0){
-                    if(!player.getItemCooldownManager().isCoolingDown(item)) player.getItemCooldownManager().set(item, ((ParryItem) item).getCooldownAfterInterruptingBlockAction());
-                }
+                cooldown = ((ParryItem) item).getCooldownAfterInterruptingBlockAction();
+            }
+
+            if(cooldown < 0){
+                cooldown = ((int) player.getAttackCooldownProgressPerTick() - 1) * (cooldown * -1);
+            }
+            if(cooldown > 0){
+                if(!player.getItemCooldownManager().isCoolingDown(item)) player.getItemCooldownManager().set(item, (int) cooldown);
             }
         }
+    }
+
+    public ItemStack finishUsingParry(ItemStack stack, World world, LivingEntity user) {
+        ((CanBlock) user).stopUsingItemParry();
+        return stack;
     }
 
 
@@ -85,11 +94,11 @@ abstract class ItemMixin implements ToggleableFeature, ItemConvertible, FabricIt
         return ((ParryItem)((Item)(Object)this)).getParryAttributes().getProjectileDamageTakenAfterBlock();
     }
 
-    public int getCooldownAfterParryAction(){
+    public float getCooldownAfterParryAction(){
         return ((ParryItem)((Item)(Object)this)).getParryAttributes().getCooldownAfterParryAction();
     }
 
-    public int getCooldownAfterInterruptingBlockAction(){
+    public float getCooldownAfterInterruptingBlockAction(){
         return ((ParryItem)((Item)(Object)this)).getParryAttributes().getCooldownAfterInterruptingBlockAction();
     }
 

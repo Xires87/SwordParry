@@ -1,5 +1,7 @@
 package net.fryc.frycparry.mixin;
 
+import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
+import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import net.fryc.frycparry.FrycParry;
 import net.fryc.frycparry.util.ParryHelper;
 import net.fryc.frycparry.util.interfaces.CanBlock;
@@ -74,9 +76,7 @@ abstract class LivingEntityMixin extends Entity implements Attackable, CanBlock 
                             if(dys.getActiveItem().getItem() instanceof ShieldItem) player.disableShield(true);
                             else {
                                 player.getItemCooldownManager().set(player.getMainHandStack().getItem(), 100);
-                                // todo other parts of code dont disable offhand item
-                                // todo wszystkie cooldowny oparte na attack speedzie
-                                if(ParryHelper.checkDualWieldingWeapons(player)) player.getItemCooldownManager().set(player.getOffHandStack().getItem(), 100);
+                                // todo wszystkie cooldowny oparte na attack speedzie (te po przelamaniu bloku tez)
                             }
                             ((CanBlock) dys).stopUsingItemParry();
                             dys.swingHand(dys.getActiveHand(), true);
@@ -258,6 +258,20 @@ abstract class LivingEntityMixin extends Entity implements Attackable, CanBlock 
         }
 
         dys.clearActiveItem();
+    }
+
+
+
+    @WrapOperation(
+            method = "consumeItem()V",
+            at = @At(value = "INVOKE", target = "Lnet/minecraft/item/ItemStack;finishUsing(Lnet/minecraft/world/World;Lnet/minecraft/entity/LivingEntity;)Lnet/minecraft/item/ItemStack;")
+    )
+    private ItemStack finishBlockingWhenRemainingUseTicksReachZero(ItemStack instance, World world, LivingEntity user, Operation<ItemStack> original) {
+        if (((CanBlock) user).getBlockingDataValue()) {
+            return ((ParryItem) instance.getItem()).finishUsingParry(instance, world, user);
+        } else {
+            return original.call(instance, world, user);
+        }
     }
 
     @Shadow

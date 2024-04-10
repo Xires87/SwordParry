@@ -47,10 +47,10 @@ public class AxeConfig implements ConfigData {
     public int axeDisarmAfterParry = 45;
 
     
-    public int cooldownAfterInterruptingAxeBlockAction = 24;
+    public float cooldownAfterInterruptingAxeBlockAction = 24;
 
     
-    public int cooldownAfterAxeParryAction = 15;
+    public float cooldownAfterAxeParryAction = 15;
 
     public boolean shouldStopUsingAxeAfterBlockOrParry = true;
     public int maxUseTime = 7200;
