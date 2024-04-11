@@ -73,13 +73,8 @@ abstract class LivingEntityMixin extends Entity implements Attackable, CanBlock 
 
                         //disabling block after parrying axe attack (when config allows it)
                         if(attacker.disablesShield() && FrycParry.config.server.disableBlockAfterParryingAxeAttack){
-                            if(dys.getActiveItem().getItem() instanceof ShieldItem) player.disableShield(true);
-                            else {
-                                player.getItemCooldownManager().set(player.getMainHandStack().getItem(), 100);
-                                // todo wszystkie cooldowny oparte na attack speedzie (te po przelamaniu bloku tez)
-                            }
-                            ((CanBlock) dys).stopUsingItemParry();
-                            dys.swingHand(dys.getActiveHand(), true);
+                            ParryHelper.disableParryItem(player, dys.getActiveItem().getItem());
+                            dys.swingHand(dys.getActiveHand(), true);// todo lang i inne
                         }
                     }
                 }
@@ -90,12 +85,7 @@ abstract class LivingEntityMixin extends Entity implements Attackable, CanBlock 
             if(dys instanceof PlayerEntity player){
                 if(source.getAttacker() instanceof LivingEntity attacker){
                     if(attacker.disablesShield()){
-                        if(dys.getActiveItem().getItem() instanceof ShieldItem){
-                            if(attacker.disablesShield()) player.disableShield(true);
-                        }
-                        else {
-                            player.getItemCooldownManager().set(player.getMainHandStack().getItem(), 160);
-                        }
+                        ParryHelper.disableParryItem(player, dys.getActiveItem().getItem());
                     }
                 }
             }
@@ -146,13 +136,7 @@ abstract class LivingEntityMixin extends Entity implements Attackable, CanBlock 
                     amount *= ((ParryItem) dys.getActiveItem().getItem()).getMeleeDamageTakenAfterBlock();
                     changeStatus = true;
                     if(attacker.disablesShield() && dys instanceof PlayerEntity player){
-                        if(player.getActiveItem().getItem() instanceof ShieldItem){
-                            player.disableShield(true);
-                        }
-                        else {
-                            player.getItemCooldownManager().set(player.getMainHandStack().getItem(), 160);
-                            ((CanBlock) dys).stopUsingItemParry();
-                        }
+                        ParryHelper.disableParryItem(player, dys.getActiveItem().getItem());
                         b = 30;
                         changeStatus = false;
                     }
@@ -180,7 +164,6 @@ abstract class LivingEntityMixin extends Entity implements Attackable, CanBlock 
                             player.sendToolBreakStatus(player.getActiveHand());
                         });
                     }
-                    //if(dys.getActiveItem().isEmpty()) ((CanBlock) dys).stopUsingItemParry();
                 }
                 else {
                     dys.damageShield(originalDamage);

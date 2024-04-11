@@ -20,7 +20,7 @@ abstract class EnchantmentHelperMixin {
     @ModifyVariable(method = "generateEnchantments(Lnet/minecraft/util/math/random/Random;Lnet/minecraft/item/ItemStack;" +
             "IZ)Ljava/util/List;", at = @At("STORE"), ordinal = 1)
     private static List<EnchantmentLevelEntry> removeShieldEnchantments(List<EnchantmentLevelEntry> list2, Random random, ItemStack stack, int level, boolean treasureAllowed) {
-        if(stack.getItem() instanceof ShieldItem || stack.isOf(Items.BOOK) || (treasureAllowed && isWeaponThatCanBlock(stack.getItem()))) return list2;
+        if(stack.getItem() instanceof ShieldItem || stack.isOf(Items.BOOK) || (treasureAllowed && isWeaponThatCanBlock(stack))) return list2;
         boolean bl = true;
         int lastIndex = 0;
         while(bl){
@@ -47,8 +47,9 @@ abstract class EnchantmentHelperMixin {
         return false;
     }
 
-    private static boolean isWeaponThatCanBlock(Item item){
+    private static boolean isWeaponThatCanBlock(ItemStack stack){
         if(!FrycParry.config.server.enchantmentsForShieldsCanAppearOnWeaponsInChests) return false;
-        return (item instanceof SwordItem || item instanceof AxeItem) && !ParryHelper.isItemParryDisabled(item);
+        Item item = stack.getItem();
+        return (item instanceof SwordItem || item instanceof AxeItem) && !ParryHelper.isItemParryDisabled(stack);
     }
 }

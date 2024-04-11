@@ -1,9 +1,8 @@
 package net.fryc.frycparry.mixin;
 
 import net.fryc.frycparry.effects.ModEffects;
-import net.fryc.frycparry.util.interfaces.CanBlock;
 import net.fryc.frycparry.util.ParryHelper;
-import net.fryc.frycparry.util.interfaces.ParryItem;
+import net.fryc.frycparry.util.interfaces.CanBlock;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
@@ -40,38 +39,33 @@ abstract class PlayerEntityMixin extends LivingEntity {
         ((CanBlock) dys).setBlockingDataToFalse();
         ((CanBlock) dys).setParryDataToFalse();
 
-        float cooldown;
-        if(!ParryHelper.isItemParryDisabled(dys.getWorld(), dys.getMainHandStack().getItem())){
+        if(!ParryHelper.isItemParryDisabled(dys.getWorld(), dys.getMainHandStack())){
+            int cooldown;
             if(ParryHelper.canParryWithoutShield(dys)){
-                cooldown = ((ParryItem) dys.getMainHandStack().getItem()).getCooldownAfterInterruptingBlockAction();
-                if(cooldown < 0){
-                    cooldown = ((int) dys.getAttackCooldownProgressPerTick() - 1) * (cooldown * -1);
+                if(!dys.getItemCooldownManager().isCoolingDown(item)){
+                    cooldown = ParryHelper.getParryCooldown(dys, item);
+                    if(cooldown > 0){
+                        dys.getItemCooldownManager().set(item, cooldown);
+                    }
                 }
-                else if(cooldown < 1){
-                    cooldown++;
-                }
-                if(!dys.getItemCooldownManager().isCoolingDown(dys.getMainHandStack().getItem())) dys.getItemCooldownManager().set(dys.getMainHandStack().getItem(), (int) cooldown);
             }
             else {
                 if(dys.getMainHandStack().getItem() instanceof ShieldItem){
-                    cooldown = ((ParryItem) dys.getMainHandStack().getItem()).getCooldownAfterInterruptingBlockAction();
-                    if(cooldown < 0){
-                        cooldown = ((int) dys.getAttackCooldownProgressPerTick() - 1) * (cooldown * -1);
+                    if(!dys.getItemCooldownManager().isCoolingDown(item)){
+                        cooldown = ParryHelper.getParryCooldown(dys, item);
+                        if(cooldown > 0){
+                            dys.getItemCooldownManager().set(item, cooldown);
+                        }
                     }
-                    else if(cooldown < 1){
-                        cooldown++;
-                    }
-                    if(!dys.getItemCooldownManager().isCoolingDown(dys.getMainHandStack().getItem())) dys.getItemCooldownManager().set(dys.getMainHandStack().getItem(), (int) cooldown);
                 }
                 else if(dys.getOffHandStack().getItem() instanceof ShieldItem) {
-                    cooldown = ((ParryItem) dys.getOffHandStack().getItem()).getCooldownAfterInterruptingBlockAction();
-                    if(cooldown < 0){
-                        cooldown = ((int) dys.getAttackCooldownProgressPerTick() - 1) * (cooldown * -1);
+                    item = dys.getOffHandStack().getItem();
+                    if(!dys.getItemCooldownManager().isCoolingDown(item)){
+                        cooldown = ParryHelper.getParryCooldown(dys, item);
+                        if(cooldown > 0){
+                            dys.getItemCooldownManager().set(item, cooldown);
+                        }
                     }
-                    else if(cooldown < 1){
-                        cooldown++;
-                    }
-                    if(!dys.getItemCooldownManager().isCoolingDown(dys.getOffHandStack().getItem())) dys.getItemCooldownManager().set(dys.getOffHandStack().getItem(), (int) cooldown);
                 }
             }
         }
@@ -100,20 +94,12 @@ abstract class PlayerEntityMixin extends LivingEntity {
                     if(!dys.getItemCooldownManager().isCoolingDown(dys.getOffHandStack().getItem())) dys.getItemCooldownManager().set(dys.getOffHandStack().getItem(), cooldownProgress);
                 }
             }
-            else if(ParryHelper.canParryWithoutShield(dys) && !ParryHelper.isItemParryDisabled(dys.getWorld(), dys.getMainHandStack().getItem())){
+            else if(ParryHelper.canParryWithoutShield(dys) && !ParryHelper.isItemParryDisabled(dys.getWorld(), dys.getMainHandStack())){
                 if(!dys.getItemCooldownManager().isCoolingDown(dys.getMainHandStack().getItem())) dys.getItemCooldownManager().set(dys.getMainHandStack().getItem(), cooldownProgress);
             }
         }
 
     }
-
-    /*
-    @Redirect(method = "Lnet/minecraft/entity/player/PlayerEntity;attack(Lnet/minecraft/entity/Entity;)V", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/Entity;isAttackable()Z"))
-    private boolean unAttackable(Entity target) {
-        PlayerEntity dys = ((PlayerEntity)(Object)this);
-        return target.isAttackable() && !dys.hasStatusEffect(ModEffects.DISARMED);
-    }
-     */
 
     @Inject(method = "Lnet/minecraft/entity/player/PlayerEntity;attack(Lnet/minecraft/entity/Entity;)V", at = @At("HEAD"), cancellable = true)
     private void cancelAttackWhenDisarmed(Entity target, CallbackInfo info) {
@@ -122,15 +108,6 @@ abstract class PlayerEntityMixin extends LivingEntity {
             info.cancel();
         }
     }
-
-
-
-    /*
-    @Redirect(method = "Lnet/minecraft/entity/player/PlayerEntity;takeShieldHit(Lnet/minecraft/entity/LivingEntity;)V", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/LivingEntity;disablesShield()Z"))
-    private boolean dontDisableShield(LivingEntity attacker) {
-        return false;
-    }
-     */
 
     @Inject(method = "Lnet/minecraft/entity/player/PlayerEntity;takeShieldHit(Lnet/minecraft/entity/LivingEntity;)V", at = @At("HEAD"), cancellable = true)
     private void dontDisableShield(LivingEntity attacker, CallbackInfo info) {
