@@ -50,10 +50,10 @@ public class HoeConfig implements ConfigData {
     public int hoeDisarmAfterParry = 25;
 
     
-    public float cooldownAfterInterruptingHoeBlockAction = 8;
+    public float cooldownAfterInterruptingHoeBlockAction = -2;
 
     
-    public float cooldownAfterHoeParryAction = 2;
+    public float cooldownAfterHoeParryAction = -1;
 
     public boolean shouldStopUsingHoeAfterBlockOrParry = true;
     public int maxUseTime = 7200;

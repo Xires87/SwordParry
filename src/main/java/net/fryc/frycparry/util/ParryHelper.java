@@ -183,7 +183,7 @@ public class ParryHelper {
         if(item instanceof ShieldItem) return new ParryAttributes(
                 FrycParry.config.shield.shieldParryTicks, (float)FrycParry.config.shield.shieldBlockMeleeDamageTaken/100,
                 (float)FrycParry.config.shield.shieldBlockArrowDamageTaken/100, FrycParry.config.shield.cooldownAfterShieldParryAction,
-                FrycParry.config.shield.cooldownAfterInterruptingShieldBlockAction, 7200,
+                FrycParry.config.shield.cooldownAfterInterruptingShieldBlockAction, FrycParry.config.shield.maxUseTime,
                 FrycParry.config.shield.shouldStopUsingShieldAfterBlockOrParry, FrycParry.config.shield.shieldParryKnockbackStrength,
                 FrycParry.config.shield.shieldSlownessAfterParry, FrycParry.config.shield.shieldSlownessAfterParryAmplifier,
                 FrycParry.config.shield.shieldWeaknessAfterParry, FrycParry.config.shield.shieldWeaknessAfterParryAmplifier,

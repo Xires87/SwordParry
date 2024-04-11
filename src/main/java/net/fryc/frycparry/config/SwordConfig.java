@@ -49,9 +49,9 @@ public class SwordConfig implements ConfigData {
     public int swordDisarmAfterParry = 45;
 
 
-    public float cooldownAfterInterruptingSwordBlockAction = 20;
+    public float cooldownAfterInterruptingSwordBlockAction = -2;
 
-    public float cooldownAfterSwordParryAction = 12;
+    public float cooldownAfterSwordParryAction = -1;
 
     public boolean shouldStopUsingSwordAfterBlockOrParry = true;
 

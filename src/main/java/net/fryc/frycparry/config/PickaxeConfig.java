@@ -47,10 +47,10 @@ public class PickaxeConfig implements ConfigData {
     public int pickaxeDisarmAfterParry = 20;
 
     
-    public float cooldownAfterInterruptingPickaxeBlockAction = 35;
+    public float cooldownAfterInterruptingPickaxeBlockAction = -2.8f;
 
     
-    public float cooldownAfterPickaxeParryAction = 28;
+    public float cooldownAfterPickaxeParryAction = -2.5f;
 
     public boolean shouldStopUsingPickaxeAfterBlockOrParry = true;
 
