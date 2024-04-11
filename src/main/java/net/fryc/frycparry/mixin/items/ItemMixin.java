@@ -34,7 +34,7 @@ abstract class ItemMixin implements ToggleableFeature, ItemConvertible, FabricIt
 
     public TypedActionResult<ItemStack> useParry(World world, PlayerEntity user, Hand hand) {
         ItemStack itemStack = user.getStackInHand(hand);
-        if(ParryHelper.isItemParryDisabled(user.getWorld(), itemStack.getItem()) || hand == Hand.OFF_HAND) return TypedActionResult.fail(user.getStackInHand(hand));// <-- disables offhand parrying and parrying with disabled items
+        if(ParryHelper.isItemParryDisabled(user.getWorld(), itemStack) || hand == Hand.OFF_HAND) return TypedActionResult.fail(user.getStackInHand(hand));// <-- disables offhand parrying and parrying with disabled items
         if(ParryHelper.canParryWithoutShield(user)){
             ((CanBlock) user).setCurrentHandParry(hand);
             ((CanBlock) user).setBlockingDataToTrue();
@@ -50,19 +50,11 @@ abstract class ItemMixin implements ToggleableFeature, ItemConvertible, FabricIt
 
         //if player stops blocking after parry, cooldown is shorter (and depends on item used)
         if(user instanceof PlayerEntity player && !world.isClient()){
-            float cooldown;
-            if(((CanBlock) user).hasParriedRecently()){
-                cooldown = ((ParryItem) item).getCooldownAfterParryAction();
-            }
-            else {
-                cooldown = ((ParryItem) item).getCooldownAfterInterruptingBlockAction();
-            }
-
-            if(cooldown < 0){
-                cooldown = ((int) player.getAttackCooldownProgressPerTick() - 1) * (cooldown * -1);
-            }
-            if(cooldown > 0){
-                if(!player.getItemCooldownManager().isCoolingDown(item)) player.getItemCooldownManager().set(item, (int) cooldown);
+            if(!player.getItemCooldownManager().isCoolingDown(item)){
+                int cooldown = ParryHelper.getParryCooldown(player, item);
+                if(cooldown > 0){
+                    player.getItemCooldownManager().set(item, cooldown);
+                }
             }
         }
     }

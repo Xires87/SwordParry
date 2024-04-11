@@ -26,6 +26,6 @@ public class CounterAttackEnchantment extends Enchantment {
     @Override
     public boolean isAcceptableItem(ItemStack stack) {
         Item item = stack.getItem();
-        return item instanceof ShieldItem || (!ParryHelper.isItemParryDisabled(item) && ParryHelper.isItemParryEnabled(stack));
+        return item instanceof ShieldItem || !ParryHelper.isItemParryDisabled(stack);
     }
 }

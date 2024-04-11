@@ -5,6 +5,7 @@ import net.fryc.frycparry.attributes.ParryAttributes;
 import net.fryc.frycparry.effects.ModEffects;
 import net.fryc.frycparry.enchantments.ModEnchantments;
 import net.fryc.frycparry.tag.ModItemTags;
+import net.fryc.frycparry.util.interfaces.CanBlock;
 import net.fryc.frycparry.util.interfaces.ParryItem;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EquipmentSlot;
@@ -38,7 +39,7 @@ public class ParryHelper {
         if(stack.isEmpty()) return false;
         if(stack.isIn(ModItemTags.PARRYING_EXCLUDED_ITEMS)) return false;
         return stack.getItem().getAttributeModifiers(EquipmentSlot.MAINHAND).keySet().contains(EntityAttributes.GENERIC_ATTACK_SPEED) ||
-                stack.isIn(ModItemTags.ITEMS_CAN_PARRY);
+                stack.isIn(ModItemTags.ITEMS_CAN_PARRY) || stack.getItem() instanceof ShieldItem;
     }
 
     public static boolean isNonShieldParryingEnabled(LivingEntity user){
@@ -113,25 +114,27 @@ public class ParryHelper {
         return false;
     }
 
-    public static boolean isItemParryDisabled(World world, Item item){
+    public static boolean isItemParryDisabled(World world, ItemStack stack){
+        Item item = stack.getItem();
         if(world.isClient()){
-            if(item instanceof SwordItem) return !enableBlockingWithSword;
-            if(item instanceof AxeItem) return !enableBlockingWithAxe;
-            if(item instanceof PickaxeItem) return !enableBlockingWithPickaxe;
-            if(item instanceof ShovelItem) return !enableBlockingWithShovel;
-            if(item instanceof HoeItem) return !enableBlockingWithHoe;
-            return !enableBlockingWithOtherTools;
+            if(item instanceof SwordItem) return !enableBlockingWithSword && !stack.isIn(ModItemTags.ITEMS_CAN_PARRY);
+            if(item instanceof AxeItem) return !enableBlockingWithAxe && !stack.isIn(ModItemTags.ITEMS_CAN_PARRY);
+            if(item instanceof PickaxeItem) return !enableBlockingWithPickaxe && !stack.isIn(ModItemTags.ITEMS_CAN_PARRY);
+            if(item instanceof ShovelItem) return !enableBlockingWithShovel && !stack.isIn(ModItemTags.ITEMS_CAN_PARRY);
+            if(item instanceof HoeItem) return !enableBlockingWithHoe && !stack.isIn(ModItemTags.ITEMS_CAN_PARRY);
+            return !enableBlockingWithOtherTools && !stack.isIn(ModItemTags.ITEMS_CAN_PARRY);
         }
-        return isItemParryDisabled(item);
+        return isItemParryDisabled(stack);
     }
 
-    public static boolean isItemParryDisabled(Item item){
-        if(item instanceof SwordItem) return !FrycParry.config.sword.enableBlockingWithSword;
-        if(item instanceof AxeItem) return !FrycParry.config.axe.enableBlockingWithAxe;
-        if(item instanceof PickaxeItem) return !FrycParry.config.pickaxe.enableBlockingWithPickaxe;
-        if(item instanceof ShovelItem) return !FrycParry.config.shovel.enableBlockingWithShovel;
-        if(item instanceof HoeItem) return !FrycParry.config.hoe.enableBlockingWithHoe;
-        return !FrycParry.config.server.enableBlockingWithOtherTools;
+    public static boolean isItemParryDisabled(ItemStack stack){
+        Item item = stack.getItem();
+        if(item instanceof SwordItem) return !FrycParry.config.sword.enableBlockingWithSword && !stack.isIn(ModItemTags.ITEMS_CAN_PARRY);
+        if(item instanceof AxeItem) return !FrycParry.config.axe.enableBlockingWithAxe && !stack.isIn(ModItemTags.ITEMS_CAN_PARRY);
+        if(item instanceof PickaxeItem) return !FrycParry.config.pickaxe.enableBlockingWithPickaxe && !stack.isIn(ModItemTags.ITEMS_CAN_PARRY);
+        if(item instanceof ShovelItem) return !FrycParry.config.shovel.enableBlockingWithShovel && !stack.isIn(ModItemTags.ITEMS_CAN_PARRY);
+        if(item instanceof HoeItem) return !FrycParry.config.hoe.enableBlockingWithHoe && !stack.isIn(ModItemTags.ITEMS_CAN_PARRY);
+        return !FrycParry.config.server.enableBlockingWithOtherTools && !stack.isIn(ModItemTags.ITEMS_CAN_PARRY);
     }
 
     public static ParryAttributes getDefaultParryAttributes(Item item){
@@ -273,5 +276,30 @@ public class ParryHelper {
             else ctrattack_damage *= (counterattackEnchantmentLevel * 0.1) + 0.1;
             attacker.damage(attacker.getWorld().getDamageSources().playerAttack(user),(float) ctrattack_damage);
         }
+    }
+
+    public static int getParryCooldown(PlayerEntity player, Item item) {
+        float cooldown;
+        if(((CanBlock) player).hasParriedRecently()){
+            cooldown = ((ParryItem) item).getCooldownAfterParryAction();
+        }
+        else {
+            cooldown = ((ParryItem) item).getCooldownAfterInterruptingBlockAction();
+        }
+
+        if(cooldown < 0){
+            cooldown = ((int) player.getAttackCooldownProgressPerTick() - 1) * (cooldown * -1);
+        }
+
+        return (int) cooldown;
+    }
+
+    /**
+     *  Setting cooldown after axe attack
+     */
+    public static void disableParryItem(PlayerEntity player, Item item){
+        int cooldown = getParryCooldown(player, item);
+        player.getItemCooldownManager().set(item, cooldown + 100);
+        ((CanBlock) player).stopUsingItemParry();
     }
 }

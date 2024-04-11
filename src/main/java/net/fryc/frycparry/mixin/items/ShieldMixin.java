@@ -1,7 +1,7 @@
 package net.fryc.frycparry.mixin.items;
 
 import net.fryc.frycparry.effects.ModEffects;
-import net.fryc.frycparry.util.interfaces.CanBlock;
+import net.fryc.frycparry.util.ParryHelper;
 import net.fryc.frycparry.util.interfaces.ParryItem;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -34,19 +34,11 @@ abstract class ShieldMixin extends Item implements ParryItem {
         Item item = stack.getItem();
 
         if(user instanceof PlayerEntity player && !world.isClient()){
-            float cooldown;
-            if(((CanBlock) user).hasParriedRecently()){
-                cooldown = ((ParryItem) item).getCooldownAfterParryAction();
-            }
-            else {
-                cooldown = ((ParryItem) item).getCooldownAfterInterruptingBlockAction();
-            }
-
-            if(cooldown < 0){
-                cooldown = ((int) player.getAttackCooldownProgressPerTick() - 1) * (cooldown * -1);
-            }
-            if(cooldown > 0){
-                if(!player.getItemCooldownManager().isCoolingDown(item)) player.getItemCooldownManager().set(item, (int) cooldown);
+            if(!player.getItemCooldownManager().isCoolingDown(item)){
+                int cooldown = ParryHelper.getParryCooldown(player, item);
+                if(cooldown > 0){
+                    player.getItemCooldownManager().set(item, cooldown);
+                }
             }
         }
     }
