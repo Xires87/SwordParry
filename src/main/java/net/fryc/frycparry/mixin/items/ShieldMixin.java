@@ -18,12 +18,11 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(ShieldItem.class)
-abstract class ShieldMixin extends Item {
+abstract class ShieldMixin extends Item implements ParryItem {
     public ShieldMixin(Settings settings) {
         super(settings);
     }
 
-// todo rozwiazac jakos z tarcza
     @Inject(method = "use(Lnet/minecraft/world/World;Lnet/minecraft/entity/player/PlayerEntity;Lnet/minecraft/util/Hand;)Lnet/minecraft/util/TypedActionResult;", at = @At("HEAD"))
     private void preventUsingWhenDisarmed(World world, PlayerEntity user, Hand hand, CallbackInfoReturnable<TypedActionResult<ItemStack>> ret) {
         if(user.hasStatusEffect(ModEffects.DISARMED)) ret.setReturnValue(TypedActionResult.fail(user.getStackInHand(hand)));
@@ -61,11 +60,6 @@ abstract class ShieldMixin extends Item {
         return finishUsing(stack, world, user);
     }
 
-    public int getMaxUseTimeParry(){
-        return 72000;
-    }
-
-
 
     //makes shield enchantable
     public boolean isEnchantable(ItemStack stack) {
@@ -87,50 +81,5 @@ abstract class ShieldMixin extends Item {
     public void onStoppedUsingParry(ItemStack stack, World world, LivingEntity user, int remainingUseTicks){
         onStoppedUsing(stack, world, user, remainingUseTicks);
     }
-    //----------------------------------------------------------------------
-
-    /*
-    public int getParryTicks(){
-        return FrycParry.config.shield.shieldParryTicks;
-    }
-
-    public float getMeleeDamageTakenAfterBlock(){
-        return (float) FrycParry.config.shield.shieldBlockMeleeDamageTaken/100;
-    }
-
-    public float getProjectileDamageTakenAfterBlock(){
-        return (float) FrycParry.config.shield.shieldBlockArrowDamageTaken/100;
-    }
-
-    public int getCooldownAfterParryAction(){
-        return FrycParry.config.shield.cooldownAfterShieldParryAction;
-    }
-    public int getCooldownAfterInterruptingBlockAction(){
-        return FrycParry.config.shield.cooldownAfterInterruptingShieldBlockAction;
-    }
-    public double getKnockbackAfterParryAction(){
-        return FrycParry.config.shield.shieldParryKnockbackStrength;
-    }
-    public int getSlownessAfterParryAction(){
-        return FrycParry.config.shield.shieldSlownessAfterParry;
-    }
-    public int getSlownessAmplifierAfterParryAction(){
-        return FrycParry.config.shield.shieldSlownessAfterParryAmplifier;
-    }
-    public int getWeaknessAfterParryAction(){
-        return FrycParry.config.shield.shieldWeaknessAfterParry;
-    }
-    public int getWeaknessAmplifierAfterParryAction(){
-        return FrycParry.config.shield.shieldWeaknessAfterParryAmplifier;
-    }
-    public int getDisarmedAfterParryAction(){
-        return FrycParry.config.shield.shieldDisarmAfterParry;
-    }
-
-    public boolean shouldStopUsingItemAfterBlockOrParry(){
-        return FrycParry.config.shield.shouldStopUsingShieldAfterBlockOrParry;
-    }
-
-     */
 
 }

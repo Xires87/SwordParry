@@ -41,4 +41,6 @@ public class ShieldConfig implements ConfigData {
     public float cooldownAfterShieldParryAction = 16;
 
     public boolean shouldStopUsingShieldAfterBlockOrParry = false;
+
+    public int maxUseTime = 7200;
 }
