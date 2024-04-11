@@ -1,5 +1,6 @@
 package net.fryc.frycparry.enchantments;
 
+import net.fryc.frycparry.tag.ModItemTags;
 import net.fryc.frycparry.util.ParryHelper;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentTarget;
@@ -26,6 +27,6 @@ public class ParryEnchantment extends Enchantment {
     @Override
     public boolean isAcceptableItem(ItemStack stack) {
         Item item = stack.getItem();
-        return item instanceof ShieldItem || !ParryHelper.isItemParryDisabled(stack);
+        return item instanceof ShieldItem || (!ParryHelper.isItemParryDisabled(stack) && !stack.isIn(ModItemTags.PARRYING_EXCLUDED_ITEMS));
     }
 }
