@@ -31,7 +31,7 @@
   "text.autoconfig.frycparry.option.server.enchantmentsForShieldsCanAppearOnWeaponsInChests.@Tooltip": "This option doesn't do anything when blocking with axes and swords is disabled",
 
   "text.autoconfig.frycparry.option.server.enableBlockingWhenDualWielding": "Dual wielding settings [Restart Required]",
-  "text.autoconfig.frycparry.option.server.enableBlockingWhenDualWielding.@Tooltip": "0 - player can block and parry with empty offhand;  1 - player can also block and parry when dual wields weapons; 2 - player can block and parry with any item in offhand;",
+  "text.autoconfig.frycparry.option.server.enableBlockingWhenDualWielding.@Tooltip": "0 - player can block and parry with empty offhand;\n  1 - player can also block and parry when dual wields weapons;\n 2 - player can block and parry with any item in offhand;",
 
 
 
@@ -62,6 +62,14 @@
   "text.autoconfig.frycparry.option.hoe.cooldownAfterInterruptingHoeBlockAction": "Cooldown after switching item, blocking attack or interrupting block action [/reload Required]",
   "text.autoconfig.frycparry.option.server.cooldownAfterInterruptingBlockAction": "Cooldown after switching item, blocking attack or interrupting block action [/reload Required]",
 
+  "text.autoconfig.frycparry.option.shield.cooldownAfterInterruptingShieldBlockAction.@Tooltip": "Values above 0 describe number of ticks item will be disabled for;\n When this value is below zero, cooldown is based on attack speed and the value is multiplier;\n (For example, if this value is set to -5, cooldown will be: valueBasedOnAttackSpeed * 5);",
+  "text.autoconfig.frycparry.option.axe.cooldownAfterInterruptingAxeBlockAction.@Tooltip": "Values above 0 describe number of ticks item will be disabled for;\n When this value is below zero, cooldown is based on attack speed and the value is multiplier;\n (For example, if this value is set to -5, cooldown will be: valueBasedOnAttackSpeed * 5);",
+  "text.autoconfig.frycparry.option.pickaxe.cooldownAfterInterruptingPickaxeBlockAction.@Tooltip": "Values above 0 describe number of ticks item will be disabled for;\n When this value is below zero, cooldown is based on attack speed and the value is multiplier;\n (For example, if this value is set to -5, cooldown will be: valueBasedOnAttackSpeed * 5);",
+  "text.autoconfig.frycparry.option.sword.cooldownAfterInterruptingSwordBlockAction.@Tooltip": "Values above 0 describe number of ticks item will be disabled for;\n When this value is below zero, cooldown is based on attack speed and the value is multiplier;\n (For example, if this value is set to -5, cooldown will be: valueBasedOnAttackSpeed * 5);",
+  "text.autoconfig.frycparry.option.shovel.cooldownAfterInterruptingShovelBlockAction.@Tooltip": "Values above 0 describe number of ticks item will be disabled for;\n When this value is below zero, cooldown is based on attack speed and the value is multiplier;\n (For example, if this value is set to -5, cooldown will be: valueBasedOnAttackSpeed * 5);",
+  "text.autoconfig.frycparry.option.hoe.cooldownAfterInterruptingHoeBlockAction.@Tooltip": "Values above 0 describe number of ticks item will be disabled for;\n When this value is below zero, cooldown is based on attack speed and the value is multiplier;\n (For example, if this value is set to -5, cooldown will be: valueBasedOnAttackSpeed * 5);",
+  "text.autoconfig.frycparry.option.server.cooldownAfterInterruptingBlockAction.@Tooltip": "Values above 0 describe number of ticks item will be disabled for;\n When this value is below zero, cooldown is based on attack speed and the value is multiplier;\n (For example, if this value is set to -5, cooldown will be: valueBasedOnAttackSpeed * 5);",
+
 
   "text.autoconfig.frycparry.option.shield.cooldownAfterShieldParryAction": "Cooldown after parrying attack or projectile [/reload Required]",
   "text.autoconfig.frycparry.option.axe.cooldownAfterAxeParryAction": "Cooldown after parrying attack or projectile [/reload Required]",
@@ -70,6 +78,14 @@
   "text.autoconfig.frycparry.option.shovel.cooldownAfterShovelParryAction": "Cooldown after parrying attack or projectile [/reload Required]",
   "text.autoconfig.frycparry.option.hoe.cooldownAfterHoeParryAction": "Cooldown after parrying attack or projectile [/reload Required]",
   "text.autoconfig.frycparry.option.server.cooldownAfterParryAction": "Cooldown after parrying attack or projectile [/reload Required]",
+
+  "text.autoconfig.frycparry.option.shield.cooldownAfterShieldParryAction.@Tooltip": "Values above 0 describe number of ticks item will be disabled for;\n When this value is below zero, cooldown is based on attack speed and the value is multiplier;\n (For example, if this value is set to -5, cooldown will be: valueBasedOnAttackSpeed * 5);",
+  "text.autoconfig.frycparry.option.axe.cooldownAfterAxeParryAction.@Tooltip": "Values above 0 describe number of ticks item will be disabled for;\n When this value is below zero, cooldown is based on attack speed and the value is multiplier;\n (For example, if this value is set to -5, cooldown will be: valueBasedOnAttackSpeed * 5);",
+  "text.autoconfig.frycparry.option.pickaxe.cooldownAfterPickaxeParryAction.@Tooltip": "Values above 0 describe number of ticks item will be disabled for;\n When this value is below zero, cooldown is based on attack speed and the value is multiplier;\n (For example, if this value is set to -5, cooldown will be: valueBasedOnAttackSpeed * 5);",
+  "text.autoconfig.frycparry.option.sword.cooldownAfterSwordParryAction.@Tooltip": "Values above 0 describe number of ticks item will be disabled for;\n When this value is below zero, cooldown is based on attack speed and the value is multiplier;\n (For example, if this value is set to -5, cooldown will be: valueBasedOnAttackSpeed * 5);",
+  "text.autoconfig.frycparry.option.shovel.cooldownAfterShovelParryAction.@Tooltip": "Values above 0 describe number of ticks item will be disabled for;\n When this value is below zero, cooldown is based on attack speed and the value is multiplier;\n (For example, if this value is set to -5, cooldown will be: valueBasedOnAttackSpeed * 5);",
+  "text.autoconfig.frycparry.option.hoe.cooldownAfterHoeParryAction.@Tooltip": "Values above 0 describe number of ticks item will be disabled for;\n When this value is below zero, cooldown is based on attack speed and the value is multiplier;\n (For example, if this value is set to -5, cooldown will be: valueBasedOnAttackSpeed * 5);",
+  "text.autoconfig.frycparry.option.server.cooldownAfterParryAction.@Tooltip": "Values above 0 describe number of ticks item will be disabled for;\n When this value is below zero, cooldown is based on attack speed and the value is multiplier;\n (For example, if this value is set to -5, cooldown will be: valueBasedOnAttackSpeed * 5);",
 
 
   "text.autoconfig.frycparry.option.shield.shieldParryTicks": "Parry ticks [/reload Required]",

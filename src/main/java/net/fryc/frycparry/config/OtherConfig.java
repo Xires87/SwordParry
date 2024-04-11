@@ -60,10 +60,20 @@ public class OtherConfig implements ConfigData {
 
     public int disarmAfterParry = 20;
 
-
+    @Comment("""
+            Values above 0 describe number of ticks item will be disabled for\s
+            When this value is below zero, cooldown is based on attack speed and the value is multiplier\s
+            (For example, if this value is set to -5, cooldown will be: valueBasedOnAttackSpeed * 5)\s
+            """)
+    @ConfigEntry.Gui.Tooltip
     public float cooldownAfterInterruptingBlockAction = -2.8f;
 
-
+    @Comment("""
+            Values above 0 describe number of ticks item will be disabled for\s
+            When this value is below zero, cooldown is based on attack speed and the value is multiplier\s
+            (For example, if this value is set to -0.5, cooldown will be: valueBasedOnAttackSpeed * 0.5)\s
+            """)
+    @ConfigEntry.Gui.Tooltip
     public float cooldownAfterParryAction = -2.5f;
 
     public boolean shouldStopUsingAfterBlockOrParry = true;

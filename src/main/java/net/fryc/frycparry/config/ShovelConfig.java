@@ -46,10 +46,20 @@ public class ShovelConfig implements ConfigData {
     
     public int shovelDisarmAfterParry = 28;
 
-    
+    @Comment("""
+            Values above 0 describe number of ticks item will be disabled for\s
+            When this value is below zero, cooldown is based on attack speed and the value is multiplier\s
+            (For example, if this value is set to -5, cooldown will be: valueBasedOnAttackSpeed * 5)\s
+            """)
+    @ConfigEntry.Gui.Tooltip
     public float cooldownAfterInterruptingShovelBlockAction = -2.4f;
 
-    
+    @Comment("""
+            Values above 0 describe number of ticks item will be disabled for\s
+            When this value is below zero, cooldown is based on attack speed and the value is multiplier\s
+            (For example, if this value is set to -0.5, cooldown will be: valueBasedOnAttackSpeed * 0.5)\s
+            """)
+    @ConfigEntry.Gui.Tooltip
     public float cooldownAfterShovelParryAction = -1.8f;
 
     public boolean shouldStopUsingShovelAfterBlockOrParry = true;
