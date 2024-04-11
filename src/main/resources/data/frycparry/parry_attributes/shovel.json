@@ -1,0 +1,15 @@
+{
+  "parryTicks": 2,
+  "meleeDamageTakenAfterBlock": 0.71,
+  "projectileDamageTakenAfterBlock": 0.82,
+  "cooldownAfterParryAction": -1.8,
+  "cooldownAfterInterruptingBlockAction": -2.4,
+  "maxUseTime": 7200,
+  "shouldStopUsingItemAfterBlockOrParry": true,
+  "knockbackAfterParryAction": 9.0,
+  "slownessAfterParryAction": 110,
+  "slownessAmplifierAfterParryAction": 1,
+  "weaknessAfterParryAction": 0,
+  "weaknessAmplifierAfterParryAction": 1,
+  "disarmedAfterParryAction": 28
+}

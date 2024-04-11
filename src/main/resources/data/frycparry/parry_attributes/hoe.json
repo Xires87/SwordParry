@@ -1,15 +1,15 @@
 {
-  "parryTicks": 4,
-  "meleeDamageTakenAfterBlock": 0.50,
-  "projectileDamageTakenAfterBlock": 0.90,
+  "parryTicks": 1,
+  "meleeDamageTakenAfterBlock": 0.85,
+  "projectileDamageTakenAfterBlock": 0.97,
   "cooldownAfterParryAction": -1,
   "cooldownAfterInterruptingBlockAction": -2,
   "maxUseTime": 7200,
   "shouldStopUsingItemAfterBlockOrParry": true,
-  "knockbackAfterParryAction": 6.0,
-  "slownessAfterParryAction": 100,
+  "knockbackAfterParryAction": 3.0,
+  "slownessAfterParryAction": 40,
   "slownessAmplifierAfterParryAction": 1,
   "weaknessAfterParryAction": 0,
   "weaknessAmplifierAfterParryAction": 1,
-  "disarmedAfterParryAction": 45
+  "disarmedAfterParryAction": 25
 }

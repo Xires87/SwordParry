@@ -39,7 +39,7 @@ public class FrycparryClientConfig implements ConfigData {
 
     @Comment("If you play singleplayer, use server sided config (axe.json5, sword.json5 etc.) for options under this comment. " +
             "These options only disable keybind (game behaves like you have never pressed parry key if you have a disabled item in your mainhand)." +
-            "You will still get cooldowns after swapping or using disabled items")
+            "You will still get cooldowns after swapping disabled items")
     public boolean enableBlockingWithSword = true;
     public boolean enableBlockingWithAxe = true;
     public boolean enableBlockingWithHoe = true;
