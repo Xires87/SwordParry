@@ -49,10 +49,20 @@ public class HoeConfig implements ConfigData {
     
     public int hoeDisarmAfterParry = 25;
 
-    
+    @Comment("""
+            Values above 0 describe number of ticks item will be disabled for\s
+            When this value is below zero, cooldown is based on attack speed and the value is multiplier\s
+            (For example, if this value is set to -5, cooldown will be: valueBasedOnAttackSpeed * 5)\s
+            """)
+    @ConfigEntry.Gui.Tooltip
     public float cooldownAfterInterruptingHoeBlockAction = -2;
 
-    
+    @Comment("""
+            Values above 0 describe number of ticks item will be disabled for\s
+            When this value is below zero, cooldown is based on attack speed and the value is multiplier\s
+            (For example, if this value is set to -0.5, cooldown will be: valueBasedOnAttackSpeed * 0.5)\s
+            """)
+    @ConfigEntry.Gui.Tooltip
     public float cooldownAfterHoeParryAction = -1;
 
     public boolean shouldStopUsingHoeAfterBlockOrParry = true;

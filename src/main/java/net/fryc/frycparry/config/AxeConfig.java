@@ -46,10 +46,20 @@ public class AxeConfig implements ConfigData {
     
     public int axeDisarmAfterParry = 45;
 
-    
+    @Comment("""
+            Values above 0 describe number of ticks item will be disabled for\s
+            When this value is below zero, cooldown is based on attack speed and the value is multiplier\s
+            (For example, if this value is set to -5, cooldown will be: valueBasedOnAttackSpeed * 5)\s
+            """)
+    @ConfigEntry.Gui.Tooltip
     public float cooldownAfterInterruptingAxeBlockAction = -2.1f;
 
-    
+    @Comment("""
+            Values above 0 describe number of ticks item will be disabled for\s
+            When this value is below zero, cooldown is based on attack speed and the value is multiplier\s
+            (For example, if this value is set to -0.5, cooldown will be: valueBasedOnAttackSpeed * 0.5)\s
+            """)
+    @ConfigEntry.Gui.Tooltip
     public float cooldownAfterAxeParryAction = -1.1f;
 
     public boolean shouldStopUsingAxeAfterBlockOrParry = true;
