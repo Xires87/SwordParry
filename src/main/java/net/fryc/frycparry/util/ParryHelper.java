@@ -48,9 +48,9 @@ public class ParryHelper {
 
     public static boolean checkDualWieldingWeapons(LivingEntity user){
         if(user.getWorld().isClient()){
-            return dualWieldingSettings > 0 && isItemParryEnabled(user.getMainHandStack());
+            return dualWieldingSettings > 0 && isItemParryEnabled(user.getOffHandStack());
         }
-        return FrycParry.config.server.enableBlockingWhenDualWielding > 0 && isItemParryEnabled(user.getMainHandStack());
+        return FrycParry.config.server.enableBlockingWhenDualWielding > 0 && isItemParryEnabled(user.getOffHandStack());
     }
 
     public static boolean checkDualWieldingItems(LivingEntity user){
