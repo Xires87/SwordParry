@@ -39,7 +39,7 @@ public class ParryItemsResourceReloadLoader implements SimpleSynchronousResource
                 String parryAttributesId = JsonHelper.getString(jsonObject, "parryAttributes");
                 JsonArray array = JsonHelper.getArray(jsonObject, "items");
                 for (JsonElement jsonElement : array) {
-                    ((ParryItem) JsonHelper.asItem(jsonElement, "itemFromJsonArray").value()).setParryAttributes(parryAttributesId);
+                    ((ParryItem) JsonHelper.asItem(jsonElement, "itemFromJsonArray")).setParryAttributes(parryAttributesId);
                 }
 
             } catch(Exception e) {
