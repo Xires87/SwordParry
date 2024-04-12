@@ -37,6 +37,10 @@ If [existing parry attributes](https://github.com/Xires87/SwordParry/tree/master
 ```
 Change the values to meet your needs. Name of your file will be used to access them.
 
+Note:
+- maxUseTime doesn't work for shields
+
+
 #### Applying parry attributes to selected items:
 
 In `data/frycparry/parry_items/` create json file containing:
@@ -49,7 +53,7 @@ In `data/frycparry/parry_items/` create json file containing:
   ]
 }
 ```
-`parryAttributes` is name of file from `data/frycparry/parry_attributes/` WITHOUT ".json"
+`parryAttributes` is name of file from `data/frycparry/parry_attributes/` WITHOUT `.json`
 
 Inside `items` add items for which selected parry attributes will be applied
 
