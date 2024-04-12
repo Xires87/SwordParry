@@ -55,54 +55,55 @@ abstract class LivingEntityMixin extends Entity implements Attackable, CanBlock 
     private void parryOrFullyBlock(DamageSource source, float amount, CallbackInfoReturnable<Boolean> ret) { // <----- executed only on server
         LivingEntity dys = ((LivingEntity)(Object)this);
         boolean shouldSwingHand = false;
-        if(dys.getActiveItem().isEmpty() || !ParryHelper.isItemParryEnabled(dys.getActiveItem())) return;
-        if(((CanBlock) dys).getParryDataValue()){ // <--- checks if attack was parried
-            ((CanBlock) dys).setParryDataToFalse();
-            parryTimer = 10;
-            shouldSwingHand = true;
+        if(ParryHelper.isItemParryEnabled(dys.getActiveItem())){
+            if(((CanBlock) dys).getParryDataValue()){ // <--- checks if attack was parried
+                ((CanBlock) dys).setParryDataToFalse();
+                parryTimer = 10;
+                shouldSwingHand = true;
 
-            if(source.getAttacker() instanceof LivingEntity attacker){
-                if(!source.isIn(DamageTypeTags.IS_PROJECTILE)){
-                    //applying parry effects
-                    ParryHelper.applyParryEffects(dys, attacker);
+                if(source.getAttacker() instanceof LivingEntity attacker){
+                    if(!source.isIn(DamageTypeTags.IS_PROJECTILE)){
+                        //applying parry effects
+                        ParryHelper.applyParryEffects(dys, attacker);
 
-                    //counterattack enchantment and disabling block
-                    if(dys instanceof  PlayerEntity player){
-                        //counterattack enchantment
-                        ParryHelper.applyCounterattackEffects(player, attacker);
+                        //counterattack enchantment and disabling block
+                        if(dys instanceof  PlayerEntity player){
+                            //counterattack enchantment
+                            ParryHelper.applyCounterattackEffects(player, attacker);
 
-                        //disabling block after parrying axe attack (when config allows it)
-                        if(attacker.disablesShield() && FrycParry.config.server.disableBlockAfterParryingAxeAttack){
-                            ParryHelper.disableParryItem(player, dys.getActiveItem().getItem());
-                            dys.swingHand(dys.getActiveHand(), true);// todo lang i inne
+                            //disabling block after parrying axe attack (when config allows it)
+                            if(attacker.disablesShield() && FrycParry.config.server.disableBlockAfterParryingAxeAttack){
+                                ParryHelper.disableParryItem(player, dys.getActiveItem().getItem());
+                                dys.swingHand(dys.getActiveHand(), true);
+                            }
                         }
                     }
                 }
             }
-        }
-        else {
-            ((CanBlock) dys).setParryDataToFalse(); // <--- redundant
-            if(dys instanceof PlayerEntity player){
-                if(source.getAttacker() instanceof LivingEntity attacker){
-                    if(attacker.disablesShield()){
-                        ParryHelper.disableParryItem(player, dys.getActiveItem().getItem());
+            else {
+                ((CanBlock) dys).setParryDataToFalse(); // <--- redundant
+                if(dys instanceof PlayerEntity player){
+                    if(source.getAttacker() instanceof LivingEntity attacker){
+                        if(attacker.disablesShield()){
+                            ParryHelper.disableParryItem(player, dys.getActiveItem().getItem());
+                        }
                     }
                 }
             }
-        }
 
-        // interrupting block action after PARRYING or FULLY BLOCKING (no dmg) attack with tool
-        if(((ParryItem) dys.getActiveItem().getItem()).shouldStopUsingItemAfterBlockOrParry()){
-            ((CanBlock) dys).stopUsingItemParry();
-            if(shouldSwingHand) dys.swingHand(dys.getActiveHand(), true);
-        }
+            // interrupting block action after PARRYING or FULLY BLOCKING (no dmg) attack with tool
+            if(((ParryItem) dys.getActiveItem().getItem()).shouldStopUsingItemAfterBlockOrParry()){
+                ((CanBlock) dys).stopUsingItemParry();
+                if(shouldSwingHand) dys.swingHand(dys.getActiveHand(), true);
+            }
 
-        //damaging item that is not shield
-        if(!ParryHelper.hasShieldEquipped(dys)){
-            if(dys.getMainHandStack().isDamageable()){
-                dys.getMainHandStack().damage(1, dys, (player) -> {
-                    player.sendToolBreakStatus(player.getActiveHand());
-                });
+            //damaging item that is not shield
+            if(!ParryHelper.hasShieldEquipped(dys)){
+                if(dys.getMainHandStack().isDamageable()){
+                    dys.getMainHandStack().damage(1, dys, (player) -> {
+                        player.sendToolBreakStatus(player.getActiveHand());
+                    });
+                }
             }
         }
     }

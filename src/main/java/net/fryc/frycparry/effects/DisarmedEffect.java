@@ -39,7 +39,7 @@ public class DisarmedEffect extends StatusEffect {
     private static boolean isShieldOrBowOrTool(World world, ItemStack stack){
         Item item = stack.getItem();
         return item instanceof ShieldItem || stack.getAttributeModifiers(EquipmentSlot.MAINHAND).keySet().contains(EntityAttributes.GENERIC_ATTACK_SPEED) ||
-                !ParryHelper.isItemParryDisabled(world, stack);
+                !ParryHelper.isItemParryDisabledWithConfig(world, stack);
     }
 
 }
