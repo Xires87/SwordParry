@@ -114,7 +114,7 @@ public class ParryHelper {
         return false;
     }
 
-    public static boolean isItemParryDisabled(World world, ItemStack stack){
+    public static boolean isItemParryDisabledWithConfig(World world, ItemStack stack){
         Item item = stack.getItem();
         if(world.isClient()){
             if(item instanceof SwordItem) return !enableBlockingWithSword && !stack.isIn(ModItemTags.ITEMS_CAN_PARRY);
@@ -124,10 +124,13 @@ public class ParryHelper {
             if(item instanceof HoeItem) return !enableBlockingWithHoe && !stack.isIn(ModItemTags.ITEMS_CAN_PARRY);
             return !enableBlockingWithOtherTools && !stack.isIn(ModItemTags.ITEMS_CAN_PARRY);
         }
-        return isItemParryDisabled(stack);
+        return isItemParryDisabledWithConfig(stack);
     }
 
-    public static boolean isItemParryDisabled(ItemStack stack){
+    /**
+     *  Should be used only on server side
+     */
+    public static boolean isItemParryDisabledWithConfig(ItemStack stack){
         Item item = stack.getItem();
         if(item instanceof SwordItem) return !FrycParry.config.sword.enableBlockingWithSword && !stack.isIn(ModItemTags.ITEMS_CAN_PARRY);
         if(item instanceof AxeItem) return !FrycParry.config.axe.enableBlockingWithAxe && !stack.isIn(ModItemTags.ITEMS_CAN_PARRY);
@@ -186,7 +189,7 @@ public class ParryHelper {
         if(item instanceof ShieldItem) return new ParryAttributes(
                 FrycParry.config.shield.shieldParryTicks, (float)FrycParry.config.shield.shieldBlockMeleeDamageTaken/100,
                 (float)FrycParry.config.shield.shieldBlockArrowDamageTaken/100, FrycParry.config.shield.cooldownAfterShieldParryAction,
-                FrycParry.config.shield.cooldownAfterInterruptingShieldBlockAction, FrycParry.config.shield.maxUseTime,
+                FrycParry.config.shield.cooldownAfterInterruptingShieldBlockAction, 7200,
                 FrycParry.config.shield.shouldStopUsingShieldAfterBlockOrParry, FrycParry.config.shield.shieldParryKnockbackStrength,
                 FrycParry.config.shield.shieldSlownessAfterParry, FrycParry.config.shield.shieldSlownessAfterParryAmplifier,
                 FrycParry.config.shield.shieldWeaknessAfterParry, FrycParry.config.shield.shieldWeaknessAfterParryAmplifier,

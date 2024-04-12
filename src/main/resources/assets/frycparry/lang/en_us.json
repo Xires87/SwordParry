@@ -196,7 +196,6 @@
   "text.autoconfig.frycparry.option.shovel.shouldStopUsingShovelAfterBlockOrParry": "Stop using item after block or parry [/reload Required]",
   "text.autoconfig.frycparry.option.server.shouldStopUsingAfterBlockOrParry": "Stop using item after block or parry [/reload Required]",
 
-  "text.autoconfig.frycparry.option.shield.maxUseTime": "Max use time [/reload Required]",
   "text.autoconfig.frycparry.option.sword.maxUseTime": "Max use time [/reload Required]",
   "text.autoconfig.frycparry.option.axe.maxUseTime": "Max use time [/reload Required]",
   "text.autoconfig.frycparry.option.pickaxe.maxUseTime": "Max use time [/reload Required]",

@@ -39,7 +39,7 @@ abstract class PlayerEntityMixin extends LivingEntity {
         ((CanBlock) dys).setBlockingDataToFalse();
         ((CanBlock) dys).setParryDataToFalse();
 
-        if(!ParryHelper.isItemParryDisabled(dys.getWorld(), dys.getMainHandStack())){
+        if(!ParryHelper.isItemParryDisabledWithConfig(dys.getWorld(), dys.getMainHandStack())){
             int cooldown;
             if(ParryHelper.canParryWithoutShield(dys)){
                 if(!dys.getItemCooldownManager().isCoolingDown(item)){
@@ -94,7 +94,7 @@ abstract class PlayerEntityMixin extends LivingEntity {
                     if(!dys.getItemCooldownManager().isCoolingDown(dys.getOffHandStack().getItem())) dys.getItemCooldownManager().set(dys.getOffHandStack().getItem(), cooldownProgress);
                 }
             }
-            else if(ParryHelper.canParryWithoutShield(dys) && !ParryHelper.isItemParryDisabled(dys.getWorld(), dys.getMainHandStack())){
+            else if(ParryHelper.canParryWithoutShield(dys) && !ParryHelper.isItemParryDisabledWithConfig(dys.getWorld(), dys.getMainHandStack())){
                 if(!dys.getItemCooldownManager().isCoolingDown(dys.getMainHandStack().getItem())) dys.getItemCooldownManager().set(dys.getMainHandStack().getItem(), cooldownProgress);
             }
         }

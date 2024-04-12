@@ -34,7 +34,7 @@ abstract class ItemMixin implements ToggleableFeature, ItemConvertible, FabricIt
 
     public TypedActionResult<ItemStack> useParry(World world, PlayerEntity user, Hand hand) {
         ItemStack itemStack = user.getStackInHand(hand);
-        if(ParryHelper.isItemParryDisabled(user.getWorld(), itemStack) || hand == Hand.OFF_HAND) return TypedActionResult.fail(user.getStackInHand(hand));// <-- disables offhand parrying and parrying with disabled items
+        if(ParryHelper.isItemParryDisabledWithConfig(user.getWorld(), itemStack) || hand == Hand.OFF_HAND) return TypedActionResult.fail(user.getStackInHand(hand));// <-- disables offhand parrying and parrying with disabled items
         if(ParryHelper.canParryWithoutShield(user)){
             ((CanBlock) user).setCurrentHandParry(hand);
             ((CanBlock) user).setBlockingDataToTrue();
