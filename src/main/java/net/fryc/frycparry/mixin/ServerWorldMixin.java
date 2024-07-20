@@ -25,6 +25,12 @@ abstract class ServerWorldMixin {
         buf.writeBoolean(FrycParry.config.shovel.enableBlockingWithShovel);
         buf.writeBoolean(FrycParry.config.hoe.enableBlockingWithHoe);
         buf.writeBoolean(FrycParry.config.server.enableBlockingWithOtherTools);
+
+        buf.writeBoolean(FrycParry.config.enchantments.enableReflexEnchantment);
+        buf.writeBoolean(FrycParry.config.enchantments.enableParryEnchantment);
+        buf.writeBoolean(FrycParry.config.enchantments.enableCounterattackEnchantment);
+        buf.writeInt(FrycParry.config.enchantments.shieldEnchantability);
+
         ServerPlayNetworking.send(player, ModPackets.ANSWER_CONFIG_ID, buf); // <--- informs client about server's config to avoid visual bugs
     }
 }

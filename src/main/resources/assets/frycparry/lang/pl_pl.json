@@ -19,15 +19,13 @@
   "text.autoconfig.frycparry.category.multiplayerModifiers": "PvP",
   "text.autoconfig.frycparry.category.other": "Inne",
   "text.autoconfig.frycparry.category.client": "Klient",
+  "text.autoconfig.frycparry.category.enchantments": "Zaklęcia",
 
   "text.autoconfig.frycparry.option.server.enableBlockingWithOtherTools": "Włącz blokowanie innymi przedmiotami [Wymagany Restart]",
   "text.autoconfig.frycparry.option.server.enableBlockingWithOtherTools.@Tooltip": "Dla przedmiotów, które nie są mieczami, łopatami, siekierami (itd.), ale mają atrybut prędkości ataku",
 
   "text.autoconfig.frycparry.option.server.disableBlockAfterParryingAxeAttack": "Wyłącz blok po sparowaniu ataku siekierą",
   "text.autoconfig.frycparry.option.server.disableBlockAfterParryingAxeAttack.@Tooltip": "Kiedy włączone, ataki siekierą będą wyłączać blokowanie niezależnie od tego czy zostały sparowane czy nie",
-
-  "text.autoconfig.frycparry.option.server.enchantmentsForShieldsCanAppearOnWeaponsInChests": "Zaklęcia dla tarczy pojawiają się na mieczach i siekierach znalezionych w skrzyniach",
-  "text.autoconfig.frycparry.option.server.enchantmentsForShieldsCanAppearOnWeaponsInChests.@Tooltip": "Ta opcja nic nie robi kiedy blokowanie mieczem i siekierą jest wyłączone",
 
   "text.autoconfig.frycparry.option.server.enableBlockingWhenDualWielding": "Ustawienia dla trzymania w dwóch rękach  [Wymagany Restart]",
   "text.autoconfig.frycparry.option.server.enableBlockingWhenDualWielding.@Tooltip": "0 - gracz może blokować i parować kiedy jego druga ręka jest pusta;\n  1 - gracz może też blokować i parować kiedy trzyma narzędzie w drugiej ręce;\n 2 - gracz może blokować i parować z jakimkolwiek przedmiotem w drugiej ręce;",
@@ -229,5 +227,21 @@
   "text.autoconfig.frycparry.option.client.enableBlockingWithHoe": "Włącz klawisz blokowania podczas używania motyki",
   "text.autoconfig.frycparry.option.client.enableBlockingWithShovel": "Włącz klawisz blokowania podczas używania łopaty",
   "text.autoconfig.frycparry.option.client.enableBlockingWithPickaxe": "Włącz klawisz blokowania podczas używania kilofa",
-  "text.autoconfig.frycparry.option.client.enableBlockingWithOtherTools": "Włącz klawisz blokowania podczas używania innego narzędzia"
+  "text.autoconfig.frycparry.option.client.enableBlockingWithOtherTools": "Włącz klawisz blokowania podczas używania innego narzędzia",
+
+
+  "text.autoconfig.frycparry.option.enchantments.enchantmentsForShieldsCanAppearOnWeaponsInChests": "Zaklęcia dla tarczy pojawiają się na mieczach i siekierach znalezionych w skrzyniach",
+  "text.autoconfig.frycparry.option.enchantments.enchantmentsForShieldsCanAppearOnWeaponsInChests.@Tooltip": "Ta opcja nic nie robi kiedy blokowanie mieczem i siekierą jest wyłączone (lub zaklęcia są wyłączone)",
+
+  "text.autoconfig.frycparry.option.enchantments.enableReflexEnchantment": "Włącz zaklęcie Refleks [Wymagany Restart]",
+  "text.autoconfig.frycparry.option.enchantments.enableReflexEnchantment.@Tooltip": "Wyłączone zaklęcia są niemożliwe do zdobycia w trybie przetrwania",
+
+  "text.autoconfig.frycparry.option.enchantments.enableParryEnchantment": "Włącz zaklęcie Parowanie [Wymagany Restart]",
+  "text.autoconfig.frycparry.option.enchantments.enableParryEnchantment.@Tooltip": "Wyłączone zaklęcia są niemożliwe do zdobycia w trybie przetrwania",
+
+  "text.autoconfig.frycparry.option.enchantments.enableCounterattackEnchantment": "Włącz zaklęcie Kontratak [Wymagany Restart]",
+  "text.autoconfig.frycparry.option.enchantments.enableCounterattackEnchantment.@Tooltip": "Wyłączone zaklęcia są niemożliwe do zdobycia w trybie przetrwania",
+
+  "text.autoconfig.frycparry.option.enchantments.shieldEnchantability": "Możliwości zaklinania tarczy (enchantability) [Wymagany Restart]",
+  "text.autoconfig.frycparry.option.enchantments.shieldEnchantability.@Tooltip": "Ustaw na 0 aby zaklinanie tarczy było niemożliwe"
 }

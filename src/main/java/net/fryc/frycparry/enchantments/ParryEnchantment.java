@@ -1,6 +1,7 @@
 package net.fryc.frycparry.enchantments;
 
 import net.fryc.frycparry.tag.ModItemTags;
+import net.fryc.frycparry.util.EnchantmentsConfigHelper;
 import net.fryc.frycparry.util.ParryHelper;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentTarget;
@@ -21,12 +22,24 @@ public class ParryEnchantment extends Enchantment {
     }
 
     public int getMaxPower(int level) {
-        return super.getMinPower(level) + 50;
+        return this.getMinPower(level) + 50;
     }
 
     @Override
     public boolean isAcceptableItem(ItemStack stack) {
         Item item = stack.getItem();
         return item instanceof ShieldItem || (!ParryHelper.isItemParryDisabledWithConfig(stack) && !stack.isIn(ModItemTags.PARRYING_EXCLUDED_ITEMS));
+    }
+
+    public boolean isTreasure() {
+        return !EnchantmentsConfigHelper.enableParryEnchantment;
+    }
+
+    public boolean isAvailableForEnchantedBookOffer() {
+        return EnchantmentsConfigHelper.enableParryEnchantment;
+    }
+
+    public boolean isAvailableForRandomSelection() {
+        return EnchantmentsConfigHelper.enableParryEnchantment;
     }
 }

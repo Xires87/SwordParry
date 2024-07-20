@@ -1,6 +1,7 @@
 package net.fryc.frycparry.enchantments;
 
 import net.fryc.frycparry.tag.ModItemTags;
+import net.fryc.frycparry.util.EnchantmentsConfigHelper;
 import net.fryc.frycparry.util.ParryHelper;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentTarget;
@@ -21,7 +22,7 @@ public class PredictionEnchantment extends Enchantment {
     }
 
     public int getMaxPower(int level) {
-        return super.getMinPower(level) + 30;
+        return this.getMinPower(level) + 30;
     }
 
     @Override
@@ -30,4 +31,15 @@ public class PredictionEnchantment extends Enchantment {
         return item instanceof ShieldItem || (!ParryHelper.isItemParryDisabledWithConfig(stack) && !stack.isIn(ModItemTags.PARRYING_EXCLUDED_ITEMS));
     }
 
+    public boolean isTreasure() {
+        return !EnchantmentsConfigHelper.enableReflexEnchantment;
+    }
+
+    public boolean isAvailableForEnchantedBookOffer() {
+        return EnchantmentsConfigHelper.enableReflexEnchantment;
+    }
+
+    public boolean isAvailableForRandomSelection() {
+        return EnchantmentsConfigHelper.enableReflexEnchantment;
+    }
 }

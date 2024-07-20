@@ -1,6 +1,7 @@
 package net.fryc.frycparry.mixin.items;
 
 import net.fryc.frycparry.effects.ModEffects;
+import net.fryc.frycparry.util.EnchantmentsConfigHelper;
 import net.fryc.frycparry.util.ParryHelper;
 import net.fryc.frycparry.util.interfaces.ParryItem;
 import net.minecraft.entity.LivingEntity;
@@ -52,14 +53,17 @@ abstract class ShieldMixin extends Item implements ParryItem {
         return finishUsing(stack, world, user);
     }
 
-
-    //makes shield enchantable
     public boolean isEnchantable(ItemStack stack) {
+        if(this.getEnchantability() < 1){
+            return super.isEnchantable(stack);
+        }
+
         return !stack.hasEnchantments();
     }
 
+    //makes shield enchantable
     public int getEnchantability() {
-        return 12;
+        return EnchantmentsConfigHelper.shieldEnchantability;
     }
 
     public UseAction getUseParryAction(ItemStack stack){

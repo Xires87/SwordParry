@@ -19,6 +19,7 @@
   "text.autoconfig.frycparry.category.multiplayerModifiers": "PvP",
   "text.autoconfig.frycparry.category.other": "Other",
   "text.autoconfig.frycparry.category.client": "Client",
+  "text.autoconfig.frycparry.category.enchantments": "Enchantments",
 
 
   "text.autoconfig.frycparry.option.server.enableBlockingWithOtherTools": "Enable blocking with other items [Restart Required]",
@@ -26,9 +27,6 @@
 
   "text.autoconfig.frycparry.option.server.disableBlockAfterParryingAxeAttack": "Disable block action after parrying axe attack",
   "text.autoconfig.frycparry.option.server.disableBlockAfterParryingAxeAttack.@Tooltip": "When turned on, axe attack will set cooldown whether it was parry or not",
-
-  "text.autoconfig.frycparry.option.server.enchantmentsForShieldsCanAppearOnWeaponsInChests": "Make enchantments for shield appear on swords and axes found in chests",
-  "text.autoconfig.frycparry.option.server.enchantmentsForShieldsCanAppearOnWeaponsInChests.@Tooltip": "This option doesn't do anything when blocking with axes and swords is disabled",
 
   "text.autoconfig.frycparry.option.server.enableBlockingWhenDualWielding": "Dual wielding settings [Restart Required]",
   "text.autoconfig.frycparry.option.server.enableBlockingWhenDualWielding.@Tooltip": "0 - player can block and parry with empty offhand;\n  1 - player can also block and parry when dual wields weapons;\n 2 - player can block and parry with any item in offhand;",
@@ -234,5 +232,20 @@
   "text.autoconfig.frycparry.option.client.enableBlockingWithHoe": "Enable parry key when using hoe",
   "text.autoconfig.frycparry.option.client.enableBlockingWithShovel": "Enable parry key when using shovel",
   "text.autoconfig.frycparry.option.client.enableBlockingWithPickaxe": "Enable parry key when using pickaxe",
-  "text.autoconfig.frycparry.option.client.enableBlockingWithOtherTools": "Enable parry key when using other tools"
+  "text.autoconfig.frycparry.option.client.enableBlockingWithOtherTools": "Enable parry key when using other tools",
+
+  "text.autoconfig.frycparry.option.enchantments.enchantmentsForShieldsCanAppearOnWeaponsInChests": "Make enchantments for shield appear on swords and axes found in chests",
+  "text.autoconfig.frycparry.option.enchantments.enchantmentsForShieldsCanAppearOnWeaponsInChests.@Tooltip": "This option doesn't do anything when blocking with axes and swords is disabled (or enchantments are disabled)",
+
+  "text.autoconfig.frycparry.option.enchantments.enableReflexEnchantment": "Enable Reflex enchantment [Restart Required]",
+  "text.autoconfig.frycparry.option.enchantments.enableReflexEnchantment.@Tooltip": "Disabled enchantments are unobtainable in survival mode",
+
+  "text.autoconfig.frycparry.option.enchantments.enableParryEnchantment": "Enable Parry enchantment [Restart Required]",
+  "text.autoconfig.frycparry.option.enchantments.enableParryEnchantment.@Tooltip": "Disabled enchantments are unobtainable in survival mode",
+
+  "text.autoconfig.frycparry.option.enchantments.enableCounterattackEnchantment": "Enable Counterattack enchantment [Restart Required]",
+  "text.autoconfig.frycparry.option.enchantments.enableCounterattackEnchantment.@Tooltip": "Disabled enchantments are unobtainable in survival mode",
+
+  "text.autoconfig.frycparry.option.enchantments.shieldEnchantability": "Shield enchantability [Restart Required]",
+  "text.autoconfig.frycparry.option.enchantments.shieldEnchantability.@Tooltip": "Set it to 0 to make shield unenchantable"
 }

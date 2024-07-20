@@ -11,10 +11,6 @@ public class OtherConfig implements ConfigData {
     @ConfigEntry.Gui.Tooltip
     public boolean disableBlockAfterParryingAxeAttack = false;
 
-    @Comment("This option doesn't do anything when blocking with axes and swords is disabled")
-    @ConfigEntry.Gui.Tooltip
-    public boolean enchantmentsForShieldsCanAppearOnWeaponsInChests = false;
-
     @Comment("Dual wielding settings: 0 - player can block and parry with empty offhand;  1 - player can also block and parry when dual wields weapons; 2 - player can block and parry with any item in offhand;")
     @ConfigEntry.Gui.Tooltip
     @ConfigEntry.BoundedDiscrete(max = 2, min = 0)
