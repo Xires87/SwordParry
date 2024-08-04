@@ -9,7 +9,6 @@
     "LivingEntityMixin",
     "LivingEntityWithPriorityMixin",
     "PlayerEntityMixin",
-    "EnchantmentHelperMixin",
     "ServerPlayerInteractionManagerMixin",
     "ServerPlayNetworkHandlerMixin",
     "ServerWorldMixin"

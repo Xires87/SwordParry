@@ -18,7 +18,7 @@ public class ParryAttributesResourceReloadListener implements SimpleSynchronousR
 
     @Override
     public Identifier getFabricId() {
-        return new Identifier(FrycParry.MOD_ID, PARRY_ATTRIBUTES_PATH);
+        return Identifier.of(FrycParry.MOD_ID, PARRY_ATTRIBUTES_PATH);
     }
 
     @Override

@@ -7,8 +7,9 @@ import net.fryc.frycparry.enchantments.ModEnchantments;
 import net.fryc.frycparry.tag.ModItemTags;
 import net.fryc.frycparry.util.interfaces.CanBlock;
 import net.fryc.frycparry.util.interfaces.ParryItem;
+import net.minecraft.component.DataComponentTypes;
+import net.minecraft.component.type.AttributeModifiersComponent;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
@@ -38,8 +39,7 @@ public class ParryHelper {
     public static boolean isItemParryEnabled(ItemStack stack){
         if(stack.isEmpty()) return false;
         if(stack.isIn(ModItemTags.PARRYING_EXCLUDED_ITEMS)) return false;
-        return stack.getItem().getAttributeModifiers(EquipmentSlot.MAINHAND).keySet().contains(EntityAttributes.GENERIC_ATTACK_SPEED) ||
-                stack.isIn(ModItemTags.ITEMS_CAN_PARRY) || stack.getItem() instanceof ShieldItem;
+        return hasAttackSpeedAttribute(stack) || stack.isIn(ModItemTags.ITEMS_CAN_PARRY) || stack.getItem() instanceof ShieldItem;
     }
 
     public static boolean isNonShieldParryingEnabled(LivingEntity user){
@@ -66,7 +66,7 @@ public class ParryHelper {
 
     public static boolean blockingFullyNegatesDamage(DamageSource source, ItemStack stack, LivingEntity user){
         if(source.isIn(DamageTypeTags.IS_EXPLOSION)){
-            return user.getActiveItem().getItem() instanceof ShieldItem && user.getActiveItem().getMaxUseTime() - user.getItemUseTimeLeft() >= 5;
+            return user.getActiveItem().getItem() instanceof ShieldItem && user.getActiveItem().getMaxUseTime(user) - user.getItemUseTimeLeft() >= 5;
         }
         if(stack.getItem() instanceof ParryItem parryItem){
             if(source.isIn(DamageTypeTags.IS_PROJECTILE)){
@@ -83,8 +83,8 @@ public class ParryHelper {
     public static boolean attackWasParried(DamageSource source, ItemStack stack, LivingEntity user){
         if(source.isIn(DamageTypeTags.IS_EXPLOSION)) return false;
         if(isItemParryEnabled(stack)){
-            int maxUseTime = user.getActiveItem().getItem() instanceof ShieldItem ? user.getActiveItem().getMaxUseTime() : ((ParryItem) user.getActiveItem().getItem()).getMaxUseTimeParry();
-            return maxUseTime - user.getItemUseTimeLeft() < ((ParryItem) stack.getItem()).getParryTicks() + ModEnchantments.getPredictionEnchantment(user);
+            int maxUseTime = user.getActiveItem().getItem() instanceof ShieldItem ? user.getActiveItem().getMaxUseTime(user) : ((ParryItem) user.getActiveItem().getItem()).getMaxUseTimeParry();
+            return maxUseTime - user.getItemUseTimeLeft() < ((ParryItem) stack.getItem()).getParryTicks() + ModEnchantments.getReflexEnchantment(user);
         }
         return false;
     }
@@ -99,15 +99,13 @@ public class ParryHelper {
             }
         }
 
-        if (!source.isIn(DamageTypeTags.BYPASSES_ARMOR) && user.isBlocking() && !bl) {
+        if (!source.isIn(DamageTypeTags.BYPASSES_SHIELD) && user.isBlocking() && !bl) {
             Vec3d vec3d = source.getPosition();
             if (vec3d != null) {
-                Vec3d vec3d2 = user.getRotationVec(1.0F);
-                Vec3d vec3d3 = vec3d.relativize(user.getPos()).normalize();
-                vec3d3 = new Vec3d(vec3d3.x, 0.0, vec3d3.z);
-                if (vec3d3.dotProduct(vec3d2) < 0.0) {
-                    return true;
-                }
+                Vec3d vec3d2 = user.getRotationVector(0.0F, user.getHeadYaw());
+                Vec3d vec3d3 = vec3d.relativize(user.getPos());
+                vec3d3 = (new Vec3d(vec3d3.x, 0.0, vec3d3.z)).normalize();
+                return vec3d3.dotProduct(vec3d2) < 0.0;
             }
         }
 
@@ -195,7 +193,7 @@ public class ParryHelper {
                 FrycParry.config.shield.shieldWeaknessAfterParry, FrycParry.config.shield.shieldWeaknessAfterParryAmplifier,
                 FrycParry.config.shield.shieldDisarmAfterParry
         );
-        if(item.getAttributeModifiers(EquipmentSlot.MAINHAND).keySet().contains(EntityAttributes.GENERIC_ATTACK_SPEED)) return new ParryAttributes(
+        if(hasAttackSpeedAttribute(item.getDefaultStack())) return new ParryAttributes(
                 FrycParry.config.server.parryTicks, (float)FrycParry.config.server.blockMeleeDamageTaken/100,
                 (float)FrycParry.config.server.blockArrowDamageTaken/100, FrycParry.config.server.cooldownAfterParryAction,
                 FrycParry.config.server.cooldownAfterInterruptingBlockAction, FrycParry.config.server.maxUseTime,
@@ -304,5 +302,18 @@ public class ParryHelper {
         int cooldown = getParryCooldown(player, item);
         player.getItemCooldownManager().set(item, cooldown + 100);
         ((CanBlock) player).stopUsingItemParry();
+    }
+
+    public static boolean hasAttackSpeedAttribute(ItemStack stack){
+        AttributeModifiersComponent componentType = stack.get(DataComponentTypes.ATTRIBUTE_MODIFIERS);
+        if(componentType != null){
+            for(AttributeModifiersComponent.Entry modifier : componentType.modifiers()){
+                if (modifier.attribute() == EntityAttributes.GENERIC_ATTACK_SPEED) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
     }
 }

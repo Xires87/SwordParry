@@ -3,9 +3,8 @@ package net.fryc.frycparry.mixin.client;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
-import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 import net.fryc.frycparry.keybind.ModKeyBinds;
-import net.fryc.frycparry.network.ModPackets;
+import net.fryc.frycparry.network.payloads.ResetLastAttackedTicksPayload;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.WindowEventHandler;
 import net.minecraft.client.network.ClientPlayerInteractionManager;
@@ -37,6 +36,6 @@ abstract class MinecraftClientMixin extends ReentrantThreadExecutor<Runnable> im
 
     @Inject(method = "doAttack()Z", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/network/ClientPlayerEntity;resetLastAttackedTicks()V", shift = At.Shift.AFTER))
     private void checkItemCooldownBeforeUsing(CallbackInfoReturnable<Boolean> ret) {
-        ClientPlayNetworking.send(ModPackets.RESET_LAST_ATTACKED_TICKS_ID, PacketByteBufs.empty());
+        ClientPlayNetworking.send(new ResetLastAttackedTicksPayload(true));
     }
 }

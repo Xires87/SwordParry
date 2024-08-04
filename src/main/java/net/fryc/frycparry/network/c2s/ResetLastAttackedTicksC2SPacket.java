@@ -1,14 +1,11 @@
 package net.fryc.frycparry.network.c2s;
 
-import net.fabricmc.fabric.api.networking.v1.PacketSender;
-import net.minecraft.network.PacketByteBuf;
-import net.minecraft.server.MinecraftServer;
-import net.minecraft.server.network.ServerPlayNetworkHandler;
-import net.minecraft.server.network.ServerPlayerEntity;
+import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
+import net.minecraft.network.packet.CustomPayload;
 
 public class ResetLastAttackedTicksC2SPacket {
 
-    public static void receive(MinecraftServer server, ServerPlayerEntity player, ServerPlayNetworkHandler handler, PacketByteBuf buf, PacketSender responseSender){
-        player.resetLastAttackedTicks();
+    public static void receive(CustomPayload payload, ServerPlayNetworking.Context context){
+        context.player().resetLastAttackedTicks();
     }
 }

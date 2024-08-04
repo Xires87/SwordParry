@@ -1,8 +1,8 @@
 package net.fryc.frycparry.mixin.client;
 
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
-import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
-import net.fryc.frycparry.network.ModPackets;
+import net.fryc.frycparry.network.payloads.StartParryingPayload;
+import net.fryc.frycparry.network.payloads.StopBlockingPayload;
 import net.fryc.frycparry.util.ParryHelper;
 import net.fryc.frycparry.util.interfaces.CanBlock;
 import net.fryc.frycparry.util.interfaces.ParryInteraction;
@@ -50,7 +50,7 @@ abstract class ClientPlayerInteractionManagerMixin implements ParryInteraction {
                 TypedActionResult<ItemStack> typedActionResult;
                 if(ParryHelper.isItemParryEnabled(itemStack)){
                     typedActionResult = ((ParryItem) itemStack.getItem()).useParry(this.client.world, player, hand);
-                    ClientPlayNetworking.send(ModPackets.START_PARRYING_ID, PacketByteBufs.empty());
+                    ClientPlayNetworking.send(new StartParryingPayload(true));
                 }
                 else {
                     typedActionResult = TypedActionResult.fail(itemStack);
@@ -68,7 +68,7 @@ abstract class ClientPlayerInteractionManagerMixin implements ParryInteraction {
 
     public void stopUsingItemParry(PlayerEntity player) {
         this.syncSelectedSlot();
-        ClientPlayNetworking.send(ModPackets.STOP_BLOCKING_ID, PacketByteBufs.empty());
+        ClientPlayNetworking.send(new StopBlockingPayload(true));
         ((CanBlock) player).stopUsingItemParry();
     }
 }

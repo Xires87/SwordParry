@@ -1,0 +1,22 @@
+{
+  "anvil_cost": 3,
+  "description": {
+    "translate": "enchantment.frycparry.parry_enchantment"
+  },
+  "max_cost": {
+    "base": 55,
+    "per_level_above_first": 20
+  },
+  "max_level": 2,
+  "min_cost": {
+    "base": 5,
+    "per_level_above_first": 20
+  },
+  "primary_items": "#frycparry:enchantable/shield",
+  "slots": [
+    "mainhand",
+    "offhand"
+  ],
+  "supported_items": "#frycparry:enchantable/parry_tools",
+  "weight": 5
+}

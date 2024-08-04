@@ -6,10 +6,7 @@ import net.fryc.frycparry.FrycParry;
 import net.fryc.frycparry.util.ParryHelper;
 import net.fryc.frycparry.util.interfaces.CanBlock;
 import net.fryc.frycparry.util.interfaces.ParryItem;
-import net.minecraft.entity.Attackable;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.*;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
@@ -100,9 +97,7 @@ abstract class LivingEntityMixin extends Entity implements Attackable, CanBlock 
             //damaging item that is not shield
             if(!ParryHelper.hasShieldEquipped(dys)){
                 if(dys.getMainHandStack().isDamageable()){
-                    dys.getMainHandStack().damage(1, dys, (player) -> {
-                        player.sendToolBreakStatus(player.getActiveHand());
-                    });
+                    dys.getMainHandStack().damage(1, dys, EquipmentSlot.MAINHAND);
                 }
             }
         }
@@ -161,9 +156,7 @@ abstract class LivingEntityMixin extends Entity implements Attackable, CanBlock 
                 //damaging item that is not shield
                 if(!ParryHelper.hasShieldEquipped(dys)){
                     if(dys.getMainHandStack().isDamageable()){
-                        dys.getMainHandStack().damage(1, dys, (player) -> {
-                            player.sendToolBreakStatus(player.getActiveHand());
-                        });
+                        dys.getMainHandStack().damage(1, dys, EquipmentSlot.MAINHAND);
                     }
                 }
                 else {
@@ -205,11 +198,11 @@ abstract class LivingEntityMixin extends Entity implements Attackable, CanBlock 
     }
 
     //starts tracking BLOCKING_DATA and PARRY_DATA
-    @Inject(method = "initDataTracker()V", at = @At("HEAD"))
-    private void initBlockingData(CallbackInfo info) {
-        LivingEntity dys = ((LivingEntity)(Object)this);
-        dys.getDataTracker().startTracking(BLOCKING_DATA, false);
-        dys.getDataTracker().startTracking(PARRY_DATA, false);
+    @Inject(method = "initDataTracker(Lnet/minecraft/entity/data/DataTracker$Builder;)V", at = @At("HEAD"))
+    private void initBlockingData(DataTracker.Builder builder, CallbackInfo info) {
+        //LivingEntity dys = ((LivingEntity)(Object)this);
+        builder.add(BLOCKING_DATA, false);
+        builder.add(PARRY_DATA, false);
     }
 
 

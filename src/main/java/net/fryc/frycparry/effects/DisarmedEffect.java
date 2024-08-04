@@ -1,13 +1,13 @@
 package net.fryc.frycparry.effects;
 
 import net.fryc.frycparry.util.ParryHelper;
-import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffectCategory;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.*;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.ShieldItem;
 import net.minecraft.world.World;
 
 public class DisarmedEffect extends StatusEffect {
@@ -38,8 +38,7 @@ public class DisarmedEffect extends StatusEffect {
 
     private static boolean isShieldOrBowOrTool(World world, ItemStack stack){
         Item item = stack.getItem();
-        return item instanceof ShieldItem || stack.getAttributeModifiers(EquipmentSlot.MAINHAND).keySet().contains(EntityAttributes.GENERIC_ATTACK_SPEED) ||
-                !ParryHelper.isItemParryDisabledWithConfig(world, stack);
+        return item instanceof ShieldItem || ParryHelper.hasAttackSpeedAttribute(stack) || !ParryHelper.isItemParryDisabledWithConfig(world, stack);
     }
 
 }

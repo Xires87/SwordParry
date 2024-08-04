@@ -1,16 +1,14 @@
 package net.fryc.frycparry.mixin.client;
 
 import net.fryc.frycparry.tag.ModItemTags;
+import net.fryc.frycparry.util.ParryHelper;
 import net.fryc.frycparry.util.client.ItemRendererHelper;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.item.ItemRenderer;
 import net.minecraft.client.render.model.BakedModel;
 import net.minecraft.client.render.model.json.ModelTransformationMode;
 import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.entity.EquipmentSlot;
-import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.ToolItem;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -27,8 +25,7 @@ abstract class ItemRendererMixin {
                           VertexConsumerProvider vertexConsumers, int light, int overlay, BakedModel model, CallbackInfo info) {
 
         if(renderMode == ModelTransformationMode.FIRST_PERSON_RIGHT_HAND && ItemRendererHelper.shouldApplyParryTransform &&
-                (stack.getItem().getAttributeModifiers(EquipmentSlot.MAINHAND).keySet().contains(EntityAttributes.GENERIC_ATTACK_SPEED) ||
-                        stack.isIn(ModItemTags.ITEMS_CAN_PARRY))){
+                (ParryHelper.hasAttackSpeedAttribute(stack) || stack.isIn(ModItemTags.ITEMS_CAN_PARRY))){
 
             matrices.pop();
             matrices.push();

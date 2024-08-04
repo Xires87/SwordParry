@@ -22,7 +22,7 @@ public class ParryItemsResourceReloadLoader implements SimpleSynchronousResource
 
     @Override
     public Identifier getFabricId() {
-        return new Identifier(FrycParry.MOD_ID, PARRY_ITEMS_PATH);
+        return Identifier.of(FrycParry.MOD_ID, PARRY_ITEMS_PATH);
     }
 
     @Override

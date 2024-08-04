@@ -1,16 +1,13 @@
 package net.fryc.frycparry.network.c2s;
 
-import net.fabricmc.fabric.api.networking.v1.PacketSender;
+import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.fryc.frycparry.util.interfaces.CanBlock;
-import net.minecraft.network.PacketByteBuf;
-import net.minecraft.server.MinecraftServer;
-import net.minecraft.server.network.ServerPlayNetworkHandler;
-import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.network.packet.CustomPayload;
 
 public class StopBlockingC2SPacket {
 
-    public static void receive(MinecraftServer server, ServerPlayerEntity player, ServerPlayNetworkHandler handler, PacketByteBuf buf, PacketSender responseSender){
-        player.updateLastActionTime();
-        ((CanBlock) player).stopUsingItemParry();
+    public static void receive(CustomPayload payload, ServerPlayNetworking.Context context){
+        context.player().updateLastActionTime();
+        ((CanBlock) context.player()).stopUsingItemParry();
     }
 }

@@ -1,0 +1,11 @@
+{
+  "values": [
+    "#frycparry:enchantable/shield",
+    "#minecraft:axes",
+    "#minecraft:hoes",
+    "#minecraft:pickaxes",
+    "#minecraft:shovels",
+    "#minecraft:swords",
+    "#c:tools/melee_weapons"
+  ]
+}

@@ -42,9 +42,9 @@ abstract class ServerPlayerInteractionManagerMixin implements ServerParryInterac
             }
 
             ItemStack itemStack = (ItemStack)typedActionResult.getValue();
-            if (itemStack == stack && itemStack.getCount() == i && itemStack.getMaxUseTime() <= 0 && itemStack.getDamage() == j) {
+            if (itemStack == stack && itemStack.getCount() == i && itemStack.getMaxUseTime(player) <= 0 && itemStack.getDamage() == j) {
                 return typedActionResult.getResult();
-            } else if (typedActionResult.getResult() == ActionResult.FAIL && itemStack.getMaxUseTime() > 0 && !player.isUsingItem()) {
+            } else if (typedActionResult.getResult() == ActionResult.FAIL && itemStack.getMaxUseTime(player) > 0 && !player.isUsingItem()) {
                 return typedActionResult.getResult();
             } else {
                 if (stack != itemStack) {
