@@ -8,9 +8,6 @@ import net.fryc.frycparry.util.ParryHelper;
 public class SecondConfigAnswerS2CPacket {
 
     public static void receive(SecondConfigAnswerPayload payload, ClientPlayNetworking.Context context){
-        EnchantmentsConfigHelper.enableReflexEnchantment = payload.enReflex();
-        EnchantmentsConfigHelper.enableParryEnchantment = payload.enParry();
-        EnchantmentsConfigHelper.enableCounterattackEnchantment = payload.enCounterattack();
         EnchantmentsConfigHelper.shieldEnchantability = payload.shieldEnchantability();
         ParryHelper.dualWieldingSettings = payload.dualWieldingSettings();
     }

@@ -13,18 +13,4 @@ public class EnchantmentsConfig implements ConfigData {
     @ConfigEntry.Gui.RequiresRestart
     public int shieldEnchantability = 12;
 
-    @Comment("Disabled enchantments are unobtainable in survival mode")
-    @ConfigEntry.Gui.Tooltip
-    @ConfigEntry.Gui.RequiresRestart
-    public boolean enableReflexEnchantment = true;
-    @ConfigEntry.Gui.Tooltip
-    @ConfigEntry.Gui.RequiresRestart
-    public boolean enableParryEnchantment = true;
-    @ConfigEntry.Gui.Tooltip
-    @ConfigEntry.Gui.RequiresRestart
-    public boolean enableCounterattackEnchantment = true;
-
-    @Comment("This option doesn't do anything when blocking with axes and swords is disabled (or enchantments are disabled)")
-    @ConfigEntry.Gui.Tooltip
-    public boolean enchantmentsForShieldsCanAppearOnWeaponsInChests = false;
 }
