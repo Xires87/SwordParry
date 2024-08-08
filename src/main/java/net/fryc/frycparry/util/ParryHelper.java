@@ -30,6 +30,7 @@ public class ParryHelper {
     public static boolean enableBlockingWithPickaxe = FrycParry.config.pickaxe.enableBlockingWithPickaxe;
     public static boolean enableBlockingWithShovel = FrycParry.config.shovel.enableBlockingWithShovel;
     public static boolean enableBlockingWithHoe = FrycParry.config.hoe.enableBlockingWithHoe;
+    public static boolean enableBlockingWithMace = FrycParry.config.mace.enableBlockingWithMace;
     public static boolean enableBlockingWithOtherTools = FrycParry.config.server.enableBlockingWithOtherTools;
 
     public static boolean canParryWithoutShield(LivingEntity user){
@@ -120,6 +121,7 @@ public class ParryHelper {
             if(item instanceof PickaxeItem) return !enableBlockingWithPickaxe && !stack.isIn(ModItemTags.ITEMS_CAN_PARRY);
             if(item instanceof ShovelItem) return !enableBlockingWithShovel && !stack.isIn(ModItemTags.ITEMS_CAN_PARRY);
             if(item instanceof HoeItem) return !enableBlockingWithHoe && !stack.isIn(ModItemTags.ITEMS_CAN_PARRY);
+            if(item instanceof MaceItem) return !enableBlockingWithMace && !stack.isIn(ModItemTags.ITEMS_CAN_PARRY);
             return !enableBlockingWithOtherTools && !stack.isIn(ModItemTags.ITEMS_CAN_PARRY);
         }
         return isItemParryDisabledWithConfig(stack);
@@ -135,6 +137,7 @@ public class ParryHelper {
         if(item instanceof PickaxeItem) return !FrycParry.config.pickaxe.enableBlockingWithPickaxe && !stack.isIn(ModItemTags.ITEMS_CAN_PARRY);
         if(item instanceof ShovelItem) return !FrycParry.config.shovel.enableBlockingWithShovel && !stack.isIn(ModItemTags.ITEMS_CAN_PARRY);
         if(item instanceof HoeItem) return !FrycParry.config.hoe.enableBlockingWithHoe && !stack.isIn(ModItemTags.ITEMS_CAN_PARRY);
+        if(item instanceof MaceItem) return !FrycParry.config.mace.enableBlockingWithMace && !stack.isIn(ModItemTags.ITEMS_CAN_PARRY);
         return !FrycParry.config.server.enableBlockingWithOtherTools && !stack.isIn(ModItemTags.ITEMS_CAN_PARRY);
     }
 
@@ -183,6 +186,15 @@ public class ParryHelper {
                 FrycParry.config.hoe.hoeSlownessAfterParry, FrycParry.config.hoe.hoeSlownessAfterParryAmplifier,
                 FrycParry.config.hoe.hoeWeaknessAfterParry, FrycParry.config.hoe.hoeWeaknessAfterParryAmplifier,
                 FrycParry.config.hoe.hoeDisarmAfterParry
+        );
+        if(item instanceof MaceItem) return new ParryAttributes(
+                FrycParry.config.mace.maceParryTicks, (float)FrycParry.config.mace.maceBlockMeleeDamageTaken/100,
+                (float)FrycParry.config.mace.maceBlockArrowDamageTaken/100, FrycParry.config.mace.cooldownAfterMaceParryAction,
+                FrycParry.config.mace.cooldownAfterInterruptingMaceBlockAction, FrycParry.config.mace.maxUseTime,
+                FrycParry.config.mace.shouldStopUsingMaceAfterBlockOrParry, FrycParry.config.mace.maceParryKnockbackStrength,
+                FrycParry.config.mace.maceSlownessAfterParry, FrycParry.config.mace.maceSlownessAfterParryAmplifier,
+                FrycParry.config.mace.maceWeaknessAfterParry, FrycParry.config.mace.maceWeaknessAfterParryAmplifier,
+                FrycParry.config.mace.maceDisarmAfterParry
         );
         if(item instanceof ShieldItem) return new ParryAttributes(
                 FrycParry.config.shield.shieldParryTicks, (float)FrycParry.config.shield.shieldBlockMeleeDamageTaken/100,

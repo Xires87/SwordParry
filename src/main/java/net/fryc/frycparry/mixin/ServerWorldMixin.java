@@ -27,6 +27,7 @@ abstract class ServerWorldMixin {
         ));
 
         ServerPlayNetworking.send(player, new SecondConfigAnswerPayload(
+                FrycParry.config.mace.enableBlockingWithMace,
                 FrycParry.config.server.enableBlockingWhenDualWielding,
                 FrycParry.config.enchantments.shieldEnchantability
         ));

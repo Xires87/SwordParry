@@ -20,6 +20,7 @@ public class ClientParryHelper {
         if(item instanceof PickaxeItem) return !FrycParry.config.client.enableBlockingWithPickaxe;
         if(item instanceof ShovelItem) return !FrycParry.config.client.enableBlockingWithShovel;
         if(item instanceof HoeItem) return !FrycParry.config.client.enableBlockingWithHoe;
+        if(item instanceof MaceItem) return !FrycParry.config.client.enableBlockingWithMace;
         return !FrycParry.config.client.enableBlockingWithOtherTools;
     }
 }

@@ -32,7 +32,7 @@ public class FrycParry implements ModInitializer {
 
         ModPackets.registerC2SPackets();
         ModEffects.registerEffects();
-        ModEnchantments.registerModEnchantments();
+        ModEnchantments.registerModEnchantments();// todo translate do itemtagow i do macea
 
     }
 }

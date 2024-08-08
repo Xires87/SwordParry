@@ -8,6 +8,7 @@ import net.fryc.frycparry.util.ParryHelper;
 public class SecondConfigAnswerS2CPacket {
 
     public static void receive(SecondConfigAnswerPayload payload, ClientPlayNetworking.Context context){
+        ParryHelper.enableBlockingWithMace = payload.enMaceBlocking();
         EnchantmentsConfigHelper.shieldEnchantability = payload.shieldEnchantability();
         ParryHelper.dualWieldingSettings = payload.dualWieldingSettings();
     }

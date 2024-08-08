@@ -33,6 +33,10 @@ public class FrycParryConfig extends PartitioningSerializer.GlobalData {
     @ConfigEntry.Gui.TransitiveObject
     public HoeConfig hoe = new HoeConfig();
 
+    @ConfigEntry.Category("mace")
+    @ConfigEntry.Gui.TransitiveObject
+    public MaceConfig mace = new MaceConfig();
+
     @ConfigEntry.Category("multiplayerModifiers")
     @ConfigEntry.Gui.TransitiveObject
     public MultiplayerModifiersConfig multiplayerModifiers = new MultiplayerModifiersConfig();

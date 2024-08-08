@@ -45,6 +45,7 @@ public class FrycparryClientConfig implements ConfigData {
     public boolean enableBlockingWithHoe = true;
     public boolean enableBlockingWithShovel = true;
     public boolean enableBlockingWithPickaxe = true;
+    public boolean enableBlockingWithMace = true;
     public boolean enableBlockingWithOtherTools = true;
 
 }
