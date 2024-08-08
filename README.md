@@ -10,8 +10,10 @@ Adds parry mechanics and allows blocking with items other than shield
 
 ### Modifying pool of items that can parry:
 
-- to add item to the pool: `data/frycparry/tags/items/items_can_parry.json`
-- to exclude item from the pool (excluding has priority over including): `data/frycparry/tags/items/parrying_excluded_items.json`
+- to add item to the pool: `data/frycparry/tags/item/items_can_parry.json`
+- to exclude item from the pool (excluding has priority over including): `data/frycparry/tags/item/parrying_excluded_items.json`
+
+(remember that some directories changed with 1.21, for example `items` is now `item`)
 
 ### Modifying parry attributes:
 
