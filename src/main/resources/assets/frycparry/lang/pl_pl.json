@@ -1,4 +1,10 @@
 {
+  "tag.item.frycparry.items_can_parry": "Dodatkowe przedmioty które mogą zostać użyte do parowania ataków i pocisków",
+  "tag.item.frycparry.parrying_excluded_items": "Przedmioty które nie mogą zostać użyte do parowania ataków i pocisków",
+
+  "tag.item.frycparry.enchantable.parry_tools": "Supported items for enchantments from Sword Parry",
+  "tag.item.frycparry.enchantable.shield": "Primary items for enchantments from Sword Parry",
+
   "key.category.frycparry.key_category_swordparry": "Sword Parry",
   "key.frycparry.key_parry": "Blokowanie (ustaw na Nieprzypisane by blokować klawiszem Użycia)",
   "key.frycparry.key_dont_parry": "Zapobiegaj używaniu blokowania",
@@ -15,6 +21,7 @@
   "text.autoconfig.frycparry.category.axe": "Siekiera",
   "text.autoconfig.frycparry.category.shovel": "Łopata",
   "text.autoconfig.frycparry.category.hoe": "Motyka",
+  "text.autoconfig.frycparry.category.mace": "Maczuga",
   "text.autoconfig.frycparry.category.pickaxe": "Kilof",
   "text.autoconfig.frycparry.category.multiplayerModifiers": "PvP",
   "text.autoconfig.frycparry.category.other": "Inne",
@@ -228,20 +235,30 @@
   "text.autoconfig.frycparry.option.client.enableBlockingWithShovel": "Włącz klawisz blokowania podczas używania łopaty",
   "text.autoconfig.frycparry.option.client.enableBlockingWithPickaxe": "Włącz klawisz blokowania podczas używania kilofa",
   "text.autoconfig.frycparry.option.client.enableBlockingWithOtherTools": "Włącz klawisz blokowania podczas używania innego narzędzia",
+  "text.autoconfig.frycparry.option.client.enableBlockingWithMace": "Włącz klawisz blokowania podczas używania maczugi",
 
-
-  "text.autoconfig.frycparry.option.enchantments.enchantmentsForShieldsCanAppearOnWeaponsInChests": "Zaklęcia dla tarczy pojawiają się na mieczach i siekierach znalezionych w skrzyniach",
-  "text.autoconfig.frycparry.option.enchantments.enchantmentsForShieldsCanAppearOnWeaponsInChests.@Tooltip": "Ta opcja nic nie robi kiedy blokowanie mieczem i siekierą jest wyłączone (lub zaklęcia są wyłączone)",
-
-  "text.autoconfig.frycparry.option.enchantments.enableReflexEnchantment": "Włącz zaklęcie Refleks [Wymagany Restart]",
-  "text.autoconfig.frycparry.option.enchantments.enableReflexEnchantment.@Tooltip": "Wyłączone zaklęcia są niemożliwe do zdobycia w trybie przetrwania",
-
-  "text.autoconfig.frycparry.option.enchantments.enableParryEnchantment": "Włącz zaklęcie Parowanie [Wymagany Restart]",
-  "text.autoconfig.frycparry.option.enchantments.enableParryEnchantment.@Tooltip": "Wyłączone zaklęcia są niemożliwe do zdobycia w trybie przetrwania",
-
-  "text.autoconfig.frycparry.option.enchantments.enableCounterattackEnchantment": "Włącz zaklęcie Kontratak [Wymagany Restart]",
-  "text.autoconfig.frycparry.option.enchantments.enableCounterattackEnchantment.@Tooltip": "Wyłączone zaklęcia są niemożliwe do zdobycia w trybie przetrwania",
 
   "text.autoconfig.frycparry.option.enchantments.shieldEnchantability": "Możliwości zaklinania tarczy (enchantability) [Wymagany Restart]",
-  "text.autoconfig.frycparry.option.enchantments.shieldEnchantability.@Tooltip": "Ustaw na 0 aby zaklinanie tarczy było niemożliwe"
+  "text.autoconfig.frycparry.option.enchantments.shieldEnchantability.@Tooltip": "Ustaw na 0 aby zaklinanie tarczy było niemożliwe",
+
+
+  "text.autoconfig.frycparry.option.mace.enableBlockingWithMace": "Włącz blokowanie i parowanie [Wymagany Restart]",
+  "text.autoconfig.frycparry.option.mace.cooldownAfterInterruptingMaceBlockAction": "Czas odnowienia po zmianie przedmiotu, zablokowaniu ataku, lub przerwaniu blokowania [Wymagany /reload]",
+  "text.autoconfig.frycparry.option.mace.cooldownAfterMaceParryAction": "Czas odnowienia po sparowaniu ataku lub pocisku [Wymagany /reload]",
+  "text.autoconfig.frycparry.option.mace.cooldownAfterMaceParryAction.@Tooltip": "Wartości powyżej zera opisują na ile ticków zostanie wyłączony przedmiot;\n Kiedy ta wartość jest poniżej zera, czas odnowienia jest zależny od prędkości ataku, a wartość tej opcji jest mnożnikiem;\n (Na przykład, jeśli ta wartość jest ustawiona na -5, czas odnowienia będzie wynosił: wartośćBazującaNaPrędkościAtaku * 5);",
+  "text.autoconfig.frycparry.option.mace.maceParryTicks": "Ticki parowania [Wymagany /reload]",
+  "text.autoconfig.frycparry.option.mace.maceParryTicks.@Tooltip": "Przykład: kiedy ustawione na 10, pierwsze 10 ticków blokowania będzie liczone jako parowanie",
+  "text.autoconfig.frycparry.option.mace.maceBlockMeleeDamageTaken": "% otrzymywanych obrażeń po zablokowaniu ataku wręcz [Wymagany /reload]",
+  "text.autoconfig.frycparry.option.mace.maceBlockMeleeDamageTaken.@Tooltip": "Przykład: kiedy ustawione na 15, gracz otrzyma 15% oryginalnych obrażeń po zablokowaniu ataku wręcz",
+  "text.autoconfig.frycparry.option.mace.maceBlockArrowDamageTaken": "% otrzymywanych obrażeń po zablokowaniu pocisku [Wymagany /reload]",
+  "text.autoconfig.frycparry.option.mace.maceBlockArrowDamageTaken.@Tooltip": "Przykład: kiedy ustawione na 90, gracz otrzyma 90% oryginalnych obrażeń po zablokowaniu pocisku",
+  "text.autoconfig.frycparry.option.mace.maceParryKnockbackStrength": "Siła odrzutu z parowania [Wymagany /reload]",
+  "text.autoconfig.frycparry.option.mace.maceSlownessAfterParry": "Długość spowolnienia z parowania [Wymagany /reload]",
+  "text.autoconfig.frycparry.option.mace.maceSlownessAfterParryAmplifier": "Moc spowolnienia z parowania [Wymagany /reload]",
+  "text.autoconfig.frycparry.option.mace.maceWeaknessAfterParry": "Długość osłabienia z parowania [Wymagany /reload]",
+  "text.autoconfig.frycparry.option.mace.maceWeaknessAfterParryAmplifier": "Moc osłabienia z parowania [Wymagany /reload]",
+  "text.autoconfig.frycparry.option.mace.maceDisarmAfterParry": "Długość rozbrojenia z parowania (tylko dla graczy) [Wymagany /reload]",
+  "text.autoconfig.frycparry.option.mace.shouldStopUsingMaceAfterBlockOrParry": "Przestań używać przedmiotu po zablokowaniu lub sparowaniu [Wymagany /reload]",
+  "text.autoconfig.frycparry.option.mace.maxUseTime": "Maksymalny czas użycia [Wymagany /reload]"
+
 }

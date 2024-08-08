@@ -1,4 +1,10 @@
 {
+  "tag.item.frycparry.items_can_parry": "Additional items that can be used to parry attacks and projectiles",
+  "tag.item.frycparry.parrying_excluded_items": "Items that cannot be used to parry attacks and projectiles",
+
+  "tag.item.frycparry.enchantable.parry_tools": "Supported items for enchantments from Sword Parry",
+  "tag.item.frycparry.enchantable.shield": "Primary items for enchantments from Sword Parry",
+
   "key.category.frycparry.key_category_swordparry": "Sword Parry",
   "key.frycparry.key_parry": "Parry (set it to Unbound to parry with Use Key)",
   "key.frycparry.key_dont_parry": "Prevent using parry",
@@ -16,6 +22,7 @@
   "text.autoconfig.frycparry.category.shovel": "Shovel",
   "text.autoconfig.frycparry.category.hoe": "Hoe",
   "text.autoconfig.frycparry.category.pickaxe": "Pickaxe",
+  "text.autoconfig.frycparry.category.mace": "Mace",
   "text.autoconfig.frycparry.category.multiplayerModifiers": "PvP",
   "text.autoconfig.frycparry.category.other": "Other",
   "text.autoconfig.frycparry.category.client": "Client",
@@ -50,6 +57,7 @@
   "text.autoconfig.frycparry.option.sword.enableBlockingWithSword": "Enable blocking and parrying [Restart Required]",
   "text.autoconfig.frycparry.option.shovel.enableBlockingWithShovel": "Enable blocking and parrying [Restart Required]",
   "text.autoconfig.frycparry.option.hoe.enableBlockingWithHoe": "Enable blocking and parrying [Restart Required]",
+  "text.autoconfig.frycparry.option.mace.enableBlockingWithMace": "Enable blocking and parrying [Restart Required]",
 
 
   "text.autoconfig.frycparry.option.shield.cooldownAfterInterruptingShieldBlockAction": "Cooldown after switching item, blocking attack or interrupting block action [/reload Required]",
@@ -58,6 +66,7 @@
   "text.autoconfig.frycparry.option.sword.cooldownAfterInterruptingSwordBlockAction": "Cooldown after switching item, blocking attack or interrupting block action [/reload Required]",
   "text.autoconfig.frycparry.option.shovel.cooldownAfterInterruptingShovelBlockAction": "Cooldown after switching item, blocking attack or interrupting block action [/reload Required]",
   "text.autoconfig.frycparry.option.hoe.cooldownAfterInterruptingHoeBlockAction": "Cooldown after switching item, blocking attack or interrupting block action [/reload Required]",
+  "text.autoconfig.frycparry.option.mace.cooldownAfterInterruptingMaceBlockAction": "Cooldown after switching item, blocking attack or interrupting block action [/reload Required]",
   "text.autoconfig.frycparry.option.server.cooldownAfterInterruptingBlockAction": "Cooldown after switching item, blocking attack or interrupting block action [/reload Required]",
 
   "text.autoconfig.frycparry.option.shield.cooldownAfterInterruptingShieldBlockAction.@Tooltip": "Values above 0 describe number of ticks item will be disabled for;\n When this value is below zero, cooldown is based on attack speed and the value is multiplier;\n (For example, if this value is set to -5, cooldown will be: valueBasedOnAttackSpeed * 5);",
@@ -66,6 +75,7 @@
   "text.autoconfig.frycparry.option.sword.cooldownAfterInterruptingSwordBlockAction.@Tooltip": "Values above 0 describe number of ticks item will be disabled for;\n When this value is below zero, cooldown is based on attack speed and the value is multiplier;\n (For example, if this value is set to -5, cooldown will be: valueBasedOnAttackSpeed * 5);",
   "text.autoconfig.frycparry.option.shovel.cooldownAfterInterruptingShovelBlockAction.@Tooltip": "Values above 0 describe number of ticks item will be disabled for;\n When this value is below zero, cooldown is based on attack speed and the value is multiplier;\n (For example, if this value is set to -5, cooldown will be: valueBasedOnAttackSpeed * 5);",
   "text.autoconfig.frycparry.option.hoe.cooldownAfterInterruptingHoeBlockAction.@Tooltip": "Values above 0 describe number of ticks item will be disabled for;\n When this value is below zero, cooldown is based on attack speed and the value is multiplier;\n (For example, if this value is set to -5, cooldown will be: valueBasedOnAttackSpeed * 5);",
+  "text.autoconfig.frycparry.option.mace.cooldownAfterInterruptingMaceBlockAction.@Tooltip": "Values above 0 describe number of ticks item will be disabled for;\n When this value is below zero, cooldown is based on attack speed and the value is multiplier;\n (For example, if this value is set to -5, cooldown will be: valueBasedOnAttackSpeed * 5);",
   "text.autoconfig.frycparry.option.server.cooldownAfterInterruptingBlockAction.@Tooltip": "Values above 0 describe number of ticks item will be disabled for;\n When this value is below zero, cooldown is based on attack speed and the value is multiplier;\n (For example, if this value is set to -5, cooldown will be: valueBasedOnAttackSpeed * 5);",
 
 
@@ -75,6 +85,7 @@
   "text.autoconfig.frycparry.option.sword.cooldownAfterSwordParryAction": "Cooldown after parrying attack or projectile [/reload Required]",
   "text.autoconfig.frycparry.option.shovel.cooldownAfterShovelParryAction": "Cooldown after parrying attack or projectile [/reload Required]",
   "text.autoconfig.frycparry.option.hoe.cooldownAfterHoeParryAction": "Cooldown after parrying attack or projectile [/reload Required]",
+  "text.autoconfig.frycparry.option.mace.cooldownAfterMaceParryAction": "Cooldown after parrying attack or projectile [/reload Required]",
   "text.autoconfig.frycparry.option.server.cooldownAfterParryAction": "Cooldown after parrying attack or projectile [/reload Required]",
 
   "text.autoconfig.frycparry.option.shield.cooldownAfterShieldParryAction.@Tooltip": "Values above 0 describe number of ticks item will be disabled for;\n When this value is below zero, cooldown is based on attack speed and the value is multiplier;\n (For example, if this value is set to -5, cooldown will be: valueBasedOnAttackSpeed * 5);",
@@ -83,6 +94,7 @@
   "text.autoconfig.frycparry.option.sword.cooldownAfterSwordParryAction.@Tooltip": "Values above 0 describe number of ticks item will be disabled for;\n When this value is below zero, cooldown is based on attack speed and the value is multiplier;\n (For example, if this value is set to -5, cooldown will be: valueBasedOnAttackSpeed * 5);",
   "text.autoconfig.frycparry.option.shovel.cooldownAfterShovelParryAction.@Tooltip": "Values above 0 describe number of ticks item will be disabled for;\n When this value is below zero, cooldown is based on attack speed and the value is multiplier;\n (For example, if this value is set to -5, cooldown will be: valueBasedOnAttackSpeed * 5);",
   "text.autoconfig.frycparry.option.hoe.cooldownAfterHoeParryAction.@Tooltip": "Values above 0 describe number of ticks item will be disabled for;\n When this value is below zero, cooldown is based on attack speed and the value is multiplier;\n (For example, if this value is set to -5, cooldown will be: valueBasedOnAttackSpeed * 5);",
+  "text.autoconfig.frycparry.option.mace.cooldownAfterMaceParryAction.@Tooltip": "Values above 0 describe number of ticks item will be disabled for;\n When this value is below zero, cooldown is based on attack speed and the value is multiplier;\n (For example, if this value is set to -5, cooldown will be: valueBasedOnAttackSpeed * 5);",
   "text.autoconfig.frycparry.option.server.cooldownAfterParryAction.@Tooltip": "Values above 0 describe number of ticks item will be disabled for;\n When this value is below zero, cooldown is based on attack speed and the value is multiplier;\n (For example, if this value is set to -5, cooldown will be: valueBasedOnAttackSpeed * 5);",
 
 
@@ -98,6 +110,8 @@
   "text.autoconfig.frycparry.option.shovel.shovelParryTicks.@Tooltip": "Example: when set to 10, the first 10 ticks of blocking with this item will count as parry [/reload Required]",
   "text.autoconfig.frycparry.option.hoe.hoeParryTicks": "Parry ticks [/reload Required]",
   "text.autoconfig.frycparry.option.hoe.hoeParryTicks.@Tooltip": "Example: when set to 10, the first 10 ticks of blocking with this item will count as parry [/reload Required]",
+  "text.autoconfig.frycparry.option.mace.maceParryTicks": "Parry ticks [/reload Required]",
+  "text.autoconfig.frycparry.option.mace.maceParryTicks.@Tooltip": "Example: when set to 10, the first 10 ticks of blocking with this item will count as parry [/reload Required]",
   "text.autoconfig.frycparry.option.server.parryTicks": "Parry ticks [/reload Required]",
   "text.autoconfig.frycparry.option.server.parryTicks.@Tooltip": "Example: when set to 10, the first 10 ticks of blocking with this item will count as parry [/reload Required]",
 
@@ -114,6 +128,8 @@
   "text.autoconfig.frycparry.option.shovel.shovelBlockMeleeDamageTaken.@Tooltip": "Example: when set to 15, player will take 15% of the original damage after blocking melee attack",
   "text.autoconfig.frycparry.option.hoe.hoeBlockMeleeDamageTaken": "% of damage taken after blocking melee attack [/reload Required]",
   "text.autoconfig.frycparry.option.hoe.hoeBlockMeleeDamageTaken.@Tooltip": "Example: when set to 15, player will take 15% of the original damage after blocking melee attack",
+  "text.autoconfig.frycparry.option.mace.maceBlockMeleeDamageTaken": "% of damage taken after blocking melee attack [/reload Required]",
+  "text.autoconfig.frycparry.option.mace.maceBlockMeleeDamageTaken.@Tooltip": "Example: when set to 15, player will take 15% of the original damage after blocking melee attack",
   "text.autoconfig.frycparry.option.server.blockMeleeDamageTaken": "% of damage taken after blocking melee attack [/reload Required]",
   "text.autoconfig.frycparry.option.server.blockMeleeDamageTaken.@Tooltip": "Example: when set to 15, player will take 15% of the original damage after blocking melee attack",
 
@@ -129,6 +145,8 @@
   "text.autoconfig.frycparry.option.shovel.shovelBlockArrowDamageTaken.@Tooltip": "Example: when set to 90, player will take 90% of the original damage after blocking projectile",
   "text.autoconfig.frycparry.option.hoe.hoeBlockArrowDamageTaken": "% of damage taken after blocking projectile [/reload Required]",
   "text.autoconfig.frycparry.option.hoe.hoeBlockArrowDamageTaken.@Tooltip": "Example: when set to 90, player will take 90% of the original damage after blocking projectile",
+  "text.autoconfig.frycparry.option.mace.maceBlockArrowDamageTaken": "% of damage taken after blocking projectile [/reload Required]",
+  "text.autoconfig.frycparry.option.mace.maceBlockArrowDamageTaken.@Tooltip": "Example: when set to 90, player will take 90% of the original damage after blocking projectile",
   "text.autoconfig.frycparry.option.server.blockArrowDamageTaken": "% of damage taken after blocking projectile [/reload Required]",
   "text.autoconfig.frycparry.option.server.blockArrowDamageTaken.@Tooltip": "Example: when set to 90, player will take 90% of the original damage after blocking projectile",
 
@@ -138,6 +156,7 @@
   "text.autoconfig.frycparry.option.axe.axeParryKnockbackStrength": "Parry knockback strength [/reload Required]",
   "text.autoconfig.frycparry.option.shovel.shovelParryKnockbackStrength": "Parry knockback strength [/reload Required]",
   "text.autoconfig.frycparry.option.hoe.hoeParryKnockbackStrength": "Parry knockback strength [/reload Required]",
+  "text.autoconfig.frycparry.option.mace.maceParryKnockbackStrength": "Parry knockback strength [/reload Required]",
   "text.autoconfig.frycparry.option.pickaxe.pickaxeParryKnockbackStrength": "Parry knockback strength [/reload Required]",
   "text.autoconfig.frycparry.option.server.parryKnockbackStrength": "Parry knockback strength [/reload Required]",
 
@@ -147,6 +166,7 @@
   "text.autoconfig.frycparry.option.axe.axeSlownessAfterParry": "Parry slowness duration [/reload Required]",
   "text.autoconfig.frycparry.option.pickaxe.pickaxeSlownessAfterParry": "Parry slowness duration [/reload Required]",
   "text.autoconfig.frycparry.option.hoe.hoeSlownessAfterParry": "Parry slowness duration [/reload Required]",
+  "text.autoconfig.frycparry.option.mace.maceSlownessAfterParry": "Parry slowness duration [/reload Required]",
   "text.autoconfig.frycparry.option.shovel.shovelSlownessAfterParry": "Parry slowness duration [/reload Required]",
   "text.autoconfig.frycparry.option.server.slownessAfterParry": "Parry slowness duration [/reload Required]",
   
@@ -156,6 +176,7 @@
   "text.autoconfig.frycparry.option.axe.axeSlownessAfterParryAmplifier": "Parry slowness amplifier [/reload Required]",
   "text.autoconfig.frycparry.option.pickaxe.pickaxeSlownessAfterParryAmplifier": "Parry slowness amplifier [/reload Required]",
   "text.autoconfig.frycparry.option.hoe.hoeSlownessAfterParryAmplifier": "Parry slowness amplifier [/reload Required]",
+  "text.autoconfig.frycparry.option.mace.maceSlownessAfterParryAmplifier": "Parry slowness amplifier [/reload Required]",
   "text.autoconfig.frycparry.option.shovel.shovelSlownessAfterParryAmplifier": "Parry slowness amplifier [/reload Required]",
   "text.autoconfig.frycparry.option.server.slownessAfterParryAmplifier": "Parry slowness amplifier [/reload Required]",
 
@@ -165,6 +186,7 @@
   "text.autoconfig.frycparry.option.axe.axeWeaknessAfterParry": "Parry weakness duration [/reload Required]",
   "text.autoconfig.frycparry.option.pickaxe.pickaxeWeaknessAfterParry": "Parry weakness duration [/reload Required]",
   "text.autoconfig.frycparry.option.hoe.hoeWeaknessAfterParry": "Parry weakness duration [/reload Required]",
+  "text.autoconfig.frycparry.option.mace.maceWeaknessAfterParry": "Parry weakness duration [/reload Required]",
   "text.autoconfig.frycparry.option.shovel.shovelWeaknessAfterParry": "Parry weakness duration [/reload Required]",
   "text.autoconfig.frycparry.option.server.weaknessAfterParry": "Parry weakness duration [/reload Required]",
 
@@ -174,6 +196,7 @@
   "text.autoconfig.frycparry.option.axe.axeWeaknessAfterParryAmplifier": "Parry weakness amplifier [/reload Required]",
   "text.autoconfig.frycparry.option.pickaxe.pickaxeWeaknessAfterParryAmplifier": "Parry weakness amplifier [/reload Required]",
   "text.autoconfig.frycparry.option.hoe.hoeWeaknessAfterParryAmplifier": "Parry weakness amplifier [/reload Required]",
+  "text.autoconfig.frycparry.option.mace.maceWeaknessAfterParryAmplifier": "Parry weakness amplifier [/reload Required]",
   "text.autoconfig.frycparry.option.shovel.shovelWeaknessAfterParryAmplifier": "Parry weakness amplifier [/reload Required]",
   "text.autoconfig.frycparry.option.server.weaknessAfterParryAmplifier": "Parry weakness amplifier [/reload Required]",
   
@@ -183,6 +206,7 @@
   "text.autoconfig.frycparry.option.axe.axeDisarmAfterParry": "Parry disarm duration (for players only) [/reload Required]",
   "text.autoconfig.frycparry.option.pickaxe.pickaxeDisarmAfterParry": "Parry disarm duration (for players only) [/reload Required]",
   "text.autoconfig.frycparry.option.hoe.hoeDisarmAfterParry": "Parry disarm duration (for players only) [/reload Required]",
+  "text.autoconfig.frycparry.option.mace.maceDisarmAfterParry": "Parry disarm duration (for players only) [/reload Required]",
   "text.autoconfig.frycparry.option.shovel.shovelDisarmAfterParry": "Parry disarm duration (for players only) [/reload Required]",
   "text.autoconfig.frycparry.option.server.disarmAfterParry": "Parry disarm duration (for players only) [/reload Required]",
 
@@ -191,6 +215,7 @@
   "text.autoconfig.frycparry.option.axe.shouldStopUsingAxeAfterBlockOrParry": "Stop using item after block or parry [/reload Required]",
   "text.autoconfig.frycparry.option.pickaxe.shouldStopUsingPickaxeAfterBlockOrParry": "Stop using item after block or parry [/reload Required]",
   "text.autoconfig.frycparry.option.hoe.shouldStopUsingHoeAfterBlockOrParry": "Stop using item after block or parry [/reload Required]",
+  "text.autoconfig.frycparry.option.mace.shouldStopUsingMaceAfterBlockOrParry": "Stop using item after block or parry [/reload Required]",
   "text.autoconfig.frycparry.option.shovel.shouldStopUsingShovelAfterBlockOrParry": "Stop using item after block or parry [/reload Required]",
   "text.autoconfig.frycparry.option.server.shouldStopUsingAfterBlockOrParry": "Stop using item after block or parry [/reload Required]",
 
@@ -198,6 +223,7 @@
   "text.autoconfig.frycparry.option.axe.maxUseTime": "Max use time [/reload Required]",
   "text.autoconfig.frycparry.option.pickaxe.maxUseTime": "Max use time [/reload Required]",
   "text.autoconfig.frycparry.option.hoe.maxUseTime": "Max use time [/reload Required]",
+  "text.autoconfig.frycparry.option.mace.maxUseTime": "Max use time [/reload Required]",
   "text.autoconfig.frycparry.option.shovel.maxUseTime": "Max use time [/reload Required]",
   "text.autoconfig.frycparry.option.server.maxUseTime": "Max use time [/reload Required]",
 
@@ -230,21 +256,10 @@
   "text.autoconfig.frycparry.option.client.enableBlockingWithSword": "Enable parry key when using sword",
   "text.autoconfig.frycparry.option.client.enableBlockingWithAxe": "Enable parry key when using axe",
   "text.autoconfig.frycparry.option.client.enableBlockingWithHoe": "Enable parry key when using hoe",
+  "text.autoconfig.frycparry.option.client.enableBlockingWithMace": "Enable parry key when using mace",
   "text.autoconfig.frycparry.option.client.enableBlockingWithShovel": "Enable parry key when using shovel",
   "text.autoconfig.frycparry.option.client.enableBlockingWithPickaxe": "Enable parry key when using pickaxe",
   "text.autoconfig.frycparry.option.client.enableBlockingWithOtherTools": "Enable parry key when using other tools",
-
-  "text.autoconfig.frycparry.option.enchantments.enchantmentsForShieldsCanAppearOnWeaponsInChests": "Make enchantments for shield appear on swords and axes found in chests",
-  "text.autoconfig.frycparry.option.enchantments.enchantmentsForShieldsCanAppearOnWeaponsInChests.@Tooltip": "This option doesn't do anything when blocking with axes and swords is disabled (or enchantments are disabled)",
-
-  "text.autoconfig.frycparry.option.enchantments.enableReflexEnchantment": "Enable Reflex enchantment [Restart Required]",
-  "text.autoconfig.frycparry.option.enchantments.enableReflexEnchantment.@Tooltip": "Disabled enchantments are unobtainable in survival mode",
-
-  "text.autoconfig.frycparry.option.enchantments.enableParryEnchantment": "Enable Parry enchantment [Restart Required]",
-  "text.autoconfig.frycparry.option.enchantments.enableParryEnchantment.@Tooltip": "Disabled enchantments are unobtainable in survival mode",
-
-  "text.autoconfig.frycparry.option.enchantments.enableCounterattackEnchantment": "Enable Counterattack enchantment [Restart Required]",
-  "text.autoconfig.frycparry.option.enchantments.enableCounterattackEnchantment.@Tooltip": "Disabled enchantments are unobtainable in survival mode",
 
   "text.autoconfig.frycparry.option.enchantments.shieldEnchantability": "Shield enchantability [Restart Required]",
   "text.autoconfig.frycparry.option.enchantments.shieldEnchantability.@Tooltip": "Set it to 0 to make shield unenchantable"
