@@ -1,4 +1,4 @@
-# SwordParry
+# Fryc's Parry (aka Sword Parry)
 Adds parry mechanics and allows blocking with items other than shield
 
 
