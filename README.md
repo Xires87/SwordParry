@@ -2,7 +2,8 @@
 Adds parry mechanics and allows blocking with items other than shield
 
 
-# [CurseForge](https://www.curseforge.com/minecraft/mc-mods/sword-parry)
+## [CurseForge](https://www.curseforge.com/minecraft/mc-mods/sword-parry)
+## [Modrinth](https://modrinth.com/mod/sword-parry)
 
 ------------------------------------------------------------------------------------------------------------
 
