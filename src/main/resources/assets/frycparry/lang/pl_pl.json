@@ -243,5 +243,7 @@
   "text.autoconfig.frycparry.option.enchantments.enableCounterattackEnchantment.@Tooltip": "Wyłączone zaklęcia są niemożliwe do zdobycia w trybie przetrwania",
 
   "text.autoconfig.frycparry.option.enchantments.shieldEnchantability": "Możliwości zaklinania tarczy (enchantability) [Wymagany Restart]",
-  "text.autoconfig.frycparry.option.enchantments.shieldEnchantability.@Tooltip": "Ustaw na 0 aby zaklinanie tarczy było niemożliwe"
+  "text.autoconfig.frycparry.option.enchantments.shieldEnchantability.@Tooltip": "Ustaw na 0 aby zaklinanie tarczy było niemożliwe",
+
+  "subtitles.parrying": "Odpieranie"
 }

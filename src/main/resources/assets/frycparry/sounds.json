@@ -1,0 +1,31 @@
+{
+  "parrying": {
+    "sounds": [
+      {
+        "name": "frycparry:parrying/clash1",
+        "volume": 1.0
+      },
+      {
+        "name": "frycparry:parrying/clash2",
+        "volume": 1.0
+      },
+      {
+        "name": "frycparry:parrying/clash3",
+        "volume": 1.0
+      },
+      {
+        "name": "frycparry:parrying/clash4",
+        "volume": 1.0
+      },
+      {
+        "name": "frycparry:parrying/clash5",
+        "volume": 1.0
+      },
+      {
+        "name": "frycparry:parrying/clash6",
+        "volume": 1.0
+      }
+    ],
+    "subtitle": "subtitles.parrying"
+  }
+}

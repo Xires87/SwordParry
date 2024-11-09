@@ -247,5 +247,7 @@
   "text.autoconfig.frycparry.option.enchantments.enableCounterattackEnchantment.@Tooltip": "Disabled enchantments are unobtainable in survival mode",
 
   "text.autoconfig.frycparry.option.enchantments.shieldEnchantability": "Shield enchantability [Restart Required]",
-  "text.autoconfig.frycparry.option.enchantments.shieldEnchantability.@Tooltip": "Set it to 0 to make shield unenchantable"
+  "text.autoconfig.frycparry.option.enchantments.shieldEnchantability.@Tooltip": "Set it to 0 to make shield unenchantable",
+
+  "subtitles.parrying": "Parrying"
 }
