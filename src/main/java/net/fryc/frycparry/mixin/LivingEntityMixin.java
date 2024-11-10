@@ -277,7 +277,7 @@ abstract class LivingEntityMixin extends Entity implements Attackable, CanBlock 
                 this.setLivingFlag(1, true);
                 this.setLivingFlag(2, hand == Hand.OFF_HAND);
                 dys.emitGameEvent(GameEvent.ITEM_INTERACT_START);
-                ServerPlayNetworking.send((ServerPlayerEntity) dys, ModPackets.SYNC_ITEM_USE_TIME_LEFT_ID, PacketByteBufs.create().writeVarInt(itemUseTimeLeft));
+                ServerPlayNetworking.send((ServerPlayerEntity) dys, ModPackets.SYNC_PARRY_ITEM_MAX_USE_TIME_ID, PacketByteBufs.create().writeVarInt(itemUseTimeLeft));
             }
 
         }
