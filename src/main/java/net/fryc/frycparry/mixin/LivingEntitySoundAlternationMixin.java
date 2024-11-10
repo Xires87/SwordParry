@@ -24,7 +24,7 @@ abstract class LivingEntitySoundAlternationMixin extends Entity {
     private void playParriedSound(byte status, CallbackInfo info) {
         LivingEntity entity = ((LivingEntity)(Object)this);
         if (ParryHelper.canParryWithoutShield(entity)) {
-            this.playSound(ModSounds.PARRYING_SOUND_EVENT, 1.0F, 1.0F);
+            this.playSound(ModSounds.PARRYING_SOUND_EVENT, 1.0F, 0.8F + this.getWorld().random.nextFloat() * 0.4F);
             info.cancel();
         }
     }
