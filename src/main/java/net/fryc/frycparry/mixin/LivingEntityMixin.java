@@ -2,7 +2,10 @@ package net.fryc.frycparry.mixin;
 
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
+import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
+import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.fryc.frycparry.FrycParry;
+import net.fryc.frycparry.network.ModPackets;
 import net.fryc.frycparry.util.ParryHelper;
 import net.fryc.frycparry.util.interfaces.CanBlock;
 import net.fryc.frycparry.util.interfaces.ParryItem;
@@ -19,6 +22,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ShieldItem;
 import net.minecraft.registry.tag.DamageTypeTags;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.Hand;
 import net.minecraft.util.UseAction;
 import net.minecraft.world.World;
@@ -273,6 +277,7 @@ abstract class LivingEntityMixin extends Entity implements Attackable, CanBlock 
                 this.setLivingFlag(1, true);
                 this.setLivingFlag(2, hand == Hand.OFF_HAND);
                 dys.emitGameEvent(GameEvent.ITEM_INTERACT_START);
+                ServerPlayNetworking.send((ServerPlayerEntity) dys, ModPackets.SYNC_ITEM_USE_TIME_LEFT_ID, PacketByteBufs.create().writeVarInt(itemUseTimeLeft));
             }
 
         }

@@ -30,8 +30,7 @@ public abstract class InGameHudMixin {
     public void onRender(DrawContext context, float tickDelta, CallbackInfo ci) {
         PlayerEntity player = getCameraPlayer();
         if (player.isUsingItem() && ParryHelper.isItemParryEnabled(player.getActiveItem())) {
-            ParryItem parryItem = ((ParryItem) player.getActiveItem().getItem());
-            int maxUseTimeParry = parryItem.getMaxUseTimeParry();
+            int maxUseTimeParry = player.getItemUseTime();
             int itemUseTimeLeft = player.getItemUseTimeLeft() < 0 ? maxUseTimeParry + player.getItemUseTimeLeft() : player.getItemUseTimeLeft();
             float progress = (float) itemUseTimeLeft / (float) maxUseTimeParry;
             Window window = client.getWindow();

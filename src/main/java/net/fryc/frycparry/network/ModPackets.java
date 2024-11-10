@@ -7,6 +7,7 @@ import net.fryc.frycparry.network.c2s.ResetLastAttackedTicksC2SPacket;
 import net.fryc.frycparry.network.c2s.StartParryingC2SPacket;
 import net.fryc.frycparry.network.c2s.StopBlockingC2SPacket;
 import net.fryc.frycparry.network.s2c.ConfigAnswerS2CPacket;
+import net.fryc.frycparry.network.s2c.SyncParryItemMaxUseTimeS2CPacket;
 import net.minecraft.util.Identifier;
 
 public class ModPackets {
@@ -15,6 +16,7 @@ public class ModPackets {
     public static final Identifier START_PARRYING_ID = new Identifier(FrycParry.MOD_ID, "start_parrying_id");
     public static final Identifier ANSWER_CONFIG_ID = new Identifier(FrycParry.MOD_ID, "answer_config_id");
     public static final Identifier RESET_LAST_ATTACKED_TICKS_ID = new Identifier(FrycParry.MOD_ID, "reset_last_attacked_ticks_id");
+    public static final Identifier SYNC_ITEM_USE_TIME_LEFT_ID = new Identifier(FrycParry.MOD_ID, "parry_use_time_left_id");
 
     public static void registerC2SPackets(){
         ServerPlayNetworking.registerGlobalReceiver(STOP_BLOCKING_ID, StopBlockingC2SPacket::receive);
@@ -24,5 +26,6 @@ public class ModPackets {
 
     public static void registerS2CPackets(){
         ClientPlayNetworking.registerGlobalReceiver(ANSWER_CONFIG_ID, ConfigAnswerS2CPacket::receive);
+        ClientPlayNetworking.registerGlobalReceiver(SYNC_ITEM_USE_TIME_LEFT_ID, SyncParryItemMaxUseTimeS2CPacket::receive);
     }
 }
