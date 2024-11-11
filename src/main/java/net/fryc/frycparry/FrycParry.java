@@ -11,6 +11,7 @@ import net.fryc.frycparry.config.FrycParryConfig;
 import net.fryc.frycparry.effects.ModEffects;
 import net.fryc.frycparry.enchantments.ModEnchantments;
 import net.fryc.frycparry.network.ModPackets;
+import net.fryc.frycparry.sounds.ModSounds;
 import net.minecraft.resource.ResourceType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -33,6 +34,7 @@ public class FrycParry implements ModInitializer {
         ModPackets.registerC2SPackets();
         ModEffects.registerEffects();
         ModEnchantments.registerModEnchantments();
+        ModSounds.registerModSounds();
 
     }
 }

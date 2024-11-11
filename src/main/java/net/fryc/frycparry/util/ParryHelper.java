@@ -4,6 +4,7 @@ import net.fryc.frycparry.FrycParry;
 import net.fryc.frycparry.attributes.ParryAttributes;
 import net.fryc.frycparry.effects.ModEffects;
 import net.fryc.frycparry.enchantments.ModEnchantments;
+import net.fryc.frycparry.sounds.ModSounds;
 import net.fryc.frycparry.tag.ModItemTags;
 import net.fryc.frycparry.util.interfaces.CanBlock;
 import net.fryc.frycparry.util.interfaces.ParryItem;
@@ -19,6 +20,8 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.PersistentProjectileEntity;
 import net.minecraft.item.*;
 import net.minecraft.registry.tag.DamageTypeTags;
+import net.minecraft.sound.SoundCategory;
+import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 
@@ -327,5 +330,36 @@ public class ParryHelper {
         }
 
         return false;
+    }
+
+/* TODO przetestowac na multii  jeszcze config dodac zeby modyfikowac volume i pitch */
+    public static void playBlockSound(LivingEntity entity){
+        boolean shield = !ParryHelper.canParryWithoutShield(entity);
+        if(shield){
+            entity.getWorld().playSound(null, entity.getBlockPos(), SoundEvents.ITEM_SHIELD_BLOCK, SoundCategory.PLAYERS, 0.9f, 0.8f + entity.getWorld().random.nextFloat() * 0.4f);
+        }
+        else {
+            entity.getWorld().playSound(null, entity.getBlockPos(), ModSounds.TOOL_BLOCK, SoundCategory.PLAYERS, 0.9f, 0.8f + entity.getWorld().random.nextFloat() * 0.4f);
+        }
+    }
+
+    public static void playParrySound(LivingEntity entity){
+        boolean shield = !ParryHelper.canParryWithoutShield(entity);
+        if(shield){
+            entity.getWorld().playSound(null, entity.getBlockPos(), ModSounds.SHIELD_PARRY, SoundCategory.PLAYERS, 1.1f, 0.8f + entity.getWorld().random.nextFloat() * 0.4f);
+        }
+        else {
+            entity.getWorld().playSound(null, entity.getBlockPos(), ModSounds.TOOL_PARRY, SoundCategory.PLAYERS, 1.1f, 0.8f + entity.getWorld().random.nextFloat() * 0.4f);
+        }
+    }
+
+    public static void playGuardBreakSound(LivingEntity entity){
+        boolean tool = ParryHelper.canParryWithoutShield(entity);
+        if(tool){
+            entity.getWorld().playSound(null, entity.getBlockPos(), ModSounds.TOOL_GUARD_BREAK, SoundCategory.PLAYERS, 0.8f, 0.8f + entity.getWorld().random.nextFloat() * 0.4f);
+        }
+        else {
+            entity.getWorld().playSound(null, entity.getBlockPos(), ModSounds.SHIELD_GUARD_BREAK, SoundCategory.PLAYERS, 0.8f, 0.8f + entity.getWorld().random.nextFloat() * 0.4f);
+        }
     }
 }

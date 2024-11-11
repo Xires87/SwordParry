@@ -2,7 +2,10 @@ package net.fryc.frycparry.mixin;
 
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
+import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
+import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.fryc.frycparry.FrycParry;
+import net.fryc.frycparry.network.ModPackets;
 import net.fryc.frycparry.util.ParryHelper;
 import net.fryc.frycparry.util.interfaces.CanBlock;
 import net.fryc.frycparry.util.interfaces.ParryItem;
@@ -15,7 +18,9 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ShieldItem;
+import net.minecraft.network.PacketByteBuf;
 import net.minecraft.registry.tag.DamageTypeTags;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.Hand;
 import net.minecraft.util.UseAction;
 import net.minecraft.world.World;
@@ -52,10 +57,11 @@ abstract class LivingEntityMixin extends Entity implements Attackable, CanBlock 
     private void parryOrFullyBlock(DamageSource source, float amount, CallbackInfoReturnable<Boolean> ret) { // <----- executed only on server
         LivingEntity dys = ((LivingEntity)(Object)this);
         boolean shouldSwingHand = false;
+        boolean playSound = true;
         if(ParryHelper.isItemParryEnabled(dys.getActiveItem())){
             if(((CanBlock) dys).getParryDataValue()){ // <--- checks if attack was parried
                 ((CanBlock) dys).setParryDataToFalse();
-                parryTimer = 10;
+                ((CanBlock) dys).setParryTimer(dys.getWorld(), 10);
                 shouldSwingHand = true;
 
                 if(source.getAttacker() instanceof LivingEntity attacker){
@@ -72,9 +78,14 @@ abstract class LivingEntityMixin extends Entity implements Attackable, CanBlock 
                             if(attacker.disablesShield() && FrycParry.config.server.disableBlockAfterParryingAxeAttack){
                                 ParryHelper.disableParryItem(player, dys.getActiveItem().getItem());
                                 dys.swingHand(dys.getActiveHand(), true);
+                                playSound = false;
                             }
                         }
                     }
+                }
+
+                if(playSound){
+                    ParryHelper.playParrySound(dys);
                 }
             }
             else {
@@ -83,8 +94,15 @@ abstract class LivingEntityMixin extends Entity implements Attackable, CanBlock 
                     if(source.getAttacker() instanceof LivingEntity attacker){
                         if(attacker.disablesShield()){
                             ParryHelper.disableParryItem(player, dys.getActiveItem().getItem());
+                            //player.getWorld().sendEntityStatus(player, EntityStatuses.BREAK_SHIELD);
+                            ParryHelper.playGuardBreakSound(player);
+                            playSound = false;
                         }
                     }
+                }
+
+                if(playSound){
+                    ParryHelper.playBlockSound(dys);
                 }
             }
 
@@ -113,40 +131,36 @@ abstract class LivingEntityMixin extends Entity implements Attackable, CanBlock 
                 return amount;
             }
             if(amount > 0.0F && !dys.blockedByShield(source)){
-                byte b = 2;
-                boolean changeStatus = false;
+                boolean playSound = true;
                 float originalDamage = amount;
 
                 if(source.isIn(DamageTypeTags.IS_EXPLOSION)){
                     // when shield is not held for 5 ticks, explosion will deal 80% of its damage
                     if(dys.getActiveItem().getItem() instanceof ShieldItem){
                         amount *= 0.8F;
-                        changeStatus = true;
                     }
                 }
                 else if(source.isIn(DamageTypeTags.IS_PROJECTILE)){
                     amount *= ((ParryItem) dys.getActiveItem().getItem()).getProjectileDamageTakenAfterBlock();
-                    changeStatus = true;
                 }
                 else if(source.getAttacker() instanceof LivingEntity attacker){
                     amount *= ((ParryItem) dys.getActiveItem().getItem()).getMeleeDamageTakenAfterBlock();
-                    changeStatus = true;
                     if(attacker.disablesShield() && dys instanceof PlayerEntity player){
                         ParryHelper.disableParryItem(player, dys.getActiveItem().getItem());
-                        b = 30;
-                        changeStatus = false;
+                        ParryHelper.playGuardBreakSound(player);
+                        //b = 30;
+                        playSound = false;
                     }
+                }
+                else {
+                    playSound = false;
                 }
 
-                if(changeStatus){
-                    if(dys.getActiveItem().getItem() instanceof ShieldItem){
-                        b = 29;
-                    }
-                    else {
-                        b = 30;
-                    }
+                if(playSound){
+                    ParryHelper.playBlockSound(dys);
                 }
-                dys.getWorld().sendEntityStatus(this, b);
+                //dys.getWorld().sendEntityStatus(this, b);
+
 
                 // interrupting block action after BLOCKING attack with tool
                 if(((ParryItem) dys.getActiveItem().getItem()).shouldStopUsingItemAfterBlockOrParry()){
@@ -185,16 +199,48 @@ abstract class LivingEntityMixin extends Entity implements Attackable, CanBlock 
     }
 
 
-    //plays SoundEvents.ITEM_SHIELD_BREAK sound when attack is blocked with tool
-    @ModifyVariable(at = @At("HEAD"), method = "handleStatus(B)V")
-    private byte init(byte status) {
-        if(status == 29){
-            LivingEntity entity = ((LivingEntity)(Object)this);
-            if(ParryHelper.canParryWithoutShield(entity)){
-                status = 30;
+    //executed only on CLIENT
+    /* it didnt work properly on multiplayer
+    @Inject(at = @At("HEAD"), method = "handleStatus(B)V", cancellable = true)
+    private void modifyBlockAndParrySoundsClient(byte status, CallbackInfo info) {
+        LivingEntity dys = ((LivingEntity) (Object)this);
+        if(status == EntityStatuses.BLOCK_WITH_SHIELD){
+            boolean shield = !ParryHelper.canParryWithoutShield(dys);
+            if(((CanBlock) dys).hasParriedRecently()){
+                if(shield){
+                    dys.playSound(ModSounds.SHIELD_PARRY, 1.1f, 0.8f + this.getWorld().random.nextFloat() * 0.4f);
+                }
+                else {
+                    dys.playSound(ModSounds.TOOL_PARRY, 1.1f, 0.8f + this.getWorld().random.nextFloat() * 0.4f);
+                }
+                info.cancel();
+            }
+            else {
+                if(!shield){
+                    dys.playSound(ModSounds.TOOL_BLOCK, 0.9f, 0.8f + this.getWorld().random.nextFloat() * 0.4f);
+                    info.cancel();
+                }
+                // no cancel here to play vanilla shield block sound
             }
         }
-        return status;
+        else if(status == EntityStatuses.BREAK_SHIELD){
+            boolean tool = ParryHelper.canParryWithoutShield(dys);
+            if(tool){
+                dys.playSound(ModSounds.TOOL_GUARD_BREAK, 0.8f, 0.8f + this.getWorld().random.nextFloat() * 0.4f);
+            }
+            else {
+                dys.playSound(ModSounds.SHIELD_GUARD_BREAK, 0.8f, 0.8f + this.getWorld().random.nextFloat() * 0.4f);
+            }
+            info.cancel();
+        }
+    }
+     */
+
+    @Inject(at = @At("HEAD"), method = "handleStatus(B)V", cancellable = true)
+    private void cancelShieldBlockAndBreakStatuses(byte status, CallbackInfo info) {
+        if(status == EntityStatuses.BLOCK_WITH_SHIELD || status == EntityStatuses.BREAK_SHIELD){
+            info.cancel();
+        }
     }
 
     //starts tracking BLOCKING_DATA and PARRY_DATA
@@ -210,9 +256,11 @@ abstract class LivingEntityMixin extends Entity implements Attackable, CanBlock 
     @Inject(method = "tick()V", at = @At("TAIL"))
     private void decrementParryDataTimer(CallbackInfo info) {
         LivingEntity dys = ((LivingEntity)(Object)this);
-        if(!dys.getWorld().isClient()){ // <---- parry data is always false on client
-            if(parryTimer > 0) parryTimer--;
-            else if(((CanBlock) dys).getParryDataValue()) ((CanBlock) dys).setParryDataToFalse();
+        if(parryTimer > 0){
+            parryTimer--;
+        }
+        else if(!dys.getWorld().isClient()){ // <---- parry data is always false on client
+            if(((CanBlock) dys).getParryDataValue()) ((CanBlock) dys).setParryDataToFalse();
         }
     }
 
@@ -271,6 +319,16 @@ abstract class LivingEntityMixin extends Entity implements Attackable, CanBlock 
         }
     }
 
+    public void setParryTimer(World world, int ticks){
+        parryTimer = ticks;
+        if(!world.isClient()){
+            if(((LivingEntity)(Object)this) instanceof ServerPlayerEntity player){
+                PacketByteBuf buf = PacketByteBufs.create();
+                buf.writeInt(ticks);
+                ServerPlayNetworking.send(player, ModPackets.INFORM_CLIENT_ABOUT_PARRY_ID, buf);
+            }
+        }
+    }
     public boolean hasParriedRecently(){
         return parryTimer > 0;
     }
