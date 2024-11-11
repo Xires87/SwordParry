@@ -20,6 +20,9 @@ public class ModPackets {
     public static final Identifier SECOND_ANSWER_CONFIG_ID = Identifier.of(FrycParry.MOD_ID, "second_answer_config_id");
     public static final Identifier RESET_LAST_ATTACKED_TICKS_ID = Identifier.of(FrycParry.MOD_ID, "reset_last_attacked_ticks_id");
 
+    public static final Identifier ANSWER_CONFIG_ID = new Identifier(FrycParry.MOD_ID, "answer_config_id");
+    public static final Identifier INFORM_CLIENT_ABOUT_PARRY_ID = new Identifier(FrycParry.MOD_ID, "inform_client_about_parry_id");
+
     public static void registerC2SPackets(){
         //payloads
         PayloadTypeRegistry.playS2C().register(FirstConfigAnswerPayload.ID, FirstConfigAnswerPayload.CODEC);

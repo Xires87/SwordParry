@@ -2,6 +2,7 @@ package net.fryc.frycparry.util.interfaces;
 
 
 import net.minecraft.util.Hand;
+import net.minecraft.world.World;
 
 public interface CanBlock {
 
@@ -23,5 +24,6 @@ public interface CanBlock {
     void setCurrentHandParry(Hand hand);
 
     boolean hasParriedRecently();
+    void setParryTimer(World world, int ticks);
 
 }
