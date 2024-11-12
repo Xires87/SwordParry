@@ -20,7 +20,16 @@
   "shield_parry": {
     "subtitle": "sound.frycparry.shield_parry",
     "sounds": [
-      "frycparry:shield_parry"
+      "frycparry:shield_parry1",
+      "frycparry:shield_parry2",
+      "frycparry:shield_parry3",
+      "frycparry:shield_parry4"
+    ]
+  },
+  "shield_block": {
+    "subtitle": "sound.frycparry.shield_block",
+    "sounds": [
+      "frycparry:shield_block"
     ]
   },
   "shield_guard_break": {

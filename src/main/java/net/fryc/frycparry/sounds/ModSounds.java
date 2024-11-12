@@ -12,6 +12,7 @@ public class ModSounds {
     public static final SoundEvent SHIELD_PARRY = registerSound("shield_parry");
 
     public static final SoundEvent TOOL_BLOCK = registerSound("tool_block");
+    public static final SoundEvent SHIELD_BLOCK = registerSound("shield_block");
 
     public static final SoundEvent TOOL_GUARD_BREAK = registerSound("tool_guard_break");
     public static final SoundEvent SHIELD_GUARD_BREAK = registerSound("shield_guard_break");
