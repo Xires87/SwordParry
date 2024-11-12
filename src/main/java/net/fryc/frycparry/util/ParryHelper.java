@@ -20,7 +20,6 @@ import net.minecraft.entity.projectile.PersistentProjectileEntity;
 import net.minecraft.item.*;
 import net.minecraft.registry.tag.DamageTypeTags;
 import net.minecraft.sound.SoundCategory;
-import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 
@@ -312,30 +311,30 @@ public class ParryHelper {
     public static void playBlockSound(LivingEntity entity){
         boolean shield = !ParryHelper.canParryWithoutShield(entity);
         if(shield){
-            entity.getWorld().playSound(null, entity.getBlockPos(), SoundEvents.ITEM_SHIELD_BLOCK, SoundCategory.PLAYERS, 0.9f, 0.8f + entity.getWorld().random.nextFloat() * 0.4f);
+            entity.getWorld().playSound(null, entity.getBlockPos(), ModSounds.SHIELD_BLOCK, SoundCategory.PLAYERS, 0.9f, 0.7f + entity.getWorld().random.nextFloat() * 0.4f);
         }
         else {
-            entity.getWorld().playSound(null, entity.getBlockPos(), ModSounds.TOOL_BLOCK, SoundCategory.PLAYERS, 0.9f, 0.8f + entity.getWorld().random.nextFloat() * 0.4f);
+            entity.getWorld().playSound(null, entity.getBlockPos(), ModSounds.TOOL_BLOCK, SoundCategory.PLAYERS, 0.9f, 0.7f + entity.getWorld().random.nextFloat() * 0.4f);
         }
     }
 
     public static void playParrySound(LivingEntity entity){
         boolean shield = !ParryHelper.canParryWithoutShield(entity);
         if(shield){
-            entity.getWorld().playSound(null, entity.getBlockPos(), ModSounds.SHIELD_PARRY, SoundCategory.PLAYERS, 1.1f, 0.8f + entity.getWorld().random.nextFloat() * 0.4f);
+            entity.getWorld().playSound(null, entity.getBlockPos(), ModSounds.SHIELD_PARRY, SoundCategory.PLAYERS, 1.3f, 0.8f + entity.getWorld().random.nextFloat() * 0.4f);
         }
         else {
-            entity.getWorld().playSound(null, entity.getBlockPos(), ModSounds.TOOL_PARRY, SoundCategory.PLAYERS, 1.1f, 0.8f + entity.getWorld().random.nextFloat() * 0.4f);
+            entity.getWorld().playSound(null, entity.getBlockPos(), ModSounds.TOOL_PARRY, SoundCategory.PLAYERS, 1.3f, 0.8f + entity.getWorld().random.nextFloat() * 0.4f);
         }
     }
 
     public static void playGuardBreakSound(LivingEntity entity){
         boolean tool = ParryHelper.canParryWithoutShield(entity);
         if(tool){
-            entity.getWorld().playSound(null, entity.getBlockPos(), ModSounds.TOOL_GUARD_BREAK, SoundCategory.PLAYERS, 0.8f, 0.8f + entity.getWorld().random.nextFloat() * 0.4f);
+            entity.getWorld().playSound(null, entity.getBlockPos(), ModSounds.TOOL_GUARD_BREAK, SoundCategory.PLAYERS, 1.3f, 1.0f + entity.getWorld().random.nextFloat() * 0.4f);
         }
         else {
-            entity.getWorld().playSound(null, entity.getBlockPos(), ModSounds.SHIELD_GUARD_BREAK, SoundCategory.PLAYERS, 0.8f, 0.8f + entity.getWorld().random.nextFloat() * 0.4f);
+            entity.getWorld().playSound(null, entity.getBlockPos(), ModSounds.SHIELD_GUARD_BREAK, SoundCategory.PLAYERS, 1.3f, 1.0f + entity.getWorld().random.nextFloat() * 0.4f);
         }
     }
 }
