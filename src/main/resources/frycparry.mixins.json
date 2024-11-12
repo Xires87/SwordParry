@@ -12,7 +12,8 @@
     "EnchantmentHelperMixin",
     "ServerPlayerInteractionManagerMixin",
     "ServerPlayNetworkHandlerMixin",
-    "ServerWorldMixin"
+    "ServerWorldMixin",
+    "MobEntityMixin"
   ],
   "client": [
     "client/MinecraftClientMixin",
