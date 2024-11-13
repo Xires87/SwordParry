@@ -19,7 +19,7 @@ public class ModSounds {
 
 
     private static SoundEvent registerSound(String id) {
-        Identifier identifier = new Identifier(FrycParry.MOD_ID, id);
+        Identifier identifier = Identifier.of(FrycParry.MOD_ID, id);
         return Registry.register(Registries.SOUND_EVENT, identifier, SoundEvent.of(identifier));
     }
 

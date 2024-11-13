@@ -2,10 +2,9 @@ package net.fryc.frycparry.mixin;
 
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
-import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.fryc.frycparry.FrycParry;
-import net.fryc.frycparry.network.ModPackets;
+import net.fryc.frycparry.network.payloads.InformClientAboutParryPayload;
 import net.fryc.frycparry.util.ParryHelper;
 import net.fryc.frycparry.util.interfaces.CanBlock;
 import net.fryc.frycparry.util.interfaces.ParryItem;
@@ -18,7 +17,6 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ShieldItem;
-import net.minecraft.network.PacketByteBuf;
 import net.minecraft.registry.tag.DamageTypeTags;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.Hand;
@@ -323,9 +321,7 @@ abstract class LivingEntityMixin extends Entity implements Attackable, CanBlock 
         parryTimer = ticks;
         if(!world.isClient()){
             if(((LivingEntity)(Object)this) instanceof ServerPlayerEntity player){
-                PacketByteBuf buf = PacketByteBufs.create();
-                buf.writeInt(ticks);
-                ServerPlayNetworking.send(player, ModPackets.INFORM_CLIENT_ABOUT_PARRY_ID, buf);
+                ServerPlayNetworking.send(player, new InformClientAboutParryPayload(ticks));
             }
         }
     }

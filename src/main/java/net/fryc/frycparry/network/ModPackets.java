@@ -9,6 +9,7 @@ import net.fryc.frycparry.network.c2s.StartParryingC2SPacket;
 import net.fryc.frycparry.network.c2s.StopBlockingC2SPacket;
 import net.fryc.frycparry.network.payloads.*;
 import net.fryc.frycparry.network.s2c.FirstConfigAnswerS2CPacket;
+import net.fryc.frycparry.network.s2c.InformClientAboutParryS2CPacket;
 import net.fryc.frycparry.network.s2c.SecondConfigAnswerS2CPacket;
 import net.minecraft.util.Identifier;
 
@@ -19,14 +20,14 @@ public class ModPackets {
     public static final Identifier FIRST_ANSWER_CONFIG_ID = Identifier.of(FrycParry.MOD_ID, "first_answer_config_id");
     public static final Identifier SECOND_ANSWER_CONFIG_ID = Identifier.of(FrycParry.MOD_ID, "second_answer_config_id");
     public static final Identifier RESET_LAST_ATTACKED_TICKS_ID = Identifier.of(FrycParry.MOD_ID, "reset_last_attacked_ticks_id");
-
-    public static final Identifier ANSWER_CONFIG_ID = new Identifier(FrycParry.MOD_ID, "answer_config_id");
-    public static final Identifier INFORM_CLIENT_ABOUT_PARRY_ID = new Identifier(FrycParry.MOD_ID, "inform_client_about_parry_id");
+    public static final Identifier INFORM_CLIENT_ABOUT_PARRY_ID = Identifier.of(FrycParry.MOD_ID, "inform_client_about_parry_id");
 
     public static void registerC2SPackets(){
         //payloads
         PayloadTypeRegistry.playS2C().register(FirstConfigAnswerPayload.ID, FirstConfigAnswerPayload.CODEC);
         PayloadTypeRegistry.playS2C().register(SecondConfigAnswerPayload.ID, SecondConfigAnswerPayload.CODEC);
+        PayloadTypeRegistry.playS2C().register(InformClientAboutParryPayload.ID, InformClientAboutParryPayload.CODEC);
+
         PayloadTypeRegistry.playC2S().register(StopBlockingPayload.ID, StopBlockingPayload.CODEC);
         PayloadTypeRegistry.playC2S().register(StartParryingPayload.ID, StartParryingPayload.CODEC);
         PayloadTypeRegistry.playC2S().register(ResetLastAttackedTicksPayload.ID, ResetLastAttackedTicksPayload.CODEC);
@@ -41,5 +42,6 @@ public class ModPackets {
         //receivers
         ClientPlayNetworking.registerGlobalReceiver(FirstConfigAnswerPayload.ID, FirstConfigAnswerS2CPacket::receive);
         ClientPlayNetworking.registerGlobalReceiver(SecondConfigAnswerPayload.ID, SecondConfigAnswerS2CPacket::receive);
+        ClientPlayNetworking.registerGlobalReceiver(InformClientAboutParryPayload.ID, InformClientAboutParryS2CPacket::receive);
     }
 }
