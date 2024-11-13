@@ -307,7 +307,8 @@ public class ParryHelper {
         player.getItemCooldownManager().set(item, cooldown + 100);
         ((CanBlock) player).stopUsingItemParry();
     }
-/* TODO przetestowac na multii  jeszcze config dodac zeby modyfikowac volume i pitch */
+
+    // all sound methods are executed on SERVER
     public static void playBlockSound(LivingEntity entity){
         boolean shield = !ParryHelper.canParryWithoutShield(entity);
         if(shield){
