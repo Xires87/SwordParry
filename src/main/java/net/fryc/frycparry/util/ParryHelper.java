@@ -331,7 +331,7 @@ public class ParryHelper {
         return false;
     }
 
-/* TODO przetestowac na multii  jeszcze config dodac zeby modyfikowac volume i pitch */
+    // all sound methods are executed on SERVER
     public static void playBlockSound(LivingEntity entity){
         boolean shield = !ParryHelper.canParryWithoutShield(entity);
         if(shield){
