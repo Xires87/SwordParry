@@ -5,6 +5,14 @@
   "tag.item.frycparry.enchantable.parry_tools": "Supported items for enchantments from Sword Parry",
   "tag.item.frycparry.enchantable.shield": "Primary items for enchantments from Sword Parry",
 
+  "sound.frycparry.tool_parry": "Broń paruje",
+  "sound.frycparry.tool_block": "Broń blokuje",
+  "sound.frycparry.tool_guard_break": "Zasłona bronią przełamuje się",
+
+  "sound.frycparry.shield_parry": "Tarcza paruje",
+  "sound.frycparry.shield_block": "Tarcza blokuje",
+  "sound.frycparry.shield_guard_break": "Zasłona tarczą przełamuje się",
+
   "key.category.frycparry.key_category_swordparry": "Sword Parry",
   "key.frycparry.key_parry": "Blokowanie (ustaw na Nieprzypisane by blokować klawiszem Użycia)",
   "key.frycparry.key_dont_parry": "Zapobiegaj używaniu blokowania",

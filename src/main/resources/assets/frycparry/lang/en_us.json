@@ -5,6 +5,14 @@
   "tag.item.frycparry.enchantable.parry_tools": "Supported items for enchantments from Sword Parry",
   "tag.item.frycparry.enchantable.shield": "Primary items for enchantments from Sword Parry",
 
+  "sound.frycparry.tool_parry": "Weapon parries",
+  "sound.frycparry.tool_block": "Weapon blocks",
+  "sound.frycparry.tool_guard_break": "Weapon breaks",
+
+  "sound.frycparry.shield_parry": "Shield parries",
+  "sound.frycparry.shield_block": "Shield blocks",
+  "sound.frycparry.shield_guard_break": "Shield breaks",
+
   "key.category.frycparry.key_category_swordparry": "Sword Parry",
   "key.frycparry.key_parry": "Parry (set it to Unbound to parry with Use Key)",
   "key.frycparry.key_dont_parry": "Prevent using parry",
