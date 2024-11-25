@@ -7,9 +7,20 @@
   "maxUseTime": 7200,
   "shouldStopUsingItemAfterBlockOrParry": true,
   "knockbackAfterParryAction": 9.0,
-  "slownessAfterParryAction": 110,
-  "slownessAmplifierAfterParryAction": 1,
-  "weaknessAfterParryAction": 0,
-  "weaknessAmplifierAfterParryAction": 1,
-  "disarmedAfterParryAction": 28
+  "parryEffects": [
+    {
+      "statusEffect": "minecraft:slowness",
+      "duration": 110,
+      "amplifier": 1,
+      "chance": 1.0,
+      "enchantmentMultiplier": 0.3
+    },
+    {
+      "statusEffect": "frycparry:disarmed",
+      "duration": 28,
+      "amplifier": 1,
+      "chance": 1.0,
+      "enchantmentMultiplier": 0.12
+    }
+  ]
 }
