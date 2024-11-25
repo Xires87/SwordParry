@@ -39,7 +39,7 @@ public class FrycParryConfig extends PartitioningSerializer.GlobalData {
 
     @ConfigEntry.Category("multiplayerModifiers")
     @ConfigEntry.Gui.TransitiveObject
-    public MultiplayerModifiersConfig multiplayerModifiers = new MultiplayerModifiersConfig();
+    public ModifiersConfig modifiers = new ModifiersConfig();
 
     @ConfigEntry.Category("enchantments")
     @ConfigEntry.Gui.TransitiveObject

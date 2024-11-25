@@ -46,8 +46,10 @@
   "text.autoconfig.frycparry.option.server.enableBlockingWhenDualWielding": "Dual wielding settings [Restart Required]",
   "text.autoconfig.frycparry.option.server.enableBlockingWhenDualWielding.@Tooltip": "0 - player can block and parry with empty offhand;\n  1 - player can also block and parry when dual wields weapons;\n 2 - player can block and parry with any item in offhand;",
 
-  "text.autoconfig.frycparry.option.multiplayerModifiers.parryKnockbackStrengthForPlayersModifier": "Reduce knockback strength for players by:",
-  "text.autoconfig.frycparry.option.multiplayerModifiers.parryKnockbackStrengthForPlayersModifier.@Tooltip": "Example: when set to 3, and knockback strength of active item is 9, knockback strength for parried player will be 6 (9 - 3 = 6)",
+  "text.autoconfig.frycparry.option.modifiers.parryKnockbackStrengthForPlayersMultiplier": "Multiply knockback strength for players by:",
+  "text.autoconfig.frycparry.option.modifiers.parryKnockbackStrengthForPlayersMultiplier.@Tooltip": "Knockback strength is multiplied by this value for PvP",
+  "text.autoconfig.frycparry.option.modifiers.parryDisarmDurationForMobsMultiplier": "Multiply disarm duration for mobs by:",
+  "text.autoconfig.frycparry.option.modifiers.parryDisarmDurationForMobsMultiplier.@Tooltip": "Disarm duration is multiplied by this value for mobs",
 
   "text.autoconfig.frycparry.option.pickaxe.enableBlockingWithPickaxe": "Enable blocking and parrying [Restart Required]",
   "text.autoconfig.frycparry.option.axe.enableBlockingWithAxe": "Enable blocking and parrying [Restart Required]",
