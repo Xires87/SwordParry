@@ -2,7 +2,6 @@ package net.fryc.frycparry.util;
 
 import net.fryc.frycparry.FrycParry;
 import net.fryc.frycparry.attributes.ParryAttributes;
-import net.fryc.frycparry.effects.ModEffects;
 import net.fryc.frycparry.enchantments.ModEnchantments;
 import net.fryc.frycparry.sounds.ModSounds;
 import net.fryc.frycparry.tag.ModItemTags;
@@ -14,8 +13,8 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
+import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffectInstance;
-import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.PersistentProjectileEntity;
 import net.minecraft.item.*;
@@ -23,6 +22,12 @@ import net.minecraft.registry.tag.DamageTypeTags;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
+import oshi.util.tuples.Quartet;
+
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class ParryHelper {
 
@@ -34,6 +39,14 @@ public class ParryHelper {
     public static boolean enableBlockingWithHoe = FrycParry.config.hoe.enableBlockingWithHoe;
     public static boolean enableBlockingWithMace = FrycParry.config.mace.enableBlockingWithMace;
     public static boolean enableBlockingWithOtherTools = FrycParry.config.server.enableBlockingWithOtherTools;
+
+    private static HashMap<StatusEffect, Quartet<Integer, Integer, Float, Float>> pickaxeParryEffects = new HashMap<>();
+    private static HashMap<StatusEffect, Quartet<Integer, Integer, Float, Float>> axeParryEffects = new HashMap<>();
+    private static HashMap<StatusEffect, Quartet<Integer, Integer, Float, Float>> swordParryEffects = new HashMap<>();
+    private static HashMap<StatusEffect, Quartet<Integer, Integer, Float, Float>> shovelParryEffects = new HashMap<>();
+    private static HashMap<StatusEffect, Quartet<Integer, Integer, Float, Float>> hoeParryEffects = new HashMap<>();
+    private static HashMap<StatusEffect, Quartet<Integer, Integer, Float, Float>> shieldParryEffects = new HashMap<>();
+    private static HashMap<StatusEffect, Quartet<Integer, Integer, Float, Float>> parryEffects = new HashMap<>();
 
     public static boolean canParryWithoutShield(LivingEntity user){
         return isItemParryEnabled(user.getMainHandStack()) && !hasShieldEquipped(user) && isNonShieldParryingEnabled(user);
@@ -73,9 +86,9 @@ public class ParryHelper {
         }
         if(stack.getItem() instanceof ParryItem parryItem){
             if(source.isIn(DamageTypeTags.IS_PROJECTILE)){
-                return parryItem.getProjectileDamageTakenAfterBlock() <= 0f;
+                return parryItem.getParryAttributes().getProjectileDamageTakenAfterBlock() <= 0f;
             }
-            return parryItem.getMeleeDamageTakenAfterBlock() <= 0f;
+            return parryItem.getParryAttributes().getMeleeDamageTakenAfterBlock() <= 0f;
         }
         return true;
     }
@@ -86,8 +99,8 @@ public class ParryHelper {
     public static boolean attackWasParried(DamageSource source, ItemStack stack, LivingEntity user){
         if(source.isIn(DamageTypeTags.IS_EXPLOSION)) return false;
         if(isItemParryEnabled(stack)){
-            int maxUseTime = user.getActiveItem().getItem() instanceof ShieldItem ? user.getActiveItem().getMaxUseTime(user) : ((ParryItem) user.getActiveItem().getItem()).getMaxUseTimeParry();
-            return maxUseTime - user.getItemUseTimeLeft() < ((ParryItem) stack.getItem()).getParryTicks() + ModEnchantments.getReflexEnchantment(user);
+            int maxUseTime = user.getActiveItem().getItem() instanceof ShieldItem ? user.getActiveItem().getMaxUseTime() : ((ParryItem) user.getActiveItem().getItem()).getParryAttributes().getMaxUseTimeParry();
+            return maxUseTime - user.getItemUseTimeLeft() < ((ParryItem) stack.getItem()).getParryAttributes().getParryTicks() + ModEnchantments.getPredictionEnchantment(user);
         }
         return false;
     }
@@ -149,45 +162,35 @@ public class ParryHelper {
                 (float)FrycParry.config.pickaxe.pickaxeBlockArrowDamageTaken/100, FrycParry.config.pickaxe.cooldownAfterPickaxeParryAction,
                 FrycParry.config.pickaxe.cooldownAfterInterruptingPickaxeBlockAction, FrycParry.config.pickaxe.maxUseTime,
                 FrycParry.config.pickaxe.shouldStopUsingPickaxeAfterBlockOrParry, FrycParry.config.pickaxe.pickaxeParryKnockbackStrength,
-                FrycParry.config.pickaxe.pickaxeSlownessAfterParry, FrycParry.config.pickaxe.pickaxeSlownessAfterParryAmplifier,
-                FrycParry.config.pickaxe.pickaxeWeaknessAfterParry, FrycParry.config.pickaxe.pickaxeWeaknessAfterParryAmplifier,
-                FrycParry.config.pickaxe.pickaxeDisarmAfterParry
+                pickaxeParryEffects
         );
         if(item instanceof AxeItem) return new ParryAttributes(
                 FrycParry.config.axe.axeParryTicks, (float)FrycParry.config.axe.axeBlockMeleeDamageTaken/100,
                 (float)FrycParry.config.axe.axeBlockArrowDamageTaken/100, FrycParry.config.axe.cooldownAfterAxeParryAction,
                 FrycParry.config.axe.cooldownAfterInterruptingAxeBlockAction, FrycParry.config.axe.maxUseTime,
                 FrycParry.config.axe.shouldStopUsingAxeAfterBlockOrParry, FrycParry.config.axe.axeParryKnockbackStrength,
-                FrycParry.config.axe.axeSlownessAfterParry, FrycParry.config.axe.axeSlownessAfterParryAmplifier,
-                FrycParry.config.axe.axeWeaknessAfterParry, FrycParry.config.axe.axeWeaknessAfterParryAmplifier,
-                FrycParry.config.axe.axeDisarmAfterParry
+                axeParryEffects
         );
         if(item instanceof SwordItem) return new ParryAttributes(
                 FrycParry.config.sword.swordParryTicks, (float)FrycParry.config.sword.swordBlockMeleeDamageTaken/100,
                 (float)FrycParry.config.sword.swordBlockArrowDamageTaken/100, FrycParry.config.sword.cooldownAfterSwordParryAction,
                 FrycParry.config.sword.cooldownAfterInterruptingSwordBlockAction, FrycParry.config.sword.maxUseTime,
                 FrycParry.config.sword.shouldStopUsingSwordAfterBlockOrParry, FrycParry.config.sword.swordParryKnockbackStrength,
-                FrycParry.config.sword.swordSlownessAfterParry, FrycParry.config.sword.swordSlownessAfterParryAmplifier,
-                FrycParry.config.sword.swordWeaknessAfterParry, FrycParry.config.sword.swordWeaknessAfterParryAmplifier,
-                FrycParry.config.sword.swordDisarmAfterParry
+                swordParryEffects
         );
         if(item instanceof ShovelItem) return new ParryAttributes(
                 FrycParry.config.shovel.shovelParryTicks, (float)FrycParry.config.shovel.shovelBlockMeleeDamageTaken/100,
                 (float)FrycParry.config.shovel.shovelBlockArrowDamageTaken/100, FrycParry.config.shovel.cooldownAfterShovelParryAction,
                 FrycParry.config.shovel.cooldownAfterInterruptingShovelBlockAction, FrycParry.config.shovel.maxUseTime,
                 FrycParry.config.shovel.shouldStopUsingShovelAfterBlockOrParry, FrycParry.config.shovel.shovelParryKnockbackStrength,
-                FrycParry.config.shovel.shovelSlownessAfterParry, FrycParry.config.shovel.shovelSlownessAfterParryAmplifier,
-                FrycParry.config.shovel.shovelWeaknessAfterParry, FrycParry.config.shovel.shovelWeaknessAfterParryAmplifier,
-                FrycParry.config.shovel.shovelDisarmAfterParry
+                shovelParryEffects
         );
         if(item instanceof HoeItem) return new ParryAttributes(
                 FrycParry.config.hoe.hoeParryTicks, (float)FrycParry.config.hoe.hoeBlockMeleeDamageTaken/100,
                 (float)FrycParry.config.hoe.hoeBlockArrowDamageTaken/100, FrycParry.config.hoe.cooldownAfterHoeParryAction,
                 FrycParry.config.hoe.cooldownAfterInterruptingHoeBlockAction, FrycParry.config.hoe.maxUseTime,
                 FrycParry.config.hoe.shouldStopUsingHoeAfterBlockOrParry, FrycParry.config.hoe.hoeParryKnockbackStrength,
-                FrycParry.config.hoe.hoeSlownessAfterParry, FrycParry.config.hoe.hoeSlownessAfterParryAmplifier,
-                FrycParry.config.hoe.hoeWeaknessAfterParry, FrycParry.config.hoe.hoeWeaknessAfterParryAmplifier,
-                FrycParry.config.hoe.hoeDisarmAfterParry
+                hoeParryEffects
         );
         if(item instanceof MaceItem) return new ParryAttributes(
                 FrycParry.config.mace.maceParryTicks, (float)FrycParry.config.mace.maceBlockMeleeDamageTaken/100,
@@ -203,83 +206,56 @@ public class ParryHelper {
                 (float)FrycParry.config.shield.shieldBlockArrowDamageTaken/100, FrycParry.config.shield.cooldownAfterShieldParryAction,
                 FrycParry.config.shield.cooldownAfterInterruptingShieldBlockAction, 7200,
                 FrycParry.config.shield.shouldStopUsingShieldAfterBlockOrParry, FrycParry.config.shield.shieldParryKnockbackStrength,
-                FrycParry.config.shield.shieldSlownessAfterParry, FrycParry.config.shield.shieldSlownessAfterParryAmplifier,
-                FrycParry.config.shield.shieldWeaknessAfterParry, FrycParry.config.shield.shieldWeaknessAfterParryAmplifier,
-                FrycParry.config.shield.shieldDisarmAfterParry
+                shieldParryEffects
         );
         if(hasAttackSpeedAttribute(item.getDefaultStack())) return new ParryAttributes(
                 FrycParry.config.server.parryTicks, (float)FrycParry.config.server.blockMeleeDamageTaken/100,
                 (float)FrycParry.config.server.blockArrowDamageTaken/100, FrycParry.config.server.cooldownAfterParryAction,
                 FrycParry.config.server.cooldownAfterInterruptingBlockAction, FrycParry.config.server.maxUseTime,
                 FrycParry.config.server.shouldStopUsingAfterBlockOrParry, FrycParry.config.server.parryKnockbackStrength,
-                FrycParry.config.server.slownessAfterParry, FrycParry.config.server.slownessAfterParryAmplifier,
-                FrycParry.config.server.weaknessAfterParry, FrycParry.config.server.weaknessAfterParryAmplifier,
-                FrycParry.config.server.disarmAfterParry
+                parryEffects
         );
         return ParryAttributes.DEFAULT;
     }
 
     public static void applyParryEffects(LivingEntity user, LivingEntity attacker){
         //parry enchantment
+        // TODO zmodyfikowac parry enchantment zeby mnoznik na 2 poziomie byl inny niz 2 (i moze configiem zeby mozna bylo zmienic)
         int parryEnchantmentLevel = ModEnchantments.getParryEnchantment(user);
 
         //variables for parry effects
-        double knockback = ((ParryItem) user.getActiveItem().getItem()).getKnockbackAfterParryAction();
-        int slowness = ((ParryItem) user.getActiveItem().getItem()).getSlownessAfterParryAction();
-        int slownessAmp = ((ParryItem) user.getActiveItem().getItem()).getSlownessAmplifierAfterParryAction();
-        int weakness = ((ParryItem) user.getActiveItem().getItem()).getWeaknessAfterParryAction();
-        int weaknessAmp = ((ParryItem) user.getActiveItem().getItem()).getWeaknessAmplifierAfterParryAction();
-        int disarmed = 0;
-
-        float[] modifiers = new float[3];
+        ParryAttributes parryAttributes = ((ParryItem) user.getActiveItem().getItem()).getParryAttributes();
+        double knockback = parryAttributes.getKnockbackAfterParryAction();
+        //float[] modifiers = new float[3];
+        float knockbackModifier; // modifier for parry enchantment
         if(attacker instanceof PlayerEntity) {
-            modifiers[0] = 0.65F; modifiers[1] = 0.2F; modifiers[2] = 0.15F;
+            //modifiers[0] = 0.65F; modifiers[1] = 0.2F; modifiers[2] = 0.15F;
+            knockbackModifier = 0.65F;
             knockback -= FrycParry.config.multiplayerModifiers.parryKnockbackStrengthForPlayersModifier;
-            slowness -= FrycParry.config.multiplayerModifiers.slownessForPlayersAfterParryModifier;
-            slownessAmp -= FrycParry.config.multiplayerModifiers.slownessForPlayersAmplifierModifier;
-            weakness -= FrycParry.config.multiplayerModifiers.weaknessForPlayersAfterParryModifier;
-            weaknessAmp -= FrycParry.config.multiplayerModifiers.weaknessForPlayersAmplifierModifier;
-            disarmed = ((ParryItem) user.getActiveItem().getItem()).getDisarmedAfterParryAction();
         }
         else {
-            modifiers[0] = 0.95F; modifiers[1] = 0.3F; modifiers[2] = 0.22F;
+            //modifiers[0] = 0.95F; modifiers[1] = 0.3F; modifiers[2] = 0.22F;
+            knockbackModifier = 0.95F;
         }
 
         //knockback
         if(knockback > 0){
-            attacker.takeKnockback((knockback + parryEnchantmentLevel * modifiers[0])/10, user.getX() - attacker.getX(), user.getZ() - attacker.getZ());
+            attacker.takeKnockback((knockback + parryEnchantmentLevel * knockbackModifier)/10, user.getX() - attacker.getX(), user.getZ() - attacker.getZ());
             attacker.velocityModified = true;
         }
 
-        //slowness
-        if(slowness > 0){
-            slowness = (int) (slowness + slowness * (parryEnchantmentLevel * modifiers[1]));
-            slownessAmp--;
-            if(slownessAmp < 0) slownessAmp = 0;
-            if(attacker.hasStatusEffect(StatusEffects.SLOWNESS)){
-                if(attacker.getActiveStatusEffects().get(StatusEffects.SLOWNESS).getDuration() < slowness) attacker.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, slowness, slownessAmp));
-            }
-            else attacker.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, slowness, slownessAmp));
-        }
+        //applying status effects from parry attributes
+        Iterator<Map.Entry<StatusEffect, Quartet<Integer, Integer, Float, Float>>> iterator = parryAttributes.getParryEffectsIterator();
+        while(iterator.hasNext()){
+            Map.Entry<StatusEffect, Quartet<Integer, Integer, Float, Float>> entry = iterator.next();
+            float chance = entry.getValue().getC();
+            if(chance >= 1.0F || ThreadLocalRandom.current().nextFloat() < chance){
+                int duration = entry.getValue().getA() + (int)(entry.getValue().getA() * (parryEnchantmentLevel * entry.getValue().getD()));
+                int amplifier = entry.getValue().getB() - (parryEnchantmentLevel == 2 ? 0 : 1); // TODO tutaj dac wartosc configowa zeby parry enchantment zwiekszal amplifier
+                if(amplifier < 0) amplifier = 0;
 
-        //weakness
-        if(weakness > 0){
-            weakness = (int) (weakness + weakness * (parryEnchantmentLevel * modifiers[2]));
-            weaknessAmp--;
-            if(weaknessAmp < 0) weaknessAmp = 0;
-            if(attacker.hasStatusEffect(StatusEffects.WEAKNESS)){
-                if(attacker.getActiveStatusEffects().get(StatusEffects.WEAKNESS).getDuration() < weakness) attacker.addStatusEffect(new StatusEffectInstance(StatusEffects.WEAKNESS, weakness, weaknessAmp));
+                attacker.addStatusEffect(new StatusEffectInstance(entry.getKey(), duration, amplifier));
             }
-            else attacker.addStatusEffect(new StatusEffectInstance(StatusEffects.WEAKNESS, weakness, weaknessAmp));
-        }
-
-        //disarm
-        if(disarmed > 0){
-            disarmed = disarmed + parryEnchantmentLevel * 5;
-            if(attacker.hasStatusEffect(ModEffects.DISARMED)){
-                if(attacker.getActiveStatusEffects().get(ModEffects.DISARMED).getDuration() < disarmed) attacker.addStatusEffect(new StatusEffectInstance(ModEffects.DISARMED, disarmed, 0));
-            }
-            else attacker.addStatusEffect(new StatusEffectInstance(ModEffects.DISARMED, disarmed, 0));
         }
     }
 
@@ -296,10 +272,10 @@ public class ParryHelper {
     public static int getParryCooldown(PlayerEntity player, Item item) {
         float cooldown;
         if(((CanBlock) player).hasParriedRecently()){
-            cooldown = ((ParryItem) item).getCooldownAfterParryAction();
+            cooldown = ((ParryItem) item).getParryAttributes().getCooldownAfterParryAction();
         }
         else {
-            cooldown = ((ParryItem) item).getCooldownAfterInterruptingBlockAction();
+            cooldown = ((ParryItem) item).getParryAttributes().getCooldownAfterInterruptingBlockAction();
         }
 
         if(cooldown < 0){
