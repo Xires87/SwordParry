@@ -3,7 +3,7 @@
   "id": "frycparry",
   "version": "${version}",
 
-  "name": "Sword Parry",
+  "name": "Fryc's Parry",
   "description": "Adds parry mechanics and allows blocking with items other than shield",
   "authors": [
     "Wookash Fryc"
