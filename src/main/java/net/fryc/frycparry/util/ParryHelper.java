@@ -2,6 +2,7 @@ package net.fryc.frycparry.util;
 
 import net.fryc.frycparry.FrycParry;
 import net.fryc.frycparry.attributes.ParryAttributes;
+import net.fryc.frycparry.effects.ModEffects;
 import net.fryc.frycparry.enchantments.ModEnchantments;
 import net.fryc.frycparry.sounds.ModSounds;
 import net.fryc.frycparry.tag.ModItemTags;
@@ -14,6 +15,7 @@ import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffectInstance;
+import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.PersistentProjectileEntity;
 import net.minecraft.item.*;
@@ -146,15 +148,12 @@ public class ParryHelper {
         //variables for parry effects
         ParryAttributes parryAttributes = ((ParryItem) user.getActiveItem().getItem()).getParryAttributes();
         double knockback = parryAttributes.getKnockbackAfterParryAction();
-        //float[] modifiers = new float[3];
         float knockbackModifier; // modifier for parry enchantment
         if(attacker instanceof PlayerEntity) {
-            //modifiers[0] = 0.65F; modifiers[1] = 0.2F; modifiers[2] = 0.15F;
             knockbackModifier = 0.65F;
-            knockback -= FrycParry.config.multiplayerModifiers.parryKnockbackStrengthForPlayersModifier;
+            knockback -= FrycParry.config.modifiers.parryKnockbackStrengthForPlayersMultiplier;
         }
         else {
-            //modifiers[0] = 0.95F; modifiers[1] = 0.3F; modifiers[2] = 0.22F;
             knockbackModifier = 0.95F;
         }
 
@@ -173,6 +172,10 @@ public class ParryHelper {
                 int duration = entry.getValue().getA() + (int)(entry.getValue().getA() * (parryEnchantmentLevel * entry.getValue().getD()));
                 int amplifier = entry.getValue().getB() - (parryEnchantmentLevel == 2 ? 0 : 1); // TODO tutaj dac wartosc configowa zeby parry enchantment zwiekszal amplifier
                 if(amplifier < 0) amplifier = 0;
+
+                if(entry.getKey() == ModEffects.DISARMED && attacker instanceof MobEntity){
+                    duration *= FrycParry.config.modifiers.parryDisarmDurationForMobsMultiplier;
+                }
 
                 attacker.addStatusEffect(new StatusEffectInstance(entry.getKey(), duration, amplifier));
             }

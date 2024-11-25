@@ -5,7 +5,9 @@ import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.fryc.frycparry.FrycParry;
+import net.fryc.frycparry.effects.ModEffects;
 import net.fryc.frycparry.network.ModPackets;
+import net.fryc.frycparry.tag.ModEntityTypeTags;
 import net.fryc.frycparry.util.ParryHelper;
 import net.fryc.frycparry.util.interfaces.CanBlock;
 import net.fryc.frycparry.util.interfaces.ParryItem;
@@ -14,6 +16,7 @@ import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
+import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -181,6 +184,8 @@ abstract class LivingEntityMixin extends Entity implements Attackable, CanBlock 
                     dys.damageShield(originalDamage);
                     if(dys.getActiveItem().isEmpty()) dys.stopUsingItem();
                 }
+
+
             }
         }
         return amount;
@@ -190,7 +195,7 @@ abstract class LivingEntityMixin extends Entity implements Attackable, CanBlock 
     //removes the 5 tick block delay
     @Inject(method = "isBlocking()Z", at = @At("HEAD"), cancellable = true)
     private void removeBlockDelay(CallbackInfoReturnable<Boolean> ret) {
-        LivingEntity dys = ((LivingEntity)(Object)this);
+        LivingEntity dys = ((LivingEntity)(Object)this);// TODO dodac block delay support
         if (dys.isUsingItem() && !dys.getActiveItem().isEmpty()) {
             Item item = dys.getActiveItem().getItem();
             if(ParryHelper.isItemParryEnabled(dys.getActiveItem()) && item.getUseAction(dys.getActiveItem()) != UseAction.BLOCK){
@@ -201,44 +206,6 @@ abstract class LivingEntityMixin extends Entity implements Attackable, CanBlock 
             }
         }
     }
-
-
-    //executed only on CLIENT
-    /* it didnt work properly on multiplayer
-    @Inject(at = @At("HEAD"), method = "handleStatus(B)V", cancellable = true)
-    private void modifyBlockAndParrySoundsClient(byte status, CallbackInfo info) {
-        LivingEntity dys = ((LivingEntity) (Object)this);
-        if(status == EntityStatuses.BLOCK_WITH_SHIELD){
-            boolean shield = !ParryHelper.canParryWithoutShield(dys);
-            if(((CanBlock) dys).hasParriedRecently()){
-                if(shield){
-                    dys.playSound(ModSounds.SHIELD_PARRY, 1.1f, 0.8f + this.getWorld().random.nextFloat() * 0.4f);
-                }
-                else {
-                    dys.playSound(ModSounds.TOOL_PARRY, 1.1f, 0.8f + this.getWorld().random.nextFloat() * 0.4f);
-                }
-                info.cancel();
-            }
-            else {
-                if(!shield){
-                    dys.playSound(ModSounds.TOOL_BLOCK, 0.9f, 0.8f + this.getWorld().random.nextFloat() * 0.4f);
-                    info.cancel();
-                }
-                // no cancel here to play vanilla shield block sound
-            }
-        }
-        else if(status == EntityStatuses.BREAK_SHIELD){
-            boolean tool = ParryHelper.canParryWithoutShield(dys);
-            if(tool){
-                dys.playSound(ModSounds.TOOL_GUARD_BREAK, 0.8f, 0.8f + this.getWorld().random.nextFloat() * 0.4f);
-            }
-            else {
-                dys.playSound(ModSounds.SHIELD_GUARD_BREAK, 0.8f, 0.8f + this.getWorld().random.nextFloat() * 0.4f);
-            }
-            info.cancel();
-        }
-    }
-     */
 
     @Inject(at = @At("HEAD"), method = "handleStatus(B)V", cancellable = true)
     private void cancelShieldBlockAndBreakStatuses(byte status, CallbackInfo info) {
@@ -300,6 +267,13 @@ abstract class LivingEntityMixin extends Entity implements Attackable, CanBlock 
             return ((ParryItem) instance.getItem()).finishUsingParry(instance, world, user);
         } else {
             return original.call(instance, world, user);
+        }
+    }
+
+    @Inject(method = "canHaveStatusEffect(Lnet/minecraft/entity/effect/StatusEffectInstance;)Z", at = @At("HEAD"), cancellable = true)
+    private void makeSomeMobsResistantToDisarm(StatusEffectInstance effect, CallbackInfoReturnable<Boolean> ret) {
+        if(effect.getEffectType() == ModEffects.DISARMED && this.getType().isIn(ModEntityTypeTags.DISARM_RESISTANT_MOBS)){
+            ret.setReturnValue(false);
         }
     }
 
