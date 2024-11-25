@@ -1,12 +1,14 @@
 package net.fryc.frycparry.enchantments;
 
 import net.fryc.frycparry.tag.ModItemTags;
-import net.fryc.frycparry.util.EnchantmentsConfigHelper;
+import net.fryc.frycparry.util.ConfigHelper;
 import net.fryc.frycparry.util.ParryHelper;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentTarget;
 import net.minecraft.entity.EquipmentSlot;
-import net.minecraft.item.*;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.ShieldItem;
 
 public class CounterAttackEnchantment extends Enchantment {
     protected CounterAttackEnchantment(Rarity weight, EnchantmentTarget type, EquipmentSlot... slotTypes) {
@@ -32,14 +34,14 @@ public class CounterAttackEnchantment extends Enchantment {
     }
 
     public boolean isTreasure() {
-        return !EnchantmentsConfigHelper.enableCounterattackEnchantment;
+        return !ConfigHelper.enableCounterattackEnchantment;
     }
 
     public boolean isAvailableForEnchantedBookOffer() {
-        return EnchantmentsConfigHelper.enableCounterattackEnchantment;
+        return ConfigHelper.enableCounterattackEnchantment;
     }
 
     public boolean isAvailableForRandomSelection() {
-        return EnchantmentsConfigHelper.enableCounterattackEnchantment;
+        return ConfigHelper.enableCounterattackEnchantment;
     }
 }
