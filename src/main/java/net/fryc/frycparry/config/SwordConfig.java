@@ -31,8 +31,14 @@ public class SwordConfig implements ConfigData {
 
     public double swordParryKnockbackStrength = 6;
 
+    @Comment("""
+            List of status effects that can be applied to attacker in the following pattern:\s
+            'StatusEffect;duration;amplifier;chance;enchantmentModifier;StatusEffect;duration;amplifier;chance;enchantmentModifier'\s
+            chance: 1.0 = 100%\s
+            enchantmentModifier: 0.4 = 40% longer duration per Parry enchantment level""")
+    @ConfigEntry.Gui.Tooltip
     public String swordParryEffects = "minecraft:slowness;100;1;1.0;0.3;" +
-            "frycparry:disarmed;45;1;1.0;0.12"; // TODO skopiowac metody z mob variants i zamienic to na mape
+            "frycparry:disarmed;45;1;1.0;0.12";
 
     @Comment("""
             Values above 0 describe number of ticks item will be disabled for\s
