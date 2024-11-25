@@ -40,13 +40,13 @@ public class ParryHelper {
     public static boolean enableBlockingWithMace = FrycParry.config.mace.enableBlockingWithMace;
     public static boolean enableBlockingWithOtherTools = FrycParry.config.server.enableBlockingWithOtherTools;
 
-    private static HashMap<StatusEffect, Quartet<Integer, Integer, Float, Float>> pickaxeParryEffects = new HashMap<>();
-    private static HashMap<StatusEffect, Quartet<Integer, Integer, Float, Float>> axeParryEffects = new HashMap<>();
-    private static HashMap<StatusEffect, Quartet<Integer, Integer, Float, Float>> swordParryEffects = new HashMap<>();
-    private static HashMap<StatusEffect, Quartet<Integer, Integer, Float, Float>> shovelParryEffects = new HashMap<>();
-    private static HashMap<StatusEffect, Quartet<Integer, Integer, Float, Float>> hoeParryEffects = new HashMap<>();
-    private static HashMap<StatusEffect, Quartet<Integer, Integer, Float, Float>> shieldParryEffects = new HashMap<>();
-    private static HashMap<StatusEffect, Quartet<Integer, Integer, Float, Float>> parryEffects = new HashMap<>();
+    public static HashMap<StatusEffect, Quartet<Integer, Integer, Float, Float>> pickaxeParryEffects = new HashMap<>();
+    public static HashMap<StatusEffect, Quartet<Integer, Integer, Float, Float>> axeParryEffects = new HashMap<>();
+    public static HashMap<StatusEffect, Quartet<Integer, Integer, Float, Float>> swordParryEffects = new HashMap<>();
+    public static HashMap<StatusEffect, Quartet<Integer, Integer, Float, Float>> shovelParryEffects = new HashMap<>();
+    public static HashMap<StatusEffect, Quartet<Integer, Integer, Float, Float>> hoeParryEffects = new HashMap<>();
+    public static HashMap<StatusEffect, Quartet<Integer, Integer, Float, Float>> shieldParryEffects = new HashMap<>();
+    public static HashMap<StatusEffect, Quartet<Integer, Integer, Float, Float>> parryEffects = new HashMap<>();
 
     public static boolean canParryWithoutShield(LivingEntity user){
         return isItemParryEnabled(user.getMainHandStack()) && !hasShieldEquipped(user) && isNonShieldParryingEnabled(user);
@@ -82,7 +82,7 @@ public class ParryHelper {
 
     public static boolean blockingFullyNegatesDamage(DamageSource source, ItemStack stack, LivingEntity user){
         if(source.isIn(DamageTypeTags.IS_EXPLOSION)){
-            return user.getActiveItem().getItem() instanceof ShieldItem && user.getActiveItem().getMaxUseTime(user) - user.getItemUseTimeLeft() >= 5;
+            return user.getActiveItem().getItem() instanceof ShieldItem && user.getActiveItem().getMaxUseTime() - user.getItemUseTimeLeft() >= 5;
         }
         if(stack.getItem() instanceof ParryItem parryItem){
             if(source.isIn(DamageTypeTags.IS_PROJECTILE)){
@@ -154,68 +154,6 @@ public class ParryHelper {
         if(item instanceof HoeItem) return !FrycParry.config.hoe.enableBlockingWithHoe && !stack.isIn(ModItemTags.ITEMS_CAN_PARRY);
         if(item instanceof MaceItem) return !FrycParry.config.mace.enableBlockingWithMace && !stack.isIn(ModItemTags.ITEMS_CAN_PARRY);
         return !FrycParry.config.server.enableBlockingWithOtherTools && !stack.isIn(ModItemTags.ITEMS_CAN_PARRY);
-    }
-
-    public static ParryAttributes getDefaultParryAttributes(Item item){
-        if(item instanceof PickaxeItem) return new ParryAttributes(
-                FrycParry.config.pickaxe.pickaxeParryTicks, (float)FrycParry.config.pickaxe.pickaxeBlockMeleeDamageTaken/100,
-                (float)FrycParry.config.pickaxe.pickaxeBlockArrowDamageTaken/100, FrycParry.config.pickaxe.cooldownAfterPickaxeParryAction,
-                FrycParry.config.pickaxe.cooldownAfterInterruptingPickaxeBlockAction, FrycParry.config.pickaxe.maxUseTime,
-                FrycParry.config.pickaxe.shouldStopUsingPickaxeAfterBlockOrParry, FrycParry.config.pickaxe.pickaxeParryKnockbackStrength,
-                pickaxeParryEffects
-        );
-        if(item instanceof AxeItem) return new ParryAttributes(
-                FrycParry.config.axe.axeParryTicks, (float)FrycParry.config.axe.axeBlockMeleeDamageTaken/100,
-                (float)FrycParry.config.axe.axeBlockArrowDamageTaken/100, FrycParry.config.axe.cooldownAfterAxeParryAction,
-                FrycParry.config.axe.cooldownAfterInterruptingAxeBlockAction, FrycParry.config.axe.maxUseTime,
-                FrycParry.config.axe.shouldStopUsingAxeAfterBlockOrParry, FrycParry.config.axe.axeParryKnockbackStrength,
-                axeParryEffects
-        );
-        if(item instanceof SwordItem) return new ParryAttributes(
-                FrycParry.config.sword.swordParryTicks, (float)FrycParry.config.sword.swordBlockMeleeDamageTaken/100,
-                (float)FrycParry.config.sword.swordBlockArrowDamageTaken/100, FrycParry.config.sword.cooldownAfterSwordParryAction,
-                FrycParry.config.sword.cooldownAfterInterruptingSwordBlockAction, FrycParry.config.sword.maxUseTime,
-                FrycParry.config.sword.shouldStopUsingSwordAfterBlockOrParry, FrycParry.config.sword.swordParryKnockbackStrength,
-                swordParryEffects
-        );
-        if(item instanceof ShovelItem) return new ParryAttributes(
-                FrycParry.config.shovel.shovelParryTicks, (float)FrycParry.config.shovel.shovelBlockMeleeDamageTaken/100,
-                (float)FrycParry.config.shovel.shovelBlockArrowDamageTaken/100, FrycParry.config.shovel.cooldownAfterShovelParryAction,
-                FrycParry.config.shovel.cooldownAfterInterruptingShovelBlockAction, FrycParry.config.shovel.maxUseTime,
-                FrycParry.config.shovel.shouldStopUsingShovelAfterBlockOrParry, FrycParry.config.shovel.shovelParryKnockbackStrength,
-                shovelParryEffects
-        );
-        if(item instanceof HoeItem) return new ParryAttributes(
-                FrycParry.config.hoe.hoeParryTicks, (float)FrycParry.config.hoe.hoeBlockMeleeDamageTaken/100,
-                (float)FrycParry.config.hoe.hoeBlockArrowDamageTaken/100, FrycParry.config.hoe.cooldownAfterHoeParryAction,
-                FrycParry.config.hoe.cooldownAfterInterruptingHoeBlockAction, FrycParry.config.hoe.maxUseTime,
-                FrycParry.config.hoe.shouldStopUsingHoeAfterBlockOrParry, FrycParry.config.hoe.hoeParryKnockbackStrength,
-                hoeParryEffects
-        );
-        if(item instanceof MaceItem) return new ParryAttributes(
-                FrycParry.config.mace.maceParryTicks, (float)FrycParry.config.mace.maceBlockMeleeDamageTaken/100,
-                (float)FrycParry.config.mace.maceBlockArrowDamageTaken/100, FrycParry.config.mace.cooldownAfterMaceParryAction,
-                FrycParry.config.mace.cooldownAfterInterruptingMaceBlockAction, FrycParry.config.mace.maxUseTime,
-                FrycParry.config.mace.shouldStopUsingMaceAfterBlockOrParry, FrycParry.config.mace.maceParryKnockbackStrength,
-                FrycParry.config.mace.maceSlownessAfterParry, FrycParry.config.mace.maceSlownessAfterParryAmplifier,
-                FrycParry.config.mace.maceWeaknessAfterParry, FrycParry.config.mace.maceWeaknessAfterParryAmplifier,
-                FrycParry.config.mace.maceDisarmAfterParry
-        );
-        if(item instanceof ShieldItem) return new ParryAttributes(
-                FrycParry.config.shield.shieldParryTicks, (float)FrycParry.config.shield.shieldBlockMeleeDamageTaken/100,
-                (float)FrycParry.config.shield.shieldBlockArrowDamageTaken/100, FrycParry.config.shield.cooldownAfterShieldParryAction,
-                FrycParry.config.shield.cooldownAfterInterruptingShieldBlockAction, 7200,
-                FrycParry.config.shield.shouldStopUsingShieldAfterBlockOrParry, FrycParry.config.shield.shieldParryKnockbackStrength,
-                shieldParryEffects
-        );
-        if(hasAttackSpeedAttribute(item.getDefaultStack())) return new ParryAttributes(
-                FrycParry.config.server.parryTicks, (float)FrycParry.config.server.blockMeleeDamageTaken/100,
-                (float)FrycParry.config.server.blockArrowDamageTaken/100, FrycParry.config.server.cooldownAfterParryAction,
-                FrycParry.config.server.cooldownAfterInterruptingBlockAction, FrycParry.config.server.maxUseTime,
-                FrycParry.config.server.shouldStopUsingAfterBlockOrParry, FrycParry.config.server.parryKnockbackStrength,
-                parryEffects
-        );
-        return ParryAttributes.DEFAULT;
     }
 
     public static void applyParryEffects(LivingEntity user, LivingEntity attacker){
