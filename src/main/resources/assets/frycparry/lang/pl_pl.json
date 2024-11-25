@@ -24,7 +24,7 @@
   "text.autoconfig.frycparry.category.shovel": "Łopata",
   "text.autoconfig.frycparry.category.hoe": "Motyka",
   "text.autoconfig.frycparry.category.pickaxe": "Kilof",
-  "text.autoconfig.frycparry.category.multiplayerModifiers": "PvP",
+  "text.autoconfig.frycparry.category.modifiers": "Modifiers",
   "text.autoconfig.frycparry.category.other": "Inne",
   "text.autoconfig.frycparry.category.client": "Klient",
   "text.autoconfig.frycparry.category.enchantments": "Zaklęcia",
@@ -38,8 +38,10 @@
   "text.autoconfig.frycparry.option.server.enableBlockingWhenDualWielding": "Ustawienia dla trzymania w dwóch rękach  [Wymagany Restart]",
   "text.autoconfig.frycparry.option.server.enableBlockingWhenDualWielding.@Tooltip": "0 - gracz może blokować i parować kiedy jego druga ręka jest pusta;\n  1 - gracz może też blokować i parować kiedy trzyma narzędzie w drugiej ręce;\n 2 - gracz może blokować i parować z jakimkolwiek przedmiotem w drugiej ręce;",
 
-  "text.autoconfig.frycparry.option.multiplayerModifiers.parryKnockbackStrengthForPlayersModifier": "Zredukuj siłę odrzutu dla graczy o:",
-  "text.autoconfig.frycparry.option.multiplayerModifiers.parryKnockbackStrengthForPlayersModifier.@Tooltip": "Przykład: kiedy ustawione na 3, i siła odrzutu aktywnego przedmiotu to 9, sparowany gracz zostanie odrzucony z siłą 6 (9 - 3 = 6)",
+  "text.autoconfig.frycparry.option.modifiers.parryKnockbackStrengthForPlayersMultiplier": "Przemnóż siłę odrzutu dla graczy o:",
+  "text.autoconfig.frycparry.option.modifiers.parryKnockbackStrengthForPlayersMultiplier.@Tooltip": "Siła odrzutu jest mnożona przez tą wartość dla PvP",
+  "text.autoconfig.frycparry.option.modifiers.parryDisarmDurationForMobsMultiplier": "Przemnóż czas trwania rozbrojenia dla mobów o:",
+  "text.autoconfig.frycparry.option.modifiers.parryDisarmDurationForMobsMultiplier.@Tooltip": "Czas trwania rozbrojenia jest mnożony przez tą wartość dla mobów",
 
   "text.autoconfig.frycparry.option.axe.enableBlockingWithPickaxe": "Włącz blokowanie i parowanie [Wymagany Restart]",
   "text.autoconfig.frycparry.option.pickaxe.enableBlockingWithAxe": "Włącz blokowanie i parowanie [Wymagany Restart]",

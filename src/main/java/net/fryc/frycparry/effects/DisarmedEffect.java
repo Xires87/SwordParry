@@ -1,13 +1,17 @@
 package net.fryc.frycparry.effects;
 
 import net.fryc.frycparry.util.ParryHelper;
+import net.fryc.frycparry.util.interfaces.TargetingMob;
+import net.minecraft.command.argument.EntityAnchorArgumentType;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffectCategory;
+import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.*;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.ShieldItem;
 import net.minecraft.world.World;
 
 public class DisarmedEffect extends StatusEffect {
@@ -33,12 +37,29 @@ public class DisarmedEffect extends StatusEffect {
                 }
             }
         }
+        else if(entity instanceof MobEntity mob){
+            mob.setAttacking(false);
+            ((TargetingMob) mob).setLastTarget(mob.getTarget());
+            mob.setTarget(null);
+            if(mob.getTarget() != null){
+                mob.lookAt(EntityAnchorArgumentType.EntityAnchor.FEET, mob.getTarget().getPos());
+            }
+        }
         super.onApplied(entity, amplifier);
     }
 
+    public void onRemoved(LivingEntity entity, AttributeContainer attributes, int amplifier) {
+        if(entity instanceof MobEntity mob){
+            mob.setTarget(((TargetingMob) mob).getLastTarget());
+            ((TargetingMob) mob).setLastTarget(null);
+            mob.setAttacking(true);
+        }
+
+        super.onRemoved(entity, attributes, amplifier);
+    }
+
     private static boolean isShieldOrBowOrTool(World world, ItemStack stack){
-        Item item = stack.getItem();
-        return item instanceof ShieldItem || stack.getAttributeModifiers(EquipmentSlot.MAINHAND).keySet().contains(EntityAttributes.GENERIC_ATTACK_SPEED) ||
+        return stack.getItem() instanceof ShieldItem || stack.getAttributeModifiers(EquipmentSlot.MAINHAND).keySet().contains(EntityAttributes.GENERIC_ATTACK_SPEED) ||
                 !ParryHelper.isItemParryDisabledWithConfig(world, stack);
     }
 
