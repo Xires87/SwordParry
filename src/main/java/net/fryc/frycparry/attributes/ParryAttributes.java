@@ -1,8 +1,12 @@
 package net.fryc.frycparry.attributes;
 
 import net.fryc.frycparry.FrycParry;
+import net.minecraft.entity.effect.StatusEffect;
+import oshi.util.tuples.Quartet;
 
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 
 public class ParryAttributes {
 
@@ -14,18 +18,21 @@ public class ParryAttributes {
     private final int maxUseTime;
     private final boolean shouldStopUsingItemAfterBlockOrParry;
     private final double knockbackAfterParryAction;
+
+    private final Map<StatusEffect, Quartet<Integer, Integer, Float, Float>> parryEffects;
+    /*
     private final int slownessAfterParryAction;
     private final int slownessAmplifierAfterParryAction;
     private final int weaknessAfterParryAction;
     private final int weaknessAmplifierAfterParryAction;
     private final int disarmedAfterParryAction;
+     */
 
     private static final HashMap<String, ParryAttributes> REGISTERED_ATTRIBUTES = new HashMap<>();
     public static final ParryAttributes DEFAULT = ParryAttributes.create(
             "default", 0, 0.80F, 0.95F,
             18, 28, 7200, true,
-            4.0, 60, 1, 0,
-            1,0
+            4.0, new HashMap<>()
             );
 
 
@@ -41,9 +48,7 @@ public class ParryAttributes {
     public ParryAttributes(int parryTicks, float meleeDamageTakenAfterBlock, float projectileDamageTakenAfterBlock,
                            float cooldownAfterParryAction, float cooldownAfterInterruptingBlockAction,
                            int maxUseTime, boolean shouldStopUsingItemAfterBlockOrParry,
-                           double knockbackAfterParryAction, int slownessAfterParryAction,
-                           int slownessAmplifierAfterParryAction, int weaknessAfterParryAction,
-                           int weaknessAmplifierAfterParryAction, int disarmedAfterParryAction){
+                           double knockbackAfterParryAction, Map<StatusEffect, Quartet<Integer, Integer, Float, Float>> parryEffects){
 
         this.parryTicks = parryTicks;
         this.meleeDamageTakenAfterBlock = meleeDamageTakenAfterBlock;
@@ -53,11 +58,15 @@ public class ParryAttributes {
         this.maxUseTime = maxUseTime;
         this.shouldStopUsingItemAfterBlockOrParry = shouldStopUsingItemAfterBlockOrParry;
         this.knockbackAfterParryAction = knockbackAfterParryAction;
+        /*
         this.slownessAfterParryAction = slownessAfterParryAction;
         this.slownessAmplifierAfterParryAction = slownessAmplifierAfterParryAction;
         this.weaknessAfterParryAction = weaknessAfterParryAction;
         this.weaknessAmplifierAfterParryAction = weaknessAmplifierAfterParryAction;
         this.disarmedAfterParryAction = disarmedAfterParryAction;
+
+         */
+        this.parryEffects = parryEffects;
     }
 
     protected void addToMap(String id){
@@ -67,14 +76,11 @@ public class ParryAttributes {
     public static ParryAttributes create(String id, int parryTicks, float meleeDamageTakenAfterBlock, float projectileDamageTakenAfterBlock,
                                          float cooldownAfterParryAction, float cooldownAfterInterruptingBlockAction,
                                          int maxUseTime, boolean shouldStopUsingItemAfterBlockOrParry,
-                                         double knockbackAfterParryAction, int slownessAfterParryAction,
-                                         int slownessAmplifierAfterParryAction, int weaknessAfterParryAction,
-                                         int weaknessAmplifierAfterParryAction, int disarmedAfterParryAction){
+                                         double knockbackAfterParryAction, Map<StatusEffect, Quartet<Integer, Integer, Float, Float>> parryEffects){
 
         return create(id, new ParryAttributes(parryTicks, meleeDamageTakenAfterBlock, projectileDamageTakenAfterBlock,
                 cooldownAfterParryAction, cooldownAfterInterruptingBlockAction, maxUseTime, shouldStopUsingItemAfterBlockOrParry,
-                knockbackAfterParryAction, slownessAfterParryAction, slownessAmplifierAfterParryAction, weaknessAfterParryAction,
-                weaknessAmplifierAfterParryAction, disarmedAfterParryAction));
+                knockbackAfterParryAction, parryEffects));
     }
 
     public static ParryAttributes create(String id, ParryAttributes parryAttributes){
@@ -112,23 +118,12 @@ public class ParryAttributes {
     public double getKnockbackAfterParryAction(){
         return this.knockbackAfterParryAction;
     }
-    public int getSlownessAfterParryAction(){
-        return this.slownessAfterParryAction;
-    }
-    public int getSlownessAmplifierAfterParryAction(){
-        return this.slownessAmplifierAfterParryAction;
-    }
-    public int getWeaknessAfterParryAction(){
-        return this.weaknessAfterParryAction;
-    }
-    public int getWeaknessAmplifierAfterParryAction(){
-        return this.weaknessAmplifierAfterParryAction;
-    }
-    public int getDisarmedAfterParryAction(){
-        return this.disarmedAfterParryAction;
-    }
 
     public boolean shouldStopUsingItemAfterBlockOrParry(){
         return this.shouldStopUsingItemAfterBlockOrParry;
+    }
+
+    public Iterator<Map.Entry<StatusEffect, Quartet<Integer, Integer, Float, Float>>> getParryEffectsIterator(){
+        return this.parryEffects.entrySet().iterator();
     }
 }

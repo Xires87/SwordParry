@@ -107,7 +107,7 @@ abstract class LivingEntityMixin extends Entity implements Attackable, CanBlock 
             }
 
             // interrupting block action after PARRYING or FULLY BLOCKING (no dmg) attack with tool
-            if(((ParryItem) dys.getActiveItem().getItem()).shouldStopUsingItemAfterBlockOrParry()){
+            if(((ParryItem) dys.getActiveItem().getItem()).getParryAttributes().shouldStopUsingItemAfterBlockOrParry()){
                 ((CanBlock) dys).stopUsingItemParry();
                 if(shouldSwingHand) dys.swingHand(dys.getActiveHand(), true);
             }
@@ -143,10 +143,10 @@ abstract class LivingEntityMixin extends Entity implements Attackable, CanBlock 
                     }
                 }
                 else if(source.isIn(DamageTypeTags.IS_PROJECTILE)){
-                    amount *= ((ParryItem) dys.getActiveItem().getItem()).getProjectileDamageTakenAfterBlock();
+                    amount *= ((ParryItem) dys.getActiveItem().getItem()).getParryAttributes().getProjectileDamageTakenAfterBlock();
                 }
                 else if(source.getAttacker() instanceof LivingEntity attacker){
-                    amount *= ((ParryItem) dys.getActiveItem().getItem()).getMeleeDamageTakenAfterBlock();
+                    amount *= ((ParryItem) dys.getActiveItem().getItem()).getParryAttributes().getMeleeDamageTakenAfterBlock();
                     if(attacker.disablesShield() && dys instanceof PlayerEntity player){
                         ParryHelper.disableParryItem(player, dys.getActiveItem().getItem());
                         ParryHelper.playGuardBreakSound(player);
@@ -165,7 +165,7 @@ abstract class LivingEntityMixin extends Entity implements Attackable, CanBlock 
 
 
                 // interrupting block action after BLOCKING attack with tool
-                if(((ParryItem) dys.getActiveItem().getItem()).shouldStopUsingItemAfterBlockOrParry()){
+                if(((ParryItem) dys.getActiveItem().getItem()).getParryAttributes().shouldStopUsingItemAfterBlockOrParry()){
                     ((CanBlock) dys).stopUsingItemParry();
                 }
 
@@ -313,7 +313,7 @@ abstract class LivingEntityMixin extends Entity implements Attackable, CanBlock 
         ItemStack itemStack = dys.getStackInHand(hand);
         if (!itemStack.isEmpty() && !dys.isUsingItem()) {
             this.activeItemStack = itemStack;
-            this.itemUseTimeLeft = ((ParryItem) itemStack.getItem()).getMaxUseTimeParry();
+            this.itemUseTimeLeft = ((ParryItem) itemStack.getItem()).getParryAttributes().getMaxUseTimeParry();
             if (!this.getWorld().isClient) {
                 this.setLivingFlag(1, true);
                 this.setLivingFlag(2, hand == Hand.OFF_HAND);

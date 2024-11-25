@@ -23,22 +23,4 @@ public interface ParryItem {
 
     ItemStack finishUsingParry(ItemStack stack, World world, LivingEntity user);
 
-    int getParryTicks();
-
-    float getMeleeDamageTakenAfterBlock();
-
-    float getProjectileDamageTakenAfterBlock();
-
-    float getCooldownAfterParryAction();
-    float getCooldownAfterInterruptingBlockAction();
-    double getKnockbackAfterParryAction();
-    int getSlownessAfterParryAction();
-    int getSlownessAmplifierAfterParryAction();
-    int getWeaknessAfterParryAction();
-    int getWeaknessAmplifierAfterParryAction();
-    int getDisarmedAfterParryAction();
-
-    int getMaxUseTimeParry();
-
-    boolean shouldStopUsingItemAfterBlockOrParry();
 }
