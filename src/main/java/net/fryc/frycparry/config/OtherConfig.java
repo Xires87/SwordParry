@@ -39,6 +39,12 @@ public class OtherConfig implements ConfigData {
 
     public double parryKnockbackStrength = 5;
 
+    @Comment("""
+            List of status effects that can be applied to attacker in the following pattern:\s
+            'StatusEffect;duration;amplifier;chance;enchantmentModifier;StatusEffect;duration;amplifier;chance;enchantmentModifier'\s
+            chance: 1.0 = 100%\s
+            enchantmentModifier: 0.4 = 40% longer duration per Parry enchantment level""")
+    @ConfigEntry.Gui.Tooltip
     public String parryEffects = "minecraft:slowness;100;1;1.0;0.3;" +
             "frycparry:disarmed;20;1;1.0;0.12";
 

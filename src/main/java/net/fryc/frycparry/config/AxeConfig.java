@@ -29,7 +29,12 @@ public class AxeConfig implements ConfigData {
     
     public double axeParryKnockbackStrength = 7;
 
-
+    @Comment("""
+            List of status effects that can be applied to attacker in the following pattern:\s
+            'StatusEffect;duration;amplifier;chance;enchantmentModifier;StatusEffect;duration;amplifier;chance;enchantmentModifier'\s
+            chance: 1.0 = 100%\s
+            enchantmentModifier: 0.4 = 40% longer duration per Parry enchantment level""")
+    @ConfigEntry.Gui.Tooltip
     public String axeParryEffects = "minecraft:slowness;100;1;1.0;0.3;" +
             "frycparry:disarmed;45;1;1.0;0.12";
 
