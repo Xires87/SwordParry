@@ -32,6 +32,12 @@ public class HoeConfig implements ConfigData {
     
     public double hoeParryKnockbackStrength = 3;
 
+    @Comment("""
+            List of status effects that can be applied to attacker in the following pattern:\s
+            'StatusEffect;duration;amplifier;chance;enchantmentModifier;StatusEffect;duration;amplifier;chance;enchantmentModifier'\s
+            chance: 1.0 = 100%\s
+            enchantmentModifier: 0.4 = 40% longer duration per Parry enchantment level""")
+    @ConfigEntry.Gui.Tooltip
     public String hoeParryEffects = "minecraft:slowness;40;1;1.0;0.3;" +
             "frycparry:disarmed;25;1;1.0;0.12";
 

@@ -29,6 +29,12 @@ public class ShovelConfig implements ConfigData {
     
     public double shovelParryKnockbackStrength = 9;
 
+    @Comment("""
+            List of status effects that can be applied to attacker in the following pattern:\s
+            'StatusEffect;duration;amplifier;chance;enchantmentModifier;StatusEffect;duration;amplifier;chance;enchantmentModifier'\s
+            chance: 1.0 = 100%\s
+            enchantmentModifier: 0.4 = 40% longer duration per Parry enchantment level""")
+    @ConfigEntry.Gui.Tooltip
     public String shovelParryEffects = "minecraft:slowness;110;1;1.0;0.3;" +
             "frycparry:disarmed;28;1;1.0;0.12";
 
