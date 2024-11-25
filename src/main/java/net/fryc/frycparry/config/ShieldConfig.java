@@ -24,17 +24,9 @@ public class ShieldConfig implements ConfigData {
 
     public double shieldParryKnockbackStrength = 9;
 
-    public int shieldSlownessAfterParry = 100;
+    public String shieldParryEffects = "minecraft:slowness;100;1;1.0;0.3;" +
+            "frycparry:disarmed;45;1;1.0;0.12";
 
-    @ConfigEntry.BoundedDiscrete(max = 99, min = 1)
-    public int shieldSlownessAfterParryAmplifier = 1;
-
-    public int shieldWeaknessAfterParry = 0;
-
-    @ConfigEntry.BoundedDiscrete(max = 99, min = 1)
-    public int shieldWeaknessAfterParryAmplifier = 1;
-
-    public int shieldDisarmAfterParry = 45;
     @Comment("""
             Values above 0 describe number of ticks item will be disabled for\s
             When this value is below zero, cooldown is based on attack speed and the value is multiplier\s

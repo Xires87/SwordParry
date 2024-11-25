@@ -32,22 +32,9 @@ public class HoeConfig implements ConfigData {
     
     public double hoeParryKnockbackStrength = 3;
 
-    
-    public int hoeSlownessAfterParry = 40;
+    public String hoeParryEffects = "minecraft:slowness;40;1;1.0;0.3;" +
+            "frycparry:disarmed;25;1;1.0;0.12";
 
-    
-    @ConfigEntry.BoundedDiscrete(max = 99, min = 1)
-    public int hoeSlownessAfterParryAmplifier = 1;
-
-    
-    public int hoeWeaknessAfterParry = 0;
-
-    
-    @ConfigEntry.BoundedDiscrete(max = 99, min = 1)
-    public int hoeWeaknessAfterParryAmplifier = 1;
-
-    
-    public int hoeDisarmAfterParry = 25;
 
     @Comment("""
             Values above 0 describe number of ticks item will be disabled for\s

@@ -31,22 +31,8 @@ public class SwordConfig implements ConfigData {
 
     public double swordParryKnockbackStrength = 6;
 
-
-    public int swordSlownessAfterParry = 100;
-
-
-    @ConfigEntry.BoundedDiscrete(max = 99, min = 1)
-    public int swordSlownessAfterParryAmplifier = 1;
-
-
-    public int swordWeaknessAfterParry = 0;
-
-
-    @ConfigEntry.BoundedDiscrete(max = 99, min = 1)
-    public int swordWeaknessAfterParryAmplifier = 1;
-
-
-    public int swordDisarmAfterParry = 45;
+    public String swordParryEffects = "minecraft:slowness;100;1;1.0;0.3;" +
+            "frycparry:disarmed;45;1;1.0;0.12"; // TODO skopiowac metody z mob variants i zamienic to na mape
 
     @Comment("""
             Values above 0 describe number of ticks item will be disabled for\s

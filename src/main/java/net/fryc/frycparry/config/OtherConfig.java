@@ -39,22 +39,9 @@ public class OtherConfig implements ConfigData {
 
     public double parryKnockbackStrength = 5;
 
+    public String parryEffects = "minecraft:slowness;100;1;1.0;0.3;" +
+            "frycparry:disarmed;20;1;1.0;0.12";
 
-    public int slownessAfterParry = 100;
-
-
-    @ConfigEntry.BoundedDiscrete(max = 99, min = 1)
-    public int slownessAfterParryAmplifier = 1;
-
-
-    public int weaknessAfterParry = 0;
-
-
-    @ConfigEntry.BoundedDiscrete(max = 99, min = 1)
-    public int weaknessAfterParryAmplifier = 1;
-
-
-    public int disarmAfterParry = 20;
 
     @Comment("""
             Values above 0 describe number of ticks item will be disabled for\s
