@@ -6,7 +6,8 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import net.fabricmc.fabric.api.resource.SimpleSynchronousResourceReloadListener;
 import net.fryc.frycparry.FrycParry;
-import net.fryc.frycparry.util.ParryHelper;
+import net.fryc.frycparry.attributes.ParryAttributes;
+import net.fryc.frycparry.util.ConfigHelper;
 import net.fryc.frycparry.util.interfaces.ParryItem;
 import net.minecraft.item.Item;
 import net.minecraft.registry.Registries;
@@ -28,8 +29,9 @@ public class ParryItemsResourceReloadLoader implements SimpleSynchronousResource
     @Override
     public void reload(ResourceManager manager) {
         // setting default parry attributes for all items
+        ConfigHelper.reloadDefaultParryEffects();
         for(Item item : Registries.ITEM){
-            ((ParryItem) item).setParryAttributes(ParryHelper.getDefaultParryAttributes(item));
+            ((ParryItem) item).setParryAttributes(ParryAttributes.getDefaultParryAttributes(item));
         }
 
         // setting parry attributes from datapacks

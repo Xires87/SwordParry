@@ -23,28 +23,11 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import oshi.util.tuples.Quartet;
 
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class ParryHelper {
-
-    public static int dualWieldingSettings = FrycParry.config.server.enableBlockingWhenDualWielding;
-    public static boolean enableBlockingWithSword = FrycParry.config.sword.enableBlockingWithSword;
-    public static boolean enableBlockingWithAxe = FrycParry.config.axe.enableBlockingWithAxe;
-    public static boolean enableBlockingWithPickaxe = FrycParry.config.pickaxe.enableBlockingWithPickaxe;
-    public static boolean enableBlockingWithShovel = FrycParry.config.shovel.enableBlockingWithShovel;
-    public static boolean enableBlockingWithHoe = FrycParry.config.hoe.enableBlockingWithHoe;
-    public static boolean enableBlockingWithOtherTools = FrycParry.config.server.enableBlockingWithOtherTools;
-
-    public static HashMap<StatusEffect, Quartet<Integer, Integer, Float, Float>> pickaxeParryEffects = new HashMap<>();
-    public static HashMap<StatusEffect, Quartet<Integer, Integer, Float, Float>> axeParryEffects = new HashMap<>();
-    public static HashMap<StatusEffect, Quartet<Integer, Integer, Float, Float>> swordParryEffects = new HashMap<>();
-    public static HashMap<StatusEffect, Quartet<Integer, Integer, Float, Float>> shovelParryEffects = new HashMap<>();
-    public static HashMap<StatusEffect, Quartet<Integer, Integer, Float, Float>> hoeParryEffects = new HashMap<>();
-    public static HashMap<StatusEffect, Quartet<Integer, Integer, Float, Float>> shieldParryEffects = new HashMap<>();
-    public static HashMap<StatusEffect, Quartet<Integer, Integer, Float, Float>> parryEffects = new HashMap<>();
 
     public static boolean canParryWithoutShield(LivingEntity user){
         return isItemParryEnabled(user.getMainHandStack()) && !hasShieldEquipped(user) && isNonShieldParryingEnabled(user);
@@ -63,14 +46,14 @@ public class ParryHelper {
 
     public static boolean checkDualWieldingWeapons(LivingEntity user){
         if(user.getWorld().isClient()){
-            return dualWieldingSettings > 0 && isItemParryEnabled(user.getOffHandStack());
+            return ConfigHelper.dualWieldingSettings > 0 && isItemParryEnabled(user.getOffHandStack());
         }
         return FrycParry.config.server.enableBlockingWhenDualWielding > 0 && isItemParryEnabled(user.getOffHandStack());
     }
 
     public static boolean checkDualWieldingItems(LivingEntity user){
         if(user.getWorld().isClient()){
-            return dualWieldingSettings > 1;
+            return ConfigHelper.dualWieldingSettings > 1;
         }
         return FrycParry.config.server.enableBlockingWhenDualWielding > 1;
     }
@@ -132,12 +115,12 @@ public class ParryHelper {
     public static boolean isItemParryDisabledWithConfig(World world, ItemStack stack){
         Item item = stack.getItem();
         if(world.isClient()){
-            if(item instanceof SwordItem) return !enableBlockingWithSword && !stack.isIn(ModItemTags.ITEMS_CAN_PARRY);
-            if(item instanceof AxeItem) return !enableBlockingWithAxe && !stack.isIn(ModItemTags.ITEMS_CAN_PARRY);
-            if(item instanceof PickaxeItem) return !enableBlockingWithPickaxe && !stack.isIn(ModItemTags.ITEMS_CAN_PARRY);
-            if(item instanceof ShovelItem) return !enableBlockingWithShovel && !stack.isIn(ModItemTags.ITEMS_CAN_PARRY);
-            if(item instanceof HoeItem) return !enableBlockingWithHoe && !stack.isIn(ModItemTags.ITEMS_CAN_PARRY);
-            return !enableBlockingWithOtherTools && !stack.isIn(ModItemTags.ITEMS_CAN_PARRY);
+            if(item instanceof SwordItem) return !ConfigHelper.enableBlockingWithSword && !stack.isIn(ModItemTags.ITEMS_CAN_PARRY);
+            if(item instanceof AxeItem) return !ConfigHelper.enableBlockingWithAxe && !stack.isIn(ModItemTags.ITEMS_CAN_PARRY);
+            if(item instanceof PickaxeItem) return !ConfigHelper.enableBlockingWithPickaxe && !stack.isIn(ModItemTags.ITEMS_CAN_PARRY);
+            if(item instanceof ShovelItem) return !ConfigHelper.enableBlockingWithShovel && !stack.isIn(ModItemTags.ITEMS_CAN_PARRY);
+            if(item instanceof HoeItem) return !ConfigHelper.enableBlockingWithHoe && !stack.isIn(ModItemTags.ITEMS_CAN_PARRY);
+            return !ConfigHelper.enableBlockingWithOtherTools && !stack.isIn(ModItemTags.ITEMS_CAN_PARRY);
         }
         return isItemParryDisabledWithConfig(stack);
     }
