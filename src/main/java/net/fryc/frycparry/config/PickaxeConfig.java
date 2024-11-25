@@ -29,22 +29,9 @@ public class PickaxeConfig implements ConfigData {
     
     public double pickaxeParryKnockbackStrength = 5;
 
-    
-    public int pickaxeSlownessAfterParry = 100;
+    public String pickaxeParryEffects = "minecraft:slowness;100;1;1.0;0.3;" +
+            "frycparry:disarmed;20;1;1.0;0.12";
 
-    
-    @ConfigEntry.BoundedDiscrete(max = 99, min = 1)
-    public int pickaxeSlownessAfterParryAmplifier = 1;
-
-    
-    public int pickaxeWeaknessAfterParry = 0;
-
-    
-    @ConfigEntry.BoundedDiscrete(max = 99, min = 1)
-    public int pickaxeWeaknessAfterParryAmplifier = 1;
-
-    
-    public int pickaxeDisarmAfterParry = 20;
 
     @Comment("""
             Values above 0 describe number of ticks item will be disabled for\s
