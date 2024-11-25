@@ -29,22 +29,10 @@ public class AxeConfig implements ConfigData {
     
     public double axeParryKnockbackStrength = 7;
 
-    
-    public int axeSlownessAfterParry = 100;
 
-    
-    @ConfigEntry.BoundedDiscrete(max = 99, min = 1)
-    public int axeSlownessAfterParryAmplifier = 1;
+    public String axeParryEffects = "minecraft:slowness;100;1;1.0;0.3;" +
+            "frycparry:disarmed;45;1;1.0;0.12";
 
-    
-    public int axeWeaknessAfterParry = 0;
-
-    
-    @ConfigEntry.BoundedDiscrete(max = 99, min = 1)
-    public int axeWeaknessAfterParryAmplifier = 1;
-
-    
-    public int axeDisarmAfterParry = 45;
 
     @Comment("""
             Values above 0 describe number of ticks item will be disabled for\s

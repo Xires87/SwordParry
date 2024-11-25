@@ -29,22 +29,9 @@ public class ShovelConfig implements ConfigData {
     
     public double shovelParryKnockbackStrength = 9;
 
-    
-    public int shovelSlownessAfterParry = 110;
+    public String shovelParryEffects = "minecraft:slowness;110;1;1.0;0.3;" +
+            "frycparry:disarmed;28;1;1.0;0.12";
 
-    
-    @ConfigEntry.BoundedDiscrete(max = 99, min = 1)
-    public int shovelSlownessAfterParryAmplifier = 1;
-
-    
-    public int shovelWeaknessAfterParry = 0;
-
-    
-    @ConfigEntry.BoundedDiscrete(max = 99, min = 1)
-    public int shovelWeaknessAfterParryAmplifier = 1;
-
-    
-    public int shovelDisarmAfterParry = 28;
 
     @Comment("""
             Values above 0 describe number of ticks item will be disabled for\s

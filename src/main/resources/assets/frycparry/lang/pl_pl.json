@@ -45,26 +45,14 @@
   "text.autoconfig.frycparry.option.server.enableBlockingWhenDualWielding": "Ustawienia dla trzymania w dwóch rękach  [Wymagany Restart]",
   "text.autoconfig.frycparry.option.server.enableBlockingWhenDualWielding.@Tooltip": "0 - gracz może blokować i parować kiedy jego druga ręka jest pusta;\n  1 - gracz może też blokować i parować kiedy trzyma narzędzie w drugiej ręce;\n 2 - gracz może blokować i parować z jakimkolwiek przedmiotem w drugiej ręce;",
 
-
-
   "text.autoconfig.frycparry.option.multiplayerModifiers.parryKnockbackStrengthForPlayersModifier": "Zredukuj siłę odrzutu dla graczy o:",
   "text.autoconfig.frycparry.option.multiplayerModifiers.parryKnockbackStrengthForPlayersModifier.@Tooltip": "Przykład: kiedy ustawione na 3, i siła odrzutu aktywnego przedmiotu to 9, sparowany gracz zostanie odrzucony z siłą 6 (9 - 3 = 6)",
-  "text.autoconfig.frycparry.option.multiplayerModifiers.weaknessForPlayersAfterParryModifier": "Zredukuj długość osłabienia dla graczy o:",
-  "text.autoconfig.frycparry.option.multiplayerModifiers.weaknessForPlayersAfterParryModifier.@Tooltip": "Przykład: kiedy ustawione na 30, i długość osłabienia aktywnego przedmiotu to 100, sparowany gracz dostanie osłabienie o długości 70 (100 - 30 = 70)",
-  "text.autoconfig.frycparry.option.multiplayerModifiers.weaknessForPlayersAmplifierModifier": "Zredukuj moc osłabienia dla graczy o:",
-  "text.autoconfig.frycparry.option.multiplayerModifiers.weaknessForPlayersAmplifierModifier.@Tooltip": "Przykład: kiedy ustawione na 1, i moc osłabienia aktywnego przedmiotu to 2, sparowany gracz dostanie osłabienie o mocy 1 (2 - 1 = 1)",
-  "text.autoconfig.frycparry.option.multiplayerModifiers.slownessForPlayersAfterParryModifier": "Zredukuj długość spowolnienia dla graczy o:",
-  "text.autoconfig.frycparry.option.multiplayerModifiers.slownessForPlayersAfterParryModifier.@Tooltip": "Przykład: kiedy ustawione na -30, i długość spowolnienia aktywnego przedmiotu to 100, sparowany gracz dostanie spowolnienie o długości 130 (100 - (-30) = 130)",
-  "text.autoconfig.frycparry.option.multiplayerModifiers.slownessForPlayersAmplifierModifier": "Zredukuj moc spowolnienia dla graczy o:",
-  "text.autoconfig.frycparry.option.multiplayerModifiers.slownessForPlayersAmplifierModifier.@Tooltip": "Przykład: kiedy ustawione na -1, i moc spowolnienia aktywnego przedmiotu to 1, sparowany gracz dostanie spowolnienie o mocy 2 (1 - (-1) = 2)",
-
 
   "text.autoconfig.frycparry.option.axe.enableBlockingWithPickaxe": "Włącz blokowanie i parowanie [Wymagany Restart]",
   "text.autoconfig.frycparry.option.pickaxe.enableBlockingWithAxe": "Włącz blokowanie i parowanie [Wymagany Restart]",
   "text.autoconfig.frycparry.option.sword.enableBlockingWithSword": "Włącz blokowanie i parowanie [Wymagany Restart]",
   "text.autoconfig.frycparry.option.shovel.enableBlockingWithShovel": "Włącz blokowanie i parowanie [Wymagany Restart]",
   "text.autoconfig.frycparry.option.hoe.enableBlockingWithHoe": "Włącz blokowanie i parowanie [Wymagany Restart]",
-
 
   "text.autoconfig.frycparry.option.shield.cooldownAfterInterruptingShieldBlockAction": "Czas odnowienia po zmianie przedmiotu, zablokowaniu ataku, lub przerwaniu blokowania [Wymagany /reload]",
   "text.autoconfig.frycparry.option.axe.cooldownAfterInterruptingAxeBlockAction": "Czas odnowienia po zmianie przedmiotu, zablokowaniu ataku, lub przerwaniu blokowania [Wymagany /reload]",
@@ -151,51 +139,6 @@
   "text.autoconfig.frycparry.option.hoe.hoeParryKnockbackStrength": "Siła odrzutu z parowania [Wymagany /reload]",
   "text.autoconfig.frycparry.option.pickaxe.pickaxeParryKnockbackStrength": "Siła odrzutu z parowania [Wymagany /reload]",
   "text.autoconfig.frycparry.option.server.parryKnockbackStrength": "Siła odrzutu z parowania [Wymagany /reload]",
-
-
-  "text.autoconfig.frycparry.option.shield.shieldSlownessAfterParry": "Długość spowolnienia z parowania [Wymagany /reload]",
-  "text.autoconfig.frycparry.option.sword.swordSlownessAfterParry": "Długość spowolnienia z parowania [Wymagany /reload]",
-  "text.autoconfig.frycparry.option.axe.axeSlownessAfterParry": "Długość spowolnienia z parowania [Wymagany /reload]",
-  "text.autoconfig.frycparry.option.pickaxe.pickaxeSlownessAfterParry": "Długość spowolnienia z parowania [Wymagany /reload]",
-  "text.autoconfig.frycparry.option.hoe.hoeSlownessAfterParry": "Długość spowolnienia z parowania [Wymagany /reload]",
-  "text.autoconfig.frycparry.option.shovel.shovelSlownessAfterParry": "Długość spowolnienia z parowania [Wymagany /reload]",
-  "text.autoconfig.frycparry.option.server.slownessAfterParry": "Długość spowolnienia z parowania [Wymagany /reload]",
-
-
-  "text.autoconfig.frycparry.option.shield.shieldSlownessAfterParryAmplifier": "Moc spowolnienia z parowania [Wymagany /reload]",
-  "text.autoconfig.frycparry.option.sword.swordSlownessAfterParryAmplifier": "Moc spowolnienia z parowania [Wymagany /reload]",
-  "text.autoconfig.frycparry.option.axe.axeSlownessAfterParryAmplifier": "Moc spowolnienia z parowania [Wymagany /reload]",
-  "text.autoconfig.frycparry.option.pickaxe.pickaxeSlownessAfterParryAmplifier": "Moc spowolnienia z parowania [Wymagany /reload]",
-  "text.autoconfig.frycparry.option.hoe.hoeSlownessAfterParryAmplifier": "Moc spowolnienia z parowania [Wymagany /reload]",
-  "text.autoconfig.frycparry.option.shovel.shovelSlownessAfterParryAmplifier": "Moc spowolnienia z parowania [Wymagany /reload]",
-  "text.autoconfig.frycparry.option.server.slownessAfterParryAmplifier": "Moc spowolnienia z parowania [Wymagany /reload]",
-
-
-  "text.autoconfig.frycparry.option.shield.shieldWeaknessAfterParry": "Długość osłabienia z parowania [Wymagany /reload]",
-  "text.autoconfig.frycparry.option.sword.swordWeaknessAfterParry": "Długość osłabienia z parowania [Wymagany /reload]",
-  "text.autoconfig.frycparry.option.axe.axeWeaknessAfterParry": "Długość osłabienia z parowania [Wymagany /reload]",
-  "text.autoconfig.frycparry.option.pickaxe.pickaxeWeaknessAfterParry": "Długość osłabienia z parowania [Wymagany /reload]",
-  "text.autoconfig.frycparry.option.hoe.hoeWeaknessAfterParry": "Długość osłabienia z parowania [Wymagany /reload]",
-  "text.autoconfig.frycparry.option.shovel.shovelWeaknessAfterParry": "Długość osłabienia z parowania [Wymagany /reload]",
-  "text.autoconfig.frycparry.option.server.weaknessAfterParry": "Długość osłabienia z parowania [Wymagany /reload]",
-
-
-  "text.autoconfig.frycparry.option.shield.shieldWeaknessAfterParryAmplifier": "Moc osłabienia z parowania [Wymagany /reload]",
-  "text.autoconfig.frycparry.option.sword.swordWeaknessAfterParryAmplifier": "Moc osłabienia z parowania [Wymagany /reload]",
-  "text.autoconfig.frycparry.option.axe.axeWeaknessAfterParryAmplifier": "Moc osłabienia z parowania [Wymagany /reload]",
-  "text.autoconfig.frycparry.option.pickaxe.pickaxeWeaknessAfterParryAmplifier": "Moc osłabienia z parowania [Wymagany /reload]",
-  "text.autoconfig.frycparry.option.hoe.hoeWeaknessAfterParryAmplifier": "Moc osłabienia z parowania [Wymagany /reload]",
-  "text.autoconfig.frycparry.option.shovel.shovelWeaknessAfterParryAmplifier": "Moc osłabienia z parowania [Wymagany /reload]",
-  "text.autoconfig.frycparry.option.server.weaknessAfterParryAmplifier": "Moc osłabienia z parowania [Wymagany /reload]",
-
-
-  "text.autoconfig.frycparry.option.shield.shieldDisarmAfterParry": "Długość rozbrojenia z parowania (tylko dla graczy) [Wymagany /reload]",
-  "text.autoconfig.frycparry.option.sword.swordDisarmAfterParry": "Długość rozbrojenia z parowania (tylko dla graczy) [Wymagany /reload]",
-  "text.autoconfig.frycparry.option.axe.axeDisarmAfterParry": "Długość rozbrojenia z parowania (tylko dla graczy) [Wymagany /reload]",
-  "text.autoconfig.frycparry.option.pickaxe.pickaxeDisarmAfterParry": "Długość rozbrojenia z parowania (tylko dla graczy) [Wymagany /reload]",
-  "text.autoconfig.frycparry.option.hoe.hoeDisarmAfterParry": "Długość rozbrojenia z parowania (tylko dla graczy) [Wymagany /reload]",
-  "text.autoconfig.frycparry.option.shovel.shovelDisarmAfterParry": "Długość rozbrojenia z parowania (tylko dla graczy) [Wymagany /reload]",
-  "text.autoconfig.frycparry.option.server.disarmAfterParry": "Długość rozbrojenia z parowania (tylko dla graczy) [Wymagany /reload]",
 
   "text.autoconfig.frycparry.option.shield.shouldStopUsingShieldAfterBlockOrParry": "Przestań używać przedmiotu po zablokowaniu lub sparowaniu [Wymagany /reload]",
   "text.autoconfig.frycparry.option.sword.shouldStopUsingSwordAfterBlockOrParry": "Przestań używać przedmiotu po zablokowaniu lub sparowaniu [Wymagany /reload]",

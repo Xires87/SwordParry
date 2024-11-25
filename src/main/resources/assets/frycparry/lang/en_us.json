@@ -46,19 +46,8 @@
   "text.autoconfig.frycparry.option.server.enableBlockingWhenDualWielding": "Dual wielding settings [Restart Required]",
   "text.autoconfig.frycparry.option.server.enableBlockingWhenDualWielding.@Tooltip": "0 - player can block and parry with empty offhand;\n  1 - player can also block and parry when dual wields weapons;\n 2 - player can block and parry with any item in offhand;",
 
-
-
   "text.autoconfig.frycparry.option.multiplayerModifiers.parryKnockbackStrengthForPlayersModifier": "Reduce knockback strength for players by:",
   "text.autoconfig.frycparry.option.multiplayerModifiers.parryKnockbackStrengthForPlayersModifier.@Tooltip": "Example: when set to 3, and knockback strength of active item is 9, knockback strength for parried player will be 6 (9 - 3 = 6)",
-  "text.autoconfig.frycparry.option.multiplayerModifiers.weaknessForPlayersAfterParryModifier": "Reduce weakness duration for players by:",
-  "text.autoconfig.frycparry.option.multiplayerModifiers.weaknessForPlayersAfterParryModifier.@Tooltip": "Example: when set to 30, and weakness duration of active item is 100, weakness duration for parried player will be 70 (100 - 30 = 70)",
-  "text.autoconfig.frycparry.option.multiplayerModifiers.weaknessForPlayersAmplifierModifier": "Reduce weakness amplifier for players by:",
-  "text.autoconfig.frycparry.option.multiplayerModifiers.weaknessForPlayersAmplifierModifier.@Tooltip": "Example: when set to 1, and weakness amplifier of active item is 2, weakness amplifier for parried player will be 1 (2 - 1 = 1)",
-  "text.autoconfig.frycparry.option.multiplayerModifiers.slownessForPlayersAfterParryModifier": "Reduce slowness duration for players by:",
-  "text.autoconfig.frycparry.option.multiplayerModifiers.slownessForPlayersAfterParryModifier.@Tooltip": "Example: when set to -30, and slowness duration of active item is 100, slowness duration for parried player will be 130 (100 - (-30) = 130)",
-  "text.autoconfig.frycparry.option.multiplayerModifiers.slownessForPlayersAmplifierModifier": "Reduce slowness amplifier for players by:",
-  "text.autoconfig.frycparry.option.multiplayerModifiers.slownessForPlayersAmplifierModifier.@Tooltip": "Example: when set to -1, and slowness amplifier of active item is 1, slowness amplifier for parried player will be 2 (1 - (-1) = 2)",
-
 
   "text.autoconfig.frycparry.option.pickaxe.enableBlockingWithPickaxe": "Enable blocking and parrying [Restart Required]",
   "text.autoconfig.frycparry.option.axe.enableBlockingWithAxe": "Enable blocking and parrying [Restart Required]",
@@ -66,7 +55,6 @@
   "text.autoconfig.frycparry.option.shovel.enableBlockingWithShovel": "Enable blocking and parrying [Restart Required]",
   "text.autoconfig.frycparry.option.hoe.enableBlockingWithHoe": "Enable blocking and parrying [Restart Required]",
   "text.autoconfig.frycparry.option.mace.enableBlockingWithMace": "Enable blocking and parrying [Restart Required]",
-
 
   "text.autoconfig.frycparry.option.shield.cooldownAfterInterruptingShieldBlockAction": "Cooldown after switching item, blocking attack or interrupting block action [/reload Required]",
   "text.autoconfig.frycparry.option.axe.cooldownAfterInterruptingAxeBlockAction": "Cooldown after switching item, blocking attack or interrupting block action [/reload Required]",
@@ -167,56 +155,6 @@
   "text.autoconfig.frycparry.option.mace.maceParryKnockbackStrength": "Parry knockback strength [/reload Required]",
   "text.autoconfig.frycparry.option.pickaxe.pickaxeParryKnockbackStrength": "Parry knockback strength [/reload Required]",
   "text.autoconfig.frycparry.option.server.parryKnockbackStrength": "Parry knockback strength [/reload Required]",
-
-
-  "text.autoconfig.frycparry.option.shield.shieldSlownessAfterParry": "Parry slowness duration [/reload Required]",
-  "text.autoconfig.frycparry.option.sword.swordSlownessAfterParry": "Parry slowness duration [/reload Required]",
-  "text.autoconfig.frycparry.option.axe.axeSlownessAfterParry": "Parry slowness duration [/reload Required]",
-  "text.autoconfig.frycparry.option.pickaxe.pickaxeSlownessAfterParry": "Parry slowness duration [/reload Required]",
-  "text.autoconfig.frycparry.option.hoe.hoeSlownessAfterParry": "Parry slowness duration [/reload Required]",
-  "text.autoconfig.frycparry.option.mace.maceSlownessAfterParry": "Parry slowness duration [/reload Required]",
-  "text.autoconfig.frycparry.option.shovel.shovelSlownessAfterParry": "Parry slowness duration [/reload Required]",
-  "text.autoconfig.frycparry.option.server.slownessAfterParry": "Parry slowness duration [/reload Required]",
-  
-
-  "text.autoconfig.frycparry.option.shield.shieldSlownessAfterParryAmplifier": "Parry slowness amplifier [/reload Required]",
-  "text.autoconfig.frycparry.option.sword.swordSlownessAfterParryAmplifier": "Parry slowness amplifier [/reload Required]",
-  "text.autoconfig.frycparry.option.axe.axeSlownessAfterParryAmplifier": "Parry slowness amplifier [/reload Required]",
-  "text.autoconfig.frycparry.option.pickaxe.pickaxeSlownessAfterParryAmplifier": "Parry slowness amplifier [/reload Required]",
-  "text.autoconfig.frycparry.option.hoe.hoeSlownessAfterParryAmplifier": "Parry slowness amplifier [/reload Required]",
-  "text.autoconfig.frycparry.option.mace.maceSlownessAfterParryAmplifier": "Parry slowness amplifier [/reload Required]",
-  "text.autoconfig.frycparry.option.shovel.shovelSlownessAfterParryAmplifier": "Parry slowness amplifier [/reload Required]",
-  "text.autoconfig.frycparry.option.server.slownessAfterParryAmplifier": "Parry slowness amplifier [/reload Required]",
-
-
-  "text.autoconfig.frycparry.option.shield.shieldWeaknessAfterParry": "Parry weakness duration [/reload Required]",
-  "text.autoconfig.frycparry.option.sword.swordWeaknessAfterParry": "Parry weakness duration [/reload Required]",
-  "text.autoconfig.frycparry.option.axe.axeWeaknessAfterParry": "Parry weakness duration [/reload Required]",
-  "text.autoconfig.frycparry.option.pickaxe.pickaxeWeaknessAfterParry": "Parry weakness duration [/reload Required]",
-  "text.autoconfig.frycparry.option.hoe.hoeWeaknessAfterParry": "Parry weakness duration [/reload Required]",
-  "text.autoconfig.frycparry.option.mace.maceWeaknessAfterParry": "Parry weakness duration [/reload Required]",
-  "text.autoconfig.frycparry.option.shovel.shovelWeaknessAfterParry": "Parry weakness duration [/reload Required]",
-  "text.autoconfig.frycparry.option.server.weaknessAfterParry": "Parry weakness duration [/reload Required]",
-
-
-  "text.autoconfig.frycparry.option.shield.shieldWeaknessAfterParryAmplifier": "Parry weakness amplifier [/reload Required]",
-  "text.autoconfig.frycparry.option.sword.swordWeaknessAfterParryAmplifier": "Parry weakness amplifier [/reload Required]",
-  "text.autoconfig.frycparry.option.axe.axeWeaknessAfterParryAmplifier": "Parry weakness amplifier [/reload Required]",
-  "text.autoconfig.frycparry.option.pickaxe.pickaxeWeaknessAfterParryAmplifier": "Parry weakness amplifier [/reload Required]",
-  "text.autoconfig.frycparry.option.hoe.hoeWeaknessAfterParryAmplifier": "Parry weakness amplifier [/reload Required]",
-  "text.autoconfig.frycparry.option.mace.maceWeaknessAfterParryAmplifier": "Parry weakness amplifier [/reload Required]",
-  "text.autoconfig.frycparry.option.shovel.shovelWeaknessAfterParryAmplifier": "Parry weakness amplifier [/reload Required]",
-  "text.autoconfig.frycparry.option.server.weaknessAfterParryAmplifier": "Parry weakness amplifier [/reload Required]",
-  
-
-  "text.autoconfig.frycparry.option.shield.shieldDisarmAfterParry": "Parry disarm duration (for players only) [/reload Required]",
-  "text.autoconfig.frycparry.option.sword.swordDisarmAfterParry": "Parry disarm duration (for players only) [/reload Required]",
-  "text.autoconfig.frycparry.option.axe.axeDisarmAfterParry": "Parry disarm duration (for players only) [/reload Required]",
-  "text.autoconfig.frycparry.option.pickaxe.pickaxeDisarmAfterParry": "Parry disarm duration (for players only) [/reload Required]",
-  "text.autoconfig.frycparry.option.hoe.hoeDisarmAfterParry": "Parry disarm duration (for players only) [/reload Required]",
-  "text.autoconfig.frycparry.option.mace.maceDisarmAfterParry": "Parry disarm duration (for players only) [/reload Required]",
-  "text.autoconfig.frycparry.option.shovel.shovelDisarmAfterParry": "Parry disarm duration (for players only) [/reload Required]",
-  "text.autoconfig.frycparry.option.server.disarmAfterParry": "Parry disarm duration (for players only) [/reload Required]",
 
   "text.autoconfig.frycparry.option.shield.shouldStopUsingShieldAfterBlockOrParry": "Stop using item after block or parry [/reload Required]",
   "text.autoconfig.frycparry.option.sword.shouldStopUsingSwordAfterBlockOrParry": "Stop using item after block or parry [/reload Required]",
