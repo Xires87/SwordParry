@@ -41,7 +41,7 @@ If [existing parry attributes](https://github.com/Xires87/SwordParry/tree/master
   "knockbackAfterParryAction": 0.0,
   "parryEffects": [
     {
-      "statusEffect": "mod_id:status_effect",
+      "statusEffect": "MOD_ID:STATUS_EFFECT",
       "duration": 0,
       "amplifier": 1,
       "chance": 0.0,
@@ -86,3 +86,12 @@ Note:
 - modifying parry attributes for items that can't parry by default (dirt and stick in example above) doesn't enable parrying for these items (you need to enable them with tag)
 
 
+#### Some explanations:
+
+- `explosionDamageTakenAfterBlock` doesn't do anything unless `explosionBlockDelay` is above -1
+- for all cooldown fields: if value is below 0, cooldown is based on attack speed and the value is multiplier (-2 means `valueBasedOnAttackSpeed x 2`)
+- parry ticks are checked AFTER block delay
+- if `explosionBlockDelay` is below 0, item can't block explosions
+- `blockDelay` is still taken into account when blocking explosions
+- `explosionBlockDelay` is amount of ticks item must be held for to **successfully** block explosion (successfully means, the damage from explosion will be multiplied by `explosionDamageTakenAfterBlock`)
+- holding block for more ticks than `blockDelay`, but less than `explosionBlockDelay` will reduce protection from explosions by 80% (explosion will be blocked, but you will take MUCH more damage than specified in `explosionDamageTakenAfterBlock`)
