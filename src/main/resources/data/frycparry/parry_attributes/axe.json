@@ -2,9 +2,13 @@
   "parryTicks": 4,
   "meleeDamageTakenAfterBlock": 0.43,
   "projectileDamageTakenAfterBlock": 0.85,
+  "explosionDamageTakenAfterBlock": 1.0,
   "cooldownAfterParryAction": -1.1,
   "cooldownAfterInterruptingBlockAction": -2.1,
+  "cooldownAfterAttack": -0.90,
   "maxUseTime": 7200,
+  "blockDelay": 0,
+  "explosionBlockDelay": -1,
   "shouldStopUsingItemAfterBlockOrParry": true,
   "knockbackAfterParryAction": 7.0,
   "parryEffects": [

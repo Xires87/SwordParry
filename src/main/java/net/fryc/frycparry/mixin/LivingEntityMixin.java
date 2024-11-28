@@ -97,7 +97,6 @@ abstract class LivingEntityMixin extends Entity implements Attackable, CanBlock 
                     if(source.getAttacker() instanceof LivingEntity attacker){
                         if(attacker.disablesShield()){
                             ParryHelper.disableParryItem(player, dys.getActiveItem().getItem());
-                            //player.getWorld().sendEntityStatus(player, EntityStatuses.BREAK_SHIELD);
                             ParryHelper.playGuardBreakSound(player);
                             playSound = false;
                         }
@@ -140,10 +139,23 @@ abstract class LivingEntityMixin extends Entity implements Attackable, CanBlock 
                 float originalDamage = amount;
 
                 if(source.isIn(DamageTypeTags.IS_EXPLOSION)){
-                    // when shield is not held for 5 ticks, explosion will deal 80% of its damage
-                    if(dys.getActiveItem().getItem() instanceof ShieldItem){
-                        amount *= 0.8F;
+                    ParryItem parryItem = (ParryItem) dys.getActiveItem().getItem();
+                    if(ParryHelper.explosionCanBeBlocked(parryItem)){
+                        float multiplier;
+                        if(ParryHelper.explosionWasSuccessfullyBlocked(parryItem, dys)){
+                            multiplier = parryItem.getParryAttributes().getExplosionDamageTakenAfterBlock();
+                        }
+                        else {
+                            multiplier = 1.0F - (1.0F - parryItem.getParryAttributes().getExplosionDamageTakenAfterBlock())/5;
+                        }
+                        amount *= multiplier;
                     }
+                    else {
+                        playSound = false;
+                    }
+                    //if(dys.getActiveItem().getItem() instanceof ShieldItem){
+                    //    amount *= 0.8F;
+                    //}
                 }
                 else if(source.isIn(DamageTypeTags.IS_PROJECTILE)){
                     amount *= ((ParryItem) dys.getActiveItem().getItem()).getParryAttributes().getProjectileDamageTakenAfterBlock();
@@ -153,7 +165,6 @@ abstract class LivingEntityMixin extends Entity implements Attackable, CanBlock 
                     if(attacker.disablesShield() && dys instanceof PlayerEntity player){
                         ParryHelper.disableParryItem(player, dys.getActiveItem().getItem());
                         ParryHelper.playGuardBreakSound(player);
-                        //b = 30;
                         playSound = false;
                     }
                 }
@@ -164,8 +175,6 @@ abstract class LivingEntityMixin extends Entity implements Attackable, CanBlock 
                 if(playSound){
                     ParryHelper.playBlockSound(dys);
                 }
-                //dys.getWorld().sendEntityStatus(this, b);
-
 
                 // interrupting block action after BLOCKING attack with tool
                 if(((ParryItem) dys.getActiveItem().getItem()).getParryAttributes().shouldStopUsingItemAfterBlockOrParry()){
@@ -194,15 +203,20 @@ abstract class LivingEntityMixin extends Entity implements Attackable, CanBlock 
 
     //removes the 5 tick block delay
     @Inject(method = "isBlocking()Z", at = @At("HEAD"), cancellable = true)
-    private void removeBlockDelay(CallbackInfoReturnable<Boolean> ret) {
-        LivingEntity dys = ((LivingEntity)(Object)this);// TODO dodac block delay support
+    private void modifyBlockDelay(CallbackInfoReturnable<Boolean> ret) {
+        LivingEntity dys = ((LivingEntity)(Object)this);
         if (dys.isUsingItem() && !dys.getActiveItem().isEmpty()) {
             Item item = dys.getActiveItem().getItem();
+            int blockDelay = ((ParryItem) item).getParryAttributes().getBlockDelay() > -1 ? ((ParryItem) item).getParryAttributes().getBlockDelay() : 0;
             if(ParryHelper.isItemParryEnabled(dys.getActiveItem()) && item.getUseAction(dys.getActiveItem()) != UseAction.BLOCK){
-                ret.setReturnValue(((ParryItem) item).getUseParryAction(dys.getActiveItem()) == UseAction.BLOCK && dys.getDataTracker().get(BLOCKING_DATA)); //<--- BLOCKING_DATA is required to block with items that doesn't have UseAction.BLOCK
+                //BLOCKING_DATA is required to block with items that doesn't have UseAction.BLOCK
+                ret.setReturnValue(((ParryItem) item).getUseParryAction(dys.getActiveItem()) == UseAction.BLOCK &&
+                        dys.getDataTracker().get(BLOCKING_DATA) &&
+                        ((ParryItem) item).getParryAttributes().getMaxUseTimeParry() - this.itemUseTimeLeft >= blockDelay);
             }
             else {
-                ret.setReturnValue(item.getUseAction(dys.getActiveItem()) == UseAction.BLOCK);
+                ret.setReturnValue(item.getUseAction(dys.getActiveItem()) == UseAction.BLOCK &&
+                        item.getMaxUseTime(dys.getActiveItem()) - this.itemUseTimeLeft >= blockDelay);
             }
         }
     }
