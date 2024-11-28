@@ -1,4 +1,4 @@
-# Fryc's Parry (aka Sword Parry)
+# Fryc's Parry
 Adds parry mechanics and allows blocking with items other than shield
 
 
@@ -16,6 +16,10 @@ Adds parry mechanics and allows blocking with items other than shield
 
 (remember that some directories changed with 1.21, for example `items` is now `item`)
 
+### Making mobs resistant to disarmed status effect:
+
+- `data/frycparry/tags/entity_type/disarm_resistant_mobs.json`
+
 ### Modifying parry attributes:
 
 #### Creating parry attributes:
@@ -24,24 +28,29 @@ If [existing parry attributes](https://github.com/Xires87/SwordParry/tree/master
 ```json
 {
   "parryTicks": 0,
-  "meleeDamageTakenAfterBlock": 0.00,
-  "projectileDamageTakenAfterBlock": 0.00,
-  "cooldownAfterParryAction": 0,
-  "cooldownAfterInterruptingBlockAction": 0,
+  "meleeDamageTakenAfterBlock": 0.0,
+  "projectileDamageTakenAfterBlock": 0.0,
+  "explosionDamageTakenAfterBlock": 0.0,
+  "cooldownAfterParryAction": 0.0,
+  "cooldownAfterInterruptingBlockAction": 0.0,
+  "cooldownAfterAttack": 0.0,
   "maxUseTime": 0,
+  "blockDelay": 0,
+  "explosionBlockDelay": 0,
   "shouldStopUsingItemAfterBlockOrParry": true,
   "knockbackAfterParryAction": 0.0,
-  "slownessAfterParryAction": 0,
-  "slownessAmplifierAfterParryAction": 1,
-  "weaknessAfterParryAction": 0,
-  "weaknessAmplifierAfterParryAction": 1,
-  "disarmedAfterParryAction": 0
+  "parryEffects": [
+    {
+      "statusEffect": "mod_id:status_effect",
+      "duration": 0,
+      "amplifier": 1,
+      "chance": 0.0,
+      "enchantmentMultiplier": 0.0
+    }
+  ]
 }
 ```
 Change the values to meet your needs. Name of your file will be used to access them.
-
-Note:
-- maxUseTime doesn't work for shields
 
 
 #### Applying parry attributes to selected items:
