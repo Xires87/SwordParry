@@ -38,10 +38,14 @@ public class ParryAttributesResourceReloadListener implements SimpleSynchronousR
                 int parryTicks = JsonHelper.getInt(jsonObject, "parryTicks");
                 float meleeDamageTakenAfterBlock = JsonHelper.getFloat(jsonObject, "meleeDamageTakenAfterBlock");
                 float projectileDamageTakenAfterBlock = JsonHelper.getFloat(jsonObject, "projectileDamageTakenAfterBlock");
+                float explosionDamageTakenAfterBlock = JsonHelper.getFloat(jsonObject, "explosionDamageTakenAfterBlock");
                 float cooldownAfterParryAction = JsonHelper.getFloat(jsonObject, "cooldownAfterParryAction");
+                float cooldownAfterAttack = JsonHelper.getFloat(jsonObject, "cooldownAfterAttack");
                 float cooldownAfterInterruptingBlockAction = JsonHelper.getFloat(jsonObject, "cooldownAfterInterruptingBlockAction");
 
                 int maxUseTime = JsonHelper.getInt(jsonObject, "maxUseTime", 7200);
+                int blockDelay = JsonHelper.getInt(jsonObject, "blockDelay", 0);
+                int explosionBlockDelay = JsonHelper.getInt(jsonObject, "explosionBlockDelay", -1);
                 boolean shouldStopUsingItemAfterBlockOrParry = JsonHelper.getBoolean(jsonObject, "shouldStopUsingItemAfterBlockOrParry", true);
                 double knockbackAfterParryAction = JsonHelper.getDouble(jsonObject, "knockbackAfterParryAction", 4.0);
 
@@ -63,8 +67,9 @@ public class ParryAttributesResourceReloadListener implements SimpleSynchronousR
                 }
 
                 ParryAttributes.create(fileName, parryTicks, meleeDamageTakenAfterBlock, projectileDamageTakenAfterBlock,
-                        cooldownAfterParryAction, cooldownAfterInterruptingBlockAction, maxUseTime, shouldStopUsingItemAfterBlockOrParry,
-                        knockbackAfterParryAction, effectMap);
+                        explosionDamageTakenAfterBlock,
+                        cooldownAfterParryAction, cooldownAfterInterruptingBlockAction, cooldownAfterAttack, maxUseTime,
+                        blockDelay, explosionBlockDelay, shouldStopUsingItemAfterBlockOrParry, knockbackAfterParryAction, effectMap);
 
 
             } catch(Exception e) {

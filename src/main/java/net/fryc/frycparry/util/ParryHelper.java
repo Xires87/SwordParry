@@ -66,7 +66,9 @@ public class ParryHelper {
 
     public static boolean blockingFullyNegatesDamage(DamageSource source, ItemStack stack, LivingEntity user){
         if(source.isIn(DamageTypeTags.IS_EXPLOSION)){
-            return user.getActiveItem().getItem() instanceof ShieldItem && user.getActiveItem().getMaxUseTime() - user.getItemUseTimeLeft() >= 5;
+            ParryItem parryItem = ((ParryItem) stack.getItem());
+            return explosionCanBeBlocked(parryItem) && explosionWasSuccessfullyBlocked(parryItem, user) && parryItem.getParryAttributes().getExplosionDamageTakenAfterBlock() <= 0f;
+            //return user.getActiveItem().getItem() instanceof ShieldItem && user.getActiveItem().getMaxUseTime() - user.getItemUseTimeLeft() >= 5;
         }
         if(stack.getItem() instanceof ParryItem parryItem){
             if(source.isIn(DamageTypeTags.IS_PROJECTILE)){
@@ -77,14 +79,27 @@ public class ParryHelper {
         return true;
     }
 
+    public static boolean explosionCanBeBlocked(ParryItem parryItem){
+        return parryItem.getParryAttributes().getExplosionBlockDelay() > -1;
+    }
+
+    public static boolean explosionWasSuccessfullyBlocked(ParryItem parryItem, LivingEntity user){
+        return parryItem.getParryAttributes().getMaxUseTimeParry() - user.getItemUseTimeLeft() > parryItem.getParryAttributes().getExplosionBlockDelay();
+    }
+
     /**
      *  !!! use only after attackWasBlocked() check !!!
      */
     public static boolean attackWasParried(DamageSource source, ItemStack stack, LivingEntity user){
         if(source.isIn(DamageTypeTags.IS_EXPLOSION)) return false;
         if(isItemParryEnabled(stack)){
-            int maxUseTime = user.getActiveItem().getItem() instanceof ShieldItem ? user.getActiveItem().getMaxUseTime() : ((ParryItem) user.getActiveItem().getItem()).getParryAttributes().getMaxUseTimeParry();
-            return maxUseTime - user.getItemUseTimeLeft() < ((ParryItem) stack.getItem()).getParryAttributes().getParryTicks() + ModEnchantments.getPredictionEnchantment(user);
+            int maxUseTime = ((ParryItem) user.getActiveItem().getItem()).getParryAttributes().getMaxUseTimeParry();
+            int parryTicks = ((ParryItem) stack.getItem()).getParryAttributes().getParryTicks() + ModEnchantments.getPredictionEnchantment(user);
+            parryTicks += ((ParryItem) stack.getItem()).getParryAttributes().getBlockDelay() > -1 ? ((ParryItem) stack.getItem()).getParryAttributes().getBlockDelay() : 0;
+            // if parry tick is 4 then 4th tick is NOT parry
+            // maxUseTime - user.getItemUseTimeLeft() can be 0 and 0 is parry, so it's still 4 ticks
+            //user.sendMessage(Text.of("To jest: " + (maxUseTime - user.getItemUseTimeLeft()) + " tick"));
+            return maxUseTime - user.getItemUseTimeLeft() < parryTicks;
         }
         return false;
     }

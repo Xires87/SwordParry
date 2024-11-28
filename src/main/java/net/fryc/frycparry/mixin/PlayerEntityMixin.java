@@ -3,6 +3,7 @@ package net.fryc.frycparry.mixin;
 import net.fryc.frycparry.effects.ModEffects;
 import net.fryc.frycparry.util.ParryHelper;
 import net.fryc.frycparry.util.interfaces.CanBlock;
+import net.fryc.frycparry.util.interfaces.ParryItem;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
@@ -85,17 +86,28 @@ abstract class PlayerEntityMixin extends LivingEntity {
     private void setCooldownForParry(CallbackInfo info) {
         PlayerEntity dys = ((PlayerEntity)(Object)this);
         if(!dys.handSwinging && !dys.getWorld().isClient()){
-            int cooldownProgress = (int) dys.getAttackCooldownProgressPerTick() - 1; // <-- cooldown based on attack speed
+            int cooldownProgress;// = (int) dys.getAttackCooldownProgressPerTick() - 1; // <-- cooldown based on attack speed
+            Item item = null;
             if(ParryHelper.hasShieldEquipped(dys)){
                 if(dys.getMainHandStack().getUseAction() == UseAction.BLOCK){
-                    if(!dys.getItemCooldownManager().isCoolingDown(dys.getMainHandStack().getItem())) dys.getItemCooldownManager().set(dys.getMainHandStack().getItem(), cooldownProgress);
+                    item = dys.getMainHandStack().getItem();
                 }
                 else {
-                    if(!dys.getItemCooldownManager().isCoolingDown(dys.getOffHandStack().getItem())) dys.getItemCooldownManager().set(dys.getOffHandStack().getItem(), cooldownProgress);
+                    item = dys.getOffHandStack().getItem();
                 }
             }
             else if(ParryHelper.canParryWithoutShield(dys) && !ParryHelper.isItemParryDisabledWithConfig(dys.getWorld(), dys.getMainHandStack())){
-                if(!dys.getItemCooldownManager().isCoolingDown(dys.getMainHandStack().getItem())) dys.getItemCooldownManager().set(dys.getMainHandStack().getItem(), cooldownProgress);
+                item = dys.getMainHandStack().getItem();
+            }
+
+            if(item != null){
+                if(!dys.getItemCooldownManager().isCoolingDown(item)){
+                    cooldownProgress = ((ParryItem) item).getParryAttributes().getCooldownAfterAttack() < 0 ?
+                            (int) (Math.abs(((ParryItem) item).getParryAttributes().getCooldownAfterAttack()) * dys.getAttackCooldownProgressPerTick()) :
+                            (int) ((ParryItem) item).getParryAttributes().getCooldownAfterAttack();
+
+                    dys.getItemCooldownManager().set(item, cooldownProgress);
+                }
             }
         }
 
