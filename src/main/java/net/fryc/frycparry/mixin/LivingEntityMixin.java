@@ -6,6 +6,7 @@ import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.fryc.frycparry.FrycParry;
 import net.fryc.frycparry.effects.ModEffects;
+import net.fryc.frycparry.enchantments.ModEnchantments;
 import net.fryc.frycparry.network.ModPackets;
 import net.fryc.frycparry.tag.ModEntityTypeTags;
 import net.fryc.frycparry.util.ParryHelper;
@@ -207,7 +208,10 @@ abstract class LivingEntityMixin extends Entity implements Attackable, CanBlock 
         LivingEntity dys = ((LivingEntity)(Object)this);
         if (dys.isUsingItem() && !dys.getActiveItem().isEmpty()) {
             Item item = dys.getActiveItem().getItem();
-            int blockDelay = ((ParryItem) item).getParryAttributes().getBlockDelay() > -1 ? ((ParryItem) item).getParryAttributes().getBlockDelay() : 0;
+            int blockDelay = ((ParryItem) item).getParryAttributes().getBlockDelay() - ModEnchantments.getPredictionEnchantment(dys);
+            if(blockDelay < 0){
+                blockDelay = 0;
+            }
             if(ParryHelper.isItemParryEnabled(dys.getActiveItem()) && item.getUseAction(dys.getActiveItem()) != UseAction.BLOCK){
                 //BLOCKING_DATA is required to block with items that doesn't have UseAction.BLOCK
                 ret.setReturnValue(((ParryItem) item).getUseParryAction(dys.getActiveItem()) == UseAction.BLOCK &&
