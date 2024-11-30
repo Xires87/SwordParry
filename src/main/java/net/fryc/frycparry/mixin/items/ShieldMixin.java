@@ -28,8 +28,8 @@ abstract class ShieldMixin extends Item implements ParryItem {
     private void preventUsingWhenDisarmed(World world, PlayerEntity user, Hand hand, CallbackInfoReturnable<TypedActionResult<ItemStack>> ret) {
         if(user.hasStatusEffect(ModEffects.DISARMED)) ret.setReturnValue(TypedActionResult.fail(user.getStackInHand(hand)));
     }
-    @Inject(method = "getMaxUseTime(Lnet/minecraft/item/ItemStack;)I", at = @At("RETURN"), cancellable = true)
-    private void modifyShieldMaxUseTime(ItemStack stack, CallbackInfoReturnable<Integer> ret) {
+    @Inject(method = "getMaxUseTime(Lnet/minecraft/item/ItemStack;Lnet/minecraft/entity/LivingEntity;)I", at = @At("RETURN"), cancellable = true)
+    private void modifyShieldMaxUseTime(ItemStack stack, LivingEntity user, CallbackInfoReturnable<Integer> ret) {
         ret.setReturnValue(((ParryItem) stack.getItem()).getParryAttributes().getMaxUseTimeParry());
     }
 

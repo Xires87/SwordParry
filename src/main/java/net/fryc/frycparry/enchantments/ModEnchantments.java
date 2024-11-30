@@ -3,6 +3,7 @@ package net.fryc.frycparry.enchantments;
 import net.fryc.frycparry.FrycParry;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
+import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
@@ -35,5 +36,9 @@ public class ModEnchantments {
 
     public static int getCounterattackEnchantment(LivingEntity entity){
         return EnchantmentHelper.getEquipmentLevel(entity.getWorld().getRegistryManager().get(RegistryKeys.ENCHANTMENT).entryOf(COUNTERATTACK), entity);
+    }
+
+    public static int getKnockbackEnchantment(LivingEntity entity) {
+        return EnchantmentHelper.getEquipmentLevel(entity.getWorld().getRegistryManager().get(RegistryKeys.ENCHANTMENT).entryOf(Enchantments.KNOCKBACK), entity);
     }
 }

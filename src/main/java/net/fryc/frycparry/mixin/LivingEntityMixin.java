@@ -4,20 +4,21 @@ import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.fryc.frycparry.FrycParry;
-import net.fryc.frycparry.network.payloads.InformClientAboutParryPayload;
 import net.fryc.frycparry.effects.ModEffects;
 import net.fryc.frycparry.enchantments.ModEnchantments;
-import net.fryc.frycparry.network.ModPackets;
+import net.fryc.frycparry.network.payloads.InformClientAboutParryPayload;
 import net.fryc.frycparry.tag.ModEntityTypeTags;
 import net.fryc.frycparry.util.ParryHelper;
 import net.fryc.frycparry.util.interfaces.CanBlock;
 import net.fryc.frycparry.util.interfaces.ParryItem;
+import net.fryc.frycparry.util.interfaces.TargetingMob;
 import net.minecraft.entity.*;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.effect.StatusEffectInstance;
+import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -53,6 +54,18 @@ abstract class LivingEntityMixin extends Entity implements Attackable, CanBlock 
 
     public LivingEntityMixin(EntityType<?> type, World world) {
         super(type, world);
+    }
+
+    @Inject(method = "onStatusEffectRemoved(Lnet/minecraft/entity/effect/StatusEffectInstance;)V", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/effect/StatusEffect;onRemoved(Lnet/minecraft/entity/attribute/AttributeContainer;)V", shift = At.Shift.BEFORE))
+    protected void onDisarmedRemoved(StatusEffectInstance effect, CallbackInfo info) {
+        LivingEntity dys = ((LivingEntity)(Object)this);
+        if(effect.getEffectType() == ModEffects.DISARMED){
+            if(dys instanceof MobEntity mob){
+                mob.setTarget(((TargetingMob) mob).getLastTarget());
+                ((TargetingMob) mob).setLastTarget(null);
+                mob.setAttacking(true);
+            }
+        }
     }
 
 
@@ -203,7 +216,7 @@ abstract class LivingEntityMixin extends Entity implements Attackable, CanBlock 
         LivingEntity dys = ((LivingEntity)(Object)this);
         if (dys.isUsingItem() && !dys.getActiveItem().isEmpty()) {
             Item item = dys.getActiveItem().getItem();
-            int blockDelay = ((ParryItem) item).getParryAttributes().getBlockDelay() - ModEnchantments.getPredictionEnchantment(dys);
+            int blockDelay = ((ParryItem) item).getParryAttributes().getBlockDelay() - ModEnchantments.getReflexEnchantment(dys);
             if(blockDelay < 0){
                 blockDelay = 0;
             }
@@ -215,7 +228,7 @@ abstract class LivingEntityMixin extends Entity implements Attackable, CanBlock 
             }
             else {
                 ret.setReturnValue(item.getUseAction(dys.getActiveItem()) == UseAction.BLOCK &&
-                        item.getMaxUseTime(dys.getActiveItem()) - this.itemUseTimeLeft >= blockDelay);
+                        item.getMaxUseTime(dys.getActiveItem(), dys) - this.itemUseTimeLeft >= blockDelay);
             }
         }
     }

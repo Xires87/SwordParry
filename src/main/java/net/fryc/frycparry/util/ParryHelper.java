@@ -10,7 +10,6 @@ import net.fryc.frycparry.util.interfaces.CanBlock;
 import net.fryc.frycparry.util.interfaces.ParryItem;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.AttributeModifiersComponent;
-import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.attribute.EntityAttributes;
@@ -21,6 +20,7 @@ import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.PersistentProjectileEntity;
 import net.minecraft.item.*;
+import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.registry.tag.DamageTypeTags;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.util.math.Vec3d;
@@ -96,7 +96,7 @@ public class ParryHelper {
         if(isItemParryEnabled(stack)){
             int maxUseTime = ((ParryItem) user.getActiveItem().getItem()).getParryAttributes().getMaxUseTimeParry();
             int parryTicks = ((ParryItem) stack.getItem()).getParryAttributes().getParryTicks();
-            parryTicks += Math.abs(((ParryItem) stack.getItem()).getParryAttributes().getBlockDelay() - ModEnchantments.getPredictionEnchantment(user));// negative block delay increases parry ticks
+            parryTicks += Math.abs(((ParryItem) stack.getItem()).getParryAttributes().getBlockDelay() - ModEnchantments.getReflexEnchantment(user));// negative block delay increases parry ticks
             // if parry ticks is 4 then 4th tick is NOT parry
             // maxUseTime - user.getItemUseTimeLeft() can be 0 and 0 is parry, so it's still 4 ticks
             //user.sendMessage(Text.of("To jest: " + (maxUseTime - user.getItemUseTimeLeft()) + " tick"));
@@ -157,7 +157,7 @@ public class ParryHelper {
     }
 
     public static void applyParryEffects(LivingEntity user, LivingEntity attacker){
-        int knockbackEnchantmentLevel = EnchantmentHelper.getKnockback(user);
+        int knockbackEnchantmentLevel = ModEnchantments.getKnockbackEnchantment(user);
 
         //variables for parry effects
         ParryAttributes parryAttributes = ((ParryItem) user.getActiveItem().getItem()).getParryAttributes();
@@ -180,9 +180,9 @@ public class ParryHelper {
         int parryEnchantmentLevel = ModEnchantments.getParryEnchantment(user);
 
         //applying status effects from parry attributes
-        Iterator<Map.Entry<StatusEffect, Quartet<Integer, Integer, Float, Float>>> iterator = parryAttributes.getParryEffectsIterator();
+        Iterator<Map.Entry<RegistryEntry<StatusEffect>, Quartet<Integer, Integer, Float, Float>>> iterator = parryAttributes.getParryEffectsIterator();
         while(iterator.hasNext()){
-            Map.Entry<StatusEffect, Quartet<Integer, Integer, Float, Float>> entry = iterator.next();
+            Map.Entry<RegistryEntry<StatusEffect>, Quartet<Integer, Integer, Float, Float>> entry = iterator.next();
             float chance = entry.getValue().getC();
             if(chance >= 1.0F || ThreadLocalRandom.current().nextFloat() < chance){
                 int duration = entry.getValue().getA() + (int)(entry.getValue().getA() * (parryEnchantmentLevel * entry.getValue().getD()));

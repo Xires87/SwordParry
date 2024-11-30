@@ -10,6 +10,7 @@ import net.fryc.frycparry.FrycParry;
 import net.fryc.frycparry.attributes.ParryAttributes;
 import net.fryc.frycparry.util.FrycJsonHelper;
 import net.minecraft.entity.effect.StatusEffect;
+import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.resource.ResourceManager;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.JsonHelper;
@@ -49,12 +50,12 @@ public class ParryAttributesResourceReloadListener implements SimpleSynchronousR
                 boolean shouldStopUsingItemAfterBlockOrParry = JsonHelper.getBoolean(jsonObject, "shouldStopUsingItemAfterBlockOrParry", true);
                 double knockbackAfterParryAction = JsonHelper.getDouble(jsonObject, "knockbackAfterParryAction", 4.0);
 
-                HashMap<StatusEffect, Quartet<Integer, Integer, Float, Float>> effectMap = new HashMap<>();
+                HashMap<RegistryEntry<StatusEffect>, Quartet<Integer, Integer, Float, Float>> effectMap = new HashMap<>();
                 JsonArray array = JsonHelper.getArray(jsonObject, "parryEffects");
                 for(JsonElement element : array){
                     try{
                         JsonObject effectObject = element.getAsJsonObject();
-                        StatusEffect effect = FrycJsonHelper.getStatusEffect(effectObject, "statusEffect");
+                        RegistryEntry<StatusEffect> effect = FrycJsonHelper.getStatusEffect(effectObject, "statusEffect");
                         int duration = JsonHelper.getInt(effectObject, "duration", 100);
                         int amplifier = JsonHelper.getInt(effectObject, "amplifier", 1);
                         float chance = JsonHelper.getFloat(effectObject, "chance", 1.0f);

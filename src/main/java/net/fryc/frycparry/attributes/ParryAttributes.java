@@ -2,10 +2,10 @@ package net.fryc.frycparry.attributes;
 
 import net.fryc.frycparry.FrycParry;
 import net.fryc.frycparry.util.ConfigHelper;
-import net.minecraft.entity.EquipmentSlot;
-import net.minecraft.entity.attribute.EntityAttributes;
+import net.fryc.frycparry.util.ParryHelper;
 import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.item.*;
+import net.minecraft.registry.entry.RegistryEntry;
 import oshi.util.tuples.Quartet;
 
 import java.util.HashMap;
@@ -27,7 +27,7 @@ public class ParryAttributes {
     private final boolean shouldStopUsingItemAfterBlockOrParry;
     private final double knockbackAfterParryAction;
 
-    private final Map<StatusEffect, Quartet<Integer, Integer, Float, Float>> parryEffects;
+    private final Map<RegistryEntry<StatusEffect>, Quartet<Integer, Integer, Float, Float>> parryEffects;
 
 
     private static final HashMap<String, ParryAttributes> REGISTERED_ATTRIBUTES = new HashMap<>();
@@ -51,7 +51,7 @@ public class ParryAttributes {
                               float explosionDamageTakenAfterBlock,
                               float cooldownAfterParryAction, float cooldownAfterInterruptingBlockAction, float cooldownAfterAttack,
                               int maxUseTime, int blockDelay, int explosionBlockDelay, boolean shouldStopUsingItemAfterBlockOrParry,
-                              double knockbackAfterParryAction, Map<StatusEffect, Quartet<Integer, Integer, Float, Float>> parryEffects){
+                              double knockbackAfterParryAction, Map<RegistryEntry<StatusEffect>, Quartet<Integer, Integer, Float, Float>> parryEffects){
 
         this.parryTicks = parryTicks;
         this.meleeDamageTakenAfterBlock = meleeDamageTakenAfterBlock;
@@ -75,7 +75,7 @@ public class ParryAttributes {
     public static ParryAttributes create(String id, int parryTicks, float meleeDamageTakenAfterBlock, float projectileDamageTakenAfterBlock, float explosionDamageTakenAfterBlock,
                                          float cooldownAfterParryAction, float cooldownAfterInterruptingBlockAction, float cooldownAfterAttack,
                                          int maxUseTime, int blockDelay, int explosionBlockDelay, boolean shouldStopUsingItemAfterBlockOrParry,
-                                         double knockbackAfterParryAction, Map<StatusEffect, Quartet<Integer, Integer, Float, Float>> parryEffects){
+                                         double knockbackAfterParryAction, Map<RegistryEntry<StatusEffect>, Quartet<Integer, Integer, Float, Float>> parryEffects){
 
         return create(id, new ParryAttributes(parryTicks, meleeDamageTakenAfterBlock, projectileDamageTakenAfterBlock, explosionDamageTakenAfterBlock,
                 cooldownAfterParryAction, cooldownAfterInterruptingBlockAction, cooldownAfterAttack, maxUseTime, blockDelay,
@@ -137,7 +137,7 @@ public class ParryAttributes {
                 FrycParry.config.shield.explosionBlockDelay, FrycParry.config.shield.shouldStopUsingShieldAfterBlockOrParry,
                 FrycParry.config.shield.shieldParryKnockbackStrength, new HashMap<>(ConfigHelper.shieldParryEffects)
         );
-        if(item.getAttributeModifiers(EquipmentSlot.MAINHAND).keySet().contains(EntityAttributes.GENERIC_ATTACK_SPEED)) return new ParryAttributes(
+        if(ParryHelper.hasAttackSpeedAttribute(item.getDefaultStack())) return new ParryAttributes(
                 FrycParry.config.server.parryTicks, (float)FrycParry.config.server.blockMeleeDamageTaken/100,
                 (float)FrycParry.config.server.blockArrowDamageTaken/100, (float)FrycParry.config.server.explosionBlockDamageTaken/100,
                 FrycParry.config.server.cooldownAfterParryAction, FrycParry.config.server.cooldownAfterInterruptingBlockAction,
@@ -195,7 +195,7 @@ public class ParryAttributes {
         return this.shouldStopUsingItemAfterBlockOrParry;
     }
 
-    public Iterator<Map.Entry<StatusEffect, Quartet<Integer, Integer, Float, Float>>> getParryEffectsIterator(){
+    public Iterator<Map.Entry<RegistryEntry<StatusEffect>, Quartet<Integer, Integer, Float, Float>>> getParryEffectsIterator(){
         return this.parryEffects.entrySet().iterator();
     }
 }

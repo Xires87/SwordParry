@@ -5,6 +5,7 @@ import net.fryc.frycparry.FrycParry;
 import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.registry.Registries;
+import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.util.Identifier;
 import oshi.util.tuples.Quartet;
 
@@ -20,19 +21,17 @@ public class ConfigHelper {
     public static boolean enableBlockingWithShovel = FrycParry.config.shovel.enableBlockingWithShovel;
     public static boolean enableBlockingWithHoe = FrycParry.config.hoe.enableBlockingWithHoe;
     public static boolean enableBlockingWithOtherTools = FrycParry.config.server.enableBlockingWithOtherTools;
-
-    public static boolean enableReflexEnchantment = FrycParry.config.enchantments.enableReflexEnchantment;
-    public static boolean enableParryEnchantment = FrycParry.config.enchantments.enableParryEnchantment;
-    public static boolean enableCounterattackEnchantment = FrycParry.config.enchantments.enableCounterattackEnchantment;
+    public static boolean enableBlockingWithMace = FrycParry.config.mace.enableBlockingWithMace;
     public static int shieldEnchantability = FrycParry.config.enchantments.shieldEnchantability;
 
-    public static HashMap<StatusEffect, Quartet<Integer, Integer, Float, Float>> pickaxeParryEffects;
-    public static HashMap<StatusEffect, Quartet<Integer, Integer, Float, Float>> axeParryEffects;
-    public static HashMap<StatusEffect, Quartet<Integer, Integer, Float, Float>> swordParryEffects;
-    public static HashMap<StatusEffect, Quartet<Integer, Integer, Float, Float>> shovelParryEffects;
-    public static HashMap<StatusEffect, Quartet<Integer, Integer, Float, Float>> hoeParryEffects;
-    public static HashMap<StatusEffect, Quartet<Integer, Integer, Float, Float>> shieldParryEffects;
-    public static HashMap<StatusEffect, Quartet<Integer, Integer, Float, Float>> parryEffects;
+    public static HashMap<RegistryEntry<StatusEffect>, Quartet<Integer, Integer, Float, Float>> pickaxeParryEffects;
+    public static HashMap<RegistryEntry<StatusEffect>, Quartet<Integer, Integer, Float, Float>> axeParryEffects;
+    public static HashMap<RegistryEntry<StatusEffect>, Quartet<Integer, Integer, Float, Float>> swordParryEffects;
+    public static HashMap<RegistryEntry<StatusEffect>, Quartet<Integer, Integer, Float, Float>> shovelParryEffects;
+    public static HashMap<RegistryEntry<StatusEffect>, Quartet<Integer, Integer, Float, Float>> hoeParryEffects;
+    public static HashMap<RegistryEntry<StatusEffect>, Quartet<Integer, Integer, Float, Float>> shieldParryEffects;
+    public static HashMap<RegistryEntry<StatusEffect>, Quartet<Integer, Integer, Float, Float>> parryEffects;
+
 
     public static void reloadDefaultParryEffects(){
         pickaxeParryEffects = transformStringToMap(FrycParry.config.pickaxe.pickaxeParryEffects);
@@ -49,13 +48,13 @@ public class ConfigHelper {
      * @param stringsAndNumbers string containing strings and numbers separated with semicolon in the following pattern: String;int;int;float;float;String;int;int;float;float
      * @return map containing StatusEffect as a key and quartet of the next 2 ints and 2 floats as a value
      */
-    public static HashMap<StatusEffect, Quartet<Integer, Integer, Float, Float>> transformStringToMap(String stringsAndNumbers){
-        HashMap<StatusEffect, Quartet<Integer, Integer, Float, Float>> map = new HashMap<>();
+    public static HashMap<RegistryEntry<StatusEffect>, Quartet<Integer, Integer, Float, Float>> transformStringToMap(String stringsAndNumbers){
+        HashMap<RegistryEntry<StatusEffect>, Quartet<Integer, Integer, Float, Float>> map = new HashMap<>();
         if(stringsAndNumbers.isEmpty()) return map;
 
         Iterator<String> iterator = Arrays.stream(stringsAndNumbers.split(";", 0)).iterator();
         int i = 0;
-        StatusEffect key = StatusEffects.SLOWNESS;
+        RegistryEntry<StatusEffect> key = StatusEffects.SLOWNESS;
         int a = 0;
         int b = 0;
         float c = 0.0f;
@@ -64,7 +63,7 @@ public class ConfigHelper {
             String string = iterator.next();
             switch (i){
                 case 0 -> {
-                    key = (StatusEffect) Registries.STATUS_EFFECT.getOrEmpty(new Identifier(string)).orElseThrow(
+                    key = Registries.STATUS_EFFECT.getEntry(Identifier.of(string)).orElseThrow(
                             () -> new JsonSyntaxException("Error occurred while loading default parry effects from config. The following Status Effect: " + string + " could not be found")
                     );
                 }
@@ -102,7 +101,7 @@ public class ConfigHelper {
                 }
                 default -> {
                     map.put(key, new Quartet<>(a, b, c, d));
-                    key = (StatusEffect) Registries.STATUS_EFFECT.getOrEmpty(new Identifier(string)).orElseThrow(
+                    key = Registries.STATUS_EFFECT.getEntry(Identifier.of(string)).orElseThrow(
                             () -> new JsonSyntaxException("Error occurred while loading default parry effects from config. The following Status Effect: " + string + " could not be found")
                     );
                     i = 0;
