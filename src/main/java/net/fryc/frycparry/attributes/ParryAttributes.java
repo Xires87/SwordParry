@@ -137,6 +137,14 @@ public class ParryAttributes {
                 FrycParry.config.shield.explosionBlockDelay, FrycParry.config.shield.shouldStopUsingShieldAfterBlockOrParry,
                 FrycParry.config.shield.shieldParryKnockbackStrength, new HashMap<>(ConfigHelper.shieldParryEffects)
         );
+        if(item instanceof MaceItem) return new ParryAttributes(
+                FrycParry.config.mace.maceParryTicks, (float)FrycParry.config.mace.maceBlockMeleeDamageTaken/100,
+                (float)FrycParry.config.mace.maceBlockArrowDamageTaken/100, (float)FrycParry.config.mace.explosionBlockDamageTaken/100,
+                FrycParry.config.mace.cooldownAfterMaceParryAction, FrycParry.config.mace.cooldownAfterInterruptingMaceBlockAction,
+                FrycParry.config.mace.cooldownAfterAttack, FrycParry.config.mace.maxUseTime, FrycParry.config.mace.blockDelay,
+                FrycParry.config.mace.explosionBlockDelay, FrycParry.config.mace.shouldStopUsingMaceAfterBlockOrParry,
+                FrycParry.config.mace.maceParryKnockbackStrength, new HashMap<>(ConfigHelper.maceParryEffects)
+        );
         if(ParryHelper.hasAttackSpeedAttribute(item.getDefaultStack())) return new ParryAttributes(
                 FrycParry.config.server.parryTicks, (float)FrycParry.config.server.blockMeleeDamageTaken/100,
                 (float)FrycParry.config.server.blockArrowDamageTaken/100, (float)FrycParry.config.server.explosionBlockDamageTaken/100,

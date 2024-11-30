@@ -31,7 +31,7 @@
   "text.autoconfig.frycparry.category.hoe": "Motyka",
   "text.autoconfig.frycparry.category.mace": "Maczuga",
   "text.autoconfig.frycparry.category.pickaxe": "Kilof",
-  "text.autoconfig.frycparry.category.modifiers": "Modifiers",
+  "text.autoconfig.frycparry.category.modifiers": "Modyfikatory",
   "text.autoconfig.frycparry.category.other": "Inne",
   "text.autoconfig.frycparry.category.client": "Klient",
   "text.autoconfig.frycparry.category.enchantments": "Zaklęcia",
@@ -152,6 +152,8 @@
   "text.autoconfig.frycparry.option.shovel.shovelParryEffects.@Tooltip": "Lista efektów statusu, które mogą zostać zaaplikowane atakującemu, w następującym schemacie: \n 'EfektStatusu;czasTrwania;moc;szansa;modyfikatorZaklęcia;EfektStatusu;czasTrwania;moc;szansa;modyfikatorZaklęcia' \n szansa: 1.0 = 100% \n modyfikatorZaklęcia: 0.4 = 40% dłuższy czas trwania za każdy poziom zaklęcia 'Parowanie'",
   "text.autoconfig.frycparry.option.hoe.hoeParryEffects": "Efekty parowania [Wymagany /reload]",
   "text.autoconfig.frycparry.option.hoe.hoeParryEffects.@Tooltip": "Lista efektów statusu, które mogą zostać zaaplikowane atakującemu, w następującym schemacie: \n 'EfektStatusu;czasTrwania;moc;szansa;modyfikatorZaklęcia;EfektStatusu;czasTrwania;moc;szansa;modyfikatorZaklęcia' \n szansa: 1.0 = 100% \n modyfikatorZaklęcia: 0.4 = 40% dłuższy czas trwania za każdy poziom zaklęcia 'Parowanie'",
+  "text.autoconfig.frycparry.option.mace.maceParryEffects": "Efekty parowania [Wymagany /reload]",
+  "text.autoconfig.frycparry.option.mace.maceParryEffects.@Tooltip": "Lista efektów statusu, które mogą zostać zaaplikowane atakującemu, w następującym schemacie: \n 'EfektStatusu;czasTrwania;moc;szansa;modyfikatorZaklęcia;EfektStatusu;czasTrwania;moc;szansa;modyfikatorZaklęcia' \n szansa: 1.0 = 100% \n modyfikatorZaklęcia: 0.4 = 40% dłuższy czas trwania za każdy poziom zaklęcia 'Parowanie'",
   "text.autoconfig.frycparry.option.pickaxe.pickaxeParryEffects": "Efekty parowania [Wymagany /reload]",
   "text.autoconfig.frycparry.option.pickaxe.pickaxeParryEffects.@Tooltip": "Lista efektów statusu, które mogą zostać zaaplikowane atakującemu, w następującym schemacie: \n 'EfektStatusu;czasTrwania;moc;szansa;modyfikatorZaklęcia;EfektStatusu;czasTrwania;moc;szansa;modyfikatorZaklęcia' \n szansa: 1.0 = 100% \n modyfikatorZaklęcia: 0.4 = 40% dłuższy czas trwania za każdy poziom zaklęcia 'Parowanie'",
   "text.autoconfig.frycparry.option.server.parryEffects": "Efekty parowania [Wymagany /reload]",
@@ -178,6 +180,7 @@
   "text.autoconfig.frycparry.option.axe.blockDelay": "Opóźnienie bloku [Wymagany /reload]",
   "text.autoconfig.frycparry.option.pickaxe.blockDelay": "Opóźnienie bloku [Wymagany /reload]",
   "text.autoconfig.frycparry.option.hoe.blockDelay": "Opóźnienie bloku [Wymagany /reload]",
+  "text.autoconfig.frycparry.option.mace.blockDelay": "Opóźnienie bloku [Wymagany /reload]",
   "text.autoconfig.frycparry.option.shovel.blockDelay": "Opóźnienie bloku [Wymagany /reload]",
   "text.autoconfig.frycparry.option.server.blockDelay": "Opóźnienie bloku [Wymagany /reload]",
 
@@ -186,6 +189,7 @@
   "text.autoconfig.frycparry.option.axe.blockDelay.@Tooltip": "Ticki parowania zaczynają się liczyć PO opóźnieniu blokowania \n Na przykład, kiedy opóźnienie blokowania jest ustawione na 5, i ticki parowania na 2, szósty i siódmy tick liczy się jako parowanie",
   "text.autoconfig.frycparry.option.pickaxe.blockDelay.@Tooltip": "Ticki parowania zaczynają się liczyć PO opóźnieniu blokowania \n Na przykład, kiedy opóźnienie blokowania jest ustawione na 5, i ticki parowania na 2, szósty i siódmy tick liczy się jako parowanie",
   "text.autoconfig.frycparry.option.hoe.blockDelay.@Tooltip": "Ticki parowania zaczynają się liczyć PO opóźnieniu blokowania \n Na przykład, kiedy opóźnienie blokowania jest ustawione na 5, i ticki parowania na 2, szósty i siódmy tick liczy się jako parowanie",
+  "text.autoconfig.frycparry.option.mace.blockDelay.@Tooltip": "Ticki parowania zaczynają się liczyć PO opóźnieniu blokowania \n Na przykład, kiedy opóźnienie blokowania jest ustawione na 5, i ticki parowania na 2, szósty i siódmy tick liczy się jako parowanie",
   "text.autoconfig.frycparry.option.shovel.blockDelay.@Tooltip": "Ticki parowania zaczynają się liczyć PO opóźnieniu blokowania \n Na przykład, kiedy opóźnienie blokowania jest ustawione na 5, i ticki parowania na 2, szósty i siódmy tick liczy się jako parowanie",
   "text.autoconfig.frycparry.option.server.blockDelay.@Tooltip": "Ticki parowania zaczynają się liczyć PO opóźnieniu blokowania \n Na przykład, kiedy opóźnienie blokowania jest ustawione na 5, i ticki parowania na 2, szósty i siódmy tick liczy się jako parowanie",
 
@@ -194,6 +198,7 @@
   "text.autoconfig.frycparry.option.axe.explosionBlockDelay": "Opóźnienie bloku eksplozji [Wymagany /reload]",
   "text.autoconfig.frycparry.option.pickaxe.explosionBlockDelay": "Opóźnienie bloku eksplozji [Wymagany /reload]",
   "text.autoconfig.frycparry.option.hoe.explosionBlockDelay": "Opóźnienie bloku eksplozji [Wymagany /reload]",
+  "text.autoconfig.frycparry.option.mace.explosionBlockDelay": "Opóźnienie bloku eksplozji [Wymagany /reload]",
   "text.autoconfig.frycparry.option.shovel.explosionBlockDelay": "Opóźnienie bloku eksplozji [Wymagany /reload]",
   "text.autoconfig.frycparry.option.server.explosionBlockDelay": "Opóźnienie bloku eksplozji [Wymagany /reload]",
 
@@ -202,6 +207,7 @@
   "text.autoconfig.frycparry.option.axe.explosionBlockDelay.@Tooltip": "Kiedy ta wartość jest poniżej 0, eksplozji nie da się zablokować\n 0 oznacza brak opóźnienia (ale normalne opóźnienie blokowania wciąż jest brane pod uwagę)\n Jeśli normalne opóźnienie blokowania jest wyższe niż ta wartość (i ta wartość jest większa od -1), to ta wartość nic nie robi\n Jeśli normalne opóźnienie blokowania wynosi 0 i ta wartość wynosi 5, pierwsze 5 ticków blokowania zapewnia 80% mniej ochrony przed eksplozjami",
   "text.autoconfig.frycparry.option.pickaxe.explosionBlockDelay.@Tooltip": "Kiedy ta wartość jest poniżej 0, eksplozji nie da się zablokować\n 0 oznacza brak opóźnienia (ale normalne opóźnienie blokowania wciąż jest brane pod uwagę)\n Jeśli normalne opóźnienie blokowania jest wyższe niż ta wartość (i ta wartość jest większa od -1), to ta wartość nic nie robi\n Jeśli normalne opóźnienie blokowania wynosi 0 i ta wartość wynosi 5, pierwsze 5 ticków blokowania zapewnia 80% mniej ochrony przed eksplozjami",
   "text.autoconfig.frycparry.option.hoe.explosionBlockDelay.@Tooltip": "Kiedy ta wartość jest poniżej 0, eksplozji nie da się zablokować\n 0 oznacza brak opóźnienia (ale normalne opóźnienie blokowania wciąż jest brane pod uwagę)\n Jeśli normalne opóźnienie blokowania jest wyższe niż ta wartość (i ta wartość jest większa od -1), to ta wartość nic nie robi\n Jeśli normalne opóźnienie blokowania wynosi 0 i ta wartość wynosi 5, pierwsze 5 ticków blokowania zapewnia 80% mniej ochrony przed eksplozjami",
+  "text.autoconfig.frycparry.option.mace.explosionBlockDelay.@Tooltip": "Kiedy ta wartość jest poniżej 0, eksplozji nie da się zablokować\n 0 oznacza brak opóźnienia (ale normalne opóźnienie blokowania wciąż jest brane pod uwagę)\n Jeśli normalne opóźnienie blokowania jest wyższe niż ta wartość (i ta wartość jest większa od -1), to ta wartość nic nie robi\n Jeśli normalne opóźnienie blokowania wynosi 0 i ta wartość wynosi 5, pierwsze 5 ticków blokowania zapewnia 80% mniej ochrony przed eksplozjami",
   "text.autoconfig.frycparry.option.shovel.explosionBlockDelay.@Tooltip": "Kiedy ta wartość jest poniżej 0, eksplozji nie da się zablokować\n 0 oznacza brak opóźnienia (ale normalne opóźnienie blokowania wciąż jest brane pod uwagę)\n Jeśli normalne opóźnienie blokowania jest wyższe niż ta wartość (i ta wartość jest większa od -1), to ta wartość nic nie robi\n Jeśli normalne opóźnienie blokowania wynosi 0 i ta wartość wynosi 5, pierwsze 5 ticków blokowania zapewnia 80% mniej ochrony przed eksplozjami",
   "text.autoconfig.frycparry.option.server.explosionBlockDelay.@Tooltip": "Kiedy ta wartość jest poniżej 0, eksplozji nie da się zablokować\n 0 oznacza brak opóźnienia (ale normalne opóźnienie blokowania wciąż jest brane pod uwagę)\n Jeśli normalne opóźnienie blokowania jest wyższe niż ta wartość (i ta wartość jest większa od -1), to ta wartość nic nie robi\n Jeśli normalne opóźnienie blokowania wynosi 0 i ta wartość wynosi 5, pierwsze 5 ticków blokowania zapewnia 80% mniej ochrony przed eksplozjami",
 
@@ -210,6 +216,7 @@
   "text.autoconfig.frycparry.option.axe.explosionBlockDamageTaken": "% otrzymywanych obrażeń po zablokowaniu eksplozji [Wymagany /reload]",
   "text.autoconfig.frycparry.option.pickaxe.explosionBlockDamageTaken": "% otrzymywanych obrażeń po zablokowaniu eksplozji [Wymagany /reload]",
   "text.autoconfig.frycparry.option.hoe.explosionBlockDamageTaken": "% otrzymywanych obrażeń po zablokowaniu eksplozji [Wymagany /reload]",
+  "text.autoconfig.frycparry.option.mace.explosionBlockDamageTaken": "% otrzymywanych obrażeń po zablokowaniu eksplozji [Wymagany /reload]",
   "text.autoconfig.frycparry.option.shovel.explosionBlockDamageTaken": "% otrzymywanych obrażeń po zablokowaniu eksplozji [Wymagany /reload]",
   "text.autoconfig.frycparry.option.server.explosionBlockDamageTaken": "% otrzymywanych obrażeń po zablokowaniu eksplozji [Wymagany /reload]",
 
@@ -218,6 +225,7 @@
   "text.autoconfig.frycparry.option.axe.explosionBlockDamageTaken.@Tooltip": "% OTRZYMYWANYCH obrażeń (nie redukowanych) po zablokowaniu eksplozji\n Ta opcja nic nie robi, chyba że opóźnienie blokowania eksplozji jest powyżej -1",
   "text.autoconfig.frycparry.option.pickaxe.explosionBlockDamageTaken.@Tooltip": "% OTRZYMYWANYCH obrażeń (nie redukowanych) po zablokowaniu eksplozji\n Ta opcja nic nie robi, chyba że opóźnienie blokowania eksplozji jest powyżej -1",
   "text.autoconfig.frycparry.option.hoe.explosionBlockDamageTaken.@Tooltip": "% OTRZYMYWANYCH obrażeń (nie redukowanych) po zablokowaniu eksplozji\n Ta opcja nic nie robi, chyba że opóźnienie blokowania eksplozji jest powyżej -1",
+  "text.autoconfig.frycparry.option.mace.explosionBlockDamageTaken.@Tooltip": "% OTRZYMYWANYCH obrażeń (nie redukowanych) po zablokowaniu eksplozji\n Ta opcja nic nie robi, chyba że opóźnienie blokowania eksplozji jest powyżej -1",
   "text.autoconfig.frycparry.option.shovel.explosionBlockDamageTaken.@Tooltip": "% OTRZYMYWANYCH obrażeń (nie redukowanych) po zablokowaniu eksplozji\n Ta opcja nic nie robi, chyba że opóźnienie blokowania eksplozji jest powyżej -1",
   "text.autoconfig.frycparry.option.server.explosionBlockDamageTaken.@Tooltip": "% OTRZYMYWANYCH obrażeń (nie redukowanych) po zablokowaniu eksplozji\n Ta opcja nic nie robi, chyba że opóźnienie blokowania eksplozji jest powyżej -1",
 
@@ -226,6 +234,7 @@
   "text.autoconfig.frycparry.option.axe.cooldownAfterAttack": "Czas odnowienia po zaatakowaniu [Wymagany /reload]",
   "text.autoconfig.frycparry.option.pickaxe.cooldownAfterAttack": "Czas odnowienia po zaatakowaniu [Wymagany /reload]",
   "text.autoconfig.frycparry.option.hoe.cooldownAfterAttack": "Czas odnowienia po zaatakowaniu [Wymagany /reload]",
+  "text.autoconfig.frycparry.option.mace.cooldownAfterAttack": "Czas odnowienia po zaatakowaniu [Wymagany /reload]",
   "text.autoconfig.frycparry.option.shovel.cooldownAfterAttack": "Czas odnowienia po zaatakowaniu [Wymagany /reload]",
   "text.autoconfig.frycparry.option.server.cooldownAfterAttack": "Czas odnowienia po zaatakowaniu [Wymagany /reload]",
 
@@ -234,6 +243,7 @@
   "text.autoconfig.frycparry.option.axe.cooldownAfterAttack.@Tooltip": "Wartości powyżej zera opisują na ile ticków zostanie wyłączony przedmiot;\n Kiedy ta wartość jest poniżej zera, czas odnowienia jest zależny od prędkości ataku, a wartość tej opcji jest mnożnikiem;\n (Na przykład, jeśli ta wartość jest ustawiona na -5, czas odnowienia będzie wynosił: wartośćBazującaNaPrędkościAtaku * 5)",
   "text.autoconfig.frycparry.option.pickaxe.cooldownAfterAttack.@Tooltip": "Wartości powyżej zera opisują na ile ticków zostanie wyłączony przedmiot;\n Kiedy ta wartość jest poniżej zera, czas odnowienia jest zależny od prędkości ataku, a wartość tej opcji jest mnożnikiem;\n (Na przykład, jeśli ta wartość jest ustawiona na -5, czas odnowienia będzie wynosił: wartośćBazującaNaPrędkościAtaku * 5)",
   "text.autoconfig.frycparry.option.hoe.cooldownAfterAttack.@Tooltip": "Wartości powyżej zera opisują na ile ticków zostanie wyłączony przedmiot;\n Kiedy ta wartość jest poniżej zera, czas odnowienia jest zależny od prędkości ataku, a wartość tej opcji jest mnożnikiem;\n (Na przykład, jeśli ta wartość jest ustawiona na -5, czas odnowienia będzie wynosił: wartośćBazującaNaPrędkościAtaku * 5)",
+  "text.autoconfig.frycparry.option.mace.cooldownAfterAttack.@Tooltip": "Wartości powyżej zera opisują na ile ticków zostanie wyłączony przedmiot;\n Kiedy ta wartość jest poniżej zera, czas odnowienia jest zależny od prędkości ataku, a wartość tej opcji jest mnożnikiem;\n (Na przykład, jeśli ta wartość jest ustawiona na -5, czas odnowienia będzie wynosił: wartośćBazującaNaPrędkościAtaku * 5)",
   "text.autoconfig.frycparry.option.shovel.cooldownAfterAttack.@Tooltip": "Wartości powyżej zera opisują na ile ticków zostanie wyłączony przedmiot;\n Kiedy ta wartość jest poniżej zera, czas odnowienia jest zależny od prędkości ataku, a wartość tej opcji jest mnożnikiem;\n (Na przykład, jeśli ta wartość jest ustawiona na -5, czas odnowienia będzie wynosił: wartośćBazującaNaPrędkościAtaku * 5)",
   "text.autoconfig.frycparry.option.server.cooldownAfterAttack.@Tooltip": "Wartości powyżej zera opisują na ile ticków zostanie wyłączony przedmiot;\n Kiedy ta wartość jest poniżej zera, czas odnowienia jest zależny od prędkości ataku, a wartość tej opcji jest mnożnikiem;\n (Na przykład, jeśli ta wartość jest ustawiona na -5, czas odnowienia będzie wynosił: wartośćBazującaNaPrędkościAtaku * 5)",
 
@@ -288,11 +298,6 @@
   "text.autoconfig.frycparry.option.mace.maceBlockArrowDamageTaken": "% otrzymywanych obrażeń po zablokowaniu pocisku [Wymagany /reload]",
   "text.autoconfig.frycparry.option.mace.maceBlockArrowDamageTaken.@Tooltip": "Przykład: kiedy ustawione na 90, gracz otrzyma 90% oryginalnych obrażeń po zablokowaniu pocisku",
   "text.autoconfig.frycparry.option.mace.maceParryKnockbackStrength": "Siła odrzutu z parowania [Wymagany /reload]",
-  "text.autoconfig.frycparry.option.mace.maceSlownessAfterParry": "Długość spowolnienia z parowania [Wymagany /reload]",
-  "text.autoconfig.frycparry.option.mace.maceSlownessAfterParryAmplifier": "Moc spowolnienia z parowania [Wymagany /reload]",
-  "text.autoconfig.frycparry.option.mace.maceWeaknessAfterParry": "Długość osłabienia z parowania [Wymagany /reload]",
-  "text.autoconfig.frycparry.option.mace.maceWeaknessAfterParryAmplifier": "Moc osłabienia z parowania [Wymagany /reload]",
-  "text.autoconfig.frycparry.option.mace.maceDisarmAfterParry": "Długość rozbrojenia z parowania (tylko dla graczy) [Wymagany /reload]",
   "text.autoconfig.frycparry.option.mace.shouldStopUsingMaceAfterBlockOrParry": "Przestań używać przedmiotu po zablokowaniu lub sparowaniu [Wymagany /reload]",
   "text.autoconfig.frycparry.option.mace.maxUseTime": "Maksymalny czas użycia [Wymagany /reload]"
 

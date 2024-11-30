@@ -13,19 +13,16 @@ public class HoeConfig implements ConfigData {
     public boolean enableBlockingWithHoe = true;
 
     @ConfigEntry.Gui.Tooltip
-    
     @ConfigEntry.BoundedDiscrete(max = 30, min = 0)
     public int hoeParryTicks = 1;
 
     @Comment("% of damage TAKEN (not reduced) after blocking melee attack: the higher this value, the more damage player takes when blocking")
     @ConfigEntry.Gui.Tooltip
-    
     @ConfigEntry.BoundedDiscrete(max = 100, min = 0)
     public int hoeBlockMeleeDamageTaken = 85;
 
     @Comment("% of damage TAKEN (not reduced) after blocking projectile: the higher this value, the more damage player takes when blocking")
     @ConfigEntry.Gui.Tooltip
-    
     @ConfigEntry.BoundedDiscrete(max = 100, min = 0)
     public int hoeBlockArrowDamageTaken = 97;
 

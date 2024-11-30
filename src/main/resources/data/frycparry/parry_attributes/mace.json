@@ -2,14 +2,29 @@
   "parryTicks": 2,
   "meleeDamageTakenAfterBlock": 0.30,
   "projectileDamageTakenAfterBlock": 0.65,
+  "explosionDamageTakenAfterBlock": 0.75,
   "cooldownAfterParryAction": -1.4,
   "cooldownAfterInterruptingBlockAction": -2.1,
+  "cooldownAfterAttack": -0.90,
   "maxUseTime": 7200,
+  "blockDelay": 2,
+  "explosionBlockDelay": 5,
   "shouldStopUsingItemAfterBlockOrParry": true,
   "knockbackAfterParryAction": 11.0,
-  "slownessAfterParryAction": 160,
-  "slownessAmplifierAfterParryAction": 1,
-  "weaknessAfterParryAction": 0,
-  "weaknessAmplifierAfterParryAction": 1,
-  "disarmedAfterParryAction": 35
+  "parryEffects": [
+    {
+      "statusEffect": "minecraft:slowness",
+      "duration": 160,
+      "amplifier": 1,
+      "chance": 1.0,
+      "enchantmentMultiplier": 0.3
+    },
+    {
+      "statusEffect": "frycparry:disarmed",
+      "duration": 35,
+      "amplifier": 1,
+      "chance": 1.0,
+      "enchantmentMultiplier": 0.12
+    }
+  ]
 }

@@ -31,7 +31,7 @@
   "text.autoconfig.frycparry.category.hoe": "Hoe",
   "text.autoconfig.frycparry.category.pickaxe": "Pickaxe",
   "text.autoconfig.frycparry.category.mace": "Mace",
-  "text.autoconfig.frycparry.category.multiplayerModifiers": "PvP",
+  "text.autoconfig.frycparry.category.modifiers": "Modifiers",
   "text.autoconfig.frycparry.category.other": "Other",
   "text.autoconfig.frycparry.category.client": "Client",
   "text.autoconfig.frycparry.category.enchantments": "Enchantments",
@@ -168,6 +168,8 @@
   "text.autoconfig.frycparry.option.shovel.shovelParryEffects.@Tooltip": "List of status effects, that can be applied to attacker, in the following pattern: \n 'StatusEffect;duration;amplifier;chance;enchantmentModifier;StatusEffect;duration;amplifier;chance;enchantmentModifier' \n chance: 1.0 = 100% \n enchantmentModifier: 0.4 = 40% longer duration per Parry enchantment level",
   "text.autoconfig.frycparry.option.hoe.hoeParryEffects": "Parry effects [/reload Required]",
   "text.autoconfig.frycparry.option.hoe.hoeParryEffects.@Tooltip": "List of status effects, that can be applied to attacker, in the following pattern: \n 'StatusEffect;duration;amplifier;chance;enchantmentModifier;StatusEffect;duration;amplifier;chance;enchantmentModifier' \n chance: 1.0 = 100% \n enchantmentModifier: 0.4 = 40% longer duration per Parry enchantment level",
+  "text.autoconfig.frycparry.option.mace.maceParryEffects": "Parry effects [/reload Required]",
+  "text.autoconfig.frycparry.option.mace.maceParryEffects.@Tooltip": "List of status effects, that can be applied to attacker, in the following pattern: \n 'StatusEffect;duration;amplifier;chance;enchantmentModifier;StatusEffect;duration;amplifier;chance;enchantmentModifier' \n chance: 1.0 = 100% \n enchantmentModifier: 0.4 = 40% longer duration per Parry enchantment level",
   "text.autoconfig.frycparry.option.pickaxe.pickaxeParryEffects": "Parry effects [/reload Required]",
   "text.autoconfig.frycparry.option.pickaxe.pickaxeParryEffects.@Tooltip": "List of status effects, that can be applied to attacker, in the following pattern: \n 'StatusEffect;duration;amplifier;chance;enchantmentModifier;StatusEffect;duration;amplifier;chance;enchantmentModifier' \n chance: 1.0 = 100% \n enchantmentModifier: 0.4 = 40% longer duration per Parry enchantment level",
   "text.autoconfig.frycparry.option.server.parryEffects": "Parry effects [/reload Required]",
@@ -196,6 +198,7 @@
   "text.autoconfig.frycparry.option.axe.blockDelay": "Block delay [/reload Required]",
   "text.autoconfig.frycparry.option.pickaxe.blockDelay": "Block delay [/reload Required]",
   "text.autoconfig.frycparry.option.hoe.blockDelay": "Block delay [/reload Required]",
+  "text.autoconfig.frycparry.option.mace.blockDelay": "Block delay [/reload Required]",
   "text.autoconfig.frycparry.option.shovel.blockDelay": "Block delay [/reload Required]",
   "text.autoconfig.frycparry.option.server.blockDelay": "Block delay [/reload Required]",
 
@@ -204,6 +207,7 @@
   "text.autoconfig.frycparry.option.axe.blockDelay.@Tooltip": "Parry ticks start counting AFTER block delay \n For example, when block delay is 5, and parry ticks is 2, 6th and 7th tick counts as parry",
   "text.autoconfig.frycparry.option.pickaxe.blockDelay.@Tooltip": "Parry ticks start counting AFTER block delay \n For example, when block delay is 5, and parry ticks is 2, 6th and 7th tick counts as parry",
   "text.autoconfig.frycparry.option.hoe.blockDelay.@Tooltip": "Parry ticks start counting AFTER block delay \n For example, when block delay is 5, and parry ticks is 2, 6th and 7th tick counts as parry",
+  "text.autoconfig.frycparry.option.mace.blockDelay.@Tooltip": "Parry ticks start counting AFTER block delay \n For example, when block delay is 5, and parry ticks is 2, 6th and 7th tick counts as parry",
   "text.autoconfig.frycparry.option.shovel.blockDelay.@Tooltip": "Parry ticks start counting AFTER block delay \n For example, when block delay is 5, and parry ticks is 2, 6th and 7th tick counts as parry",
   "text.autoconfig.frycparry.option.server.blockDelay.@Tooltip": "Parry ticks start counting AFTER block delay \n For example, when block delay is 5, and parry ticks is 2, 6th and 7th tick counts as parry",
 
@@ -212,6 +216,7 @@
   "text.autoconfig.frycparry.option.axe.explosionBlockDelay": "Explosion block delay [/reload Required]",
   "text.autoconfig.frycparry.option.pickaxe.explosionBlockDelay": "Explosion block delay [/reload Required]",
   "text.autoconfig.frycparry.option.hoe.explosionBlockDelay": "Explosion block delay [/reload Required]",
+  "text.autoconfig.frycparry.option.mace.explosionBlockDelay": "Explosion block delay [/reload Required]",
   "text.autoconfig.frycparry.option.shovel.explosionBlockDelay": "Explosion block delay [/reload Required]",
   "text.autoconfig.frycparry.option.server.explosionBlockDelay": "Explosion block delay [/reload Required]",
 
@@ -220,6 +225,7 @@
   "text.autoconfig.frycparry.option.axe.explosionBlockDelay.@Tooltip": "When this value is below 0, explosions can't be blocked\n 0 means no delay (but normal block delay is still taken into account)\n If normal block delay is higher than this value (and this value is higher than -1), then this value does nothing\n If normal block delay is 0 and this value is 5, first 5 ticks of blocking grants 80% less protection from explosions",
   "text.autoconfig.frycparry.option.pickaxe.explosionBlockDelay.@Tooltip": "When this value is below 0, explosions can't be blocked\n 0 means no delay (but normal block delay is still taken into account)\n If normal block delay is higher than this value (and this value is higher than -1), then this value does nothing\n If normal block delay is 0 and this value is 5, first 5 ticks of blocking grants 80% less protection from explosions",
   "text.autoconfig.frycparry.option.hoe.explosionBlockDelay.@Tooltip": "When this value is below 0, explosions can't be blocked\n 0 means no delay (but normal block delay is still taken into account)\n If normal block delay is higher than this value (and this value is higher than -1), then this value does nothing\n If normal block delay is 0 and this value is 5, first 5 ticks of blocking grants 80% less protection from explosions",
+  "text.autoconfig.frycparry.option.mace.explosionBlockDelay.@Tooltip": "When this value is below 0, explosions can't be blocked\n 0 means no delay (but normal block delay is still taken into account)\n If normal block delay is higher than this value (and this value is higher than -1), then this value does nothing\n If normal block delay is 0 and this value is 5, first 5 ticks of blocking grants 80% less protection from explosions",
   "text.autoconfig.frycparry.option.shovel.explosionBlockDelay.@Tooltip": "When this value is below 0, explosions can't be blocked\n 0 means no delay (but normal block delay is still taken into account)\n If normal block delay is higher than this value (and this value is higher than -1), then this value does nothing\n If normal block delay is 0 and this value is 5, first 5 ticks of blocking grants 80% less protection from explosions",
   "text.autoconfig.frycparry.option.server.explosionBlockDelay.@Tooltip": "When this value is below 0, explosions can't be blocked\n 0 means no delay (but normal block delay is still taken into account)\n If normal block delay is higher than this value (and this value is higher than -1), then this value does nothing\n If normal block delay is 0 and this value is 5, first 5 ticks of blocking grants 80% less protection from explosions",
 
@@ -228,6 +234,7 @@
   "text.autoconfig.frycparry.option.axe.explosionBlockDamageTaken": "% of damage taken after blocking explosion [/reload Required]",
   "text.autoconfig.frycparry.option.pickaxe.explosionBlockDamageTaken": "% of damage taken after blocking explosion [/reload Required]",
   "text.autoconfig.frycparry.option.hoe.explosionBlockDamageTaken": "% of damage taken after blocking explosion [/reload Required]",
+  "text.autoconfig.frycparry.option.mace.explosionBlockDamageTaken": "% of damage taken after blocking explosion [/reload Required]",
   "text.autoconfig.frycparry.option.shovel.explosionBlockDamageTaken": "% of damage taken after blocking explosion [/reload Required]",
   "text.autoconfig.frycparry.option.server.explosionBlockDamageTaken": "% of damage taken after blocking explosion [/reload Required]",
 
@@ -236,6 +243,7 @@
   "text.autoconfig.frycparry.option.axe.explosionBlockDamageTaken.@Tooltip": "% of damage TAKEN (not reduced) after blocking explosion: the higher this value, the more damage player takes when blocking\n This option doesn't do anything unless explosionBlockDelay is above -1",
   "text.autoconfig.frycparry.option.pickaxe.explosionBlockDamageTaken.@Tooltip": "% of damage TAKEN (not reduced) after blocking explosion: the higher this value, the more damage player takes when blocking\n This option doesn't do anything unless explosionBlockDelay is above -1",
   "text.autoconfig.frycparry.option.hoe.explosionBlockDamageTaken.@Tooltip": "% of damage TAKEN (not reduced) after blocking explosion: the higher this value, the more damage player takes when blocking\n This option doesn't do anything unless explosionBlockDelay is above -1",
+  "text.autoconfig.frycparry.option.mace.explosionBlockDamageTaken.@Tooltip": "% of damage TAKEN (not reduced) after blocking explosion: the higher this value, the more damage player takes when blocking\n This option doesn't do anything unless explosionBlockDelay is above -1",
   "text.autoconfig.frycparry.option.shovel.explosionBlockDamageTaken.@Tooltip": "% of damage TAKEN (not reduced) after blocking explosion: the higher this value, the more damage player takes when blocking\n This option doesn't do anything unless explosionBlockDelay is above -1",
   "text.autoconfig.frycparry.option.server.explosionBlockDamageTaken.@Tooltip": "% of damage TAKEN (not reduced) after blocking explosion: the higher this value, the more damage player takes when blocking\n This option doesn't do anything unless explosionBlockDelay is above -1",
 
@@ -244,6 +252,7 @@
   "text.autoconfig.frycparry.option.axe.cooldownAfterAttack": "Cooldown after attacking [/reload Required]",
   "text.autoconfig.frycparry.option.pickaxe.cooldownAfterAttack": "Cooldown after attacking [/reload Required]",
   "text.autoconfig.frycparry.option.hoe.cooldownAfterAttack": "Cooldown after attacking [/reload Required]",
+  "text.autoconfig.frycparry.option.mace.cooldownAfterAttack": "Cooldown after attacking [/reload Required]",
   "text.autoconfig.frycparry.option.shovel.cooldownAfterAttack": "Cooldown after attacking [/reload Required]",
   "text.autoconfig.frycparry.option.server.cooldownAfterAttack": "Cooldown after attacking [/reload Required]",
 
@@ -252,6 +261,7 @@
   "text.autoconfig.frycparry.option.axe.cooldownAfterAttack.@Tooltip": "Values above 0 describe number of ticks item will be disabled for\n When this value is below zero, cooldown is based on attack speed and the value is multiplier\n (For example, if this value is set to -0.5, cooldown will be: valueBasedOnAttackSpeed * 0.5)",
   "text.autoconfig.frycparry.option.pickaxe.cooldownAfterAttack.@Tooltip": "Values above 0 describe number of ticks item will be disabled for\n When this value is below zero, cooldown is based on attack speed and the value is multiplier\n (For example, if this value is set to -0.5, cooldown will be: valueBasedOnAttackSpeed * 0.5)",
   "text.autoconfig.frycparry.option.hoe.cooldownAfterAttack.@Tooltip": "Values above 0 describe number of ticks item will be disabled for\n When this value is below zero, cooldown is based on attack speed and the value is multiplier\n (For example, if this value is set to -0.5, cooldown will be: valueBasedOnAttackSpeed * 0.5)",
+  "text.autoconfig.frycparry.option.mace.cooldownAfterAttack.@Tooltip": "Values above 0 describe number of ticks item will be disabled for\n When this value is below zero, cooldown is based on attack speed and the value is multiplier\n (For example, if this value is set to -0.5, cooldown will be: valueBasedOnAttackSpeed * 0.5)",
   "text.autoconfig.frycparry.option.shovel.cooldownAfterAttack.@Tooltip": "Values above 0 describe number of ticks item will be disabled for\n When this value is below zero, cooldown is based on attack speed and the value is multiplier\n (For example, if this value is set to -0.5, cooldown will be: valueBasedOnAttackSpeed * 0.5)",
   "text.autoconfig.frycparry.option.server.cooldownAfterAttack.@Tooltip": "Values above 0 describe number of ticks item will be disabled for\n When this value is below zero, cooldown is based on attack speed and the value is multiplier\n (For example, if this value is set to -0.5, cooldown will be: valueBasedOnAttackSpeed * 0.5)",
   

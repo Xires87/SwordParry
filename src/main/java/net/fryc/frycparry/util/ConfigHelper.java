@@ -30,6 +30,7 @@ public class ConfigHelper {
     public static HashMap<RegistryEntry<StatusEffect>, Quartet<Integer, Integer, Float, Float>> shovelParryEffects;
     public static HashMap<RegistryEntry<StatusEffect>, Quartet<Integer, Integer, Float, Float>> hoeParryEffects;
     public static HashMap<RegistryEntry<StatusEffect>, Quartet<Integer, Integer, Float, Float>> shieldParryEffects;
+    public static HashMap<RegistryEntry<StatusEffect>, Quartet<Integer, Integer, Float, Float>> maceParryEffects;
     public static HashMap<RegistryEntry<StatusEffect>, Quartet<Integer, Integer, Float, Float>> parryEffects;
 
 
@@ -40,6 +41,7 @@ public class ConfigHelper {
         shovelParryEffects = transformStringToMap(FrycParry.config.shovel.shovelParryEffects);
         hoeParryEffects = transformStringToMap(FrycParry.config.hoe.hoeParryEffects);
         shieldParryEffects = transformStringToMap(FrycParry.config.shield.shieldParryEffects);
+        maceParryEffects = transformStringToMap(FrycParry.config.mace.maceParryEffects);
         parryEffects = transformStringToMap(FrycParry.config.server.parryEffects);
     }
 
