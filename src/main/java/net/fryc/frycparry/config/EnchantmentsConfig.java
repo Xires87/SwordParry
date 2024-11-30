@@ -24,6 +24,15 @@ public class EnchantmentsConfig implements ConfigData {
     @ConfigEntry.Gui.RequiresRestart
     public boolean enableCounterattackEnchantment = true;
 
+    @Comment("""
+    Increases amplifier of parry effects by this value when item has Parry II\s
+    If you want to strengthen only some of the effects, decrease amplifier of the effect you don't want to be strengthened:\s
+    For example, if this option is set to 2, and parrying applies instant damage I, setting instant damage's amplifier to -1 will \s
+    prevent parry enchantment from increasing the amplifier (still instant damage I will be applied)
+    """)
+    @ConfigEntry.Gui.Tooltip
+    public int parryEnchantmentAmplifierIncreaseOnMaxLevel = 0;
+
     @Comment("This option doesn't do anything when blocking with axes and swords is disabled (or enchantments are disabled)")
     @ConfigEntry.Gui.Tooltip
     public boolean enchantmentsForShieldsCanAppearOnWeaponsInChests = false;
