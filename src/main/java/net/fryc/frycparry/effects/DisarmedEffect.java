@@ -48,16 +48,6 @@ public class DisarmedEffect extends StatusEffect {
         super.onApplied(entity, amplifier);
     }
 
-    public void onRemoved(LivingEntity entity, AttributeContainer attributes, int amplifier) {
-        if(entity instanceof MobEntity mob){
-            mob.setTarget(((TargetingMob) mob).getLastTarget());
-            ((TargetingMob) mob).setLastTarget(null);
-            mob.setAttacking(true);
-        }
-
-        super.onRemoved(entity, attributes, amplifier);
-    }
-
     private static boolean isShieldOrBowOrTool(World world, ItemStack stack){
         return stack.getItem() instanceof ShieldItem || stack.getAttributeModifiers(EquipmentSlot.MAINHAND).keySet().contains(EntityAttributes.GENERIC_ATTACK_SPEED) ||
                 !ParryHelper.isItemParryDisabledWithConfig(world, stack);

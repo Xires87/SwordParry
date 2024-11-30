@@ -12,12 +12,14 @@ import net.fryc.frycparry.tag.ModEntityTypeTags;
 import net.fryc.frycparry.util.ParryHelper;
 import net.fryc.frycparry.util.interfaces.CanBlock;
 import net.fryc.frycparry.util.interfaces.ParryItem;
+import net.fryc.frycparry.util.interfaces.TargetingMob;
 import net.minecraft.entity.*;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.effect.StatusEffectInstance;
+import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -54,6 +56,18 @@ abstract class LivingEntityMixin extends Entity implements Attackable, CanBlock 
 
     public LivingEntityMixin(EntityType<?> type, World world) {
         super(type, world);
+    }
+
+    @Inject(method = "onStatusEffectRemoved(Lnet/minecraft/entity/effect/StatusEffectInstance;)V", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/effect/StatusEffect;onRemoved(Lnet/minecraft/entity/attribute/AttributeContainer;)V", shift = At.Shift.BEFORE))
+    protected void onDisarmedRemoved(StatusEffectInstance effect, CallbackInfo info) {
+        LivingEntity dys = ((LivingEntity)(Object)this);
+        if(effect.getEffectType() == ModEffects.DISARMED){
+            if(dys instanceof MobEntity mob){
+                mob.setTarget(((TargetingMob) mob).getLastTarget());
+                ((TargetingMob) mob).setLastTarget(null);
+                mob.setAttacking(true);
+            }
+        }
     }
 
 
