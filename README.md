@@ -89,7 +89,9 @@ Note:
 - `explosionDamageTakenAfterBlock` doesn't do anything unless `explosionBlockDelay` is above -1
 - for all cooldown fields: if value is below 0, cooldown is based on attack speed and the value is multiplier (-2 means `valueBasedOnAttackSpeed x 2`)
 - parry ticks are checked AFTER block delay
+- negative block delay increases parry ticks
 - if `explosionBlockDelay` is below 0, item can't block explosions
 - `blockDelay` is still taken into account when blocking explosions
 - `explosionBlockDelay` is amount of ticks item must be held for to **successfully** block explosion (successfully means, the damage from explosion will be multiplied by `explosionDamageTakenAfterBlock`)
 - holding block for more ticks than `blockDelay`, but less than `explosionBlockDelay` will reduce protection from explosions by 80% (explosion will be blocked, but you will take MUCH more damage than specified in `explosionDamageTakenAfterBlock`)
+- setting amplifier of parry effect to a value lower than 1 will prevent parry enchantment from increasing amplifier of that effect (negative amplifiers are corrected AFTER increasing them with parry enchantment)
