@@ -274,6 +274,8 @@
   "text.autoconfig.frycparry.option.enchantments.shieldEnchantability": "Możliwości zaklinania tarczy (enchantability) [Wymagany Restart]",
   "text.autoconfig.frycparry.option.enchantments.shieldEnchantability.@Tooltip": "Ustaw na 0 aby zaklinanie tarczy było niemożliwe",
 
+  "text.autoconfig.frycparry.option.enchantments.parryEnchantmentAmplifierIncreaseOnMaxLevel": "Parowanie II zwiększa moc o:",
+  "text.autoconfig.frycparry.option.enchantments.parryEnchantmentAmplifierIncreaseOnMaxLevel.@Tooltip": "Zwiększa moc efektów parowania o tą wartość kiedy przedmiot ma Parowanie II\nJeśli chcesz wzmocnić tylko niektóre efekty, zmniejsz moc efektów, których nie chcesz wzmacniać:\n  Na przykład, kiedy ta opcja jest ustawiona na 2, i parowanie nakłada natychmiastowe obrażenia I, ustawienie mocy natychmiastowych obrażeń na -1\n  sprawi, że zaklęcie 'Parowanie' nie zwiększy mocy efektu (wciąż zostaną nałożone natychmiastowe obrażenia I)",
 
   "text.autoconfig.frycparry.option.mace.enableBlockingWithMace": "Włącz blokowanie i parowanie [Wymagany Restart]",
   "text.autoconfig.frycparry.option.mace.cooldownAfterInterruptingMaceBlockAction": "Czas odnowienia po zmianie przedmiotu, zablokowaniu ataku, lub przerwaniu blokowania [Wymagany /reload]",

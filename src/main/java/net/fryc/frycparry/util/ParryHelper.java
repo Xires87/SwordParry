@@ -10,6 +10,7 @@ import net.fryc.frycparry.util.interfaces.CanBlock;
 import net.fryc.frycparry.util.interfaces.ParryItem;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.AttributeModifiersComponent;
+import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.attribute.EntityAttributes;
@@ -94,9 +95,9 @@ public class ParryHelper {
         if(source.isIn(DamageTypeTags.IS_EXPLOSION)) return false;
         if(isItemParryEnabled(stack)){
             int maxUseTime = ((ParryItem) user.getActiveItem().getItem()).getParryAttributes().getMaxUseTimeParry();
-            int parryTicks = ((ParryItem) stack.getItem()).getParryAttributes().getParryTicks() + ModEnchantments.getPredictionEnchantment(user);
-            parryTicks += ((ParryItem) stack.getItem()).getParryAttributes().getBlockDelay() > -1 ? ((ParryItem) stack.getItem()).getParryAttributes().getBlockDelay() : 0;
-            // if parry tick is 4 then 4th tick is NOT parry
+            int parryTicks = ((ParryItem) stack.getItem()).getParryAttributes().getParryTicks();
+            parryTicks += Math.abs(((ParryItem) stack.getItem()).getParryAttributes().getBlockDelay() - ModEnchantments.getPredictionEnchantment(user));// negative block delay increases parry ticks
+            // if parry ticks is 4 then 4th tick is NOT parry
             // maxUseTime - user.getItemUseTimeLeft() can be 0 and 0 is parry, so it's still 4 ticks
             //user.sendMessage(Text.of("To jest: " + (maxUseTime - user.getItemUseTimeLeft()) + " tick"));
             return maxUseTime - user.getItemUseTimeLeft() < parryTicks;
@@ -156,17 +157,15 @@ public class ParryHelper {
     }
 
     public static void applyParryEffects(LivingEntity user, LivingEntity attacker){
-        //parry enchantment
-        // TODO zmodyfikowac parry enchantment zeby mnoznik na 2 poziomie byl inny niz 2 (i moze configiem zeby mozna bylo zmienic)
-        int parryEnchantmentLevel = ModEnchantments.getParryEnchantment(user);
+        int knockbackEnchantmentLevel = EnchantmentHelper.getKnockback(user);
 
         //variables for parry effects
         ParryAttributes parryAttributes = ((ParryItem) user.getActiveItem().getItem()).getParryAttributes();
         double knockback = parryAttributes.getKnockbackAfterParryAction();
-        float knockbackModifier; // modifier for parry enchantment
+        float knockbackModifier; // modifier for knockback enchantment
         if(attacker instanceof PlayerEntity) {
             knockbackModifier = 0.65F;
-            knockback -= FrycParry.config.modifiers.parryKnockbackStrengthForPlayersMultiplier;
+            knockback *= FrycParry.config.modifiers.parryKnockbackStrengthForPlayersMultiplier;
         }
         else {
             knockbackModifier = 0.95F;
@@ -174,9 +173,11 @@ public class ParryHelper {
 
         //knockback
         if(knockback > 0){
-            attacker.takeKnockback((knockback + parryEnchantmentLevel * knockbackModifier)/10, user.getX() - attacker.getX(), user.getZ() - attacker.getZ());
+            attacker.takeKnockback((knockback + knockbackEnchantmentLevel * knockbackModifier)/10, user.getX() - attacker.getX(), user.getZ() - attacker.getZ());
             attacker.velocityModified = true;
         }
+
+        int parryEnchantmentLevel = ModEnchantments.getParryEnchantment(user);
 
         //applying status effects from parry attributes
         Iterator<Map.Entry<StatusEffect, Quartet<Integer, Integer, Float, Float>>> iterator = parryAttributes.getParryEffectsIterator();
@@ -185,7 +186,7 @@ public class ParryHelper {
             float chance = entry.getValue().getC();
             if(chance >= 1.0F || ThreadLocalRandom.current().nextFloat() < chance){
                 int duration = entry.getValue().getA() + (int)(entry.getValue().getA() * (parryEnchantmentLevel * entry.getValue().getD()));
-                int amplifier = entry.getValue().getB() - (parryEnchantmentLevel == 2 ? 0 : 1); // TODO tutaj dac wartosc configowa zeby parry enchantment zwiekszal amplifier
+                int amplifier = entry.getValue().getB() - (parryEnchantmentLevel == 2 ? (1 - FrycParry.config.enchantments.parryEnchantmentAmplifierIncreaseOnMaxLevel) : 1);
                 if(amplifier < 0) amplifier = 0;
 
                 if(entry.getKey() == ModEffects.DISARMED && attacker instanceof MobEntity){

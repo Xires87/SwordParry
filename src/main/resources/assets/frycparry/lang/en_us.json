@@ -289,5 +289,8 @@
   "text.autoconfig.frycparry.option.client.enableBlockingWithOtherTools": "Enable parry key when using other tools",
 
   "text.autoconfig.frycparry.option.enchantments.shieldEnchantability": "Shield enchantability [Restart Required]",
-  "text.autoconfig.frycparry.option.enchantments.shieldEnchantability.@Tooltip": "Set it to 0 to make shield unenchantable"
+  "text.autoconfig.frycparry.option.enchantments.shieldEnchantability.@Tooltip": "Set it to 0 to make shield unenchantable",
+
+  "text.autoconfig.frycparry.option.enchantments.parryEnchantmentAmplifierIncreaseOnMaxLevel": "Parry II increases amplifier by:",
+  "text.autoconfig.frycparry.option.enchantments.parryEnchantmentAmplifierIncreaseOnMaxLevel.@Tooltip": "Increases amplifier of parry effects by this value when item has Parry II\nIf you want to strengthen only some of the effects, decrease amplifier of the effects you don't want to be strengthened:\n  For example, if this option is set to 2, and parrying applies instant damage I, setting instant damage's amplifier to -1 will\n  prevent parry enchantment from increasing the amplifier (still instant damage I will be applied)"
 }
