@@ -2,6 +2,7 @@ package net.fryc.frycparry.util;
 
 import net.fryc.frycparry.FrycParry;
 import net.fryc.frycparry.attributes.ParryAttributes;
+import net.fryc.frycparry.damage.ModDamageTypes;
 import net.fryc.frycparry.effects.ModEffects;
 import net.fryc.frycparry.enchantments.ModEnchantments;
 import net.fryc.frycparry.sounds.ModSounds;
@@ -20,6 +21,7 @@ import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.PersistentProjectileEntity;
 import net.minecraft.item.*;
+import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.tag.DamageTypeTags;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.util.math.Vec3d;
@@ -204,7 +206,10 @@ public class ParryHelper {
             double ctrattack_damage = user.getAttributes().getValue(EntityAttributes.GENERIC_ATTACK_DAMAGE);
             if(user.getOffHandStack().isEmpty()) ctrattack_damage *= (counterattackEnchantmentLevel * 0.2) + 0.1;
             else ctrattack_damage *= (counterattackEnchantmentLevel * 0.1) + 0.1;
-            attacker.damage(attacker.getWorld().getDamageSources().playerAttack(user),(float) ctrattack_damage);
+            attacker.damage(
+                    new DamageSource(attacker.getWorld().getRegistryManager().get(RegistryKeys.DAMAGE_TYPE).entryOf(ModDamageTypes.COUNTERATTACK_DAMAGE)),
+                    (float) ctrattack_damage
+            );
         }
     }
 
