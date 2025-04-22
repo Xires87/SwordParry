@@ -8,6 +8,7 @@ import net.minecraft.command.CommandRegistryAccess;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.server.command.CommandManager;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.network.ServerPlayerEntity;
@@ -48,12 +49,12 @@ public class ParryAttibutesCommand {
 
                 player.sendMessage(Text.literal("Parry knockback: " + attr.getKnockbackAfterParryAction()));
                 player.sendMessage(Text.literal("Parry effects:"));
-                Iterator<Map.Entry<StatusEffect, Quartet<Integer, Integer, Float, Float>>> iterator = attr.getParryEffectsIterator();
+                Iterator<Map.Entry<RegistryEntry<StatusEffect>, Quartet<Integer, Integer, Float, Float>>> iterator = attr.getParryEffectsIterator();
                 while(iterator.hasNext()){
-                    Map.Entry<StatusEffect, Quartet<Integer, Integer, Float, Float>> entry = iterator.next();
+                    Map.Entry<RegistryEntry<StatusEffect>, Quartet<Integer, Integer, Float, Float>> entry = iterator.next();
                     player.sendMessage(
                             Text.literal(
-                                    "  " + entry.getKey().getName().getString() +
+                                    "  " + entry.getKey().value().getName().getString() +
                                             ": Duration - " + entry.getValue().getA() +
                                             " Amplifier - " + entry.getValue().getB() +
                                             " Chance -  " + entry.getValue().getC() +
