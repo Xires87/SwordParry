@@ -33,7 +33,7 @@ public class ParryAttibutesCommand {
     private static int execute(ServerCommandSource source, Entity target) {
         if(target instanceof ServerPlayerEntity player){
             if(!player.getMainHandStack().isEmpty()){
-                int reflexLevel = EnchantmentHelper.getLevel(player.getWorld().getRegistryManager().get(RegistryKeys.ENCHANTMENT).entryOf(ModEnchantments.REFLEX), player.getMainHandStack());
+                int reflexLevel = EnchantmentHelper.getLevel(ModEnchantments.PREDICTION, player.getMainHandStack());
                 ParryAttributes attr = ((ParryItem) player.getMainHandStack().getItem()).getParryAttributes();
                 int blockDelay = attr.getBlockDelay() - reflexLevel;
                 int parryTicks = blockDelay < 0 ? attr.getParryTicks() + Math.abs(blockDelay) : attr.getParryTicks();
@@ -56,12 +56,12 @@ public class ParryAttibutesCommand {
 
                 player.sendMessage(Text.literal("Parry knockback: " + attr.getKnockbackAfterParryAction()));
                 player.sendMessage(Text.literal("Parry effects:"));
-                Iterator<Map.Entry<RegistryEntry<StatusEffect>, Quartet<Integer, Integer, Float, Float>>> iterator = attr.getParryEffectsIterator();
+                Iterator<Map.Entry<StatusEffect, Quartet<Integer, Integer, Float, Float>>> iterator = attr.getParryEffectsIterator();
                 while(iterator.hasNext()){
-                    Map.Entry<RegistryEntry<StatusEffect>, Quartet<Integer, Integer, Float, Float>> entry = iterator.next();
+                    Map.Entry<StatusEffect, Quartet<Integer, Integer, Float, Float>> entry = iterator.next();
                     player.sendMessage(
                             Text.literal(
-                                    "  " + entry.getKey().value().getName().getString() +
+                                    "  " + entry.getKey().getName().getString() +
                                             ": Duration - " + entry.getValue().getA() +
                                             " Amplifier - " + entry.getValue().getB() +
                                             " Chance -  " + entry.getValue().getC() +
