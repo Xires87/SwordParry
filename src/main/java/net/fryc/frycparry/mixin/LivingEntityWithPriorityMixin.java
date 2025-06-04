@@ -28,7 +28,7 @@ abstract class LivingEntityWithPriorityMixin extends Entity implements Attackabl
             ret.setReturnValue(false);
         }
         else{
-            if(!((CanBlock) dys).getParryDataValue() && !ParryHelper.blockingFullyNegatesDamage(source, dys.getActiveItem(), dys)){
+            if(!((CanBlock) dys).getParryDataValue() && !ParryHelper.blockingFullyNegatesDamage(source, ParryHelper.getCurrentActiveItem(dys), dys)){
                 ret.setReturnValue(false);
             }
         }

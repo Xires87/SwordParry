@@ -62,6 +62,7 @@ abstract class LivingEntityMixin extends Entity implements Attackable, CanBlock 
         LivingEntity dys = ((LivingEntity)(Object)this);
         boolean shouldSwingHand = false;
         boolean playSound = true;
+        ItemStack activeItem = ParryHelper.getCurrentActiveItem(dys);
         if(ParryHelper.isItemParryEnabled(dys.getActiveItem())){
             if(((CanBlock) dys).getParryDataValue()){ // <--- checks if attack was parried
                 ((CanBlock) dys).setParryDataToFalse();
@@ -80,7 +81,7 @@ abstract class LivingEntityMixin extends Entity implements Attackable, CanBlock 
 
                             //disabling block after parrying axe attack (when config allows it)
                             if(attacker.disablesShield() && FrycParry.config.server.disableBlockAfterParryingAxeAttack){
-                                ParryHelper.disableParryItem(player, dys.getActiveItem().getItem());
+                                ParryHelper.disableParryItem(player, activeItem.getItem());
                                 dys.swingHand(dys.getActiveHand(), true);
                                 playSound = false;
                             }
@@ -97,7 +98,7 @@ abstract class LivingEntityMixin extends Entity implements Attackable, CanBlock 
                 if(dys instanceof PlayerEntity player){
                     if(source.getAttacker() instanceof LivingEntity attacker){
                         if(attacker.disablesShield()){
-                            ParryHelper.disableParryItem(player, dys.getActiveItem().getItem());
+                            ParryHelper.disableParryItem(player, activeItem.getItem());
                             ParryHelper.playGuardBreakSound(player);
                             playSound = false;
                         }
@@ -110,7 +111,7 @@ abstract class LivingEntityMixin extends Entity implements Attackable, CanBlock 
             }
 
             // interrupting block action after PARRYING or FULLY BLOCKING (no dmg) attack with tool
-            if(((ParryItem) dys.getActiveItem().getItem()).getParryAttributes().shouldStopUsingItemAfterBlockOrParry()){
+            if(((ParryItem) activeItem.getItem()).getParryAttributes().shouldStopUsingItemAfterBlockOrParry()){
                 ((CanBlock) dys).stopUsingItemParry();
                 if(shouldSwingHand) dys.swingHand(dys.getActiveHand(), true);
             }
@@ -129,9 +130,10 @@ abstract class LivingEntityMixin extends Entity implements Attackable, CanBlock 
     @ModifyVariable(method = "damage(Lnet/minecraft/entity/damage/DamageSource;F)Z", at = @At("HEAD"), ordinal = 0)
     private float blocking(float amount, DamageSource source) {
         LivingEntity dys = ((LivingEntity)(Object)this);
-        if(dys.getActiveItem().isEmpty() || !ParryHelper.isItemParryEnabled(dys.getActiveItem()) || dys.getWorld().isClient()) return amount;
+        ItemStack activeItem = ParryHelper.getCurrentActiveItem(dys);
+        if(activeItem.isEmpty() || !ParryHelper.isItemParryEnabled(activeItem) || dys.getWorld().isClient()) return amount;
         if(ParryHelper.attackWasBlocked(source, dys)){
-            if(ParryHelper.attackWasParried(source, dys.getActiveItem(), dys)){
+            if(ParryHelper.attackWasParried(source, activeItem, dys)){
                 ((CanBlock) dys).setParryDataToTrue();
                 return amount;
             }
@@ -140,7 +142,7 @@ abstract class LivingEntityMixin extends Entity implements Attackable, CanBlock 
                 float originalDamage = amount;
 
                 if(source.isIn(DamageTypeTags.IS_EXPLOSION)){
-                    ParryItem parryItem = (ParryItem) dys.getActiveItem().getItem();
+                    ParryItem parryItem = (ParryItem) activeItem.getItem();
                     if(ParryHelper.explosionCanBeBlocked(parryItem)){
                         float multiplier;
                         if(ParryHelper.explosionWasSuccessfullyBlocked(parryItem, dys)){
@@ -159,12 +161,12 @@ abstract class LivingEntityMixin extends Entity implements Attackable, CanBlock 
                     //}
                 }
                 else if(source.isIn(DamageTypeTags.IS_PROJECTILE)){
-                    amount *= ((ParryItem) dys.getActiveItem().getItem()).getParryAttributes().getProjectileDamageTakenAfterBlock();
+                    amount *= ((ParryItem) activeItem.getItem()).getParryAttributes().getProjectileDamageTakenAfterBlock();
                 }
                 else if(source.getAttacker() instanceof LivingEntity attacker){
-                    amount *= ((ParryItem) dys.getActiveItem().getItem()).getParryAttributes().getMeleeDamageTakenAfterBlock();
+                    amount *= ((ParryItem) activeItem.getItem()).getParryAttributes().getMeleeDamageTakenAfterBlock();
                     if(attacker.disablesShield() && dys instanceof PlayerEntity player){
-                        ParryHelper.disableParryItem(player, dys.getActiveItem().getItem());
+                        ParryHelper.disableParryItem(player, activeItem.getItem());
                         ParryHelper.playGuardBreakSound(player);
                         playSound = false;
                     }
@@ -178,7 +180,7 @@ abstract class LivingEntityMixin extends Entity implements Attackable, CanBlock 
                 }
 
                 // interrupting block action after BLOCKING attack with tool
-                if(((ParryItem) dys.getActiveItem().getItem()).getParryAttributes().shouldStopUsingItemAfterBlockOrParry()){
+                if(((ParryItem) activeItem.getItem()).getParryAttributes().shouldStopUsingItemAfterBlockOrParry()){
                     ((CanBlock) dys).stopUsingItemParry();
                 }
 
@@ -192,7 +194,7 @@ abstract class LivingEntityMixin extends Entity implements Attackable, CanBlock 
                 }
                 else {
                     dys.damageShield(originalDamage);
-                    if(dys.getActiveItem().isEmpty()) dys.stopUsingItem();
+                    if(activeItem.isEmpty()) dys.stopUsingItem();
                 }
 
 

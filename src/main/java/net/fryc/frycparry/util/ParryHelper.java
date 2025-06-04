@@ -2,6 +2,7 @@ package net.fryc.frycparry.util;
 
 import net.fryc.frycparry.FrycParry;
 import net.fryc.frycparry.attributes.ParryAttributes;
+import net.fryc.frycparry.compat.ImmersiveMcCompat;
 import net.fryc.frycparry.damage.ModDamageTypes;
 import net.fryc.frycparry.effects.ModEffects;
 import net.fryc.frycparry.enchantments.ModEnchantments;
@@ -33,6 +34,15 @@ import java.util.Map;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class ParryHelper {
+
+    public static ItemStack getCurrentActiveItem(LivingEntity living){
+        if(ImmersiveMcCompat.shouldUseImmersiveBlockingItem(living)){
+            ItemStack stack = ImmersiveMcCompat.getImmersiveBlockingItem(living);
+            return stack != null ? stack : ItemStack.EMPTY;
+        }
+
+        return living.getActiveItem();
+    }
 
     public static boolean canParryWithoutShield(LivingEntity user){
         return isItemParryEnabled(user.getMainHandStack()) && !hasShieldEquipped(user) && isNonShieldParryingEnabled(user);
@@ -96,9 +106,14 @@ public class ParryHelper {
     public static boolean attackWasParried(DamageSource source, ItemStack stack, LivingEntity user){
         if(source.isIn(DamageTypeTags.IS_EXPLOSION)) return false;
         if(isItemParryEnabled(stack)){
-            int maxUseTime = ((ParryItem) user.getActiveItem().getItem()).getParryAttributes().getMaxUseTimeParry();
             int parryTicks = ((ParryItem) stack.getItem()).getParryAttributes().getParryTicks();
             parryTicks += Math.abs(((ParryItem) stack.getItem()).getParryAttributes().getBlockDelay() - ModEnchantments.getPredictionEnchantment(user));// negative block delay increases parry ticks
+
+            if(ImmersiveMcCompat.shouldUseImmersiveBlockingItem(user)){
+                return ImmersiveMcCompat.getImmersiveBlockingTime() > -1 && ImmersiveMcCompat.getImmersiveBlockingTime() < parryTicks;
+            }
+
+            int maxUseTime = ((ParryItem) stack.getItem()).getParryAttributes().getMaxUseTimeParry();
             // if parry ticks is 4 then 4th tick is NOT parry
             // maxUseTime - user.getItemUseTimeLeft() can be 0 and 0 is parry, so it's still 4 ticks
             //user.sendMessage(Text.of("To jest: " + (maxUseTime - user.getItemUseTimeLeft()) + " tick"));
@@ -123,9 +138,12 @@ public class ParryHelper {
                 Vec3d vec3d2 = user.getRotationVec(1.0F);
                 Vec3d vec3d3 = vec3d.relativize(user.getPos()).normalize();
                 vec3d3 = new Vec3d(vec3d3.x, 0.0, vec3d3.z);
-                if (vec3d3.dotProduct(vec3d2) < 0.0) {
-                    return true;
+
+                // Checking if player uses item should be enough - ImmersiveMc 'isBlocking()' mixin is unreachable in such situation
+                if(user.isUsingItem() && !user.getActiveItem().isEmpty()){
+                    return vec3d3.dotProduct(vec3d2) < 0.0;
                 }
+                else return ImmersiveMcCompat.isDamageSourceBlocked(user, source);
             }
         }
 
