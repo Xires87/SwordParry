@@ -16,7 +16,10 @@ public class ParryCooldownManager {
     }
 
     public float getCooldownProgress(){
-        return 0f;
+        if (this.maxCooldown > 0) {
+            return 1f - (float) this.currentCooldown / this.maxCooldown;
+        }
+        return 1.0f;
     }
 
     public void onCooldownTick(){
