@@ -9,7 +9,9 @@ import net.fryc.frycparry.util.client.ClientParryHelper;
 import net.fryc.frycparry.util.interfaces.CanBlock;
 import net.fryc.frycparry.util.interfaces.ParryInteraction;
 import net.fryc.frycparry.util.interfaces.ParryItem;
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientPlayerEntity;
+import net.minecraft.client.network.ClientPlayerInteractionManager;
 import net.minecraft.client.option.KeyBinding;
 import net.minecraft.client.util.InputUtil;
 import net.minecraft.item.ShieldItem;
@@ -26,60 +28,17 @@ public class ModKeyBinds {
     public static KeyBinding parrykey;
     public static KeyBinding dontParryKey;
 
-    private static boolean bl = false;
+    private static boolean playerTriedToUseItem = false;
     private static boolean dontParryKeyPressed = false;
 
 
     public static void registerKeyInputs() {
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
             ClientPlayerEntity player = client.player;
-            boolean rightClick = parrykey.isUnbound();
             if(player != null && client.interactionManager != null){
-                if(dontParryKey.wasPressed()){
-                    dontParryKeyPressed = !dontParryKeyPressed;
-                    if(!FrycParry.config.client.holdDontUseParryKey) player.sendMessage(Text.of("Prevent using parry: " + dontParryKeyPressed), true);
-                }
+                handleDontParryKey(player);
 
-                if(parrykey.isPressed() || (rightClick && client.options.useKey.isPressed())) {
-                    if(!player.isUsingItem() && !player.hasStatusEffect(ModEffects.DISARMED)){
-                        if(!isDontParryKeyPressed()){
-                            bl = true;
-                            if(player.getMainHandStack().getItem() instanceof ShieldItem && !player.getItemCooldownManager().isCoolingDown(player.getMainHandStack().getItem())){
-
-                                client.interactionManager.interactItem(client.player, Hand.MAIN_HAND);
-                                client.gameRenderer.firstPersonRenderer.resetEquipProgress(Hand.MAIN_HAND);
-                            }
-                            else if(player.getOffHandStack().getItem() instanceof ShieldItem && !player.getItemCooldownManager().isCoolingDown(player.getOffHandStack().getItem())){
-
-                                client.interactionManager.interactItem(client.player, Hand.OFF_HAND);
-                                client.gameRenderer.firstPersonRenderer.resetEquipProgress(Hand.OFF_HAND);
-                            }
-                            else{
-                                if(ClientParryHelper.canParry(player)){ // <-- checking client sided config
-                                    if(ParryHelper.canParryWithoutShield(player)){ // <-- checking server sided config
-                                        if(!player.getItemCooldownManager().isCoolingDown(player.getMainHandStack().getItem())){
-                                            if(((ParryItem) player.getMainHandStack().getItem()).getUseParryAction(player.getMainHandStack()) == UseAction.BLOCK){
-                                                ((ParryInteraction) client.interactionManager).interactItemParry(client.player, Hand.MAIN_HAND);
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-                else {
-                    if(!player.isUsingItem()){
-                        if(bl){
-                            ((CanBlock) player).setBlockingDataToFalse();
-                            ((CanBlock) player).setParryDataToFalse();
-                            bl = false;
-                        }
-                    }
-                    else if(((CanBlock) player).getBlockingDataValue()){
-                        ((ParryInteraction) client.interactionManager).stopUsingItemParry(player); // <---- it sends STOP_BLOCKING_ID packet
-                    }
-                }
+                handleParryKey(client, player, client.interactionManager, parrykey.isUnbound());
             }
         });
     }
@@ -104,5 +63,61 @@ public class ModKeyBinds {
     private static boolean isDontParryKeyPressed(){
         if(FrycParry.config.client.holdDontUseParryKey) return dontParryKey.isPressed();
         return dontParryKeyPressed;
+    }
+
+    private static void handleDontParryKey(ClientPlayerEntity player){
+        if(dontParryKey.wasPressed()){
+            dontParryKeyPressed = !dontParryKeyPressed;
+            if(!FrycParry.config.client.holdDontUseParryKey) player.sendMessage(Text.of("Prevent using parry: " + dontParryKeyPressed), true);
+        }
+    }
+
+    private static void handleParryKey(MinecraftClient client, ClientPlayerEntity player, ClientPlayerInteractionManager manager, boolean rightClick){
+        if(parrykey.isPressed() || (rightClick && client.options.useKey.isPressed())) {
+            doWhenParryKeyPressed(client, player, manager);
+        }
+        else {
+            doWhenParryKeyNotPressed(client, player, manager);
+        }
+    }
+
+    private static void doWhenParryKeyPressed(MinecraftClient client, ClientPlayerEntity player, ClientPlayerInteractionManager manager){
+        if(!player.isUsingItem() && !player.hasStatusEffect(ModEffects.DISARMED)){
+            if(!isDontParryKeyPressed()){
+                playerTriedToUseItem = true;
+                if(player.getMainHandStack().getItem() instanceof ShieldItem && !player.getItemCooldownManager().isCoolingDown(player.getMainHandStack().getItem())){
+                    manager.interactItem(client.player, Hand.MAIN_HAND);
+                    client.gameRenderer.firstPersonRenderer.resetEquipProgress(Hand.MAIN_HAND);
+                }
+                else if(player.getOffHandStack().getItem() instanceof ShieldItem && !player.getItemCooldownManager().isCoolingDown(player.getOffHandStack().getItem())){
+                    manager.interactItem(client.player, Hand.OFF_HAND);
+                    client.gameRenderer.firstPersonRenderer.resetEquipProgress(Hand.OFF_HAND);
+                }
+                else{
+                    if(ClientParryHelper.canParry(player)){ // <-- checking client sided config
+                        if(ParryHelper.canParryWithoutShield(player)){ // <-- checking server sided config
+                            if(!player.getItemCooldownManager().isCoolingDown(player.getMainHandStack().getItem())){
+                                if(((ParryItem) player.getMainHandStack().getItem()).getUseParryAction(player.getMainHandStack()) == UseAction.BLOCK){
+                                    ((ParryInteraction) manager).interactItemParry(client.player, Hand.MAIN_HAND);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    private static void doWhenParryKeyNotPressed(MinecraftClient client, ClientPlayerEntity player, ClientPlayerInteractionManager manager){
+        if(!player.isUsingItem()){
+            if(playerTriedToUseItem){
+                ((CanBlock) player).setBlockingDataToFalse();
+                ((CanBlock) player).setParryDataToFalse();
+                playerTriedToUseItem = false;
+            }
+        }
+        else if(((CanBlock) player).getBlockingDataValue()){
+            ((ParryInteraction) manager).stopUsingItemParry(player); // <---- it sends STOP_BLOCKING_ID packet
+        }
     }
 }
