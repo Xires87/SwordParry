@@ -192,7 +192,7 @@ public class ParryHelper {
                 if(amplifier < 0) amplifier = 0;
 
                 if(entry.getKey() == ModEffects.DISARMED && attacker instanceof MobEntity){
-                    duration *= FrycParry.config.modifiers.parryDisarmDurationForMobsMultiplier;
+                    duration = (int) (duration * FrycParry.config.modifiers.parryDisarmDurationForMobsMultiplier);
                 }
 
                 attacker.addStatusEffect(new StatusEffectInstance(entry.getKey(), duration, amplifier));
