@@ -27,7 +27,7 @@ abstract class ServerPlayerInteractionManagerMixin implements ServerParryInterac
     public ActionResult interactItemParry(ServerPlayerEntity player, World world, ItemStack stack, Hand hand) {
         if (this.gameMode == GameMode.SPECTATOR) {
             return ActionResult.PASS;
-        } else if (player.getItemCooldownManager().isCoolingDown(stack.getItem())) {
+        } else if (player.getItemCooldownManager().isCoolingDown(stack.getItem()) || !ParryHelper.isReadyToBlock(player)) {
             return ActionResult.PASS;
         } else {
             int i = stack.getCount();

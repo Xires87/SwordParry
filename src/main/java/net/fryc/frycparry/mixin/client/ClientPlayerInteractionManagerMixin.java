@@ -41,9 +41,9 @@ abstract class ClientPlayerInteractionManagerMixin implements ParryInteraction {
         } else {
             this.syncSelectedSlot();
             this.networkHandler.sendPacket(new PlayerMoveC2SPacket.Full(player.getX(), player.getY(), player.getZ(), player.getYaw(), player.getPitch(), player.isOnGround()));
-            MutableObject<ActionResult> mutableObject = new MutableObject();
+            MutableObject<ActionResult> mutableObject = new MutableObject<>();
             ItemStack itemStack = player.getStackInHand(hand);
-            if (player.getItemCooldownManager().isCoolingDown(itemStack.getItem())) {
+            if (player.getItemCooldownManager().isCoolingDown(itemStack.getItem()) || !ParryHelper.isReadyToBlock(player)) {
                 mutableObject.setValue(ActionResult.PASS);
                 return (ActionResult)mutableObject.getValue();
             } else {

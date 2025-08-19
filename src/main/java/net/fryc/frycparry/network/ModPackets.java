@@ -8,6 +8,7 @@ import net.fryc.frycparry.network.c2s.StartParryingC2SPacket;
 import net.fryc.frycparry.network.c2s.StopBlockingC2SPacket;
 import net.fryc.frycparry.network.s2c.ConfigAnswerS2CPacket;
 import net.fryc.frycparry.network.s2c.InformClientAboutParryS2CPacket;
+import net.fryc.frycparry.network.s2c.SynchronizeParryCooldownS2CPacket;
 import net.minecraft.util.Identifier;
 
 public class ModPackets {
@@ -18,6 +19,7 @@ public class ModPackets {
 
     public static final Identifier ANSWER_CONFIG_ID = new Identifier(FrycParry.MOD_ID, "answer_config_id");
     public static final Identifier INFORM_CLIENT_ABOUT_PARRY_ID = new Identifier(FrycParry.MOD_ID, "inform_client_about_parry_id");
+    public static final Identifier SYNCHRONIZE_PARRY_COOLDOWN_ID = new Identifier(FrycParry.MOD_ID, "synchronize_parry_cooldown_id");
 
     public static void registerC2SPackets(){
         ServerPlayNetworking.registerGlobalReceiver(STOP_BLOCKING_ID, StopBlockingC2SPacket::receive);
@@ -28,5 +30,6 @@ public class ModPackets {
     public static void registerS2CPackets(){
         ClientPlayNetworking.registerGlobalReceiver(ANSWER_CONFIG_ID, ConfigAnswerS2CPacket::receive);
         ClientPlayNetworking.registerGlobalReceiver(INFORM_CLIENT_ABOUT_PARRY_ID, InformClientAboutParryS2CPacket::receive);
+        ClientPlayNetworking.registerGlobalReceiver(SYNCHRONIZE_PARRY_COOLDOWN_ID, SynchronizeParryCooldownS2CPacket::receive);
     }
 }

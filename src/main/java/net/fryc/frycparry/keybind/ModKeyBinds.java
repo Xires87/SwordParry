@@ -82,7 +82,7 @@ public class ModKeyBinds {
     }
 
     private static void doWhenParryKeyPressed(MinecraftClient client, ClientPlayerEntity player, ClientPlayerInteractionManager manager){
-        if(!player.isUsingItem() && !player.hasStatusEffect(ModEffects.DISARMED)){
+        if(!player.isUsingItem() && !player.hasStatusEffect(ModEffects.DISARMED) && ParryHelper.isReadyToBlock(player)){
             if(!isDontParryKeyPressed()){
                 playerTriedToUseItem = true;
                 if(player.getMainHandStack().getItem() instanceof ShieldItem && !player.getItemCooldownManager().isCoolingDown(player.getMainHandStack().getItem())){

@@ -1,9 +1,19 @@
 package net.fryc.frycparry.attributes;
 
+import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
+import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
+import net.fryc.frycparry.network.ModPackets;
+import net.minecraft.network.PacketByteBuf;
+import net.minecraft.server.network.ServerPlayerEntity;
+
 public class ParryCooldownManager {
 
     private int currentCooldown = 0;
     private int maxCooldown = 0;
+
+    public boolean isCoolingDown(){
+        return this.currentCooldown > 0;
+    }
 
     public void tick(){
         if(this.currentCooldown > 0){
@@ -42,6 +52,21 @@ public class ParryCooldownManager {
         }
 
         return false;
+    }
+
+    /**
+     *  (SERVER SIDED) If given cooldown is higher than current cooldown, sets current cooldown to given cooldown and sends packet to client.
+     *  @return  True if given cooldown is higher than current cooldown
+     */
+    public boolean addCooldown(ServerPlayerEntity player, int cooldown){
+        boolean wasAdded = this.addCooldown(cooldown);
+        if(wasAdded){
+            PacketByteBuf buf = PacketByteBufs.create();
+            buf.writeInt(cooldown);
+            ServerPlayNetworking.send(player, ModPackets.SYNCHRONIZE_PARRY_COOLDOWN_ID, buf);
+        }
+
+        return wasAdded;
     }
 
     public void removeCooldown(){
