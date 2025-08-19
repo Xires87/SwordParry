@@ -1,8 +1,10 @@
 package net.fryc.frycparry.mixin;
 
+import net.fryc.frycparry.attributes.ParryCooldownManager;
 import net.fryc.frycparry.effects.ModEffects;
 import net.fryc.frycparry.util.ParryHelper;
 import net.fryc.frycparry.util.interfaces.CanBlock;
+import net.fryc.frycparry.util.interfaces.HasParryCooldownManager;
 import net.fryc.frycparry.util.interfaces.ParryItem;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
@@ -18,14 +20,26 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(PlayerEntity.class)
-abstract class PlayerEntityMixin extends LivingEntity {
+abstract class PlayerEntityMixin extends LivingEntity implements HasParryCooldownManager {
 
+    private ParryCooldownManager parryCooldownManager;
 
     protected PlayerEntityMixin(EntityType<? extends LivingEntity> entityType, World world) {
         super(entityType, world);
     }
 
+    public void initParryCooldownManager(){
+        this.parryCooldownManager = new ParryCooldownManager();
+    }
 
+    public ParryCooldownManager getParryCooldownManager(){
+        return this.parryCooldownManager;
+    }
+
+    @Inject(method = "<init>", at = @At("TAIL"))
+    private void initParryCooldownManagerForPlayer(CallbackInfo info) {
+        this.initParryCooldownManager();
+    }
 
     @Inject(method = "tick()V", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/player/PlayerEntity;resetLastAttackedTicks()V", shift = At.Shift.BEFORE))
     private void setBlockCooldownOnItemSwap(CallbackInfo info) {
@@ -75,10 +89,13 @@ abstract class PlayerEntityMixin extends LivingEntity {
 
 
     @Inject(method = "tick()V", at = @At("TAIL"))
-    private void disarm(CallbackInfo info) {
+    private void onPlayerTick(CallbackInfo info) {
         PlayerEntity dys = ((PlayerEntity)(Object)this);
         if(dys.hasStatusEffect(ModEffects.DISARMED)){
             --this.lastAttackedTicks;
+        }
+        else {
+            this.parryCooldownManager.tick();
         }
     }
 
@@ -107,6 +124,7 @@ abstract class PlayerEntityMixin extends LivingEntity {
                             (int) ((ParryItem) item).getParryAttributes().getCooldownAfterAttack();
 
                     dys.getItemCooldownManager().set(item, cooldownProgress);
+                    // TODO this.parryCooldownManager.addCooldown(cooldownProgress);
                 }
             }
         }
