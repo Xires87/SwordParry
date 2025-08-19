@@ -11,8 +11,8 @@ import net.minecraft.util.Identifier;
 
 public class FrycParryClient implements ClientModInitializer {
 
-    public static final Identifier EMPTY_SHIELD_TEXTURE = Identifier.of(FrycParry.MOD_ID, "textures/gui/crosshair/alpha_test.png");
-    public static final Identifier FULL_SHIELD_TEXTURE = Identifier.of(FrycParry.MOD_ID, "textures/gui/crosshair/alpha_test_full.png");
+    public static final Identifier EMPTY_SHIELD_TEXTURE = Identifier.of(FrycParry.MOD_ID, "textures/gui/crosshair/shield_empty.png");
+    public static final Identifier FULL_SHIELD_TEXTURE = Identifier.of(FrycParry.MOD_ID, "textures/gui/crosshair/shield_full.png");
 
     @Override
     public void onInitializeClient() {

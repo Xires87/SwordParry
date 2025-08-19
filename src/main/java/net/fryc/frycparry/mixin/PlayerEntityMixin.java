@@ -11,7 +11,7 @@ import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
-import net.minecraft.item.ShieldItem;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.UseAction;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
@@ -54,34 +54,9 @@ abstract class PlayerEntityMixin extends LivingEntity implements HasParryCooldow
         ((CanBlock) dys).setBlockingDataToFalse();
         ((CanBlock) dys).setParryDataToFalse();
 
-        if(!ParryHelper.isItemParryDisabledWithConfig(dys.getWorld(), dys.getMainHandStack())){
-            int cooldown;
-            if(ParryHelper.canParryWithoutShield(dys)){
-                if(!dys.getItemCooldownManager().isCoolingDown(item)){
-                    cooldown = ParryHelper.getParryCooldown(dys, item);
-                    if(cooldown > 0){
-                        dys.getItemCooldownManager().set(item, cooldown);
-                    }
-                }
-            }
-            else {
-                if(dys.getMainHandStack().getItem() instanceof ShieldItem){
-                    if(!dys.getItemCooldownManager().isCoolingDown(item)){
-                        cooldown = ParryHelper.getParryCooldown(dys, item);
-                        if(cooldown > 0){
-                            dys.getItemCooldownManager().set(item, cooldown);
-                        }
-                    }
-                }
-                else if(dys.getOffHandStack().getItem() instanceof ShieldItem) {
-                    item = dys.getOffHandStack().getItem();
-                    if(!dys.getItemCooldownManager().isCoolingDown(item)){
-                        cooldown = ParryHelper.getParryCooldown(dys, item);
-                        if(cooldown > 0){
-                            dys.getItemCooldownManager().set(item, cooldown);
-                        }
-                    }
-                }
+        if(dys instanceof ServerPlayerEntity sPlayer){
+            if(ParryHelper.hasShieldEquipped(sPlayer) || (ParryHelper.canParryWithoutShield(sPlayer) && !ParryHelper.isItemParryDisabledWithConfig(sPlayer.getWorld(), sPlayer.getMainHandStack()))){
+                this.parryCooldownManager.addCooldown(sPlayer, ParryHelper.getParryCooldown(dys, item));
             }
         }
     }
@@ -118,14 +93,12 @@ abstract class PlayerEntityMixin extends LivingEntity implements HasParryCooldow
             }
 
             if(item != null){
-                if(!dys.getItemCooldownManager().isCoolingDown(item)){
-                    cooldownProgress = ((ParryItem) item).getParryAttributes().getCooldownAfterAttack() < 0 ?
-                            (int) (Math.abs(((ParryItem) item).getParryAttributes().getCooldownAfterAttack()) * dys.getAttackCooldownProgressPerTick()) :
-                            (int) ((ParryItem) item).getParryAttributes().getCooldownAfterAttack();
+                cooldownProgress = ((ParryItem) item).getParryAttributes().getCooldownAfterAttack() < 0 ?
+                        (int) (Math.abs(((ParryItem) item).getParryAttributes().getCooldownAfterAttack()) * dys.getAttackCooldownProgressPerTick()) :
+                        (int) ((ParryItem) item).getParryAttributes().getCooldownAfterAttack();
 
-                    dys.getItemCooldownManager().set(item, cooldownProgress);
-                    // TODO this.parryCooldownManager.addCooldown(cooldownProgress);
-                }
+                //dys.getItemCooldownManager().set(item, cooldownProgress);
+                this.parryCooldownManager.addCooldown((ServerPlayerEntity) dys, cooldownProgress);
             }
         }
 

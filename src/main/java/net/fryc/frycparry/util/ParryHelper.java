@@ -8,6 +8,7 @@ import net.fryc.frycparry.enchantments.ModEnchantments;
 import net.fryc.frycparry.sounds.ModSounds;
 import net.fryc.frycparry.tag.ModItemTags;
 import net.fryc.frycparry.util.interfaces.CanBlock;
+import net.fryc.frycparry.util.interfaces.HasParryCooldownManager;
 import net.fryc.frycparry.util.interfaces.ParryItem;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.AttributeModifiersComponent;
@@ -24,6 +25,7 @@ import net.minecraft.item.*;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.registry.tag.DamageTypeTags;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
@@ -34,6 +36,10 @@ import java.util.Map;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class ParryHelper {
+
+    public static boolean isReadyToBlock(PlayerEntity player){
+        return !((HasParryCooldownManager) player).getParryCooldownManager().isCoolingDown();
+    }
 
     public static boolean canParryWithoutShield(LivingEntity user){
         return isItemParryEnabled(user.getMainHandStack()) && !hasShieldEquipped(user) && isNonShieldParryingEnabled(user);
@@ -233,8 +239,11 @@ public class ParryHelper {
      *  Setting cooldown after axe attack
      */
     public static void disableParryItem(PlayerEntity player, Item item){
-        int cooldown = getParryCooldown(player, item);
-        player.getItemCooldownManager().set(item, cooldown + 100);
+        if(player instanceof ServerPlayerEntity sPlayer){
+            int cooldown = getParryCooldown(player, item);
+            //player.getItemCooldownManager().set(item, cooldown + 100);
+            ((HasParryCooldownManager) player).getParryCooldownManager().addCooldown(sPlayer, cooldown + 100);
+        }
         ((CanBlock) player).stopUsingItemParry();
     }
 
