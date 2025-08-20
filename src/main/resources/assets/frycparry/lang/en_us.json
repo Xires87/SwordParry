@@ -36,6 +36,9 @@
   "text.autoconfig.frycparry.option.server.disableBlockAfterParryingAxeAttack": "Disable block action after parrying axe attack",
   "text.autoconfig.frycparry.option.server.disableBlockAfterParryingAxeAttack.@Tooltip": "When turned on, axe attack will set cooldown whether it was parry or not",
 
+  "text.autoconfig.frycparry.option.server.applyCooldownOnItemAfterBlockingAxeAttack": "Axe attacks apply cooldown on item",
+  "text.autoconfig.frycparry.option.server.applyCooldownOnItemAfterBlockingAxeAttack.@Tooltip": "When turned on, axe attack will set cooldown on both player and item",
+
   "text.autoconfig.frycparry.option.server.enableBlockingWhenDualWielding": "Dual wielding settings [Restart Required]",
   "text.autoconfig.frycparry.option.server.enableBlockingWhenDualWielding.@Tooltip": "0 - player can block and parry with empty offhand;\n  1 - player can also block and parry when dual wields weapons;\n 2 - player can block and parry with any item in offhand;",
 
