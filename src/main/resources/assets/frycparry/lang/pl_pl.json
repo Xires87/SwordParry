@@ -42,6 +42,9 @@
   "text.autoconfig.frycparry.option.server.disableBlockAfterParryingAxeAttack": "Wyłącz blok po sparowaniu ataku siekierą",
   "text.autoconfig.frycparry.option.server.disableBlockAfterParryingAxeAttack.@Tooltip": "Kiedy włączone, ataki siekierą będą wyłączać blokowanie niezależnie od tego czy zostały sparowane czy nie",
 
+  "text.autoconfig.frycparry.option.server.applyCooldownOnItemAfterBlockingAxeAttack": "Ataki siekierą ustawiają czas odnowienia dla przedmiotu",
+  "text.autoconfig.frycparry.option.server.applyCooldownOnItemAfterBlockingAxeAttack.@Tooltip": "Kiedy włączone, ataki siekierą będą ustawiać czas odnowienia zarówno dla gracza, jak i przedmiotu",
+
   "text.autoconfig.frycparry.option.server.enableBlockingWhenDualWielding": "Ustawienia dla trzymania w dwóch rękach  [Wymagany Restart]",
   "text.autoconfig.frycparry.option.server.enableBlockingWhenDualWielding.@Tooltip": "0 - gracz może blokować i parować kiedy jego druga ręka jest pusta;\n  1 - gracz może też blokować i parować kiedy trzyma narzędzie w drugiej ręce;\n 2 - gracz może blokować i parować z jakimkolwiek przedmiotem w drugiej ręce;",
 
