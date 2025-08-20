@@ -241,8 +241,11 @@ public class ParryHelper {
     public static void disableParryItem(PlayerEntity player, Item item){
         if(player instanceof ServerPlayerEntity sPlayer){
             int cooldown = getParryCooldown(player, item);
-            //player.getItemCooldownManager().set(item, cooldown + 100);
             ((HasParryCooldownManager) player).getParryCooldownManager().addCooldown(sPlayer, cooldown + 100);
+
+            if(FrycParry.config.server.applyCooldownOnItemAfterBlockingAxeAttack){
+                player.getItemCooldownManager().set(item, cooldown + 100);
+            }
         }
         ((CanBlock) player).stopUsingItemParry();
     }
