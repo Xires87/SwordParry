@@ -28,8 +28,8 @@ public class FrycParryClient implements ClientModInitializer {
                 if(l < 13){
                     context.drawTexture(
                             EMPTY_SHIELD_TEXTURE,
-                            context.getScaledWindowWidth()/2 - 6,
-                            context.getScaledWindowHeight()/2 + 15,
+                            context.getScaledWindowWidth()/2 - 6 + FrycParry.config.client.blockCooldownIconX,
+                            context.getScaledWindowHeight()/2 + 17 + FrycParry.config.client.blockCooldownIconY,
                             0,
                             0,
                             0,
@@ -41,8 +41,8 @@ public class FrycParryClient implements ClientModInitializer {
 
                     context.drawTexture(
                             FULL_SHIELD_TEXTURE,
-                            context.getScaledWindowWidth()/2 - 6,
-                            context.getScaledWindowHeight()/2 + 15,
+                            context.getScaledWindowWidth()/2 - 6 + FrycParry.config.client.blockCooldownIconX,
+                            context.getScaledWindowHeight()/2 + 17 + FrycParry.config.client.blockCooldownIconY,
                             0,
                             0,
                             0,
