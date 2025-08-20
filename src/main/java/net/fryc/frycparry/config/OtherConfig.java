@@ -11,6 +11,10 @@ public class OtherConfig implements ConfigData {
     @ConfigEntry.Gui.Tooltip
     public boolean disableBlockAfterParryingAxeAttack = false;
 
+    @Comment("When true, axe attack will set cooldown on both player and item")
+    @ConfigEntry.Gui.Tooltip
+    public boolean applyCooldownOnItemAfterBlockingAxeAttack;
+
     @Comment("Dual wielding settings: 0 - player can block and parry with empty offhand;  1 - player can also block and parry when dual wields weapons; 2 - player can block and parry with any item in offhand;")
     @ConfigEntry.Gui.Tooltip
     @ConfigEntry.BoundedDiscrete(max = 2, min = 0)
@@ -100,5 +104,4 @@ public class OtherConfig implements ConfigData {
     @ConfigEntry.Gui.Tooltip
     @ConfigEntry.BoundedDiscrete(max = 100, min = 0)
     public int explosionBlockDamageTaken = 100;
-
 }
