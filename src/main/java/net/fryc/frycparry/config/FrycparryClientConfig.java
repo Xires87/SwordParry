@@ -8,6 +8,12 @@ import me.shedaniel.cloth.clothconfig.shadowed.blue.endless.jankson.Comment;
 @Config(name="client")
 public class FrycparryClientConfig implements ConfigData {
 
+    @Comment("Negative values move icon left, and positive - right")
+    public int blockCooldownIconX = 0;
+
+    @Comment("Negative values move icon up, and positive - down")
+    public int blockCooldownIconY = 0;
+
     @Comment("When false, dontUseParryKey is toggleable (press it to disable blocking and parrying, and press again to enable)")
     public boolean holdDontUseParryKey = false;
 
