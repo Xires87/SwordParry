@@ -14,6 +14,12 @@ public class FrycparryClientConfig implements ConfigData {
     @Comment("Negative values move icon up, and positive - down")
     public int blockCooldownIconY = 0;
 
+    @Comment("When true, shows colored shield when blocking: \n" +
+            "Red - block delay (you will take full hit); \n" +
+            "Green - attack will be parried; \n" +
+            "Yellow - attack will be blocked;")
+    public boolean showParryIndicator = false;
+
     @Comment("When false, dontUseParryKey is toggleable (press it to disable blocking and parrying, and press again to enable)")
     public boolean holdDontUseParryKey = false;
 
