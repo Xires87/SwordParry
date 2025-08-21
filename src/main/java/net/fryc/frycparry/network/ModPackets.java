@@ -8,9 +8,7 @@ import net.fryc.frycparry.network.c2s.ResetLastAttackedTicksC2SPacket;
 import net.fryc.frycparry.network.c2s.StartParryingC2SPacket;
 import net.fryc.frycparry.network.c2s.StopBlockingC2SPacket;
 import net.fryc.frycparry.network.payloads.*;
-import net.fryc.frycparry.network.s2c.FirstConfigAnswerS2CPacket;
-import net.fryc.frycparry.network.s2c.InformClientAboutParryS2CPacket;
-import net.fryc.frycparry.network.s2c.SecondConfigAnswerS2CPacket;
+import net.fryc.frycparry.network.s2c.*;
 import net.minecraft.util.Identifier;
 
 public class ModPackets {
@@ -21,6 +19,9 @@ public class ModPackets {
     public static final Identifier SECOND_ANSWER_CONFIG_ID = Identifier.of(FrycParry.MOD_ID, "second_answer_config_id");
     public static final Identifier RESET_LAST_ATTACKED_TICKS_ID = Identifier.of(FrycParry.MOD_ID, "reset_last_attacked_ticks_id");
     public static final Identifier INFORM_CLIENT_ABOUT_PARRY_ID = Identifier.of(FrycParry.MOD_ID, "inform_client_about_parry_id");
+
+    public static final Identifier ANSWER_PARRY_ATTRIBUTES_ID = new Identifier(FrycParry.MOD_ID, "answer_parry_attributes_id");
+    public static final Identifier ANSWER_APPLY_PARRY_ATTRIBUTES_ID = new Identifier(FrycParry.MOD_ID, "answer_apply_parry_attributes_id");
 
     public static void registerC2SPackets(){
         //payloads

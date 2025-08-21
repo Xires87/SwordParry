@@ -56,12 +56,10 @@ public class ParryAttibutesCommand {
 
                 player.sendMessage(Text.literal("Parry knockback: " + attr.getKnockbackAfterParryAction()));
                 player.sendMessage(Text.literal("Parry effects:"));
-                Iterator<Map.Entry<RegistryEntry<StatusEffect>, Quartet<Integer, Integer, Float, Float>>> iterator = attr.getParryEffectsIterator();
-                while(iterator.hasNext()){
-                    Map.Entry<RegistryEntry<StatusEffect>, Quartet<Integer, Integer, Float, Float>> entry = iterator.next();
+                for (Map.Entry<StatusEffect, Quartet<Integer, Integer, Float, Float>> entry : attr.getParryEffectsCopy().entrySet()) {
                     player.sendMessage(
                             Text.literal(
-                                    "  " + entry.getKey().value().getName().getString() +
+                                    "  " + entry.getKey().getName().getString() +
                                             ": Duration - " + entry.getValue().getA() +
                                             " Amplifier - " + entry.getValue().getB() +
                                             " Chance -  " + entry.getValue().getC() +
