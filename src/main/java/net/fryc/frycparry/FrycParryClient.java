@@ -1,16 +1,25 @@
 package net.fryc.frycparry;
 
 import net.fabricmc.api.ClientModInitializer;
+import net.fabricmc.fabric.api.client.item.v1.ItemTooltipCallback;
 import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
+import net.fryc.frycparry.attributes.ParryAttributes;
 import net.fryc.frycparry.enchantments.ModEnchantments;
 import net.fryc.frycparry.keybind.ModKeyBinds;
 import net.fryc.frycparry.network.ModPackets;
+import net.fryc.frycparry.util.ParryHelper;
+import net.fryc.frycparry.util.TextHelper;
 import net.fryc.frycparry.util.client.HudRenderingHelper;
 import net.fryc.frycparry.util.interfaces.HasParryCooldownManager;
 import net.fryc.frycparry.util.interfaces.ParryItem;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.network.ClientPlayerEntity;
+import net.minecraft.client.world.ClientWorld;
+import net.minecraft.enchantment.EnchantmentHelper;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ShieldItem;
+import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 
 public class FrycParryClient implements ClientModInitializer {
@@ -28,6 +37,26 @@ public class FrycParryClient implements ClientModInitializer {
 
         ModPackets.registerS2CPackets();
         ModKeyBinds.register();
+
+        ItemTooltipCallback.EVENT.register((stack, context, lines) -> {
+            if(FrycParry.config.client.showParryAttributesInTooltips){
+                ClientWorld world = MinecraftClient.getInstance().world;
+                ClientPlayerEntity player = MinecraftClient.getInstance().player;
+                if(world != null && player != null){
+                    ParryAttributes attr = ((ParryItem) stack.getItem()).getParryAttributes();
+                    if(!attr.getId().equals("default")){
+                        if(ParryHelper.isItemParryEnabled(stack) && !ParryHelper.isItemParryDisabledWithConfig(world, stack)){
+                            if(Screen.hasControlDown()){
+                                lines.addAll(TextHelper.getParryAttributesText(stack, player, false));
+                            }
+                            else {
+                                lines.add(Text.literal("Parry Attributes <CTRL>"));
+                            }
+                        }
+                    }
+                }
+            }
+        });
 
         HudRenderCallback.EVENT.register((context, tickDelta) -> {
             MinecraftClient client = MinecraftClient.getInstance();
@@ -68,4 +97,5 @@ public class FrycParryClient implements ClientModInitializer {
 
         return parryTicks > useTime ? PARRY_INDICATOR_TEXTURE : BLOCK_INDICATOR_TEXTURE;
     }
+
 }

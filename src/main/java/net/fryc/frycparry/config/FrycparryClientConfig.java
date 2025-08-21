@@ -24,6 +24,8 @@ public class FrycparryClientConfig implements ConfigData {
             "Yellow - attack will be blocked;")
     public boolean showParryIndicator = false;
 
+    public boolean showParryAttributesInTooltips = true;
+
     @Comment("When false, dontUseParryKey is toggleable (press it to disable blocking and parrying, and press again to enable)")
     public boolean holdDontUseParryKey = false;
 
