@@ -162,4 +162,54 @@ public class ConfigHelper {
 
         ServerPlayNetworking.send(client, ModPackets.ANSWER_APPLY_PARRY_ATTRIBUTES_ID, buf);
     }
+
+    public enum HudIconPosition {
+        CENTER {
+            @Override
+            public float getStartingX(){
+                return 0.50F;
+            }
+
+            @Override
+            public float getStartingY(){
+                return 0.50F;
+            }
+        },
+        DOWN {
+            @Override
+            public float getStartingX(){
+                return 0.50F;
+            }
+
+            @Override
+            public float getStartingY(){
+                return 0.90F;
+            }
+        },
+        LEFT_DOWN {
+            @Override
+            public float getStartingX(){
+                return 0.25F;
+            }
+
+            @Override
+            public float getStartingY(){
+                return 0.90F;
+            }
+        },
+        RIGHT_DOWN {
+            @Override
+            public float getStartingX(){
+                return 0.75F;
+            }
+
+            @Override
+            public float getStartingY(){
+                return 0.90F;
+            }
+        };
+
+        public abstract float getStartingX();
+        public abstract float getStartingY();
+    }
 }

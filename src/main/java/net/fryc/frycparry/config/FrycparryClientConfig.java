@@ -4,6 +4,7 @@ import me.shedaniel.autoconfig.ConfigData;
 import me.shedaniel.autoconfig.annotation.Config;
 import me.shedaniel.autoconfig.annotation.ConfigEntry;
 import me.shedaniel.cloth.clothconfig.shadowed.blue.endless.jankson.Comment;
+import net.fryc.frycparry.util.ConfigHelper;
 
 @Config(name="client")
 public class FrycparryClientConfig implements ConfigData {
@@ -12,7 +13,10 @@ public class FrycparryClientConfig implements ConfigData {
     public int blockCooldownIconX = 0;
 
     @Comment("Negative values move icon up, and positive - down")
-    public int blockCooldownIconY = 0;
+    public int blockCooldownIconY = 23;
+
+    @Comment("Possible values: CENTER, DOWN, RIGHT_DOWN, LEFT_DOWN")
+    public ConfigHelper.HudIconPosition blockCooldownIconStartingPosition = ConfigHelper.HudIconPosition.CENTER;
 
     @Comment("When true, shows colored shield when blocking: \n" +
             "Red - block delay (you will take full hit); \n" +
