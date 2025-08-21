@@ -1,16 +1,24 @@
 package net.fryc.frycparry.util;
 
 import com.google.gson.JsonSyntaxException;
+import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
+import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.fryc.frycparry.FrycParry;
+import net.fryc.frycparry.attributes.ParryAttributes;
+import net.fryc.frycparry.network.ModPackets;
+import net.fryc.frycparry.util.interfaces.ParryItem;
 import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffects;
+import net.minecraft.network.PacketByteBuf;
 import net.minecraft.registry.Registries;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.Identifier;
 import oshi.util.tuples.Quartet;
 
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Map;
 
 public class ConfigHelper {
     public static int dualWieldingSettings = FrycParry.config.server.enableBlockingWhenDualWielding;
@@ -115,5 +123,43 @@ public class ConfigHelper {
         }
 
         return map;
+    }
+
+    public static void sendConfigToClient(ServerPlayerEntity client){
+        PacketByteBuf buf = PacketByteBufs.create();
+        buf.writeInt(FrycParry.config.server.enableBlockingWhenDualWielding);
+        buf.writeBoolean(FrycParry.config.sword.enableBlockingWithSword);
+        buf.writeBoolean(FrycParry.config.axe.enableBlockingWithAxe);
+        buf.writeBoolean(FrycParry.config.pickaxe.enableBlockingWithPickaxe);
+        buf.writeBoolean(FrycParry.config.shovel.enableBlockingWithShovel);
+        buf.writeBoolean(FrycParry.config.hoe.enableBlockingWithHoe);
+        buf.writeBoolean(FrycParry.config.server.enableBlockingWithOtherTools);
+
+        buf.writeBoolean(FrycParry.config.enchantments.enableReflexEnchantment);
+        buf.writeBoolean(FrycParry.config.enchantments.enableParryEnchantment);
+        buf.writeBoolean(FrycParry.config.enchantments.enableCounterattackEnchantment);
+        buf.writeInt(FrycParry.config.enchantments.shieldEnchantability);
+
+        ServerPlayNetworking.send(client, ModPackets.ANSWER_CONFIG_ID, buf); // <--- informs client about server's config to avoid visual bugs
+    }
+
+    public static void sendParryAttributesToClient(ServerPlayerEntity client){
+        Map<String, ParryAttributes> map = ParryAttributes.getRegisteredAttributesCopy();
+        PacketByteBuf buf = PacketByteBufs.create();
+        buf.writeMap(map, PacketByteBuf::writeString, ParryAttributes.PACKET_WRITER);
+
+        ServerPlayNetworking.send(client, ModPackets.ANSWER_PARRY_ATTRIBUTES_ID, buf);
+    }
+
+    public static void applyParryAttributesOnClient(ServerPlayerEntity client){
+        HashMap<Identifier, String> parryAttributesForItems = new HashMap<>();
+        Registries.ITEM.forEach(item -> {
+            parryAttributesForItems.put(Registries.ITEM.getId(item), ((ParryItem) item).getParryAttributes().getId());
+        });
+
+        PacketByteBuf buf = PacketByteBufs.create();
+        buf.writeMap(parryAttributesForItems, PacketByteBuf::writeIdentifier, PacketByteBuf::writeString);
+
+        ServerPlayNetworking.send(client, ModPackets.ANSWER_APPLY_PARRY_ATTRIBUTES_ID, buf);
     }
 }

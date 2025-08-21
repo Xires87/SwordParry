@@ -30,7 +30,6 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import oshi.util.tuples.Quartet;
 
-import java.util.Iterator;
 import java.util.Map;
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -188,16 +187,14 @@ public class ParryHelper {
         int parryEnchantmentLevel = ModEnchantments.getParryEnchantment(user);
 
         //applying status effects from parry attributes
-        Iterator<Map.Entry<StatusEffect, Quartet<Integer, Integer, Float, Float>>> iterator = parryAttributes.getParryEffectsIterator();
-        while(iterator.hasNext()){
-            Map.Entry<StatusEffect, Quartet<Integer, Integer, Float, Float>> entry = iterator.next();
+        for (Map.Entry<StatusEffect, Quartet<Integer, Integer, Float, Float>> entry : parryAttributes.getParryEffectsCopy().entrySet()) {
             float chance = entry.getValue().getC();
-            if(chance >= 1.0F || ThreadLocalRandom.current().nextFloat() < chance){
-                int duration = entry.getValue().getA() + (int)(entry.getValue().getA() * (parryEnchantmentLevel * entry.getValue().getD()));
+            if (chance >= 1.0F || ThreadLocalRandom.current().nextFloat() < chance) {
+                int duration = entry.getValue().getA() + (int) (entry.getValue().getA() * (parryEnchantmentLevel * entry.getValue().getD()));
                 int amplifier = entry.getValue().getB() - (parryEnchantmentLevel == 2 ? (1 - FrycParry.config.enchantments.parryEnchantmentAmplifierIncreaseOnMaxLevel) : 1);
-                if(amplifier < 0) amplifier = 0;
+                if (amplifier < 0) amplifier = 0;
 
-                if(entry.getKey() == ModEffects.DISARMED && attacker instanceof MobEntity){
+                if (entry.getKey() == ModEffects.DISARMED && attacker instanceof MobEntity) {
                     duration = (int) (duration * FrycParry.config.modifiers.parryDisarmDurationForMobsMultiplier);
                 }
 

@@ -39,8 +39,8 @@ public class FrycParryClient implements ClientModInitializer {
                     HudRenderingHelper.drawPartialIcon(context, FULL_SHIELD_TEXTURE, l, 12);
                 }
                 else if(FrycParry.config.client.showParryIndicator){
-                    // TODO Parry attributes are not synchronized, because all calculations are done server side
-
+                    // TODO scommitowac (synchronizacja dziala choc jeszcze troche mozna potestowac)
+                    // TODO tlumaczenia dla configu
                     //FrycParry.LOGGER.warn("" + ((ParryItem) player.getMainHandStack().getItem()).getParryAttributes().getParryTicks());
 
                     if(player.isBlocking()){
