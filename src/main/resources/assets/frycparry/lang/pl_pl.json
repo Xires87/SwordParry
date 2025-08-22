@@ -1,4 +1,6 @@
 {
+  "frycparry.just_sorting.sounds.aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa": "Sounds",
+
   "sound.frycparry.tool_parry": "Broń paruje",
   "sound.frycparry.tool_block": "Broń blokuje",
   "sound.frycparry.tool_guard_break": "Zasłona bronią przełamuje się",
@@ -7,17 +9,56 @@
   "sound.frycparry.shield_block": "Tarcza blokuje",
   "sound.frycparry.shield_guard_break": "Zasłona tarczą przełamuje się",
 
-  "key.category.frycparry.key_category_swordparry": "Sword Parry",
+  "frycparry.just_sorting.keybinds.aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa": "Keybinds",
+
+  "key.category.frycparry.key_category_swordparry": "Fryc's Parry",
   "key.frycparry.key_parry": "Blokowanie (ustaw na Nieprzypisane by blokować klawiszem Użycia)",
   "key.frycparry.key_dont_parry": "Zapobiegaj używaniu blokowania",
+
+  "frycparry.just_sorting.enchantments.aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa": "Enchantments",
 
   "enchantment.frycparry.prediction_enchantment": "Refleks",
   "enchantment.frycparry.counterattack_enchantment": "Kontratak",
   "enchantment.frycparry.parry_enchantment": "Parowanie",
 
+  "frycparry.just_sorting.status_effects.aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa": "Status effects",
+
   "effect.frycparry.disarmed": "Rozbrojony",
 
-  "text.autoconfig.frycparry.title": "Konfiguracja Sword Parry",
+  "frycparry.just_sorting.parry_attributes.aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa": "Parry attributes",
+
+  "text.frycparry.parry_attributes": "Parry attributes",
+
+  "text.frycparry.parry_attributes.stable": "Stabilne",
+  "text.frycparry.parry_attributes.parry_ticks": "Ticki parowania",
+  "text.frycparry.parry_attributes.block_delay": "Opóźnienie blokowania",
+  "text.frycparry.parry_attributes.explosion_block_delay": "Opóźnienie blokowania eksplozji",
+
+  "text.frycparry.parry_attributes.melee_damage_protection": "Ochrona przed obrażeniami w zwarciu",
+  "text.frycparry.parry_attributes.projectile_damage_protection": "Ochrona przed obrażeniami od pocisków",
+  "text.frycparry.parry_attributes.explosion_damage_protection": "Ochrona przed obrażeniami od eksplozji",
+  "text.frycparry.parry_attributes.protection": "Ochrona",
+
+  "text.frycparry.parry_attributes.base_cooldown": "Bazowy czas odnowienia",
+  "text.frycparry.parry_attributes.cooldown_after_parry": "Czas odnowienia po parowaniu",
+  "text.frycparry.parry_attributes.cooldown_after_attack": "Czas odnowienia po ataku",
+  "text.frycparry.parry_attributes.cooldown": "Czas odnowienia",
+
+  "text.frycparry.parry_attributes.parry_effects": "Efekty parowania",
+  "text.frycparry.parry_attributes.duration": "Czas trwania",
+  "text.frycparry.parry_attributes.amplifier": "Wzmacniacz",
+  "text.frycparry.parry_attributes.chance": "Szansa",
+  "text.frycparry.parry_attributes.enchantment_modifier": "Modyfikator zaklęcia",
+
+  "text.frycparry.parry_attributes.seconds_shortened": "s",
+  "text.frycparry.parry_attributes.parry_knockback": "Odrzut parowania",
+
+  "text.frycparry.parry_attributes.true": "Tak",
+  "text.frycparry.parry_attributes.false": "Nie",
+
+  "frycparry.just_sorting.config_titles.aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa": "Config titles",
+
+  "text.autoconfig.frycparry.title": "Konfiguracja Fryc's Parry",
   "text.autoconfig.frycparry.category.shield": "Tarcza",
   "text.autoconfig.frycparry.category.sword": "Miecz",
   "text.autoconfig.frycparry.category.axe": "Siekiera",
@@ -28,6 +69,8 @@
   "text.autoconfig.frycparry.category.other": "Inne",
   "text.autoconfig.frycparry.category.client": "Klient",
   "text.autoconfig.frycparry.category.enchantments": "Zaklęcia",
+
+  "frycparry.just_sorting.config_options.aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa": "Config options",
 
   "text.autoconfig.frycparry.option.server.enableBlockingWithOtherTools": "Włącz blokowanie innymi przedmiotami [Wymagany Restart]",
   "text.autoconfig.frycparry.option.server.enableBlockingWithOtherTools.@Tooltip": "Dla przedmiotów, które nie są mieczami, łopatami, siekierami (itd.), ale mają atrybut prędkości ataku",
@@ -264,6 +307,16 @@
   "text.autoconfig.frycparry.option.client.enableBlockingWithShovel": "Włącz klawisz blokowania podczas używania łopaty",
   "text.autoconfig.frycparry.option.client.enableBlockingWithPickaxe": "Włącz klawisz blokowania podczas używania kilofa",
   "text.autoconfig.frycparry.option.client.enableBlockingWithOtherTools": "Włącz klawisz blokowania podczas używania innego narzędzia",
+
+  "text.autoconfig.frycparry.option.client.blockCooldownIconX": "Modyfikator X ikony czasu odnowienia bloku",
+  "text.autoconfig.frycparry.option.client.blockCooldownIconX.@Tooltip": "Ujemne wartości przesuwają ikonę w lewo, a dodatnie - w prawo",
+  "text.autoconfig.frycparry.option.client.blockCooldownIconY": "Modyfikator Y ikony czasu odnowienia bloku",
+  "text.autoconfig.frycparry.option.client.blockCooldownIconY.@Tooltip": "Ujemne wartości przesuwają ikonę w górę, a dodatnie - w dół",
+  "text.autoconfig.frycparry.option.client.blockCooldownIconStartingPosition": "Początkowa pozycja ikony czasu odnowienia bloku",
+
+  "text.autoconfig.frycparry.option.client.showParryIndicator": "Pokaż wskaźnik parowania",
+  "text.autoconfig.frycparry.option.client.showParryIndicator.@Tooltip": "Kiedy włączone, pokazuje kolorową tarczę podczas blokowania: \n Czerwony - opóźnienie blokowania (otrzymasz pełne obrażenia); \n Zielony - atak zostanie sparowany; \n Żółty - atak zostanie zablokowany;",
+  "text.autoconfig.frycparry.option.client.showParryAttributesInTooltips": "Pokaż atrybuty parowania w tooltipach przedmiotów",
 
 
   "text.autoconfig.frycparry.option.enchantments.enchantmentsForShieldsCanAppearOnWeaponsInChests": "Zaklęcia dla tarczy pojawiają się na mieczach i siekierach znalezionych w skrzyniach",

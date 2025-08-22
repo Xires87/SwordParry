@@ -11,7 +11,7 @@
 
   "frycparry.just_sorting.keybinds.aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa": "Keybinds",
 
-  "key.category.frycparry.key_category_swordparry": "Sword Parry",
+  "key.category.frycparry.key_category_swordparry": "Fryc's Parry",
   "key.frycparry.key_parry": "Parry (set it to Unbound to parry with Use Key)",
   "key.frycparry.key_dont_parry": "Prevent using parry",
 
@@ -26,6 +26,8 @@
   "effect.frycparry.disarmed": "Disarmed",
 
   "frycparry.just_sorting.parry_attributes.aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa": "Parry attributes",
+
+  "text.frycparry.parry_attributes": "Parry attributes",
 
   "text.frycparry.parry_attributes.stable": "Stable",
   "text.frycparry.parry_attributes.parry_ticks": "Parry ticks",
@@ -56,7 +58,7 @@
 
   "frycparry.just_sorting.config_titles.aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa": "Config titles",
 
-  "text.autoconfig.frycparry.title": "Sword Parry Config",
+  "text.autoconfig.frycparry.title": "Fryc's Parry Config",
   "text.autoconfig.frycparry.category.shield": "Shield",
   "text.autoconfig.frycparry.category.sword": "Sword",
   "text.autoconfig.frycparry.category.axe": "Axe",
@@ -309,6 +311,16 @@
   "text.autoconfig.frycparry.option.client.enableBlockingWithShovel": "Enable parry key when using shovel",
   "text.autoconfig.frycparry.option.client.enableBlockingWithPickaxe": "Enable parry key when using pickaxe",
   "text.autoconfig.frycparry.option.client.enableBlockingWithOtherTools": "Enable parry key when using other tools",
+
+  "text.autoconfig.frycparry.option.client.blockCooldownIconX": "Block cooldown icon X modifier",
+  "text.autoconfig.frycparry.option.client.blockCooldownIconX.@Tooltip": "Negative values move icon left, and positive - right",
+  "text.autoconfig.frycparry.option.client.blockCooldownIconY": "Block cooldown icon Y modifier",
+  "text.autoconfig.frycparry.option.client.blockCooldownIconY.@Tooltip": "Negative values move icon up, and positive - down",
+  "text.autoconfig.frycparry.option.client.blockCooldownIconStartingPosition": "Block cooldown icon starting position",
+
+  "text.autoconfig.frycparry.option.client.showParryIndicator": "Show parry indicator",
+  "text.autoconfig.frycparry.option.client.showParryIndicator.@Tooltip": "When true, shows colored shield when blocking: \n Red - block delay (you will take full hit); \n Green - attack will be parried; \n Yellow - attack will be blocked;",
+  "text.autoconfig.frycparry.option.client.showParryAttributesInTooltips": "Show parry attributes in item tooltips",
 
   "text.autoconfig.frycparry.option.enchantments.enchantmentsForShieldsCanAppearOnWeaponsInChests": "Make enchantments for shield appear on swords and axes found in chests",
   "text.autoconfig.frycparry.option.enchantments.enchantmentsForShieldsCanAppearOnWeaponsInChests.@Tooltip": "This option doesn't do anything when blocking with axes and swords is disabled (or enchantments are disabled)",
