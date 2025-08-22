@@ -18,7 +18,31 @@ import java.util.Set;
 
 public class TextHelper {
 
-// TODO przetlumaczyc te tooltipy
+    public static final Text STABLE = Text.translatable("text.frycparry.parry_attributes.stable");
+    public static final Text PARRY_TICKS = Text.translatable("text.frycparry.parry_attributes.parry_ticks");
+    public static final Text BLOCK_DELAY = Text.translatable("text.frycparry.parry_attributes.block_delay");
+    public static final Text EXPLOSION_BLOCK_DELAY = Text.translatable("text.frycparry.parry_attributes.explosion_block_delay");
+
+    public static final Text MELEE_DAMAGE_PROTECTION = Text.translatable("text.frycparry.parry_attributes.melee_damage_protection");
+    public static final Text PROJECTILE_DAMAGE_PROTECTION = Text.translatable("text.frycparry.parry_attributes.projectile_damage_protection");
+    public static final Text EXPLOSION_DAMAGE_PROTECTION = Text.translatable("text.frycparry.parry_attributes.explosion_damage_protection");
+    public static final Text PROTECTION = Text.translatable("text.frycparry.parry_attributes.protection");
+
+    public static final Text BASE_COOLDOWN = Text.translatable("text.frycparry.parry_attributes.base_cooldown");
+    public static final Text COOLDOWN_AFTER_PARRY = Text.translatable("text.frycparry.parry_attributes.cooldown_after_parry");
+    public static final Text COOLDOWN_AFTER_ATTACK = Text.translatable("text.frycparry.parry_attributes.cooldown_after_attack");
+    public static final Text COOLDOWN = Text.translatable("text.frycparry.parry_attributes.cooldown");
+
+    public static final Text PARRY_EFFECTS = Text.translatable("text.frycparry.parry_attributes.parry_effects");
+    public static final Text DURATION = Text.translatable("text.frycparry.parry_attributes.duration");
+    public static final Text AMPLIFIER = Text.translatable("text.frycparry.parry_attributes.amplifier");
+    public static final Text CHANCE = Text.translatable("text.frycparry.parry_attributes.chance");
+    public static final Text ENCHANTMENT_MODIFIER = Text.translatable("text.frycparry.parry_attributes.enchantment_modifier");
+
+    public static final Text SECONDS_SHORTENED = Text.translatable("text.frycparry.parry_attributes.seconds_shortened");
+    public static final Text PARRY_KNOCKBACK = Text.translatable("text.frycparry.parry_attributes.parry_knockback");
+
+// TODO polskie tlumaczenie
     public static List<Text> getParryAttributesText(ItemStack stack, PlayerEntity player, boolean fullSize){
         ArrayList<Text> list = new ArrayList<>();
 
@@ -28,52 +52,58 @@ public class TextHelper {
         int parryTicks = blockDelay < 0 ? attr.getParryTicks() + Math.abs(blockDelay) : attr.getParryTicks();
         blockDelay = Math.max(blockDelay, 0);
 
-        list.add(Text.literal("Stable: " + !attr.shouldStopUsingItemAfterBlockOrParry()));
-        list.add(Text.literal("Parry ticks: " + parryTicks));
-        if(fullSize || blockDelay > 0) list.add(Text.literal("Block delay: " + blockDelay));
-        if(fullSize || attr.getExplosionBlockDelay() > 0) list.add(Text.literal("Explosion block delay: " + attr.getExplosionBlockDelay()));
+        list.add(Text.literal(STABLE.getString() + ": " + Text.translatable("text.frycparry.parry_attributes." + !attr.shouldStopUsingItemAfterBlockOrParry()).getString()));
+        list.add(Text.literal(PARRY_TICKS.getString() + ": " + parryTicks));
+        if(fullSize || blockDelay > 0) list.add(Text.literal(BLOCK_DELAY.getString() + ": " + blockDelay));
+        if(fullSize || attr.getExplosionBlockDelay() > 0) list.add(Text.literal(EXPLOSION_BLOCK_DELAY.getString() + ": " + attr.getExplosionBlockDelay()));
 
         if(fullSize){
-            list.add(Text.literal("Melee damage protection: " + getRoundedAsString((1.0F - attr.getMeleeDamageTakenAfterBlock())*100) + "%"));
-            list.add(Text.literal("Projectile damage protection: " + getRoundedAsString((1.0F - attr.getProjectileDamageTakenAfterBlock())*100) + "%"));
-            list.add(Text.literal("Explosion damage protection: " + getRoundedAsString((1.0F - attr.getExplosionDamageTakenAfterBlock())*100) + "%"));
+            list.add(Text.literal(MELEE_DAMAGE_PROTECTION.getString() + ": " + getRoundedAsString((1.0F - attr.getMeleeDamageTakenAfterBlock())*100) + "%"));
+            list.add(Text.literal(PROJECTILE_DAMAGE_PROTECTION.getString() + ": " + getRoundedAsString((1.0F - attr.getProjectileDamageTakenAfterBlock())*100) + "%"));
+            list.add(Text.literal(EXPLOSION_DAMAGE_PROTECTION.getString() + ": " + getRoundedAsString((1.0F - attr.getExplosionDamageTakenAfterBlock())*100) + "%"));
 
-            list.add(Text.literal("Base cooldown: " + getRoundedAsString(getCooldown(player, attr.getCooldownAfterInterruptingBlockAction())/20) + "s"));
-            list.add(Text.literal("Cooldown after parry: " + getRoundedAsString(getCooldown(player, attr.getCooldownAfterParryAction())/20) + "s"));
-            list.add(Text.literal("Cooldown after attack: " + getRoundedAsString(getCooldown(player, attr.getCooldownAfterAttack())/20) + "s"));
+            list.add(Text.literal(BASE_COOLDOWN.getString() + ": " + getRoundedAsString(getCooldown(player, attr.getCooldownAfterInterruptingBlockAction())/20) + SECONDS_SHORTENED.getString()));
+            list.add(Text.literal(COOLDOWN_AFTER_PARRY.getString() + ": " + getRoundedAsString(getCooldown(player, attr.getCooldownAfterParryAction())/20) + SECONDS_SHORTENED.getString()));
+            list.add(Text.literal(COOLDOWN_AFTER_ATTACK.getString() + ": " + getRoundedAsString(getCooldown(player, attr.getCooldownAfterAttack())/20) + SECONDS_SHORTENED.getString()));
         }
         else {
             boolean alwaysShowCd = player.getMainHandStack().equals(stack);
 
-            list.add(Text.literal("Protection: " +
+            list.add(Text.literal(PROTECTION.getString() + ": " +
                     getRoundedAsString((1.0F - attr.getMeleeDamageTakenAfterBlock())*100) + "% | " +
                     getRoundedAsString((1.0F - attr.getProjectileDamageTakenAfterBlock())*100) + "% | " +
                     (attr.getExplosionBlockDelay() < 0 ? "-" : getRoundedAsString((1.0F - attr.getExplosionDamageTakenAfterBlock())*100) + "%")));
 
-            list.add(Text.literal("Cooldown: " +
-                    (alwaysShowCd || attr.getCooldownAfterInterruptingBlockAction() >= 0 ? getRoundedAsString(getCooldown(player, attr.getCooldownAfterInterruptingBlockAction())/20) + "s | " : "- | ") +
-                    (alwaysShowCd || attr.getCooldownAfterParryAction() >= 0 ? getRoundedAsString(getCooldown(player, attr.getCooldownAfterParryAction())/20) + "s | " : "- | ") +
-                    (alwaysShowCd || attr.getCooldownAfterAttack() >= 0 ? getRoundedAsString(getCooldown(player, attr.getCooldownAfterAttack())/20) + "s" : "-")));
+            list.add(Text.literal(COOLDOWN.getString() + ": " +
+                    (alwaysShowCd || attr.getCooldownAfterInterruptingBlockAction() >= 0 ?
+                            getRoundedAsString(getCooldown(player, attr.getCooldownAfterInterruptingBlockAction())/20) + SECONDS_SHORTENED.getString() + " | " :
+                            "- | ") +
+                    (alwaysShowCd || attr.getCooldownAfterParryAction() >= 0 ?
+                            getRoundedAsString(getCooldown(player, attr.getCooldownAfterParryAction())/20) + SECONDS_SHORTENED.getString() + " | " :
+                            "- | ") +
+                    (alwaysShowCd || attr.getCooldownAfterAttack() >= 0 ?
+                            getRoundedAsString(getCooldown(player, attr.getCooldownAfterAttack())/20) +
+                                    SECONDS_SHORTENED.getString() : "-")));
         }
 
-        list.add(Text.literal("Parry knockback: " + attr.getKnockbackAfterParryAction()));
+        list.add(Text.literal(PARRY_KNOCKBACK.getString() + ": " + attr.getKnockbackAfterParryAction()));
 
         Set<Map.Entry<StatusEffect, Quartet<Integer, Integer, Float, Float>>> effectSet = attr.getParryEffectsCopy().entrySet();
         if(!effectSet.isEmpty()){
-            list.add(Text.literal("Parry effects:"));
+            list.add(Text.literal(PARRY_EFFECTS.getString() + ":"));
 
             effectSet.forEach(entry -> {
                 if(fullSize){
                     list.add(Text.literal(
-                            "  " + entry.getKey().getName().getString() +
-                                    ": Duration - " + entry.getValue().getA() +
-                                    " Amplifier - " + entry.getValue().getB() +
-                                    " Chance -  " + entry.getValue().getC() +
-                                    " Enchantment modifier - " + entry.getValue().getD()
+                            "  " + Text.translatable(entry.getKey().getTranslationKey()).getString() +
+                                    ":" +  DURATION.getString() + " - " + entry.getValue().getA() +
+                                    " " + AMPLIFIER.getString() + " - " + entry.getValue().getB() +
+                                    " " + CHANCE.getString() + " - " + entry.getValue().getC() +
+                                    " " + ENCHANTMENT_MODIFIER.getString() + " - " + entry.getValue().getD()
                     ).formatted(Formatting.AQUA));
                 }
                 else {
-                    list.add(Text.literal(" " + entry.getKey().getName().getString() +
+                    list.add(Text.literal(" " + Text.translatable(entry.getKey().getTranslationKey()).getString() +
                             " " + entry.getValue().getB() + " (" + entry.getValue().getC()*100 + "%)").formatted(Formatting.AQUA));
                 }
             });
