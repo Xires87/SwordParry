@@ -1,4 +1,6 @@
 {
+  "frycparry.just_sorting.sounds.aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa": "Sounds",
+
   "sound.frycparry.tool_parry": "Weapon parries",
   "sound.frycparry.tool_block": "Weapon blocks",
   "sound.frycparry.tool_guard_break": "Weapon breaks",
@@ -7,15 +9,52 @@
   "sound.frycparry.shield_block": "Shield blocks",
   "sound.frycparry.shield_guard_break": "Shield breaks",
 
+  "frycparry.just_sorting.keybinds.aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa": "Keybinds",
+
   "key.category.frycparry.key_category_swordparry": "Sword Parry",
   "key.frycparry.key_parry": "Parry (set it to Unbound to parry with Use Key)",
   "key.frycparry.key_dont_parry": "Prevent using parry",
+
+  "frycparry.just_sorting.enchantments.aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa": "Enchantments",
 
   "enchantment.frycparry.prediction_enchantment": "Reflex",
   "enchantment.frycparry.counterattack_enchantment": "Counterattack",
   "enchantment.frycparry.parry_enchantment": "Parry",
 
+  "frycparry.just_sorting.status_effects.aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa": "Status effects",
+
   "effect.frycparry.disarmed": "Disarmed",
+
+  "frycparry.just_sorting.parry_attributes.aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa": "Parry attributes",
+
+  "text.frycparry.parry_attributes.stable": "Stable",
+  "text.frycparry.parry_attributes.parry_ticks": "Parry ticks",
+  "text.frycparry.parry_attributes.block_delay": "Block delay",
+  "text.frycparry.parry_attributes.explosion_block_delay": "Explosion block delay",
+
+  "text.frycparry.parry_attributes.melee_damage_protection": "Melee damage protection",
+  "text.frycparry.parry_attributes.projectile_damage_protection": "Projectile damage protection",
+  "text.frycparry.parry_attributes.explosion_damage_protection": "Explosion damage protection",
+  "text.frycparry.parry_attributes.protection": "Protection",
+
+  "text.frycparry.parry_attributes.base_cooldown": "Base cooldown",
+  "text.frycparry.parry_attributes.cooldown_after_parry": "Cooldown after parry",
+  "text.frycparry.parry_attributes.cooldown_after_attack": "Cooldown after attack",
+  "text.frycparry.parry_attributes.cooldown": "Cooldown",
+
+  "text.frycparry.parry_attributes.parry_effects": "Parry effects",
+  "text.frycparry.parry_attributes.duration": "Duration",
+  "text.frycparry.parry_attributes.amplifier": "Amplifier",
+  "text.frycparry.parry_attributes.chance": "Chance",
+  "text.frycparry.parry_attributes.enchantment_modifier": "Enchantment modifier",
+
+  "text.frycparry.parry_attributes.seconds_shortened": "s",
+  "text.frycparry.parry_attributes.parry_knockback": "Parry knockback",
+
+  "text.frycparry.parry_attributes.true": "Yes",
+  "text.frycparry.parry_attributes.false": "No",
+
+  "frycparry.just_sorting.config_titles.aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa": "Config titles",
 
   "text.autoconfig.frycparry.title": "Sword Parry Config",
   "text.autoconfig.frycparry.category.shield": "Shield",
@@ -29,6 +68,8 @@
   "text.autoconfig.frycparry.category.client": "Client",
   "text.autoconfig.frycparry.category.enchantments": "Enchantments",
 
+
+  "frycparry.just_sorting.config_options.aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa": "Config options",
 
   "text.autoconfig.frycparry.option.server.enableBlockingWithOtherTools": "Enable blocking with other items [Restart Required]",
   "text.autoconfig.frycparry.option.server.enableBlockingWithOtherTools.@Tooltip": "For items that are not swords, shovels, axes (etc), but have attack speed attribute",
