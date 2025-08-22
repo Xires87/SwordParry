@@ -18,6 +18,8 @@ import java.util.Set;
 
 public class TextHelper {
 
+    public static final Text PARRY_ATTRIBUTES = Text.translatable("text.frycparry.parry_attributes");
+
     public static final Text STABLE = Text.translatable("text.frycparry.parry_attributes.stable");
     public static final Text PARRY_TICKS = Text.translatable("text.frycparry.parry_attributes.parry_ticks");
     public static final Text BLOCK_DELAY = Text.translatable("text.frycparry.parry_attributes.block_delay");
@@ -42,7 +44,6 @@ public class TextHelper {
     public static final Text SECONDS_SHORTENED = Text.translatable("text.frycparry.parry_attributes.seconds_shortened");
     public static final Text PARRY_KNOCKBACK = Text.translatable("text.frycparry.parry_attributes.parry_knockback");
 
-// TODO polskie tlumaczenie
     public static List<Text> getParryAttributesText(ItemStack stack, PlayerEntity player, boolean fullSize){
         ArrayList<Text> list = new ArrayList<>();
 

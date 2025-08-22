@@ -23,7 +23,7 @@ public class ParryAttibutesCommand {
     private static int execute(ServerCommandSource source, Entity target) {
         if(target instanceof ServerPlayerEntity player){
             if(!player.getMainHandStack().isEmpty()){
-                player.sendMessage(Text.literal(player.getMainHandStack().getName().getString() + " parry attributes:"));
+                player.sendMessage(Text.literal(player.getMainHandStack().getName().getString() + " " + TextHelper.PARRY_ATTRIBUTES.getString().toLowerCase() +":"));
                 player.sendMessage(Text.literal("======   ======"));
                 TextHelper.getParryAttributesText(player.getMainHandStack(), player, true).forEach(player::sendMessage);
             }

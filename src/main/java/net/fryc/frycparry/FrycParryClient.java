@@ -48,7 +48,7 @@ public class FrycParryClient implements ClientModInitializer {
                                 lines.addAll(TextHelper.getParryAttributesText(stack, player, false));
                             }
                             else {
-                                lines.add(Text.literal("Parry Attributes <CTRL>"));
+                                lines.add(Text.literal(TextHelper.PARRY_ATTRIBUTES.getString() + " <CTRL>"));
                             }
                         }
                     }
@@ -66,10 +66,6 @@ public class FrycParryClient implements ClientModInitializer {
                     HudRenderingHelper.drawPartialIcon(context, FULL_SHIELD_TEXTURE, l, 12);
                 }
                 else if(FrycParry.config.client.showParryIndicator){
-                    // TODO synchronizacja dziala choc jeszcze troche mozna potestowac
-                    // TODO tlumaczenia dla configu
-                    //FrycParry.LOGGER.warn("" + ((ParryItem) player.getMainHandStack().getItem()).getParryAttributes().getParryTicks());
-
                     if(player.isBlocking()){
                         ParryItem item = player.getOffHandStack().getItem() instanceof ShieldItem ?
                                 (ParryItem) player.getOffHandStack().getItem() :
