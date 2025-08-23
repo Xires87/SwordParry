@@ -36,7 +36,7 @@ public class FrycParryClient implements ClientModInitializer {
         ModPackets.registerS2CPackets();
         ModKeyBinds.register();
 
-        ItemTooltipCallback.EVENT.register((stack, context, lines) -> {
+        ItemTooltipCallback.EVENT.register((stack, context, type, lines) -> {
             if(FrycParry.config.client.showParryAttributesInTooltips){
                 ClientWorld world = MinecraftClient.getInstance().world;
                 ClientPlayerEntity player = MinecraftClient.getInstance().player;
@@ -73,7 +73,7 @@ public class FrycParryClient implements ClientModInitializer {
 
 
                         int parryTicks = item.getParryAttributes().getParryTicks();
-                        int blockDelay = item.getParryAttributes().getBlockDelay() - ModEnchantments.getPredictionEnchantment(player);
+                        int blockDelay = item.getParryAttributes().getBlockDelay() - ModEnchantments.getReflexEnchantment(player);
                         parryTicks += Math.abs(blockDelay);
 
                         HudRenderingHelper.drawFullIcon(context, getParryIndicatorTexture(blockDelay, parryTicks, player.getItemUseTime()));

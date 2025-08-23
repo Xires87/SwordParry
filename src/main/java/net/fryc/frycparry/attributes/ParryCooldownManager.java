@@ -1,9 +1,7 @@
 package net.fryc.frycparry.attributes;
 
-import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
-import net.fryc.frycparry.network.ModPackets;
-import net.minecraft.network.PacketByteBuf;
+import net.fryc.frycparry.network.payloads.SynchronizeParryCooldownPayload;
 import net.minecraft.server.network.ServerPlayerEntity;
 
 public class ParryCooldownManager {
@@ -61,9 +59,7 @@ public class ParryCooldownManager {
     public boolean addCooldown(ServerPlayerEntity player, int cooldown){
         boolean wasAdded = this.addCooldown(cooldown);
         if(wasAdded){
-            PacketByteBuf buf = PacketByteBufs.create();
-            buf.writeInt(cooldown);
-            ServerPlayNetworking.send(player, ModPackets.SYNCHRONIZE_PARRY_COOLDOWN_ID, buf);
+            ServerPlayNetworking.send(player, new SynchronizeParryCooldownPayload(cooldown));
         }
 
         return wasAdded;

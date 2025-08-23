@@ -187,7 +187,7 @@ public class ParryHelper {
         int parryEnchantmentLevel = ModEnchantments.getParryEnchantment(user);
 
         //applying status effects from parry attributes
-        for (Map.Entry<StatusEffect, Quartet<Integer, Integer, Float, Float>> entry : parryAttributes.getParryEffectsCopy().entrySet()) {
+        for (Map.Entry<RegistryEntry<StatusEffect>, Quartet<Integer, Integer, Float, Float>> entry : parryAttributes.getParryEffectsCopy().entrySet()) {
             float chance = entry.getValue().getC();
             if (chance >= 1.0F || ThreadLocalRandom.current().nextFloat() < chance) {
                 int duration = entry.getValue().getA() + (int) (entry.getValue().getA() * (parryEnchantmentLevel * entry.getValue().getD()));

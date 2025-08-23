@@ -1,13 +1,15 @@
 package net.fryc.frycparry.attributes;
 
 import net.fryc.frycparry.FrycParry;
+import net.fryc.frycparry.network.ModPackets;
 import net.fryc.frycparry.util.ConfigHelper;
 import net.fryc.frycparry.util.ParryHelper;
 import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.item.*;
+import net.minecraft.network.RegistryByteBuf;
+import net.minecraft.network.codec.PacketCodec;
+import net.minecraft.network.codec.PacketCodecs;
 import net.minecraft.registry.entry.RegistryEntry;
-import net.minecraft.network.PacketByteBuf;
-import net.minecraft.registry.Registries;
 import oshi.util.tuples.Quartet;
 
 import java.util.HashMap;
@@ -41,10 +43,13 @@ public class ParryAttributes {
     private static final String HOE_DEFAULT_ID = "hoe_default";
     private static final String OTHER_DEFAULT_ID = "other_default";
     private static final String SHOVEL_DEFAULT_ID = "shovel_default";
+    private static final String MACE_DEFAULT_ID = "mace_default";
 
-    public static final PacketByteBuf.PacketWriter<ParryAttributes> PACKET_WRITER;
+    //public static final PacketByteBuf.PacketWriter<ParryAttributes> PACKET_WRITER;
 
-    public static final PacketByteBuf.PacketReader<ParryAttributes> PACKET_READER;
+    //public static final PacketByteBuf.PacketReader<ParryAttributes> PACKET_READER;
+
+    public static final PacketCodec<RegistryByteBuf, ParryAttributes> PACKET_CODEC;
 
 
     public static final ParryAttributes DEFAULT = new ParryAttributes(
@@ -160,7 +165,7 @@ public class ParryAttributes {
                 FrycParry.config.shield.shieldParryKnockbackStrength, new HashMap<>(ConfigHelper.shieldParryEffects)
         ).addToMap(SHIELD_DEFAULT_ID);
         if(item instanceof MaceItem) return new ParryAttributes(
-                FrycParry.config.mace.maceParryTicks, (float)FrycParry.config.mace.maceBlockMeleeDamageTaken/100,
+                MACE_DEFAULT_ID, FrycParry.config.mace.maceParryTicks, (float)FrycParry.config.mace.maceBlockMeleeDamageTaken/100,
                 (float)FrycParry.config.mace.maceBlockArrowDamageTaken/100, (float)FrycParry.config.mace.explosionBlockDamageTaken/100,
                 FrycParry.config.mace.cooldownAfterMaceParryAction, FrycParry.config.mace.cooldownAfterInterruptingMaceBlockAction,
                 FrycParry.config.mace.cooldownAfterAttack, FrycParry.config.mace.maxUseTime, FrycParry.config.mace.blockDelay,
@@ -168,7 +173,7 @@ public class ParryAttributes {
                 FrycParry.config.mace.maceParryKnockbackStrength, new HashMap<>(ConfigHelper.maceParryEffects)
         ).addToMap(MACE_DEFAULT_ID);
         if(ParryHelper.hasAttackSpeedAttribute(item.getDefaultStack())) return new ParryAttributes(
-                FrycParry.config.server.parryTicks, (float)FrycParry.config.server.blockMeleeDamageTaken/100,
+                OTHER_DEFAULT_ID, FrycParry.config.server.parryTicks, (float)FrycParry.config.server.blockMeleeDamageTaken/100,
                 (float)FrycParry.config.server.blockArrowDamageTaken/100, (float)FrycParry.config.server.explosionBlockDamageTaken/100,
                 FrycParry.config.server.cooldownAfterParryAction, FrycParry.config.server.cooldownAfterInterruptingBlockAction,
                 FrycParry.config.server.cooldownAfterAttack, FrycParry.config.server.maxUseTime, FrycParry.config.server.blockDelay,
@@ -229,11 +234,85 @@ public class ParryAttributes {
         return this.shouldStopUsingItemAfterBlockOrParry;
     }
 
-    public HashMap<StatusEffect, Quartet<Integer, Integer, Float, Float>> getParryEffectsCopy(){
+    public HashMap<RegistryEntry<StatusEffect>, Quartet<Integer, Integer, Float, Float>> getParryEffectsCopy(){
         return new HashMap<>(this.parryEffects);
     }
 
     static {
+        PACKET_CODEC = new PacketCodec<>() {
+            @Override
+            public ParryAttributes decode(RegistryByteBuf buf) {
+                String id = PacketCodecs.STRING.decode(buf);
+
+                int parryTicks = PacketCodecs.INTEGER.decode(buf);
+                int maxUseTime = PacketCodecs.INTEGER.decode(buf);
+                int blockDelay = PacketCodecs.INTEGER.decode(buf);
+                int explosionBlockDelay = PacketCodecs.INTEGER.decode(buf);
+
+                float meleeDamageTakenAfterBlock = PacketCodecs.FLOAT.decode(buf);
+                float projectileDamageTakenAfterBlock = PacketCodecs.FLOAT.decode(buf);
+                float explosionDamageTakenAfterBlock = PacketCodecs.FLOAT.decode(buf);
+                float cooldownAfterParryAction = PacketCodecs.FLOAT.decode(buf);
+                float cooldownAfterInterruptingBlockAction = PacketCodecs.FLOAT.decode(buf);
+                float cooldownAfterAttack = PacketCodecs.FLOAT.decode(buf);
+
+                boolean shouldStopUsingItemAfterBlockOrParry = PacketCodecs.BOOL.decode(buf);
+
+                double knockbackAfterParryAction = PacketCodecs.DOUBLE.decode(buf);
+
+                Map<RegistryEntry<StatusEffect>, Quartet<Integer, Integer, Float, Float>> parryEffects = PacketCodecs.map(
+                        HashMap::new,
+                        StatusEffect.ENTRY_PACKET_CODEC,
+                        ModPackets.QUARTET_PACKET_CODEC
+                ).decode(buf);
+
+
+                return new ParryAttributes(
+                        id,
+                        parryTicks,
+                        meleeDamageTakenAfterBlock,
+                        projectileDamageTakenAfterBlock,
+                        explosionDamageTakenAfterBlock,
+                        cooldownAfterParryAction,
+                        cooldownAfterInterruptingBlockAction,
+                        cooldownAfterAttack,
+                        maxUseTime,
+                        blockDelay,
+                        explosionBlockDelay,
+                        shouldStopUsingItemAfterBlockOrParry,
+                        knockbackAfterParryAction,
+                        parryEffects
+                );
+            }
+
+            @Override
+            public void encode(RegistryByteBuf buf, ParryAttributes value) {
+                PacketCodecs.STRING.encode(buf, value.getId());
+
+                PacketCodecs.INTEGER.encode(buf, value.getParryTicks());
+                PacketCodecs.INTEGER.encode(buf, value.getMaxUseTimeParry());
+                PacketCodecs.INTEGER.encode(buf, value.getBlockDelay());
+                PacketCodecs.INTEGER.encode(buf, value.getExplosionBlockDelay());
+
+                PacketCodecs.FLOAT.encode(buf, value.getMeleeDamageTakenAfterBlock());
+                PacketCodecs.FLOAT.encode(buf, value.getProjectileDamageTakenAfterBlock());
+                PacketCodecs.FLOAT.encode(buf, value.getExplosionDamageTakenAfterBlock());
+                PacketCodecs.FLOAT.encode(buf, value.getCooldownAfterParryAction());
+                PacketCodecs.FLOAT.encode(buf, value.getCooldownAfterInterruptingBlockAction());
+                PacketCodecs.FLOAT.encode(buf, value.getCooldownAfterAttack());
+
+                PacketCodecs.BOOL.encode(buf, value.shouldStopUsingItemAfterBlockOrParry());
+
+                PacketCodecs.DOUBLE.encode(buf, value.getKnockbackAfterParryAction());
+
+                PacketCodecs.map(
+                        HashMap::new,
+                        StatusEffect.ENTRY_PACKET_CODEC,
+                        ModPackets.QUARTET_PACKET_CODEC
+                ).encode(buf, value.getParryEffectsCopy());
+            }
+        };
+/*
         PACKET_WRITER = (buf, attr) -> {
             buf.writeString(attr.getId());
 
@@ -265,6 +344,7 @@ public class ParryAttributes {
                 buf3.writeFloat(quartet.getD());
             });
         };
+
 
         PACKET_READER = (buf) -> {
             String id = buf.readString();
@@ -309,5 +389,7 @@ public class ParryAttributes {
                     parryEffects
             );
         };
+
+         */
     }
 }

@@ -7,6 +7,8 @@ import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.registry.RegistryKeys;
+import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import oshi.util.tuples.Quartet;
@@ -48,7 +50,7 @@ public class TextHelper {
         ArrayList<Text> list = new ArrayList<>();
 
         ParryAttributes attr = ((ParryItem) stack.getItem()).getParryAttributes();
-        int reflexLevel = EnchantmentHelper.getLevel(ModEnchantments.PREDICTION, stack);
+        int reflexLevel = EnchantmentHelper.getLevel(player.getWorld().getRegistryManager().get(RegistryKeys.ENCHANTMENT).entryOf(ModEnchantments.REFLEX), stack);
         int blockDelay = attr.getBlockDelay() - reflexLevel;
         int parryTicks = blockDelay < 0 ? attr.getParryTicks() + Math.abs(blockDelay) : attr.getParryTicks();
         blockDelay = Math.max(blockDelay, 0);
@@ -89,14 +91,14 @@ public class TextHelper {
 
         list.add(Text.literal(PARRY_KNOCKBACK.getString() + ": " + attr.getKnockbackAfterParryAction()));
 
-        Set<Map.Entry<StatusEffect, Quartet<Integer, Integer, Float, Float>>> effectSet = attr.getParryEffectsCopy().entrySet();
+        Set<Map.Entry<RegistryEntry<StatusEffect>, Quartet<Integer, Integer, Float, Float>>> effectSet = attr.getParryEffectsCopy().entrySet();
         if(!effectSet.isEmpty()){
             list.add(Text.literal(PARRY_EFFECTS.getString() + ":"));
 
             effectSet.forEach(entry -> {
                 if(fullSize){
                     list.add(Text.literal(
-                            "  " + Text.translatable(entry.getKey().getTranslationKey()).getString() +
+                            "  " + Text.translatable(entry.getKey().value().getTranslationKey()).getString() +
                                     ":" +  DURATION.getString() + " - " + entry.getValue().getA() +
                                     " " + AMPLIFIER.getString() + " - " + entry.getValue().getB() +
                                     " " + CHANCE.getString() + " - " + entry.getValue().getC() +
@@ -104,7 +106,7 @@ public class TextHelper {
                     ).formatted(Formatting.AQUA));
                 }
                 else {
-                    list.add(Text.literal(" " + Text.translatable(entry.getKey().getTranslationKey()).getString() +
+                    list.add(Text.literal(" " + Text.translatable(entry.getKey().value().getTranslationKey()).getString() +
                             " " + entry.getValue().getB() + " (" + entry.getValue().getC()*100 + "%)").formatted(Formatting.AQUA));
                 }
             });

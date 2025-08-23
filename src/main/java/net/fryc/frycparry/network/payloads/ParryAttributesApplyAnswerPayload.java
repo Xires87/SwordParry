@@ -1,0 +1,27 @@
+package net.fryc.frycparry.network.payloads;
+
+import net.fryc.frycparry.network.ModPackets;
+import net.minecraft.network.RegistryByteBuf;
+import net.minecraft.network.codec.PacketCodec;
+import net.minecraft.network.codec.PacketCodecs;
+import net.minecraft.network.packet.CustomPayload;
+import net.minecraft.util.Identifier;
+
+import java.util.HashMap;
+import java.util.Map;
+
+public record ParryAttributesApplyAnswerPayload(Map<Identifier, String> parryAttributesForItems) implements CustomPayload {
+
+    public static final Id<ParryAttributesApplyAnswerPayload> ID = new Id<>(ModPackets.ANSWER_APPLY_PARRY_ATTRIBUTES_ID);
+
+    public static final PacketCodec<RegistryByteBuf, ParryAttributesApplyAnswerPayload> CODEC = PacketCodec.tuple(
+            PacketCodecs.map(HashMap::new, Identifier.PACKET_CODEC, PacketCodecs.STRING), ParryAttributesApplyAnswerPayload::parryAttributesForItems,
+            ParryAttributesApplyAnswerPayload::new
+    );
+
+    @Override
+    public Id<? extends CustomPayload> getId() {
+        return ID;
+    }
+
+}
