@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
-    "minecraft:shield"
+    "#c:tools/shields",
+    "#c:tools/shield"
   ]
 }
