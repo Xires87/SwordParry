@@ -6,7 +6,6 @@ import me.shedaniel.autoconfig.serializer.PartitioningSerializer;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
 import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
-import net.fryc.frycmua.action.registry.UseActionRegistries;
 import net.fryc.frycparry.action.FrycParryUseActions;
 import net.fryc.frycparry.attributes.json.ParryAttributesResourceReloadListener;
 import net.fryc.frycparry.attributes.json.ParryItemsResourceReloadLoader;
