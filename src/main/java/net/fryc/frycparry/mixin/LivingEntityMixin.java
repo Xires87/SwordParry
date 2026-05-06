@@ -1,11 +1,8 @@
 package net.fryc.frycparry.mixin;
 
-import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
-import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.fryc.frycparry.FrycParry;
 import net.fryc.frycparry.effects.ModEffects;
-import net.fryc.frycparry.enchantments.ModEnchantments;
 import net.fryc.frycparry.network.payloads.InformClientAboutParryPayload;
 import net.fryc.frycparry.tag.ModEntityTypeTags;
 import net.fryc.frycparry.util.ParryHelper;
@@ -20,13 +17,10 @@ import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.ShieldItem;
 import net.minecraft.registry.tag.DamageTypeTags;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.Hand;
-import net.minecraft.util.UseAction;
 import net.minecraft.world.World;
 import net.minecraft.world.event.GameEvent;
 import org.spongepowered.asm.mixin.Mixin;
@@ -41,7 +35,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(LivingEntity.class)
 abstract class LivingEntityMixin extends Entity implements Attackable, CanBlock {
 
-    private static final TrackedData<Boolean> BLOCKING_DATA;
+    //private static final TrackedData<Boolean> BLOCKING_DATA;
     private static final TrackedData<Boolean> PARRY_DATA;
 
     public int parryTimer = 0;
@@ -123,7 +117,8 @@ abstract class LivingEntityMixin extends Entity implements Attackable, CanBlock 
 
             // interrupting block action after PARRYING or FULLY BLOCKING (no dmg) attack with tool
             if(((ParryItem) dys.getActiveItem().getItem()).getParryAttributes().shouldStopUsingItemAfterBlockOrParry()){
-                ((CanBlock) dys).stopUsingItemParry();
+                //((CanBlock) dys).stopUsingItemParry();
+                dys.stopUsingItem();
                 if(shouldSwingHand) dys.swingHand(dys.getActiveHand(), true);
             }
 
@@ -189,7 +184,8 @@ abstract class LivingEntityMixin extends Entity implements Attackable, CanBlock 
 
                 // interrupting block action after BLOCKING attack with tool
                 if(((ParryItem) dys.getActiveItem().getItem()).getParryAttributes().shouldStopUsingItemAfterBlockOrParry()){
-                    ((CanBlock) dys).stopUsingItemParry();
+                    //((CanBlock) dys).stopUsingItemParry();
+                    dys.stopUsingItem();
                 }
 
                 //damaging item that is not shield
@@ -210,6 +206,7 @@ abstract class LivingEntityMixin extends Entity implements Attackable, CanBlock 
     }
 
 
+    /*
     //removes the 5 tick block delay
     @Inject(method = "isBlocking()Z", at = @At("HEAD"), cancellable = true)
     private void modifyBlockDelay(CallbackInfoReturnable<Boolean> ret) {
@@ -233,6 +230,8 @@ abstract class LivingEntityMixin extends Entity implements Attackable, CanBlock 
         }
     }
 
+     */
+
     @Inject(at = @At("HEAD"), method = "handleStatus(B)V", cancellable = true)
     private void cancelShieldBlockAndBreakStatuses(byte status, CallbackInfo info) {
         if(status == EntityStatuses.BLOCK_WITH_SHIELD || status == EntityStatuses.BREAK_SHIELD){
@@ -244,7 +243,7 @@ abstract class LivingEntityMixin extends Entity implements Attackable, CanBlock 
     @Inject(method = "initDataTracker(Lnet/minecraft/entity/data/DataTracker$Builder;)V", at = @At("HEAD"))
     private void initBlockingData(DataTracker.Builder builder, CallbackInfo info) {
         //LivingEntity dys = ((LivingEntity)(Object)this);
-        builder.add(BLOCKING_DATA, false);
+        //builder.add(BLOCKING_DATA, false);
         builder.add(PARRY_DATA, false);
     }
 
@@ -260,7 +259,7 @@ abstract class LivingEntityMixin extends Entity implements Attackable, CanBlock 
             if(((CanBlock) dys).getParryDataValue()) ((CanBlock) dys).setParryDataToFalse();
         }
     }
-
+/*
     // cancels stopUsingItem() method when BLOCKING_DATA is true
     @Inject(method = "stopUsingItem()V", at = @At("HEAD"), cancellable = true)
     private void cancelStopUsingItem(CallbackInfo info) {
@@ -295,6 +294,8 @@ abstract class LivingEntityMixin extends Entity implements Attackable, CanBlock 
             return original.call(instance, world, user);
         }
     }
+
+ */
 
     @Inject(method = "canHaveStatusEffect(Lnet/minecraft/entity/effect/StatusEffectInstance;)Z", at = @At("HEAD"), cancellable = true)
     private void makeSomeMobsResistantToDisarm(StatusEffectInstance effect, CallbackInfoReturnable<Boolean> ret) {
@@ -339,6 +340,7 @@ abstract class LivingEntityMixin extends Entity implements Attackable, CanBlock 
 
 
     //blocking data and parry data
+    /*
     public void setBlockingDataToTrue(){
         ((LivingEntity)(Object)this).getDataTracker().set(BLOCKING_DATA, true);
     }
@@ -350,6 +352,8 @@ abstract class LivingEntityMixin extends Entity implements Attackable, CanBlock 
     public boolean getBlockingDataValue(){
         return ((LivingEntity)(Object)this).getDataTracker().get(BLOCKING_DATA);
     }
+
+     */
 
     public void setParryDataToTrue(){
         ((LivingEntity)(Object)this).getDataTracker().set(PARRY_DATA, true);
@@ -364,7 +368,7 @@ abstract class LivingEntityMixin extends Entity implements Attackable, CanBlock 
     }
 
     static{
-        BLOCKING_DATA = DataTracker.registerData(LivingEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
+        //BLOCKING_DATA = DataTracker.registerData(LivingEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
         PARRY_DATA = DataTracker.registerData(LivingEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
     }
 

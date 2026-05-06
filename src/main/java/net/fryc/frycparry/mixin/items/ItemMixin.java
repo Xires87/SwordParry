@@ -36,7 +36,7 @@ abstract class ItemMixin implements ToggleableFeature, ItemConvertible, FabricIt
     public ParryAttributes getParryAttributes(){
         return this.parryAttributes;
     }
-
+/*
     public TypedActionResult<ItemStack> useParry(World world, PlayerEntity user, Hand hand) {
         ItemStack itemStack = user.getStackInHand(hand);
         if(parryingIsNotPossible(itemStack, user, hand)) return TypedActionResult.fail(user.getStackInHand(hand));
@@ -69,11 +69,13 @@ abstract class ItemMixin implements ToggleableFeature, ItemConvertible, FabricIt
         return UseAction.BLOCK;
     }
 
+
+
     private static boolean parryingIsNotPossible(ItemStack stack, PlayerEntity user, Hand hand){
         return !ParryHelper.isReadyToBlock(user) ||
                 ParryHelper.isItemParryDisabledWithConfig(user.getWorld(), stack) ||
                 user.hasStatusEffect(ModEffects.DISARMED) ||
                 hand == Hand.OFF_HAND;
     }
-
+ */
 }

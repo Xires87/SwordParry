@@ -16,7 +16,7 @@ import org.spongepowered.asm.mixin.Shadow;
 
 @Mixin(ServerPlayerInteractionManager.class)
 abstract class ServerPlayerInteractionManagerMixin implements ServerParryInteraction {
-
+/*
     @Shadow private GameMode gameMode;
 
     public boolean isCreative(){
@@ -70,4 +70,6 @@ abstract class ServerPlayerInteractionManagerMixin implements ServerParryInterac
             }
         }
     }
+
+ */
 }

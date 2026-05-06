@@ -34,7 +34,7 @@ public class FrycParryClient implements ClientModInitializer {
     public void onInitializeClient() {
 
         ModPackets.registerS2CPackets();
-        ModKeyBinds.register();
+        //ModKeyBinds.register();
 
         ItemTooltipCallback.EVENT.register((stack, context, type, lines) -> {
             if(FrycParry.config.client.showParryAttributesInTooltips){

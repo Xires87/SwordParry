@@ -6,8 +6,11 @@ import net.minecraft.network.packet.CustomPayload;
 
 public class StopBlockingC2SPacket {
 
+    /*
     public static void receive(CustomPayload payload, ServerPlayNetworking.Context context){
         context.player().updateLastActionTime();
         ((CanBlock) context.player()).stopUsingItemParry();
     }
+
+     */
 }

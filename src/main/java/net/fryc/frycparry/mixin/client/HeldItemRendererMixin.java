@@ -19,6 +19,7 @@ abstract class HeldItemRendererMixin {
     // disables left hand rendering and sets shouldApplyParryTransform to true when player blocks with tools
     @Inject(method = "renderItem(Lnet/minecraft/entity/LivingEntity;Lnet/minecraft/item/ItemStack;Lnet/minecraft/client/render/model/json/ModelTransformationMode;ZLnet/minecraft/client/util/math/MatrixStack;Lnet/minecraft/client/render/VertexConsumerProvider;I)V", at = @At("HEAD"), cancellable = true)
     private void allowParryTransformationWhenNeeded(LivingEntity entity, ItemStack stack, ModelTransformationMode renderMode, boolean leftHanded, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, CallbackInfo info) {
+        /* TODO first person animation
         if(((CanBlock) entity).getBlockingDataValue()){
             if(renderMode == ModelTransformationMode.FIRST_PERSON_RIGHT_HAND){
                 ItemRendererHelper.shouldApplyParryTransform = true;
@@ -30,10 +31,7 @@ abstract class HeldItemRendererMixin {
         else{
             ItemRendererHelper.shouldApplyParryTransform = false;
         }
+
+         */
     }
-
-
-
-
-
 }

@@ -14,13 +14,13 @@ public interface ParryItem {
     void setParryAttributes(String parryAttributesId);
     void setParryAttributes(ParryAttributes parryAttributes);
     ParryAttributes getParryAttributes();
-    UseAction getUseParryAction(ItemStack stack);
+    //UseAction getUseParryAction(ItemStack stack);
 
 
-    TypedActionResult<ItemStack> useParry(World world, PlayerEntity user, Hand hand);
+    //TypedActionResult<ItemStack> useParry(World world, PlayerEntity user, Hand hand);
 
-    void onStoppedUsingParry(ItemStack stack, World world, LivingEntity user, int remainingUseTicks);
+    //void onStoppedUsingParry(ItemStack stack, World world, LivingEntity user, int remainingUseTicks);
 
-    ItemStack finishUsingParry(ItemStack stack, World world, LivingEntity user);
+    //ItemStack finishUsingParry(ItemStack stack, World world, LivingEntity user);
 
 }

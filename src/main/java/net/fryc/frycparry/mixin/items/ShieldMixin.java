@@ -27,6 +27,7 @@ abstract class ShieldMixin extends Item implements ParryItem {
         super(settings);
     }
 
+/*
     @Inject(method = "use(Lnet/minecraft/world/World;Lnet/minecraft/entity/player/PlayerEntity;Lnet/minecraft/util/Hand;)Lnet/minecraft/util/TypedActionResult;", at = @At("HEAD"), cancellable = true)
     private void preventUsingWhenDisarmed(World world, PlayerEntity user, Hand hand, CallbackInfoReturnable<TypedActionResult<ItemStack>> ret) {
         if(parryingIsNotPossible(user.getStackInHand(hand), user, hand)) ret.setReturnValue(TypedActionResult.fail(user.getStackInHand(hand)));
@@ -53,6 +54,8 @@ abstract class ShieldMixin extends Item implements ParryItem {
         return finishUsing(stack, world, user);
     }
 
+ */
+
     public boolean isEnchantable(ItemStack stack) {
         if(this.getEnchantability() < 1){
             return super.isEnchantable(stack);
@@ -65,6 +68,7 @@ abstract class ShieldMixin extends Item implements ParryItem {
     public int getEnchantability() {
         return ConfigHelper.shieldEnchantability;
     }
+    /*
 
     public UseAction getUseParryAction(ItemStack stack){
         return UseAction.NONE;
@@ -81,5 +85,7 @@ abstract class ShieldMixin extends Item implements ParryItem {
     private static boolean parryingIsNotPossible(ItemStack stack, PlayerEntity user, Hand hand){
         return user.hasStatusEffect(ModEffects.DISARMED) || !ParryHelper.isReadyToBlock(user);
     }
+
+     */
 
 }

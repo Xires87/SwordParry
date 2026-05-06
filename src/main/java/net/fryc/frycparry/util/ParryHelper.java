@@ -244,7 +244,8 @@ public class ParryHelper {
                 player.getItemCooldownManager().set(item, cooldown + 100);
             }
         }
-        ((CanBlock) player).stopUsingItemParry();
+        //((CanBlock) player).stopUsingItemParry();
+        player.stopUsingItem();
     }
 
     public static boolean hasAttackSpeedAttribute(ItemStack stack){

@@ -23,7 +23,7 @@ abstract class MinecraftClientMixin extends ReentrantThreadExecutor<Runnable> im
         super(string);
     }
 
-
+/*
 // required for shield blocking with parry key
     @WrapOperation(method = "Lnet/minecraft/client/MinecraftClient;handleInputEvents()V", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/network/ClientPlayerInteractionManager;stopUsingItem(Lnet/minecraft/entity/player/PlayerEntity;)V"))
     private void pressed(ClientPlayerInteractionManager manager, PlayerEntity player, Operation<Void> original) {
@@ -32,6 +32,8 @@ abstract class MinecraftClientMixin extends ReentrantThreadExecutor<Runnable> im
             original.call(manager, player);
         }
     }
+
+ */
 
 
     @Inject(method = "doAttack()Z", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/network/ClientPlayerEntity;resetLastAttackedTicks()V", shift = At.Shift.AFTER))

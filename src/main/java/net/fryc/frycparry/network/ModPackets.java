@@ -17,8 +17,8 @@ import oshi.util.tuples.Quartet;
 
 public class ModPackets {
 
-    public static final Identifier STOP_BLOCKING_ID = Identifier.of(FrycParry.MOD_ID, "stop_blocking_id");
-    public static final Identifier START_PARRYING_ID = Identifier.of(FrycParry.MOD_ID, "start_parrying_id");
+    //public static final Identifier STOP_BLOCKING_ID = Identifier.of(FrycParry.MOD_ID, "stop_blocking_id");
+    //public static final Identifier START_PARRYING_ID = Identifier.of(FrycParry.MOD_ID, "start_parrying_id");
     public static final Identifier ANSWER_CONFIG_ID = Identifier.of(FrycParry.MOD_ID, "answer_config_id");
     //public static final Identifier SECOND_ANSWER_CONFIG_ID = Identifier.of(FrycParry.MOD_ID, "second_answer_config_id");
     public static final Identifier RESET_LAST_ATTACKED_TICKS_ID = Identifier.of(FrycParry.MOD_ID, "reset_last_attacked_ticks_id");
@@ -57,13 +57,13 @@ public class ModPackets {
         PayloadTypeRegistry.playS2C().register(ParryAttributesAnswerPayload.ID, ParryAttributesAnswerPayload.CODEC);
         PayloadTypeRegistry.playS2C().register(ParryAttributesApplyAnswerPayload.ID, ParryAttributesApplyAnswerPayload.CODEC);
 
-        PayloadTypeRegistry.playC2S().register(StopBlockingPayload.ID, StopBlockingPayload.CODEC);
-        PayloadTypeRegistry.playC2S().register(StartParryingPayload.ID, StartParryingPayload.CODEC);
+        //PayloadTypeRegistry.playC2S().register(StopBlockingPayload.ID, StopBlockingPayload.CODEC);
+        //PayloadTypeRegistry.playC2S().register(StartParryingPayload.ID, StartParryingPayload.CODEC);
         PayloadTypeRegistry.playC2S().register(ResetLastAttackedTicksPayload.ID, ResetLastAttackedTicksPayload.CODEC);
 
         //receivers
-        ServerPlayNetworking.registerGlobalReceiver(StopBlockingPayload.ID, StopBlockingC2SPacket::receive);
-        ServerPlayNetworking.registerGlobalReceiver(StartParryingPayload.ID, StartParryingC2SPacket::receive);
+        //ServerPlayNetworking.registerGlobalReceiver(StopBlockingPayload.ID, StopBlockingC2SPacket::receive);
+        //ServerPlayNetworking.registerGlobalReceiver(StartParryingPayload.ID, StartParryingC2SPacket::receive);
         ServerPlayNetworking.registerGlobalReceiver(ResetLastAttackedTicksPayload.ID, ResetLastAttackedTicksC2SPacket::receive);
     }
 

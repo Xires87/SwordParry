@@ -20,7 +20,7 @@ abstract class ServerPlayNetworkHandlerMixin extends ServerCommonNetworkHandler 
         super(server, connection, clientData);
     }
 
-
+/*
     public void onPlayerInteractItemParry(ServerPlayerEntity player, ServerWorld world, Hand hand) {
         ItemStack itemStack = player.getStackInHand(hand);
         player.updateLastActionTime();
@@ -30,4 +30,6 @@ abstract class ServerPlayNetworkHandlerMixin extends ServerCommonNetworkHandler 
     }
 
 
+
+ */
 }

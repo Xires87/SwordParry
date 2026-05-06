@@ -8,9 +8,11 @@ import net.minecraft.util.Hand;
 
 public class StartParryingC2SPacket {
 
-
+    /*
     public static void receive(CustomPayload payload, ServerPlayNetworking.Context context){
         ServerPlayerEntity player = context.player();
         ((OnParryInteraction)player.networkHandler).onPlayerInteractItemParry(player, player.getServerWorld(), Hand.MAIN_HAND); // through ServerPlayNetworkHandler first
     }
+
+     */
 }

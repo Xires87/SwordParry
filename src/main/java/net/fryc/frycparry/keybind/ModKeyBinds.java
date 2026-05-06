@@ -21,6 +21,8 @@ import net.minecraft.util.UseAction;
 import org.lwjgl.glfw.GLFW;
 
 public class ModKeyBinds {
+    /*
+
     public static final String KEY_CATEGORY_SWORDPARRY = "key.category.frycparry.key_category_swordparry";
     public static final String KEY_PARRY = "key.frycparry.key_parry";
     public static final String KEY_DONT_PARRY = "key.frycparry.key_dont_parry";
@@ -30,6 +32,7 @@ public class ModKeyBinds {
 
     private static boolean playerTriedToUseItem = false;
     private static boolean dontParryKeyPressed = false;
+
 
 
     public static void registerKeyInputs() {
@@ -120,4 +123,6 @@ public class ModKeyBinds {
             ((ParryInteraction) manager).stopUsingItemParry(player); // <---- it sends STOP_BLOCKING_ID packet
         }
     }
+
+     */
 }

@@ -46,12 +46,12 @@ abstract class PlayerEntityMixin extends LivingEntity implements HasParryCooldow
         PlayerEntity dys = ((PlayerEntity)(Object)this);
         Item item = dys.getMainHandStack().getItem();
         if(dys.isUsingItem()){
-            if(((CanBlock) dys).getBlockingDataValue()) ((CanBlock) dys).stopUsingItemParry();
-            else dys.stopUsingItem();
+            //if(((CanBlock) dys).getBlockingDataValue()) ((CanBlock) dys).stopUsingItemParry();
+            /*else*/ dys.stopUsingItem();
         }
 
         //onStoppedUsingParry() is not used when player switches item while blocking
-        ((CanBlock) dys).setBlockingDataToFalse();
+        //((CanBlock) dys).setBlockingDataToFalse();
         ((CanBlock) dys).setParryDataToFalse();
 
         if(dys instanceof ServerPlayerEntity sPlayer){

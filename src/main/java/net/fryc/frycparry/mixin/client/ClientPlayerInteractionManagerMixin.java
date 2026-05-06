@@ -24,6 +24,7 @@ import org.spongepowered.asm.mixin.Shadow;
 
 @Mixin(ClientPlayerInteractionManager.class)
 abstract class ClientPlayerInteractionManagerMixin implements ParryInteraction {
+    /*
 
     @Shadow private GameMode gameMode;
     @Shadow private @Final MinecraftClient client;
@@ -71,4 +72,6 @@ abstract class ClientPlayerInteractionManagerMixin implements ParryInteraction {
         ClientPlayNetworking.send(new StopBlockingPayload(true));
         ((CanBlock) player).stopUsingItemParry();
     }
+
+     */
 }
