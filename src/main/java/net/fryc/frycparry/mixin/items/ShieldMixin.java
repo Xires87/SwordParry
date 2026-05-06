@@ -27,16 +27,11 @@ abstract class ShieldMixin extends Item implements ParryItem {
         super(settings);
     }
 
-/*
+
     @Inject(method = "use(Lnet/minecraft/world/World;Lnet/minecraft/entity/player/PlayerEntity;Lnet/minecraft/util/Hand;)Lnet/minecraft/util/TypedActionResult;", at = @At("HEAD"), cancellable = true)
     private void preventUsingWhenDisarmed(World world, PlayerEntity user, Hand hand, CallbackInfoReturnable<TypedActionResult<ItemStack>> ret) {
         if(parryingIsNotPossible(user.getStackInHand(hand), user, hand)) ret.setReturnValue(TypedActionResult.fail(user.getStackInHand(hand)));
     }
-    @Inject(method = "getMaxUseTime(Lnet/minecraft/item/ItemStack;Lnet/minecraft/entity/LivingEntity;)I", at = @At("RETURN"), cancellable = true)
-    private void modifyShieldMaxUseTime(ItemStack stack, LivingEntity user, CallbackInfoReturnable<Integer> ret) {
-        ret.setReturnValue(((ParryItem) stack.getItem()).getParryAttributes().getMaxUseTimeParry());
-    }
-
 
     //cooldown after using a shield
     public void onStoppedUsing(ItemStack stack, World world, LivingEntity user, int remainingUseTicks) {
@@ -47,7 +42,17 @@ abstract class ShieldMixin extends Item implements ParryItem {
 
     public ItemStack finishUsing(ItemStack stack, World world, LivingEntity user) {
         user.stopUsingItem();
+        if(user instanceof ServerPlayerEntity player){
+            ((HasParryCooldownManager) player).getParryCooldownManager().addCooldown(player, ParryHelper.getParryCooldown(player, stack.getItem()));
+        }
+
         return stack;
+    }
+
+   /*
+    @Inject(method = "getMaxUseTime(Lnet/minecraft/item/ItemStack;Lnet/minecraft/entity/LivingEntity;)I", at = @At("RETURN"), cancellable = true)
+    private void modifyShieldMaxUseTime(ItemStack stack, LivingEntity user, CallbackInfoReturnable<Integer> ret) {
+        ret.setReturnValue(((ParryItem) stack.getItem()).getParryAttributes().getMaxUseTimeParry());
     }
 
     public ItemStack finishUsingParry(ItemStack stack, World world, LivingEntity user) {
@@ -82,10 +87,8 @@ abstract class ShieldMixin extends Item implements ParryItem {
         onStoppedUsing(stack, world, user, remainingUseTicks);
     }
 
+     */
     private static boolean parryingIsNotPossible(ItemStack stack, PlayerEntity user, Hand hand){
         return user.hasStatusEffect(ModEffects.DISARMED) || !ParryHelper.isReadyToBlock(user);
     }
-
-     */
-
 }

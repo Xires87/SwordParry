@@ -4,10 +4,8 @@ import net.fryc.frycmua.action.ItemUseInstance;
 import net.fryc.frycmua.action.registry.UseActionRegistries;
 import net.fryc.frycparry.effects.ModEffects;
 import net.fryc.frycparry.util.ParryHelper;
-import net.fryc.frycparry.util.client.ClientParryHelper;
 import net.fryc.frycparry.util.interfaces.HasParryCooldownManager;
 import net.fryc.frycparry.util.interfaces.ParryItem;
-import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -27,8 +25,6 @@ public class FrycParryUseActions {
                 if(parryingIsNotPossible(itemStack, playerEntity, hand)) return TypedActionResult.fail(playerEntity.getStackInHand(hand));
 
                 if(ParryHelper.canParryWithoutShield(playerEntity)){
-                    //((CanBlock) playerEntity).setCurrentHandParry(hand);
-                    //((CanBlock) playerEntity).setBlockingDataToTrue();
                     playerEntity.setCurrentHand(hand);
                     return TypedActionResult.consume(itemStack);
                 }
@@ -36,17 +32,11 @@ public class FrycParryUseActions {
             },
             (world, livingEntity, itemStack, i) -> {},
             (itemStack, world, livingEntity, i) -> {
-                //((CanBlock) livingEntity).setBlockingDataToFalse();
-
-                //if player stops blocking after parry, cooldown is shorter (and depends on item used)
                 if(livingEntity instanceof ServerPlayerEntity player){
                     ((HasParryCooldownManager) player).getParryCooldownManager().addCooldown(player, ParryHelper.getParryCooldown(player, itemStack.getItem()));
                 }
             },
             (itemStack, world, livingEntity) -> {
-                //((CanBlock) livingEntity).setBlockingDataToFalse();
-
-                //if player stops blocking after parry, cooldown is shorter (and depends on item used)
                 if(livingEntity instanceof ServerPlayerEntity player){
                     ((HasParryCooldownManager) player).getParryCooldownManager().addCooldown(player, ParryHelper.getParryCooldown(player, itemStack.getItem()));
                 }
@@ -56,13 +46,7 @@ public class FrycParryUseActions {
             (itemStack, livingEntity) -> ((ParryItem) itemStack.getItem()).getParryAttributes().getMaxUseTimeParry(),
             itemStack -> UseAction.BLOCK,
             itemStack -> false,
-            (player, hand) -> {
-                if(player.getWorld().isClient()) {
-                    return ClientParryHelper.canParry((ClientPlayerEntity) player);
-                }
-
-                return true;
-            }
+            (player, hand) -> !parryingIsNotPossible(player.getStackInHand(hand), player, hand)
     );
 
     public static void registerFrycParryUseActions() {

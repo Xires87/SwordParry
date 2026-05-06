@@ -1,8 +1,10 @@
 package net.fryc.frycparry.mixin;
 
+import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.fryc.frycparry.FrycParry;
 import net.fryc.frycparry.effects.ModEffects;
+import net.fryc.frycparry.enchantments.ModEnchantments;
 import net.fryc.frycparry.network.payloads.InformClientAboutParryPayload;
 import net.fryc.frycparry.tag.ModEntityTypeTags;
 import net.fryc.frycparry.util.ParryHelper;
@@ -70,6 +72,7 @@ abstract class LivingEntityMixin extends Entity implements Attackable, CanBlock 
         boolean playSound = true;
         if(ParryHelper.isItemParryEnabled(dys.getActiveItem())){
             if(((CanBlock) dys).getParryDataValue()){ // <--- checks if attack was parried
+                FrycParry.LOGGER.warn("Parry data true na " + dys.getWorld().isClient());
                 ((CanBlock) dys).setParryDataToFalse();
                 ((CanBlock) dys).setParryTimer(dys.getWorld(), 10);
                 shouldSwingHand = true;
@@ -206,6 +209,18 @@ abstract class LivingEntityMixin extends Entity implements Attackable, CanBlock 
     }
 
 
+    @ModifyExpressionValue(
+            method = "isBlocking()Z",
+            at = @At(value = "CONSTANT", args = "intValue=5")
+    )
+    private int modifyBlockDelay(int original) {
+        LivingEntity dys = ((LivingEntity)(Object)this);
+        int blockDelay = ((ParryItem) dys.getActiveItem().getItem()).getParryAttributes().getBlockDelay() - ModEnchantments.getReflexEnchantment(dys);
+        if(blockDelay < 0){
+            blockDelay = 0;
+        }
+        return original - 5 + blockDelay;
+    }
     /*
     //removes the 5 tick block delay
     @Inject(method = "isBlocking()Z", at = @At("HEAD"), cancellable = true)

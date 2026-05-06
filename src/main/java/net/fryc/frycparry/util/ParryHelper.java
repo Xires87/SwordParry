@@ -101,7 +101,7 @@ public class ParryHelper {
     public static boolean attackWasParried(DamageSource source, ItemStack stack, LivingEntity user){
         if(source.isIn(DamageTypeTags.IS_EXPLOSION)) return false;
         if(isItemParryEnabled(stack)){
-            int maxUseTime = ((ParryItem) user.getActiveItem().getItem()).getParryAttributes().getMaxUseTimeParry();
+            int maxUseTime = stack.getMaxUseTime(user);//((ParryItem) user.getActiveItem().getItem()).getParryAttributes().getMaxUseTimeParry();
             int parryTicks = ((ParryItem) stack.getItem()).getParryAttributes().getParryTicks();
             parryTicks += Math.abs(((ParryItem) stack.getItem()).getParryAttributes().getBlockDelay() - ModEnchantments.getReflexEnchantment(user));// negative block delay increases parry ticks
             // if parry ticks is 4 then 4th tick is NOT parry
