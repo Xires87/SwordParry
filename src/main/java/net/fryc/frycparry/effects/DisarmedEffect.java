@@ -1,6 +1,6 @@
 package net.fryc.frycparry.effects;
 
-import net.fryc.frycparry.util.interfaces.TargetingMob;
+import net.fryc.frycparry.util.mixin_interfaces.TargetingMob;
 import net.minecraft.command.argument.EntityAnchorArgumentType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.effect.StatusEffect;

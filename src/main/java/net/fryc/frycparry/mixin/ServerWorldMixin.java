@@ -17,24 +17,5 @@ abstract class ServerWorldMixin {
         ConfigHelper.sendConfigToClient(player);
         ConfigHelper.sendParryAttributesToClient(player);
         ConfigHelper.applyParryAttributesOnClient(player);
-        /*
-    private void sendConfigToClient(ServerPlayerEntity player, CallbackInfo info) {
-        ServerPlayNetworking.send(player, new FirstConfigAnswerPayload(
-                FrycParry.config.sword.enableBlockingWithSword,
-                FrycParry.config.axe.enableBlockingWithAxe,
-                FrycParry.config.pickaxe.enableBlockingWithPickaxe,
-                FrycParry.config.shovel.enableBlockingWithShovel,
-                FrycParry.config.hoe.enableBlockingWithHoe,
-                FrycParry.config.server.enableBlockingWithOtherTools
-        ));
-
-        ServerPlayNetworking.send(player, new SecondConfigAnswerPayload(
-                FrycParry.config.mace.enableBlockingWithMace,
-                FrycParry.config.server.enableBlockingWhenDualWielding,
-                FrycParry.config.enchantments.shieldEnchantability
-        ));
-        */
     }
-
-
 }

@@ -8,7 +8,7 @@ import net.fabricmc.fabric.api.resource.SimpleSynchronousResourceReloadListener;
 import net.fryc.frycparry.FrycParry;
 import net.fryc.frycparry.attributes.ParryAttributes;
 import net.fryc.frycparry.util.ConfigHelper;
-import net.fryc.frycparry.util.interfaces.ParryItem;
+import net.fryc.frycparry.util.mixin_interfaces.ParryItem;
 import net.minecraft.item.Item;
 import net.minecraft.registry.Registries;
 import net.minecraft.resource.ResourceManager;

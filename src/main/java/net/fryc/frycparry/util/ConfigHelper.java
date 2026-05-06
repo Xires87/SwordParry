@@ -7,7 +7,7 @@ import net.fryc.frycparry.attributes.ParryAttributes;
 import net.fryc.frycparry.network.payloads.ConfigAnswerPayload;
 import net.fryc.frycparry.network.payloads.ParryAttributesAnswerPayload;
 import net.fryc.frycparry.network.payloads.ParryAttributesApplyAnswerPayload;
-import net.fryc.frycparry.util.interfaces.ParryItem;
+import net.fryc.frycparry.util.mixin_interfaces.ParryItem;
 import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.registry.Registries;

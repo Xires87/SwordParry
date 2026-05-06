@@ -9,14 +9,11 @@
     "LivingEntityMixin",
     "LivingEntityWithPriorityMixin",
     "PlayerEntityMixin",
-    "ServerPlayerInteractionManagerMixin",
-    "ServerPlayNetworkHandlerMixin",
     "ServerWorldMixin",
     "MobEntityMixin"
   ],
   "client": [
     "client/MinecraftClientMixin",
-    "client/ClientPlayerInteractionManagerMixin",
     "client/PlayerEntityRendererMixin",
     "client/HeldItemRendererMixin",
     "client/ItemRendererMixin"

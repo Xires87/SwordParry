@@ -1,4 +1,4 @@
-package net.fryc.frycparry.util.interfaces;
+package net.fryc.frycparry.util.mixin_interfaces;
 
 import net.fryc.frycparry.attributes.ParryCooldownManager;
 

@@ -5,13 +5,12 @@ import net.fabricmc.fabric.api.client.item.v1.ItemTooltipCallback;
 import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
 import net.fryc.frycparry.attributes.ParryAttributes;
 import net.fryc.frycparry.enchantments.ModEnchantments;
-import net.fryc.frycparry.keybind.ModKeyBinds;
 import net.fryc.frycparry.network.ModPackets;
 import net.fryc.frycparry.util.ParryHelper;
 import net.fryc.frycparry.util.TextHelper;
 import net.fryc.frycparry.util.client.HudRenderingHelper;
-import net.fryc.frycparry.util.interfaces.HasParryCooldownManager;
-import net.fryc.frycparry.util.interfaces.ParryItem;
+import net.fryc.frycparry.util.mixin_interfaces.HasParryCooldownManager;
+import net.fryc.frycparry.util.mixin_interfaces.ParryItem;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.network.ClientPlayerEntity;
@@ -32,9 +31,7 @@ public class FrycParryClient implements ClientModInitializer {
 
     @Override
     public void onInitializeClient() {
-
         ModPackets.registerS2CPackets();
-        //ModKeyBinds.register();
 
         ItemTooltipCallback.EVENT.register((stack, context, type, lines) -> {
             if(FrycParry.config.client.showParryAttributesInTooltips){

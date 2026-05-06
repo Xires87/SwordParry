@@ -1,7 +1,7 @@
 package net.fryc.frycparry.mixin;
 
 import net.fryc.frycparry.util.ParryHelper;
-import net.fryc.frycparry.util.interfaces.CanBlock;
+import net.fryc.frycparry.util.mixin_interfaces.CanBlock;
 import net.minecraft.entity.Attackable;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;

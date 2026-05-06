@@ -1,7 +1,7 @@
 package net.fryc.frycparry.mixin;
 
 import net.fryc.frycparry.effects.ModEffects;
-import net.fryc.frycparry.util.interfaces.TargetingMob;
+import net.fryc.frycparry.util.mixin_interfaces.TargetingMob;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;

@@ -2,7 +2,7 @@ package net.fryc.frycparry.util;
 
 import net.fryc.frycparry.attributes.ParryAttributes;
 import net.fryc.frycparry.enchantments.ModEnchantments;
-import net.fryc.frycparry.util.interfaces.ParryItem;
+import net.fryc.frycparry.util.mixin_interfaces.ParryItem;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.player.PlayerEntity;
