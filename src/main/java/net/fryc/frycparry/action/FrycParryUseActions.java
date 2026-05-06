@@ -17,6 +17,8 @@ import net.minecraft.util.UseAction;
 
 public class FrycParryUseActions {
 
+    public static final Identifier BLOCK_ACTION_IDENTIFIER = Identifier.ofVanilla("block");
+
     public static ItemUseInstance FRYCPARRY_BLOCK = new ItemUseInstance(
             Item.class,
             true,
@@ -50,7 +52,7 @@ public class FrycParryUseActions {
     );
 
     public static void registerFrycParryUseActions() {
-        UseActionRegistries.registerUseAction(Identifier.ofVanilla("block"), FRYCPARRY_BLOCK);
+        UseActionRegistries.registerUseAction(BLOCK_ACTION_IDENTIFIER, FRYCPARRY_BLOCK);
     }
 
     private static boolean parryingIsNotPossible(ItemStack stack, PlayerEntity user, Hand hand){

@@ -1,6 +1,8 @@
 package net.fryc.frycparry.mixin.client;
 
-import net.fryc.frycparry.util.interfaces.CanBlock;
+import net.fryc.frycmua.util.mixin_interfaces.player.SelectsUseAction;
+import net.fryc.frycparry.action.FrycParryUseActions;
+import net.fryc.frycparry.util.ParryHelper;
 import net.fryc.frycparry.util.client.ItemRendererHelper;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.item.HeldItemRenderer;
@@ -19,8 +21,7 @@ abstract class HeldItemRendererMixin {
     // disables left hand rendering and sets shouldApplyParryTransform to true when player blocks with tools
     @Inject(method = "renderItem(Lnet/minecraft/entity/LivingEntity;Lnet/minecraft/item/ItemStack;Lnet/minecraft/client/render/model/json/ModelTransformationMode;ZLnet/minecraft/client/util/math/MatrixStack;Lnet/minecraft/client/render/VertexConsumerProvider;I)V", at = @At("HEAD"), cancellable = true)
     private void allowParryTransformationWhenNeeded(LivingEntity entity, ItemStack stack, ModelTransformationMode renderMode, boolean leftHanded, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, CallbackInfo info) {
-        /* TODO first person animation
-        if(((CanBlock) entity).getBlockingDataValue()){
+        if(!ParryHelper.hasShieldEquipped(entity) && entity.isUsingItem() && ((SelectsUseAction) entity).getSelectedUseAction().equals(FrycParryUseActions.BLOCK_ACTION_IDENTIFIER)){
             if(renderMode == ModelTransformationMode.FIRST_PERSON_RIGHT_HAND){
                 ItemRendererHelper.shouldApplyParryTransform = true;
             }
@@ -31,7 +32,5 @@ abstract class HeldItemRendererMixin {
         else{
             ItemRendererHelper.shouldApplyParryTransform = false;
         }
-
-         */
     }
 }

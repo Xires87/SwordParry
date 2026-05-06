@@ -16,7 +16,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(ItemRenderer.class)
 abstract class ItemRendererMixin {
-    /* TODO first person anim
 
     @Inject(method = "renderItem(Lnet/minecraft/item/ItemStack;Lnet/minecraft/client/render/model/json/ModelTransformationMode;" +
             "ZLnet/minecraft/client/util/math/MatrixStack;Lnet/minecraft/client/render/VertexConsumerProvider;" +
@@ -33,7 +32,4 @@ abstract class ItemRendererMixin {
             ItemRendererHelper.applyParryTransform(matrices, model.getTransformation().getTransformation(renderMode));
         }
     }
-
-     */
-
 }
