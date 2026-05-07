@@ -18,6 +18,7 @@ import net.minecraft.client.world.ClientWorld;
 import net.minecraft.item.ShieldItem;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.UseAction;
 
 public class FrycParryClient implements ClientModInitializer {
 
@@ -63,10 +64,8 @@ public class FrycParryClient implements ClientModInitializer {
                     HudRenderingHelper.drawPartialIcon(context, FULL_SHIELD_TEXTURE, l, 12);
                 }
                 else if(FrycParry.config.client.showParryIndicator){
-                    if(player.isBlocking()){
-                        ParryItem item = player.getOffHandStack().getItem() instanceof ShieldItem ?
-                                (ParryItem) player.getOffHandStack().getItem() :
-                                (ParryItem) player.getMainHandStack().getItem();
+                    if(player.isUsingItem() && player.getActiveItem().getUseAction() == UseAction.BLOCK){
+                        ParryItem item = ((ParryItem) player.getActiveItem().getItem());
 
 
                         int parryTicks = item.getParryAttributes().getParryTicks();
