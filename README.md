@@ -9,6 +9,10 @@ Adds parry mechanics and allows blocking with items other than shield
 
 # Datapacks:
 
+### Example datapack:
+
+https://github.com/Xires87/FrycDatapacks/tree/1.21/frycparry_example
+
 ### Modifying pool of items that can parry:
 
 - to add item to the pool: `data/frycparry/tags/item/items_can_parry.json`
